@@ -2,14 +2,32 @@
   "name": "maisandbox3",
   "version": "0.1.0",
   "private": true,
+  "main": "app/server.ts",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "dev": "ts-node --project tsconfig.server.json app/server.ts ",
+    "next-dev": "next dev",
+    "next-build": "next build",
+    "next-start": "next start"
   },
   "dependencies": {
+    "ace-builds": "^1.4.11",
+    "express": "^4.17.1",
     "next": "9.4.1",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-ace": "^9.0.0",
+    "react-dom": "16.13.1",
+    "sass": "^1.26.5",
+    "scss": "^0.2.4",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.6",
+    "@types/node": "^14.0.1",
+    "@types/react": "^16.9.35",
+    "@types/socket.io": "^2.1.8",
+    "@types/socket.io-client": "^1.4.33",
+    "nodemon": "^2.0.4",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.9.2"
   }
 }
