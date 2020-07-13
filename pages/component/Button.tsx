@@ -2,7 +2,6 @@ import React from "react";
 // import { CSSProperties } from 'react';
 
 type ButtonProps = {
-  value: string,
   disable?: boolean,
   onClick: () => void,
 }
@@ -25,7 +24,7 @@ class Button extends React.Component<ButtonProps, ButtonState> {
             display: 'block',
           }}
           onClick={(e) => (this.props.onClick())}
-        >{this.props.value}</button>
+        >{this.props.children}</button>
       </div>
     )
   }
