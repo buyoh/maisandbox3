@@ -1,11 +1,34 @@
 import React from 'react';
 
 import TextArea from './Textarea';
+import Button from './Button';
 
-class StaticIOEditor extends React.Component<{}, { stdin: string, stdout: string }> {
-  constructor(props: {}) {
+type StaticIOShellProps = {
+  onEmitMessage: (job: any, callback: (data: any) => void) => boolean
+}
+
+class StaticIOShell extends React.Component<StaticIOShellProps, { stdin: string, stdout: string }> {
+  constructor(props: StaticIOShellProps) {
     super(props);
     this.state = { stdin: '', stdout: '' };
+
+    this.handleClickRun = this.handleClickRun.bind(this);
+  }
+
+  private generateJob() {
+    return { stdin: this.state.stdin };
+  }
+
+  private emitJob() {
+    const success = this.props.onEmitMessage(this.generateJob(), this.recieveResult);
+  }
+
+  private recieveResult(data) {
+    this.setStdout(data.out);
+  }
+
+  private handleClickRun() {
+    this.emitJob();
   }
 
   getStdin(): string {
@@ -19,6 +42,9 @@ class StaticIOEditor extends React.Component<{}, { stdin: string, stdout: string
   render() {
     return (
       <div className="flex_row">
+        <div className=".flex_elem_fix">
+          <Button onClick={this.handleClickRun} >run</Button>
+        </div>
         <div className="flex_elem border">
           <TextArea value={this.state.stdin}
             onChange={(txt) => (this.setState(Object.assign({}, this.state, { stdin: txt })))}
@@ -33,4 +59,4 @@ class StaticIOEditor extends React.Component<{}, { stdin: string, stdout: string
   }
 }
 
-export default StaticIOEditor;
+export default StaticIOShell;

@@ -7,7 +7,7 @@ import Meta from './component/style/meta';
 import Header from './component/Header';
 
 import CodeEditor from './component/CodeEditor';
-import StaticIOEditor from './component/StaticIOEditor';
+import StaticIOShell from './component/StaticIOShell';
 
 // const RowFlexStyle: CSSProperties = {
 //   display: 'flex',
@@ -24,7 +24,7 @@ type IndexState = {
 export default class extends React.Component<{}, IndexState> {
 
   socket: SocketIOClient.Socket;
-  refIOEditor: React.RefObject<StaticIOEditor>;
+  refIOEditor: React.RefObject<StaticIOShell>;
   refCodeEditor: React.RefObject<CodeEditor>;
 
   constructor(props) {
@@ -35,7 +35,7 @@ export default class extends React.Component<{}, IndexState> {
     this.refIOEditor = React.createRef();
     this.refCodeEditor = React.createRef();
 
-    this.handleClick = this.handleClick.bind(this);
+    this.handleEmitMessage = this.handleEmitMessage.bind(this);
   }
 
   componentDidMount() {
@@ -52,12 +52,12 @@ export default class extends React.Component<{}, IndexState> {
     });
   }
 
-  private handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
-    // this.socket.emit('myping', { data: 'hello2' });
+  private handleEmitMessage(jobs: any, callback: (data: any) => void): boolean {
     const code = this.refCodeEditor.current.getValue();
-    const stdin = this.refIOEditor.current.getStdin();
-    this.socket.emit('c2e_Exec', { data: { code, stdin } });
-    console.log(stdin);
+    jobs = Object.assign({}, jobs, { code });
+    this.socket.emit('c2e_Exec', { data: jobs });
+    // TODO: how to use callback? need identifier
+    return true;
   }
 
   render() {
@@ -73,10 +73,7 @@ export default class extends React.Component<{}, IndexState> {
           </div>
 
           <div>
-            <button onClick={this.handleClick}>run</button>
-          </div>
-          <div>
-            <StaticIOEditor ref={this.refIOEditor} />
+            <StaticIOShell ref={this.refIOEditor} onEmitMessage={this.handleEmitMessage} />
           </div>
         </main>
       </div>
