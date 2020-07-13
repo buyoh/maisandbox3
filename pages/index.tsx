@@ -19,27 +19,22 @@ import StaticIOEditor from './component/StaticIOEditor';
 // }
 
 type IndexState = {
-  stdin: string,
-  stdout: string,
-  editingCode: string,
 }
 
 export default class extends React.Component<{}, IndexState> {
 
   socket: SocketIOClient.Socket;
   refIOEditor: React.RefObject<StaticIOEditor>;
+  refCodeEditor: React.RefObject<CodeEditor>;
 
   constructor(props) {
     super(props);
     this.state = {
-      editingCode: '',
-      stdin: '',
-      stdout: ''
     };
     this.socket = null;
     this.refIOEditor = React.createRef();
+    this.refCodeEditor = React.createRef();
 
-    this.handleUpdateCode = this.handleUpdateCode.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -57,16 +52,12 @@ export default class extends React.Component<{}, IndexState> {
     });
   }
 
-  handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+  private handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void {
     // this.socket.emit('myping', { data: 'hello2' });
-    const code = this.state.editingCode;
+    const code = this.refCodeEditor.current.getValue();
     const stdin = this.refIOEditor.current.getStdin();
     this.socket.emit('c2e_Exec', { data: { code, stdin } });
     console.log(stdin);
-  }
-
-  handleUpdateCode(v: string) {
-    this.setState(Object.assign({}, this.state, { editingCode: v }));
   }
 
   render() {
@@ -77,7 +68,7 @@ export default class extends React.Component<{}, IndexState> {
         <main>
           <div className="flex_row">
             <div className="border flex_elem">
-              <CodeEditor ref="codeEditor" lang="ruby" value={this.state.editingCode} onChange={this.handleUpdateCode} />
+              <CodeEditor ref={this.refCodeEditor} lang="ruby" />
             </div>
           </div>
 

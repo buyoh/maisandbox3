@@ -15,8 +15,7 @@ import "ace-builds/src-min-noconflict/ext-options"; // ??
 
 type CodeEditorProps = {
   lang: string
-  value: string
-  onChange: (value: string) => void
+  onChange?: (value: string) => void
 }
 
 type CodeEditorState = {
@@ -36,6 +35,16 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
   constructor(props: CodeEditorProps) {
     super(props);
     this.state = { value: '' };
+    this.handleOnChange = this.handleOnChange.bind(this);
+  }
+
+  private handleOnChange(value): void {
+    this.setState(Object.assign({}, this.props, { value }));
+    this.props.onChange?.(value);
+  }
+
+  getValue(): string {
+    return this.state.value;
   }
 
   render() {
@@ -57,8 +66,8 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
           display: 'block',
           width: 'auto'
         }}
-        value={this.props.value}
-        onChange={(v) => this.props.onChange(v)}
+        value={this.state.value}
+        onChange={this.handleOnChange}
       />
     )
   }
