@@ -20,11 +20,11 @@ class StaticIOShell extends React.Component<StaticIOShellProps, { stdin: string,
   }
 
   private emitJob() {
-    const success = this.props.onEmitMessage(this.generateJob(), this.recieveResult);
+    const success = this.props.onEmitMessage(this.generateJob(), this.recieveResult.bind(this));
   }
 
   private recieveResult(data) {
-    this.setStdout(data.out);
+    this.setStdout(data.result.out);
   }
 
   private handleClickRun() {

@@ -60,10 +60,13 @@ while raw_line = STDIN.gets
   end
   next if json_line.nil?
 
+  id = json_line['id']
+
   case json_line['method']
   when 'exec'
-    responce do_exec(json_line)
+    responce do_exec(json_line).merge({id: id})
   else
+    responce ({success: false, error: 'unknown method', id: id})
     vlog "unknown method: #{json_line['method']}"
     next
   end

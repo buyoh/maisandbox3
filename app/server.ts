@@ -35,20 +35,29 @@ const port = process.env.PORT || 3030;
     // socketio binding
     socketio.on('connection', (socket: SocketIO.Socket) => {
       // TODO: identify browser
-      console.log('connected!');
+      console.log('connect', socket.id);
+
+      socket.on('disconnect', () => {
+        console.log('disconnect', socket.id);
+      });
 
       socket.on('myping', (data) => {
         console.log('myping', data);
       })
 
       socket.on('c2e_Exec', (data) => {
+        const jid = data.id;
         data = data.data;
         fs.writeFileSync('var/code.rb', data.code);
-        launcher.send({ method: 'exec', cmd: 'ruby', args: ['var/code.rb'], stdin: data.stdin });
+        launcher.send({ method: 'exec', cmd: 'ruby', args: ['var/code.rb'], stdin: data.stdin, id: { jid, sid: socket.id } });
       })
 
+      // note: launcher onCallbacks も開放しないので積もっていく
       launcher.on('recieve', (data) => {
-        socket.emit('s2c_ResultExec', { data });
+        const sid = data.id.sid;
+        if (sid !== socket.id) return;
+        data.id = data.id.jid;
+        socket.emit('s2c_ResultExec', data);
       });
     });
 

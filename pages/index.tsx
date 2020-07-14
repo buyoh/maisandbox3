@@ -1,6 +1,8 @@
 import React, { useEffect, ReactEventHandler } from "react";
 import { CSSProperties } from 'react';
 
+import { IdProvider } from './component/lib/IdProvider';
+
 import SocketIOClient from 'socket.io-client';
 
 import Meta from './component/style/meta';
@@ -26,12 +28,14 @@ export default class extends React.Component<{}, IndexState> {
   socket: SocketIOClient.Socket;
   refIOEditor: React.RefObject<StaticIOShell>;
   refCodeEditor: React.RefObject<CodeEditor>;
+  resultCallbacks: any;
 
   constructor(props) {
     super(props);
     this.state = {
     };
     this.socket = null;
+    this.resultCallbacks = {};  // note: 削除しないので溜まっていく
     this.refIOEditor = React.createRef();
     this.refCodeEditor = React.createRef();
 
@@ -47,15 +51,17 @@ export default class extends React.Component<{}, IndexState> {
       console.log('mypong', data);
     });
     this.socket.on('s2c_ResultExec', (data) => {
-      console.log('resultexec', data.data);
-      this.refIOEditor.current.setStdout(data.data.result.out);
+      console.log('resultexec', data);
+      const cb = this.resultCallbacks[data.id]?.call(null, data);
     });
   }
 
   private handleEmitMessage(jobs: any, callback: (data: any) => void): boolean {
     const code = this.refCodeEditor.current.getValue();
+    const id = IdProvider.nextNumber().toString();
+    this.resultCallbacks[id] = callback;
     jobs = Object.assign({}, jobs, { code });
-    this.socket.emit('c2e_Exec', { data: jobs });
+    this.socket.emit('c2e_Exec', { data: jobs, id });
     // TODO: how to use callback? need identifier
     return true;
   }
