@@ -8,6 +8,7 @@ require 'json'
 require_relative 'lib/executor.rb'
 
 @verbose = true
+@superuser = false
 
 def vlog(str)
   STDERR.puts str if @verbose
@@ -42,6 +43,16 @@ def do_exec(param)
   return {success: true, result: {out: output, err: errlog}}
 end
 
+def do_store(param)
+  path = param['path']
+  data = param['data']
+  return {success: false, error: 'invalid arguments'} if path.nil? || data.empty?
+  # note: chroot
+  return {success: false, error: 'invalid arguments'} if path.start_with?('/') || path.include?('..')
+  IO.write(path, data)
+  return {success: true}
+end
+
 trap(:INT) do
   vlog 'SIGINT'
   exit
@@ -63,6 +74,8 @@ while raw_line = STDIN.gets
   id = json_line['id']
 
   case json_line['method']
+  when 'store'
+    responce do_store(json_line).merge({id: id})
   when 'exec'
     responce do_exec(json_line).merge({id: id})
   else

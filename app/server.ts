@@ -48,7 +48,7 @@ const port = process.env.PORT || 3030;
       socket.on('c2e_Exec', (data) => {
         const jid = data.id;
         data = data.data;
-        fs.writeFileSync('var/code.rb', data.code);
+        fs.writeFileSync('var/code.rb', data.code);  // todo: wrote by launcher.rb
         launcher.send({ method: 'exec', cmd: 'ruby', args: ['var/code.rb'], stdin: data.stdin, id: { jid, sid: socket.id } });
       })
 
