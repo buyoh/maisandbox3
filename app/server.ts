@@ -5,6 +5,7 @@ import SocketIO from "socket.io";
 import fs from 'fs';
 
 import { LauncherSocket } from "./launcher/LauncherSocket";
+import CallbackManager from "./launcher/CallbackManager";
 
 const enableDev = process.env.NODE_ENV !== "production";
 const appNext = Next({ dev: enableDev });
@@ -32,6 +33,11 @@ const port = process.env.PORT || 3030;
       console.log(`> Ready on localhost:${port} - env ${process.env.NODE_ENV}`);
     });
 
+    const launcherCallbackManager = new CallbackManager((data) => {
+      launcher.send(data);
+    });
+    launcher.on('recieve', launcherCallbackManager.getRecieveCallback());
+
     // socketio binding
     socketio.on('connection', (socket: SocketIO.Socket) => {
       // TODO: identify browser
@@ -49,16 +55,17 @@ const port = process.env.PORT || 3030;
         const jid = data.id;
         data = data.data;
         fs.writeFileSync('var/code.rb', data.code);  // todo: wrote by launcher.rb
-        launcher.send({ method: 'exec', cmd: 'ruby', args: ['var/code.rb'], stdin: data.stdin, id: { jid, sid: socket.id } });
-      })
-
-      // note: launcher onCallbacks も開放しないので積もっていく
-      launcher.on('recieve', (data) => {
-        const sid = data.id.sid;
-        if (sid !== socket.id) return;
-        data.id = data.id.jid;
-        socket.emit('s2c_ResultExec', data);
+        launcherCallbackManager.post(
+          { method: 'exec', cmd: 'ruby', args: ['var/code.rb'], stdin: data.stdin, id: { jid, sid: socket.id } },
+          (data) => {
+            const sid = data.id.sid;
+            if (sid !== socket.id) return;  // may not happen
+            data.id = data.id.jid;
+            socket.emit('s2c_ResultExec', data);
+          });
       });
+    });
+    launcher.on('recieve', (data) => {
     });
 
     // 仮
