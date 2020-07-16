@@ -9,6 +9,7 @@ import Meta from './component/style/meta';
 import Header from './component/Header';
 
 import CodeEditor from './component/CodeEditor';
+import CodeEditorShell from './component/CodeEditorShell'
 import StaticIOShell from './component/StaticIOShell';
 
 // const RowFlexStyle: CSSProperties = {
@@ -27,7 +28,7 @@ export default class extends React.Component<{}, IndexState> {
 
   socket: SocketIOClient.Socket;
   refIOEditor: React.RefObject<StaticIOShell>;
-  refCodeEditor: React.RefObject<CodeEditor>;
+  refCodeEditor: React.RefObject<CodeEditorShell>;
   resultCallbacks: any;
 
   constructor(props) {
@@ -73,8 +74,8 @@ export default class extends React.Component<{}, IndexState> {
         <Header />
         <main>
           <div className="flex_row">
-            <div className="border flex_elem">
-              <CodeEditor ref={this.refCodeEditor} lang="ruby" />
+            <div className="flex_elem">
+              <CodeEditorShell ref={this.refCodeEditor} />
             </div>
           </div>
 
