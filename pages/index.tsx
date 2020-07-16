@@ -1,16 +1,16 @@
 import React, { useEffect, ReactEventHandler } from "react";
 import { CSSProperties } from 'react';
 
-import { IdProvider } from './component/lib/IdProvider';
+import { IdProvider } from '../components/lib/IdProvider';
 
 import SocketIOClient from 'socket.io-client';
 
-import Meta from './component/style/meta';
-import Header from './component/Header';
+import Meta from '../components/style/meta';
+import Header from '../components/Header';
 
-import CodeEditor from './component/CodeEditor';
-import CodeEditorShell from './component/CodeEditorShell'
-import StaticIOShell from './component/StaticIOShell';
+import CodeEditor from '../components/CodeEditor';
+import CodeEditorShell from '../components/CodeEditorShell'
+import StaticIOShell from '../components/StaticIOShell';
 
 // const RowFlexStyle: CSSProperties = {
 //   display: 'flex',
