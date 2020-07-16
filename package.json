@@ -7,7 +7,9 @@
     "dev": "ts-node --project tsconfig.server.json app/server.ts ",
     "next-dev": "next dev",
     "next-build": "next build",
-    "next-start": "next start"
+    "next-start": "next start",
+    "test": "yarn run test-server",
+    "test-server": "TS_NODE_PROJECT=tsconfig.server.json npx mocha --require ts-node/register test/server/**/*.ts"
   },
   "dependencies": {
     "ace-builds": "^1.4.11",
@@ -21,11 +23,15 @@
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.11",
     "@types/express": "^4.17.6",
+    "@types/mocha": "^8.0.0",
     "@types/node": "^14.0.1",
     "@types/react": "^16.9.35",
     "@types/socket.io": "^2.1.8",
     "@types/socket.io-client": "^1.4.33",
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1",
     "nodemon": "^2.0.4",
     "ts-node": "^8.10.1",
     "typescript": "^3.9.3"

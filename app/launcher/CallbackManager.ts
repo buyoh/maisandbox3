@@ -27,6 +27,7 @@ export class CallbackManager {
     const cbmid = this.generateCbmId();
     // data = Object.assign({}, data, { id: { cbmid } }); // fail!
     data = { ...data };
+    if (!data.id) data.id = {};
     data.id.cbmid = cbmid;
     this.callbacks[cbmid] = callback;
     this.sender.call(null, data);

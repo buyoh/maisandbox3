@@ -28,5 +28,5 @@ test
 
 ```
 bundle exec rspec
-# TODO: impl mocha
+yarn test
 ```
