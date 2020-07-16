@@ -1,5 +1,6 @@
 import React from 'react';
 
+import CodeToolbar from './CodeToolbar'
 import CodeEditor from './CodeEditor'
 
 type CodeEditorShelllProps = {
@@ -25,9 +26,7 @@ class CodeEditorShell extends React.Component<CodeEditorShelllProps, {}> {
     return (
       <div>
         <div>
-          <select>
-            <option>Ruby</option>
-          </select>
+          <CodeToolbar />
         </div>
         <div className="border">
           <CodeEditor ref={this.refCodeEditor} lang='ruby' />
