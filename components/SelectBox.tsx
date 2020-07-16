@@ -2,13 +2,13 @@ import React from 'react';
 
 type SelectBoxProps = {
   disable?: boolean,
-  items?: Array<{ value: string, label: string }>
+  items?: Array<{ key: string, label: string }>
 }
 
-function renderOptionItem(item: { value: string, label: string }) {
-  const { value, label } = item;
+function renderOptionItem(item: { key: string, label: string }) {
+  const { key, label } = item;
   return (
-    <option value={value}>{label}</option>
+    <option value={key} key={key}>{label}</option>
   )
 }
 
