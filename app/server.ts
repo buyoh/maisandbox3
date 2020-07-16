@@ -54,14 +54,27 @@ const port = process.env.PORT || 3030;
       socket.on('c2e_Exec', (data) => {
         const jid = data.id;
         data = data.data;
-        fs.writeFileSync('var/code.rb', data.code);  // todo: wrote by launcher.rb
         launcherCallbackManager.post(
-          { method: 'exec', cmd: 'ruby', args: ['var/code.rb'], stdin: data.stdin, id: { jid, sid: socket.id } },
+          { method: 'store', files: [{ path: 'var/code.rb', data: data.code }] },
           (data) => {
-            const sid = data.id.sid;
-            if (sid !== socket.id) return;  // may not happen
-            data.id = data.id.jid;
-            socket.emit('s2c_ResultExec', data);
+            if (!data.success) {
+              console.error('launcher failed: method=store: ', data.error);
+              socket.emit('s2c_ResultExec', data);
+              return;
+            }
+            launcherCallbackManager.post(
+              { method: 'exec', cmd: 'ruby', args: ['var/code.rb'], stdin: data.stdin, id: { jid, sid: socket.id } },
+              (data) => {
+                if (!data.success) {
+                  console.error('launcher failed: method=exec: ', data.error);
+                  socket.emit('s2c_ResultExec', data);
+                  return;
+                }
+                const sid = data.id.sid;
+                if (sid !== socket.id) return;  // may not happen
+                data.id = data.id.jid;
+                socket.emit('s2c_ResultExec', data);
+              });
           });
       });
     });

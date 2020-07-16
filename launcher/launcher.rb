@@ -44,12 +44,22 @@ def do_exec(param)
 end
 
 def do_store(param)
-  path = param['path']
-  data = param['data']
-  return {success: false, error: 'invalid arguments'} if path.nil? || data.empty?
-  # note: chroot
-  return {success: false, error: 'invalid arguments'} if path.start_with?('/') || path.include?('..')
-  IO.write(path, data)
+  files = param['files']
+  return {success: false, error: 'invalid arguments'} if files.nil? || !files.is_a?(Array)
+  # only check param
+  files.each do |file|
+    path = file['path']
+    data = file['data']
+    return {success: false, error: 'invalid arguments'} if path.nil? || data.empty?
+    # note: chroot
+    return {success: false, error: 'invalid arguments'} if path.start_with?('/') || path.include?('..')
+  end
+  # work
+  files.each do |file|
+    path = file['path']
+    data = file['data']
+    IO.write(path, data)
+  end
   return {success: true}
 end
 
