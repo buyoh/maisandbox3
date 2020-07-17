@@ -54,28 +54,29 @@ const port = process.env.PORT || 3030;
       socket.on('c2e_Exec', (data) => {
         const jid = data.id;
         data = data.data;
-        launcherCallbackManager.post(
-          { method: 'store', files: [{ path: 'var/code.rb', data: data.code }] },
-          (res_data) => {
-            if (!res_data.success) {
-              console.error('launcher failed: method=store: ', res_data.error);
-              socket.emit('s2c_ResultExec', res_data);
-              return;
-            }
-            launcherCallbackManager.post(
-              { method: 'exec', cmd: 'ruby', args: ['var/code.rb'], stdin: data.stdin, id: { jid, sid: socket.id } },
-              (res_data) => {
-                if (!res_data.success) {
-                  console.error('launcher failed: method=exec: ', res_data.error);
-                  socket.emit('s2c_ResultExec', res_data);
-                  return;
-                }
-                const sid = res_data.id.sid;
-                if (sid !== socket.id) return;  // may not happen
-                res_data.id = res_data.id.jid;
-                socket.emit('s2c_ResultExec', res_data);
-              });
-          });
+
+        (async () => {
+          const res_data1 = await launcherCallbackManager.postp(
+            { method: 'store', files: [{ path: 'var/code.rb', data: data.code }] });
+          if (!res_data1.success) {
+            console.error('launcher failed: method=store: ', res_data1.error);
+            socket.emit('s2c_ResultExec', res_data1);
+            return;
+          }
+
+          const res_data2 = await launcherCallbackManager.postp(
+            { method: 'exec', cmd: 'ruby', args: ['var/code.rb'], stdin: data.stdin, id: { jid, sid: socket.id } });
+          if (!res_data2.success) {
+            console.error('launcher failed: method=exec: ', res_data2.error);
+            socket.emit('s2c_ResultExec', res_data2);
+            return;
+          }
+          const sid = res_data2.id.sid;
+          if (sid !== socket.id) return;  // may not happen
+          res_data2.id = res_data2.id.jid;
+          socket.emit('s2c_ResultExec', res_data2);
+        })();
+
       });
     });
     launcher.on('recieve', (data) => {

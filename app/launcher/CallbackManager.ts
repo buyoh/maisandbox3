@@ -25,12 +25,23 @@ export class CallbackManager {
 
   post(data: any, callback: (data: any) => any): void {
     const cbmid = this.generateCbmId();
-    // data = Object.assign({}, data, { id: { cbmid } }); // fail!
     data = { ...data };
     if (!data.id) data.id = {};
     data.id.cbmid = cbmid;
     this.callbacks[cbmid] = callback;
     this.sender.call(null, data);
+  }
+
+  postp(data: any): Promise<any> {
+    return new Promise((resolve) => {
+      const cbmid = this.generateCbmId();
+      data = { ...data };
+      if (!data.id) data.id = {};
+      data.id.cbmid = cbmid;
+      this.callbacks[cbmid] = resolve;
+      this.sender.call(null, data);
+    });
+
   }
 
   // continu: もう一度このcallbackを呼ぶ場合はtrue
