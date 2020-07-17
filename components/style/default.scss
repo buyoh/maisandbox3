@@ -27,10 +27,18 @@ textarea {
 // -----------------------------
 
 button {
-  background-color: #eee;
-  color: #111;
+  background-color: #111;
+  color: #eee;
   border: 1px solid #ddd;
   padding: 0.5em 1em;
+  font-size: 1em;
+}
+
+select {
+  background-color: #111;
+  color: #eee;
+  border: 1px solid #ddd;
+  padding: 0.25em;
   font-size: 1em;
 }
 
