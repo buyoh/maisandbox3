@@ -56,24 +56,24 @@ const port = process.env.PORT || 3030;
         data = data.data;
         launcherCallbackManager.post(
           { method: 'store', files: [{ path: 'var/code.rb', data: data.code }] },
-          (data) => {
-            if (!data.success) {
-              console.error('launcher failed: method=store: ', data.error);
-              socket.emit('s2c_ResultExec', data);
+          (res_data) => {
+            if (!res_data.success) {
+              console.error('launcher failed: method=store: ', res_data.error);
+              socket.emit('s2c_ResultExec', res_data);
               return;
             }
             launcherCallbackManager.post(
               { method: 'exec', cmd: 'ruby', args: ['var/code.rb'], stdin: data.stdin, id: { jid, sid: socket.id } },
-              (data) => {
-                if (!data.success) {
-                  console.error('launcher failed: method=exec: ', data.error);
-                  socket.emit('s2c_ResultExec', data);
+              (res_data) => {
+                if (!res_data.success) {
+                  console.error('launcher failed: method=exec: ', res_data.error);
+                  socket.emit('s2c_ResultExec', res_data);
                   return;
                 }
-                const sid = data.id.sid;
+                const sid = res_data.id.sid;
                 if (sid !== socket.id) return;  // may not happen
-                data.id = data.id.jid;
-                socket.emit('s2c_ResultExec', data);
+                res_data.id = res_data.id.jid;
+                socket.emit('s2c_ResultExec', res_data);
               });
           });
       });
