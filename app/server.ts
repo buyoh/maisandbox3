@@ -56,6 +56,7 @@ const port = process.env.PORT || 3030;
         data = data.data;
 
         (async () => {
+          // TODO: KILLが実装できない…
           const res_data1 = await launcherCallbackManager.postp(
             { method: 'store', files: [{ path: 'var/code.rb', data: data.code }] });
           if (!res_data1.success) {
