@@ -5,6 +5,22 @@
 - node v12
 - ruby 2.7
 
+install yarn
+
+```
+npm i yarn
+npx yarn
+```
+
+or
+
+```
+npm i -g yarn
+yarn
+```
+
+- - -
+
 install tools
 
 ```
