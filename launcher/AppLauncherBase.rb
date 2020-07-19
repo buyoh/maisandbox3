@@ -13,7 +13,7 @@ module AppLauncherBase
   def vlog(str)
     if @@verbose
       @@mutex_stderr.synchronize do
-        STDERR.puts str, uplevel: 3
+        STDERR.puts str
       end
     end
   end

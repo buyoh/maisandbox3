@@ -21,17 +21,17 @@ class AppLauncher
     end
     handler = AppLauncherHandler.new
 
-    handler.handle do |json_line|
+    handler.handle do |json_line, reporter|
       case json_line['method']
       when 'store'
         task = AppLauncherTask.new
-        next task.do_store(json_line)
+        reporter.report task.do_store(json_line)
       when 'exec'
         task = AppLauncherTask.new
-        next task.do_exec(json_line)
+        reporter.report task.do_exec(json_line)
       else
         vlog "unknown method: #{json_line['method']}"
-        next { success: false, error: 'unknown method' }
+        reporter.report({ success: false, error: 'unknown method' })
       end
     end
   end

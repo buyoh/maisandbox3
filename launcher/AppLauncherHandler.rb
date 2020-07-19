@@ -5,6 +5,17 @@ require_relative 'AppLauncherBase.rb'
 class AppLauncherHandler
   include AppLauncherBase
 
+  class Reporter
+    include AppLauncherBase
+    def initialize(id)
+      @id = id
+    end
+
+    def report(result)
+      responce result.merge({ id: @id })
+    end
+  end
+
   def handle(&callback)
     while raw_line = STDIN.gets
       # note: dont forget "\n"
@@ -20,9 +31,7 @@ class AppLauncherHandler
       next if json_line.nil?
 
       id = json_line['id']
-
-      result = callback.call(json_line)
-      responce result.merge({ id: id })
+      callback.call(json_line, Reporter.new(id))
     end
   end
 end
