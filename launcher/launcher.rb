@@ -9,7 +9,7 @@
 require 'json'
 require_relative 'AppLauncherBase.rb'
 require_relative 'AppLauncherTask.rb'
-require_relative 'AppLauncherHandler.rb'
+require_relative 'AppLauncherReciever.rb'
 
 class AppLauncher
   include AppLauncherBase
@@ -19,9 +19,9 @@ class AppLauncher
       STDERR.puts 'SIGINT'
       exit
     end
-    handler = AppLauncherHandler.new
+    reciever = AppLauncherReciever.new
 
-    handler.handle do |json_line, reporter|
+    reciever.handle do |json_line, reporter|
       case json_line['method']
       when 'store'
         task = AppLauncherTask.new

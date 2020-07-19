@@ -2,7 +2,7 @@
 
 require_relative 'AppLauncherBase.rb'
 
-class AppLauncherHandler
+class AppLauncherReciever
   include AppLauncherBase
 
   class Reporter
