@@ -6,12 +6,19 @@ require_relative 'AppLauncherBase.rb'
 class AppLauncherTask
   include AppLauncherBase
 
-  def do_exec(param)
+  def report_failed(reporter, err)
+    reporter.report({ success: false, error: err })
+  end
+
+  def do_exec(param, reporter)
     command = param['cmd']
     arguments = param['args']
     stdin = param['stdin'] || ''
 
-    return { success: false, error: 'invalid arguments' } if command.nil? || command.empty?
+    if command.nil? || command.empty?
+      report_failed reporter, 'invalid arguments'
+      return
+    end
 
     in_r, in_w = IO.pipe
     out_r, out_w = IO.pipe
@@ -26,27 +33,32 @@ class AppLauncherTask
     out_r.close
     err_r.close
 
-    { success: true, result: { out: output, err: errlog } }
+    reporter.report({ success: true, result: { out: output, err: errlog } })
   end
 
-  def do_store(param)
+  def do_store(param, reporter)
     files = param['files']
-    return { success: false, error: 'invalid arguments' } if files.nil? || !files.is_a?(Array)
-
-    # only check param
-    files.each do |file|
-      path = file['path']
-      data = file['data']
-      return { success: false, error: 'invalid arguments' } if path.nil? || data.empty?
-      # note: chroot
-      return { success: false, error: 'invalid arguments' } if path.start_with?('/') || path.include?('..')
+    if files.nil? || !files.is_a?(Array)
+      report_failed reporter, 'invalid arguments'
+      return
     end
+
+    # check param
+    if files.any? do |file|
+         path = file['path']
+         data = file['data']
+         path.nil? || data.empty? || path.start_with?('/') || path.include?('..')
+       end
+      report_failed reporter, 'invalid arguments'
+      return
+    end
+
     # work
     files.each do |file|
       path = file['path']
       data = file['data']
       IO.write(path, data)
     end
-    { success: true }
+    reporter.report({ success: true })
   end
 end

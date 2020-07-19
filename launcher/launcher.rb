@@ -25,10 +25,10 @@ class AppLauncher
       case json_line['method']
       when 'store'
         task = AppLauncherTask.new
-        reporter.report task.do_store(json_line)
+        task.do_store(json_line, reporter)
       when 'exec'
         task = AppLauncherTask.new
-        reporter.report task.do_exec(json_line)
+        task.do_exec(json_line, reporter)
       else
         vlog "unknown method: #{json_line['method']}"
         reporter.report({ success: false, error: 'unknown method' })
