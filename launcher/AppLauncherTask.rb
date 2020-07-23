@@ -26,14 +26,15 @@ class AppLauncherTask
     in_w.print stdin
     in_w.close
     exe = Executor.new(cmd: command, args: arguments, stdin: in_r, stdout: out_w, stderr: err_w)
-    exe.execute
-
-    output = out_r.read
-    errlog = err_r.read
-    out_r.close
-    err_r.close
-
-    reporter.report({ success: true, result: { out: output, err: errlog } })
+    pid, = exe.execute(true) do
+      # finish
+      output = out_r.read
+      errlog = err_r.read
+      out_r.close
+      err_r.close
+      reporter.report({ success: true, result: { exited: true, out: output, err: errlog } })
+    end
+    reporter.report({ success: true, continue: true, taskid: 1, result: { exited: false } })
   end
 
   def do_store(param, reporter)

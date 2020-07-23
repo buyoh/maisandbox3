@@ -36,7 +36,9 @@ const port = process.env.PORT || 3030;
     const launcherCallbackManager = new CallbackManager((data) => {
       launcher.send(data);
     });
-    launcher.on('recieve', launcherCallbackManager.getRecieveCallback());
+    launcher.on('recieve', (data) => {
+      launcherCallbackManager.handleRecieve(data, !!data.continue);
+    });
 
     // socketio binding
     socketio.on('connection', (socket: SocketIO.Socket) => {

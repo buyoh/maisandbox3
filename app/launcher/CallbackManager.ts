@@ -60,7 +60,7 @@ export class CallbackManager {
   }
 
   // continu: もう一度このcallbackを呼ぶ場合はtrue
-  private handleRecieve(data: any, continu = false): void {
+  handleRecieve(data: any, continu = false): void {
     if (!data) {
       console.warn('CallbackManager::handleRecieve: null recieved. reject.');
       return;
