@@ -2,15 +2,26 @@ import React from 'react';
 
 import TextArea from './Textarea';
 import Button from './Button';
+import StatusBadge from './StatusBadge';
 
 type StaticIOShellProps = {
   onEmitMessage: (job: any, callback: (data: any) => void) => boolean
 }
 
-class StaticIOShell extends React.Component<StaticIOShellProps, { stdin: string, stdout: string }> {
+type StaticIOShellStatus = {
+  stdin: string,
+  stdout: string,
+  statusText: string
+}
+
+class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellStatus> {
   constructor(props: StaticIOShellProps) {
     super(props);
-    this.state = { stdin: '', stdout: '' };
+    this.state = {
+      stdin: '',
+      stdout: '',
+      statusText: 'ready',
+    };
 
     this.handleClickRun = this.handleClickRun.bind(this);
   }
@@ -24,7 +35,14 @@ class StaticIOShell extends React.Component<StaticIOShellProps, { stdin: string,
   }
 
   private recieveResult(data) {
-    this.setStdout(data.result.out);
+    if (data.result.exited) {
+      this.setStdout(data.result.out);
+      this.setState(Object.assign({}, this.state, { statusText: 'exited' }));
+    }
+    else {
+
+      this.setState(Object.assign({}, this.state, { statusText: 'running' }));
+    }
   }
 
   private handleClickRun() {
@@ -44,6 +62,7 @@ class StaticIOShell extends React.Component<StaticIOShellProps, { stdin: string,
       <div className="flex_row">
         <div className=".flex_elem_fix">
           <Button onClick={this.handleClickRun} >run</Button>
+          <StatusBadge color={"light"}>{this.state.statusText}</StatusBadge>
         </div>
         <div className="flex_elem border">
           <TextArea value={this.state.stdin}
