@@ -36,6 +36,12 @@ const port = process.env.PORT || 3030;
     const launcherCallbackManager = new CallbackManager((data) => {
       launcher.send(data);
     });
+    launcher.on('close', (code) => {
+      if (code == 1) {
+        console.error('launcher has raised exceptions');
+        process.exit(1);
+      }
+    })
     launcher.on('recieve', (data) => {
       launcherCallbackManager.handleRecieve(data, !!data.continue);
     });
@@ -67,17 +73,21 @@ const port = process.env.PORT || 3030;
             return;
           }
 
-          const res_data2 = await launcherCallbackManager.postp(
-            { method: 'exec', cmd: 'ruby', args: ['var/code.rb'], stdin: data.stdin, id: { jid, sid: socket.id } });
-          if (!res_data2.success) {
-            console.error('launcher failed: method=exec: ', res_data2.error);
-            socket.emit('s2c_ResultExec', res_data2);
-            return;
-          }
-          const sid = res_data2.id.sid;
-          if (sid !== socket.id) return;  // may not happen
-          res_data2.id = res_data2.id.jid;
-          socket.emit('s2c_ResultExec', res_data2);
+          launcherCallbackManager.post(
+            { method: 'exec', cmd: 'ruby', args: ['var/code.rb'], stdin: data.stdin, id: { jid, sid: socket.id } },
+            (res_data2) => {
+              // note: may call here twice or more
+              if (res_data2.result.exited && !res_data2.success) {
+                console.error('launcher failed: method=exec: ', res_data2.error);
+                socket.emit('s2c_ResultExec', res_data2);
+                return;
+              }
+              const sid = res_data2.id.sid;
+              if (sid !== socket.id) return;  // may not happen
+              res_data2.id = res_data2.id.jid;
+              socket.emit('s2c_ResultExec', res_data2);
+            });
+
         })();
 
       });

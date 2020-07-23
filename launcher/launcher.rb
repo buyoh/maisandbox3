@@ -9,6 +9,7 @@
 require 'json'
 require_relative 'AppLauncherBase.rb'
 require_relative 'AppLauncherTask.rb'
+require_relative 'AppLauncherSocket.rb'
 require_relative 'AppLauncherReciever.rb'
 
 class AppLauncher
@@ -19,7 +20,8 @@ class AppLauncher
       STDERR.puts 'SIGINT'
       exit
     end
-    reciever = AppLauncherReciever.new
+    socket = AppLauncherSocket.new(STDIN, STDOUT)
+    reciever = AppLauncherReciever.new(socket)
 
     reciever.handle do |json_line, reporter|
       case json_line['method']

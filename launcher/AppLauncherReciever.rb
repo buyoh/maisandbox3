@@ -5,22 +5,28 @@ require_relative 'AppLauncherBase.rb'
 class AppLauncherReciever
   include AppLauncherBase
 
+  def initialize(launcher_socket)
+    super()
+    @socket = launcher_socket
+  end
+
   class Reporter
     include AppLauncherBase
-    def initialize(id)
+    def initialize(socket, id)
+      @socket = socket
       @id = id
     end
 
     def report(result)
-      responce result.merge({ id: @id })
+      @socket.responce result.merge({ id: @id })
     end
   end
 
   def handle(&callback)
-    while raw_line = STDIN.gets
+    while raw_line = @socket.gets
       # note: dont forget "\n"
       # note: block each line
-      vlog "recv: #{raw_line}"
+      raw_line = raw_line.chomp
       json_line = nil
       begin
         json_line = JSON.parse(raw_line)
@@ -31,7 +37,7 @@ class AppLauncherReciever
       next if json_line.nil?
 
       id = json_line['id']
-      callback.call(json_line, Reporter.new(id))
+      callback.call(json_line, Reporter.new(@socket, id))
     end
   end
 end
