@@ -1,4 +1,6 @@
-require_root 'launcher/lib/executor.rb'
+# frozen_string_literal: true
+
+require_root 'launcher/lib/Executor.rb'
 
 RSpec.describe Executor do
   it 'blocking execution' do
@@ -18,12 +20,12 @@ RSpec.describe Executor do
     e.execute
     msg = r.read
     r.close
-    expect(msg.chomp.split).to eq ['baz','bar','foo']
+    expect(msg.chomp.split).to eq %w[baz bar foo]
   end
   it 'blocking execution args' do
     ir, iw = IO.pipe
     r, ow = IO.pipe
-    iw.print "foo"
+    iw.print 'foo'
     iw.close
     e = Executor.new(cmd: 'cat', args: ['-n'], stdin: ir, stdout: ow, timeout: 1)
     e.execute
@@ -57,11 +59,11 @@ RSpec.describe Executor do
   it 'nonblocking execution (kill)' do
     stat = nil
     e = Executor.new(cmd: 'sleep 3')
-    pid, _ = e.execute(true) do |s|
+    pid, = e.execute(true) do |s|
       stat = s
     end
     sleep 0.1
-    Process.kill 2, pid  # SIGINT
+    Process.kill 2, pid # SIGINT
     sleep 0.1
     expect(stat.nil?).to eq false
     expect(stat.signaled?).to eq true
