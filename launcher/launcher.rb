@@ -26,14 +26,14 @@ class AppLauncher
     reciever.handle do |json_line, reporter, local_storage|
       case json_line['method']
       when 'store'
-        task = ALTask.new
-        task.do_store(json_line, reporter, local_storage)
+        task = ALTaskStore.new
+        task.action(json_line, reporter, local_storage)
       when 'exec'
-        task = ALTask.new
-        task.do_exec(json_line, reporter, local_storage)
+        task = ALTaskExec.new
+        task.action(json_line, reporter, local_storage)
       when 'kill'
-        task = ALTask.new
-        task.do_kill(json_line, reporter, local_storage)
+        task = ALTaskKill.new
+        task.action(json_line, reporter, local_storage)
       else
         vlog "unknown method: #{json_line['method']}"
         reporter.report({ success: false, error: 'unknown method' })
