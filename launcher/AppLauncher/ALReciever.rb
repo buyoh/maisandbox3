@@ -1,17 +1,19 @@
 # frozen_string_literal: true
 
-require_relative 'AppLauncherBase.rb'
+require_relative 'ALBase'
+require_relative 'ALLocalStorageManager'
 
-class AppLauncherReciever
-  include AppLauncherBase
+class ALReciever
+  include ALBase
 
   def initialize(launcher_socket)
     super()
     @socket = launcher_socket
+    @local_storage_manager = ALLocalStorageManager.new
   end
 
   class Reporter
-    include AppLauncherBase
+    include ALBase
     def initialize(socket, id)
       @socket = socket
       @id = id
@@ -36,8 +38,14 @@ class AppLauncherReciever
       end
       next if json_line.nil?
 
+      # json.idを失わないようにALRecieverで管理する
+      # ALRecieverの重要な役割のひとつ
       id = json_line['id']
-      callback.call(json_line, Reporter.new(@socket, id))
+      id_str = JSON.generate(id)
+      # TODO: 削除しないと貯まる
+      # TODO: 無視したいが、攻撃によってidが滅茶苦茶長くなった場合に死ぬ(node側で処理したい)
+      ls = @local_storage_manager[id_str]
+      callback.call(json_line, Reporter.new(@socket, id), ls)
     end
   end
 end

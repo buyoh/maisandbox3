@@ -5,7 +5,7 @@ import Button from './Button';
 import StatusBadge from './StatusBadge';
 
 type StaticIOShellProps = {
-  onEmitMessage: (job: any, callback: (data: any) => void) => boolean
+  onEmitMessage: (job: any, callback: (data: any) => void, id?: string) => string
 }
 
 type StaticIOShellStatus = {
@@ -15,6 +15,9 @@ type StaticIOShellStatus = {
 }
 
 class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellStatus> {
+
+  emitMessageId?: string;
+
   constructor(props: StaticIOShellProps) {
     super(props);
     this.state = {
@@ -23,30 +26,45 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
       statusText: 'ready',
     };
 
+    this.emitMessageId = null;
+
     this.handleClickRun = this.handleClickRun.bind(this);
+    this.handleClickKill = this.handleClickKill.bind(this);
   }
 
-  private generateJob() {
-    return { stdin: this.state.stdin };
+  private generateJobRun() {
+    return { action: 'run', stdin: this.state.stdin };
   }
 
-  private emitJob() {
-    const success = this.props.onEmitMessage(this.generateJob(), this.recieveResult.bind(this));
+  private generateJobKill() {
+    return { action: 'kill' };  // TODO: index.tsx側でソースコードを無駄に送っている
   }
 
   private recieveResult(data) {
-    if (data.result.exited) {
-      this.setStdout(data.result.out);
-      this.setState(Object.assign({}, this.state, { statusText: 'exited' }));
+    if (data.result) {
+      if (data.result.exited) {
+        this.setStdout(data.result.out);
+        this.setState(Object.assign({}, this.state, { statusText: 'exited' }));
+        this.emitMessageId = null;
+      }
+      else {
+        this.setState(Object.assign({}, this.state, { statusText: 'running' }));
+      }
     }
     else {
-
-      this.setState(Object.assign({}, this.state, { statusText: 'running' }));
+      // e.g. kill callback
     }
   }
 
   private handleClickRun() {
-    this.emitJob();
+    const id = this.props.onEmitMessage(this.generateJobRun(), this.recieveResult.bind(this));
+    this.emitMessageId = id;
+  }
+
+  private handleClickKill() {
+    const id = this.emitMessageId;
+    if (!id) { return; }
+    this.emitMessageId = this.props.onEmitMessage(this.generateJobKill(), null, id);
   }
 
   getStdin(): string {
@@ -62,6 +80,7 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
       <div className="flex_row">
         <div className=".flex_elem_fix">
           <Button onClick={this.handleClickRun} >run</Button>
+          <Button onClick={this.handleClickKill} >kill</Button>
           <StatusBadge color={"light"}>{this.state.statusText}</StatusBadge>
         </div>
         <div className="flex_elem border">

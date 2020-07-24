@@ -7,30 +7,33 @@
 # interactiveは後で追加。
 
 require 'json'
-require_relative 'AppLauncherBase.rb'
-require_relative 'AppLauncherTask.rb'
-require_relative 'AppLauncherSocket.rb'
-require_relative 'AppLauncherReciever.rb'
+require_relative 'AppLauncher/ALBase'
+require_relative 'AppLauncher/ALTask'
+require_relative 'AppLauncher/ALSocket'
+require_relative 'AppLauncher/ALReciever'
 
 class AppLauncher
-  include AppLauncherBase
+  include ALBase
 
   def main
     trap(:INT) do
       STDERR.puts 'SIGINT'
       exit
     end
-    socket = AppLauncherSocket.new(STDIN, STDOUT)
-    reciever = AppLauncherReciever.new(socket)
+    socket = ALSocket.new(STDIN, STDOUT)
+    reciever = ALReciever.new(socket)
 
-    reciever.handle do |json_line, reporter|
+    reciever.handle do |json_line, reporter, local_storage|
       case json_line['method']
       when 'store'
-        task = AppLauncherTask.new
-        task.do_store(json_line, reporter)
+        task = ALTaskStore.new
+        task.action(json_line, reporter, local_storage)
       when 'exec'
-        task = AppLauncherTask.new
-        task.do_exec(json_line, reporter)
+        task = ALTaskExec.new
+        task.action(json_line, reporter, local_storage)
+      when 'kill'
+        task = ALTaskKill.new
+        task.action(json_line, reporter, local_storage)
       else
         vlog "unknown method: #{json_line['method']}"
         reporter.report({ success: false, error: 'unknown method' })

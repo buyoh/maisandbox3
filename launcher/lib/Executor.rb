@@ -82,5 +82,9 @@ class Executor
     end
   end
 
+  def self.kill(pid)
+    Process.kill(:KILL, pid)
+  end
+
   attr_reader :status
 end

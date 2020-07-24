@@ -53,18 +53,22 @@ export default class extends React.Component<{}, IndexState> {
     });
     this.socket.on('s2c_ResultExec', (data) => {
       console.log('resultexec', data);
-      const cb = this.resultCallbacks[data.id]?.call(null, data);
+      const callback = this.resultCallbacks[data.id];
+      if (!callback) {
+        console.warn('data.id was not found: ', data.id);
+        return;
+      }
+      callback.call(null, data);
     });
   }
 
-  private handleEmitMessage(jobs: any, callback: (data: any) => void): boolean {
+  private handleEmitMessage(jobs: any, callback?: (data: any) => void, id?: string): string {
     const code = this.refCodeEditor.current.getValue();
-    const id = IdProvider.nextNumber().toString();
-    this.resultCallbacks[id] = callback;
+    id = id || IdProvider.nextNumber().toString();
+    if (callback) this.resultCallbacks[id] = callback;
     jobs = Object.assign({}, jobs, { code });
     this.socket.emit('c2e_Exec', { data: jobs, id });
-    // TODO: how to use callback? need identifier
-    return true;
+    return id;
   }
 
   render() {
