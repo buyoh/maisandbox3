@@ -7,10 +7,10 @@
 # interactiveは後で追加。
 
 require 'json'
-require_relative 'AppLauncherBase.rb'
-require_relative 'AppLauncherTask.rb'
-require_relative 'AppLauncherSocket.rb'
-require_relative 'AppLauncherReciever.rb'
+require_relative 'AppLauncherBase'
+require_relative 'AppLauncherTask'
+require_relative 'AppLauncherSocket'
+require_relative 'AppLauncherReciever'
 
 class AppLauncher
   include AppLauncherBase
@@ -23,14 +23,17 @@ class AppLauncher
     socket = AppLauncherSocket.new(STDIN, STDOUT)
     reciever = AppLauncherReciever.new(socket)
 
-    reciever.handle do |json_line, reporter|
+    reciever.handle do |json_line, reporter, local_storage|
       case json_line['method']
       when 'store'
         task = AppLauncherTask.new
-        task.do_store(json_line, reporter)
+        task.do_store(json_line, reporter, local_storage)
       when 'exec'
         task = AppLauncherTask.new
-        task.do_exec(json_line, reporter)
+        task.do_exec(json_line, reporter, local_storage)
+      when 'kill'
+        task = AppLauncherTask.new
+        task.do_kill(json_line, reporter, local_storage)
       else
         vlog "unknown method: #{json_line['method']}"
         reporter.report({ success: false, error: 'unknown method' })

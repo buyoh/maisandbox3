@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'AppLauncherBase.rb'
+require_relative 'AppLauncherBase'
 
 class AppLauncherSocket
   include AppLauncherBase
