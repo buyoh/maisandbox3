@@ -9,7 +9,7 @@
     "next-build": "next build",
     "next-start": "next start",
     "test": "yarn run test-server",
-    "test-server": "TS_NODE_PROJECT=tsconfig.server.json npx mocha --require ts-node/register test/server/**/*.ts"
+    "test-server": "TS_NODE_PROJECT=tsconfig.server.json npx mocha --require ts-node/register mocha/server/**/*.ts"
   },
   "dependencies": {
     "ace-builds": "^1.4.11",
