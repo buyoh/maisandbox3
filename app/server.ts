@@ -1,38 +1,22 @@
-import Http from "http";
-import Express, { Request, Response } from "express";
 import Next from "next";
 import SocketIO from "socket.io";
-import fs from 'fs';
 
 import { LauncherSocket } from "./launcher/LauncherSocket";
 import CallbackManager from "./launcher/CallbackManager";
+import { setupExpressServer } from "./express";
 
 const enableDev = process.env.NODE_ENV !== "production";
 const appNext = Next({ dev: enableDev });
-const handle = appNext.getRequestHandler();
-const port = process.env.PORT || 3030;
+const port = parseInt(process.env.PORT || '3030');
 
 (async () => {
   try {
     await appNext.prepare();
-    const appExpress = Express();
-    const server = Http.createServer(appExpress);
-    const socketio = SocketIO(server);
+
+    const [expressServer, httpServer] = setupExpressServer(appNext.getRequestHandler(), port);
+    const socketio = SocketIO(httpServer);
 
     const launcher = new LauncherSocket();
-
-    // express binding
-    appExpress.all("*", (req: Request, res: Response) => {
-      if (req.path.includes('sushi')) {
-        return res.json({ name: 'maguro' });
-      }
-      return handle(req, res);
-    });
-    server.listen(port, (err?: any) => {
-      if (err) throw err;
-      console.log(`> Ready on localhost:${port} - env ${process.env.NODE_ENV}`);
-    });
-
     const launcherCallbackManager = new CallbackManager((data) => {
       launcher.send(data);
     });
@@ -116,14 +100,9 @@ const port = process.env.PORT || 3030;
       });
 
     });
-    launcher.on('recieve', (data) => {
-    });
 
     // 仮
     launcher.start();
-    // launcher.on('recieve', (data) => {
-    //   console.log(data);
-    // });
 
 
     // trap
