@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative 'AppLauncherBase'
+require_relative 'ALBase'
 
-class AppLauncherSocket
-  include AppLauncherBase
+class ALSocket
+  include ALBase
   def initialize(input, output)
     @input = input
     @output = output
@@ -15,7 +15,7 @@ class AppLauncherSocket
 
   def gets
     unless @mutex_input.try_lock
-      vlog 'warning: AppLauncherSocket#gets may be called from some threads!'
+      vlog 'warning: ALSocket#gets may be called from some threads!'
       return nil
     end
     line = input.gets

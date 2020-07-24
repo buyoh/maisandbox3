@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-require_relative 'AppLauncherBase'
-require_relative 'AppLauncherLocalStorageManager'
+require_relative 'ALBase'
+require_relative 'ALLocalStorageManager'
 
-class AppLauncherReciever
-  include AppLauncherBase
+class ALReciever
+  include ALBase
 
   def initialize(launcher_socket)
     super()
     @socket = launcher_socket
-    @local_storage_manager = AppLauncherLocalStorageManager.new
+    @local_storage_manager = ALLocalStorageManager.new
   end
 
   class Reporter
-    include AppLauncherBase
+    include ALBase
     def initialize(socket, id)
       @socket = socket
       @id = id
@@ -38,8 +38,8 @@ class AppLauncherReciever
       end
       next if json_line.nil?
 
-      # json.idを失わないようにAppLauncherRecieverで管理する
-      # AppLauncherRecieverの重要な役割のひとつ
+      # json.idを失わないようにALRecieverで管理する
+      # ALRecieverの重要な役割のひとつ
       id = json_line['id']
       id_str = JSON.generate(id)
       # TODO: 削除しないと貯まる

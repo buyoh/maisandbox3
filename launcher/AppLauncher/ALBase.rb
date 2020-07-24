@@ -2,7 +2,7 @@
 
 require 'json'
 
-module AppLauncherBase
+module ALBase
   @@mutex_stderr = Mutex.new
   @@verbose = true
   @@superuser = false

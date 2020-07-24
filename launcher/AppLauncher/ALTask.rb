@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'lib/Executor'
-require_relative 'AppLauncherBase'
+require_relative '../lib/Executor'
+require_relative 'ALBase'
 
-class AppLauncherTask
-  include AppLauncherBase
+class ALTask
+  include ALBase
 
   def report_failed(reporter, err)
     reporter.report({ success: false, error: err })

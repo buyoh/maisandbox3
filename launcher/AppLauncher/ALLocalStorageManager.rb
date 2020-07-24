@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'AppLauncherLocalStorage'
+require_relative 'ALLocalStorage'
 
-class AppLauncherLocalStorageManager
+class ALLocalStorageManager
   def initialize
-    @collection = Hash.new { AppLauncherLocalStorage.new }
+    @collection = Hash.new { ALLocalStorage.new }
   end
 
   def [](key)
