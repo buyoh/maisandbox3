@@ -1,0 +1,51 @@
+name: upgrade-dependency-packages-minor
+
+# yarn upgrade
+# Upgrade yarn.lock
+# cf. yarn upgrade --latest
+# 
+# bundle update
+# Upgrade Gemfile.lock
+
+# on:
+#   push:
+#     branches:
+#     - master
+
+# for check
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-20.04
+    
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.7'
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+    - uses: actions/checkout@master
+    - name: install tools
+      run: |
+        sudo apt update
+        sudo npm i -g yarn
+        sudo gem install bundler
+    - name: upgrade packages (light)
+      run: |
+        yarn upgrade
+        bundle update
+    - name: commit phase
+      run: |
+        if [ `git diff | wc -l` -ne 0 ] ; then
+        git add package-lock.json
+        git add package.json
+        git commit -m 'upgrade by Github Actions'
+        fi
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
