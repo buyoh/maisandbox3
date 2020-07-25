@@ -27,11 +27,24 @@ textarea {
 // -----------------------------
 
 button {
-  background-color: #111;
+  background-color: #333;
   color: #eee;
   border: 1px solid #ddd;
   padding: 0.5em 1em;
   font-size: 1em;
+}
+
+button:hover {
+  background: linear-gradient(#444, #111);
+}
+
+button:focus {
+  border: 1px solid #ddd;
+  outline: 1px solid #ddd;
+}
+
+button:active {
+  background: linear-gradient(#111, #444);
 }
 
 select {
