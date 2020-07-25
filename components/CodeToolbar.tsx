@@ -3,6 +3,8 @@ import React from 'react';
 import SelectBox from './SelectBox';
 
 type CodeToolbarProps = {
+  lang: string
+  onLangChange?: (lang: string) => void
 }
 
 class CodeToolbar extends React.Component<CodeToolbarProps, {}> {
@@ -15,7 +17,14 @@ class CodeToolbar extends React.Component<CodeToolbarProps, {}> {
   render() {
     return (
       <div className="">
-        <SelectBox items={[{ key: 'ruby', label: 'Ruby' }, { key: 'python', label: 'Python' }, { key: 'cpp', label: 'C++' }]} />
+        <SelectBox
+          value={this.props.lang}
+          items={[
+            { key: 'ruby', label: 'Ruby' },
+            { key: 'python', label: 'Python' },
+            { key: 'cpp', label: 'C++' }]}
+          onChange={this.props.onLangChange}
+        />
       </div>
     )
   }

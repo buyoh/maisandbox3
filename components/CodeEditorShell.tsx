@@ -3,33 +3,58 @@ import React from 'react';
 import CodeToolbar from './CodeToolbar'
 import CodeEditor from './CodeEditor'
 
-type CodeEditorShelllProps = {
+const converterKey2Style = {
+  cpp: 'c_cpp',
+  ruby: 'ruby',
+  python: 'python'
 }
 
-class CodeEditorShell extends React.Component<CodeEditorShelllProps, {}> {
+type CodeEditorShellProps = {
+}
+
+type CodeEditorShellState = {
+  lang: string
+}
+
+class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorShellState> {
 
   refCodeEditor: React.RefObject<CodeEditor>;
 
-  constructor(props: CodeEditorShelllProps) {
+  constructor(props: CodeEditorShellProps) {
     super(props);
-    this.state = {};
+    this.state = {
+      lang: 'cpp'
+    };
 
     this.refCodeEditor = React.createRef();
-    this.getValue = this.getValue.bind(this);
+    this.getAllValue = this.getAllValue.bind(this);
+    this.handleLangChange = this.handleLangChange.bind(this);
   }
 
-  getValue(): string {
-    return this.refCodeEditor.current.getValue();
+  getAllValue(): { code: string, lang: string } {
+    const code = this.refCodeEditor.current.getValue();
+    const lang = this.state.lang;
+    return { code, lang };
+  }
+
+  private handleLangChange(lang: string) {
+    this.setState(Object.assign({}, this.state, { lang }));
   }
 
   render() {
     return (
       <div>
         <div>
-          <CodeToolbar />
+          <CodeToolbar
+            lang={this.state.lang}
+            onLangChange={this.handleLangChange}
+          />
         </div>
         <div className="border">
-          <CodeEditor ref={this.refCodeEditor} lang='c_cpp' />
+          <CodeEditor
+            ref={this.refCodeEditor}
+            lang={converterKey2Style[this.state.lang]}
+          />
         </div>
       </div>
     )

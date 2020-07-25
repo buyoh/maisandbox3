@@ -63,11 +63,10 @@ export default class extends React.Component<{}, IndexState> {
   }
 
   private handleEmitMessage(jobs: any, callback?: (data: any) => void, id?: string): string {
-    const code = this.refCodeEditor.current.getValue();
-    const lang = 'cpp'; //'ruby';
+    const editorValues = this.refCodeEditor.current.getAllValue();
     id = id || IdProvider.nextNumber().toString();
     if (callback) this.resultCallbacks[id] = callback;
-    jobs = Object.assign({}, jobs, { code, lang });
+    jobs = Object.assign({}, jobs, editorValues);
     this.socket.emit('c2e_Exec', { data: jobs, id });
     return id;
   }
