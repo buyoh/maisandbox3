@@ -41,8 +41,8 @@ jobs:
     - name: commit phase
       run: |
         if [ `git diff | wc -l` -ne 0 ] ; then
-        git add package-lock.json
-        git add package.json
+        git add Gemfile Gemfile.lock
+        git add package.json yarn.lock
         git commit -m 'upgrade by Github Actions'
         fi
     - name: Create Pull Request
