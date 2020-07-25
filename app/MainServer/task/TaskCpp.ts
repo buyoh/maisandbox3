@@ -39,25 +39,27 @@ export class TaskCpp {
         (res_data) => {
           // note: call this callback twice or more
           res_data.id = res_data.id.jid;
-          console.log('phase2 process: ', res_data);
           if (!res_data.success) {
             this.resultEmitter(res_data);
-            reject(asyncError('launcher failed: method=store: ' + res_data.error));
-            return;
+            return reject(asyncError('launcher failed: method=store: ' + res_data.error));
           }
           if (res_data.result.exited) {
             if (res_data.result.exitstatus === 0) {
               res_data.continue = true;
               this.resultEmitter(res_data);
-              resolve();
-              return;
+              return resolve();
             }
             else {
               this.resultEmitter(res_data);
-              reject(asyncError('compile error'));
-              return;
+              return reject(asyncError('compile error'));
             }
           }
+          return;
+          // 1コマンド実行するだけでも4パターンのハンドリングが必要…
+          // 1. Launcher側のエラー
+          // 2. 実行失敗時(exitstatus!=0)
+          // 3. 実行成功時(exitstatus==0)
+          // 4. それ以外(inprogress)
         });
     });
 
