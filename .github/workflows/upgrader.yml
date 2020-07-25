@@ -29,6 +29,10 @@ jobs:
       with:
         node-version: '12'
     - uses: actions/checkout@master
+    - name: Please tell me who you are.
+      run: |
+        git config --global user.email "mai@ukibune.net"
+        git config --global user.name "mai bot-worker"
     - name: install tools
       run: |
         sudo apt update
