@@ -64,7 +64,7 @@ export default class extends React.Component<{}, IndexState> {
 
   private handleEmitMessage(jobs: any, callback?: (data: any) => void, id?: string): string {
     const code = this.refCodeEditor.current.getValue();
-    const lang = 'ruby';
+    const lang = 'cpp'; //'ruby';
     id = id || IdProvider.nextNumber().toString();
     if (callback) this.resultCallbacks[id] = callback;
     jobs = Object.assign({}, jobs, { code, lang });

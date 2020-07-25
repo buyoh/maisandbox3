@@ -33,7 +33,7 @@ export class CallbackManager {
     this.sender.call(null, data);
   }
 
-  // siglepost, multicallbacks
+  // siglepost, singlecallback
   postp(data: any): Promise<any> {
     return new Promise((resolve) => {
       const cbmid = this.generateCbmId();
@@ -45,7 +45,7 @@ export class CallbackManager {
     });
   }
 
-  // multipost, multicallbacks
+  // multiposts, multicallbacks
   // 関数を返すので、ポストする時にその関数を使う
   multipost(callback: (data: any) => any): (data: any) => void {
     const cbmid = this.generateCbmId();

@@ -29,7 +29,7 @@ class CodeEditorShell extends React.Component<CodeEditorShelllProps, {}> {
           <CodeToolbar />
         </div>
         <div className="border">
-          <CodeEditor ref={this.refCodeEditor} lang='ruby' />
+          <CodeEditor ref={this.refCodeEditor} lang='c_cpp' />
         </div>
       </div>
     )

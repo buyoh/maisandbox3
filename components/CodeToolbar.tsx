@@ -15,7 +15,7 @@ class CodeToolbar extends React.Component<CodeToolbarProps, {}> {
   render() {
     return (
       <div className="">
-        <SelectBox items={[{ key: 'ruby', label: 'Ruby' }, { key: 'python', label: 'Python' }]} />
+        <SelectBox items={[{ key: 'ruby', label: 'Ruby' }, { key: 'python', label: 'Python' }, { key: 'cpp', label: 'C++' }]} />
       </div>
     )
   }

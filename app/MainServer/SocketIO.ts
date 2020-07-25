@@ -27,6 +27,7 @@ export function setupSocketIOAndBindHandler(socketio: SocketIO.Server, launcherC
       const jid = data.id;  // job id
       data = data.data;
       execHandler.handle(data, jid, (data) => {
+        console.log('s2c_ResultExec:', data);
         socket.emit('s2c_ResultExec', data);
       })
     });
