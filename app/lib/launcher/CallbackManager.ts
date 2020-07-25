@@ -9,9 +9,9 @@
 // cm.post(myQuery, (result) => { });
 export class CallbackManager {
 
-  counter: number;
-  sender: (any) => any;
-  callbacks: { [index: number]: (data: any) => any };
+  private counter: number;
+  private sender: (any) => any;
+  private callbacks: { [index: number]: (data: any) => any };
 
   constructor(sender: (any) => any) {
     this.counter = 1;

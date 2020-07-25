@@ -1,5 +1,4 @@
 import Next from "next";
-import SocketIO from "socket.io";
 
 import { LauncherSocket } from "./lib/launcher/LauncherSocket";
 import CallbackManager from "./lib/launcher/CallbackManager";

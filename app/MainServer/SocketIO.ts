@@ -1,18 +1,17 @@
 import SocketIO from "socket.io";
 import Http from "http";
-import WebSocketIO from "socket.io";
 
 import CallbackManager from "../lib/launcher/CallbackManager";
 import { ExecHandler } from "./ExecHandler";
 
 
-export function setupSocketIO(httpServer: Http.Server): WebSocketIO.Server {
-  return WebSocketIO(httpServer);
+export function setupSocketIO(httpServer: Http.Server): SocketIO.Server {
+  return SocketIO(httpServer);
 }
 
-export function setupSocketIOAndBindHandler(socketio: WebSocketIO.Server, launcherCallbackManager: CallbackManager) {
+export function setupSocketIOAndBindHandler(socketio: SocketIO.Server, launcherCallbackManager: CallbackManager) {
   // socketio binding
-  socketio.on('connection', (socket: WebSocketIO.Socket) => {
+  socketio.on('connection', (socket: SocketIO.Socket) => {
     const execHandler = new ExecHandler(socket.id, launcherCallbackManager);
     console.log('connect', socket.id);
 

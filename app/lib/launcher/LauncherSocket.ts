@@ -3,10 +3,10 @@ import fs from 'fs';
 
 export class LauncherSocket {
 
-  process: ChildProcess.ChildProcess;
-  bufferStdout: string;
+  private process: ChildProcess.ChildProcess;
+  private bufferStdout: string;
 
-  callbacks: { close: Array<any>, recieve: Array<any> };  // close, recieve
+  private callbacks: { close: Array<any>, recieve: Array<any> };  // close, recieve
 
   constructor() {
     this.process = null;

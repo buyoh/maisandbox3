@@ -7,9 +7,9 @@ type ExecHandlerState = {
 
 export class ExecHandler {
 
-  socketHandlerStorage: ExecHandlerState;
-  socketId: string;
-  launcherCallbackManager: CallbackManager;
+  private socketHandlerStorage: ExecHandlerState;
+  private socketId: string;
+  private launcherCallbackManager: CallbackManager;
 
   constructor(socketId: string, launcherCallbackManager: CallbackManager) {
     this.socketId = socketId;
