@@ -2,9 +2,9 @@
   "name": "maisandbox3",
   "version": "0.1.0",
   "private": true,
-  "main": "app/server.ts",
+  "main": "/dev/null",
   "scripts": {
-    "dev": "ts-node --project tsconfig.server.json app/server.ts ",
+    "dev": "ts-node --project tsconfig.server.json app/MainServer.ts ",
     "next-dev": "next dev",
     "next-build": "next build",
     "next-start": "next start",

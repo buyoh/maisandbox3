@@ -1,9 +1,9 @@
 import Next from "next";
 import SocketIO from "socket.io";
 
-import { LauncherSocket } from "./launcher/LauncherSocket";
-import CallbackManager from "./launcher/CallbackManager";
-import { setupExpressServer } from "./express";
+import { LauncherSocket } from "./lib/launcher/LauncherSocket";
+import CallbackManager from "./lib/launcher/CallbackManager";
+import { setupExpressServer } from "./MainServer/Express";
 
 const enableDev = process.env.NODE_ENV !== "production";
 const appNext = Next({ dev: enableDev });

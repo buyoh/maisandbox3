@@ -2,6 +2,7 @@
 
 ## setup (for develop)
 
+- Ubuntu 20.04 (recommended. may be runnable on *NIX)
 - node v12
 - ruby 2.7
 
