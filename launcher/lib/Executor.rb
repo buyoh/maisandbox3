@@ -18,7 +18,7 @@ class Executor
     @stdin = args[:stdin] || File::NULL
     @stdout = args[:stdout] || File::NULL
     @stderr = args[:stderr] || File::NULL
-    @timeout = args[:timeout] || 5
+    @timeout = args[:timeout] || 10
     raise ArgumentError unless @cmd
 
     @status = nil
@@ -49,6 +49,7 @@ class Executor
     # timeout thread
     t1 = Thread.start do
       sleep @timeout
+      Process.kill :KILL, pid
       t2.exit # Ruby does not have race like javascript Promise.race
     end
     # waitpid thread
