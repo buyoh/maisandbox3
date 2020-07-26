@@ -1,4 +1,4 @@
-import CallbackManager from "../lib/launcher/CallbackManager";
+import CallbackManager from "../lib/CallbackManager";
 import { TaskFactory } from "./task/TaskFactory";
 
 type ExecHandlerState = {
@@ -19,7 +19,6 @@ export class ExecHandler {
 
   handle(data: any, jid: any, resultEmitter: (data: any) => void) {
     const jidStr = JSON.stringify(jid);
-
     if (data.action == 'run') {
       const factory = new TaskFactory(this.socketId, this.launcherCallbackManager, resultEmitter, () => {
         delete this.socketHandlerStorage.tasks[jidStr];

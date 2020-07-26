@@ -1,7 +1,7 @@
 import SocketIO from "socket.io";
 import Http from "http";
 
-import CallbackManager from "../lib/launcher/CallbackManager";
+import CallbackManager from "../lib/CallbackManager";
 import { ExecHandler } from "./ExecHandler";
 
 

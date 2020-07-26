@@ -6,14 +6,19 @@
 // // task1
 // cm.post(myQuery, (result) => { });
 // // task2 ...
+
+import { runInThisContext } from "vm";
+
 // cm.post(myQuery, (result) => { });
 export class CallbackManager {
 
+  private identifier: string;
   private counter: number;
   private sender: (any) => any;
   private callbacks: { [index: number]: (data: any) => any };
 
-  constructor(sender: (any) => any) {
+  constructor(sender: (any) => any, identifier = 'cmid') {
+    this.identifier = identifier;
     this.counter = 1;
     this.sender = sender;
     this.callbacks = {};
@@ -28,7 +33,7 @@ export class CallbackManager {
     const cbmid = this.generateCbmId();
     data = { ...data };
     if (!data.id) data.id = {};
-    data.id.cbmid = cbmid;
+    data.id[this.identifier] = cbmid;
     this.callbacks[cbmid] = callback;
     this.sender.call(null, data);
   }
@@ -39,7 +44,7 @@ export class CallbackManager {
       const cbmid = this.generateCbmId();
       data = { ...data };
       if (!data.id) data.id = {};
-      data.id.cbmid = cbmid;
+      data.id[this.identifier] = cbmid;
       this.callbacks[cbmid] = resolve;
       this.sender.call(null, data);
     });
@@ -53,7 +58,7 @@ export class CallbackManager {
     return (data) => {
       data = { ...data };
       if (!data.id) data.id = {};
-      data.id.cbmid = cbmid;
+      data.id[this.identifier] = cbmid;
       this.sender.call(null, data);
     };
 
@@ -69,15 +74,15 @@ export class CallbackManager {
       console.warn('CallbackManager::handleRecieve: id not found. reject.');
       return;
     }
-    const cbmid = data.id.cbmid;
+    const cbmid = data.id[this.identifier];
     if (!cbmid) {
-      console.warn('CallbackManager::handleRecieve: id.cbmid not found. reject.');
+      console.warn('CallbackManager::handleRecieve: id.' + this.identifier + ' not found. reject.');
       return;
     }
     data.id = { ...data.id, cbmid: undefined };  // clone
     const cb = this.callbacks[cbmid];
     if (!cb) {
-      console.warn('CallbackManager::handleRecieve: unknown id.cbmid. reject.');
+      console.warn('CallbackManager::handleRecieve: unknown id.' + this.identifier + '. reject.');
       return;
     }
     if (!continu) {
