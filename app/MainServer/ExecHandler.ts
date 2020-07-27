@@ -1,8 +1,9 @@
 import CallbackManager from "../lib/CallbackManager";
 import { TaskFactory } from "./task/TaskFactory";
+import { Query } from "../lib/type";
 
 type ExecHandlerState = {
-  tasks: { [jid: string]: any };
+  tasks: { [key: string]: any };
 }
 
 export class ExecHandler {
@@ -17,24 +18,24 @@ export class ExecHandler {
     this.launcherCallbackManager = launcherCallbackManager;
   }
 
-  handle(data: any, jid: any, resultEmitter: (data: any) => void) {
-    const jidStr = JSON.stringify(jid);
+  handle(query: Query, resultEmitter: (data: any) => void) {
+    const jobIdStr = JSON.stringify(query.id);
+    const data = query.data;
     if (data.action == 'run') {
       const factory = new TaskFactory(this.socketId, this.launcherCallbackManager, resultEmitter, () => {
-        delete this.socketHandlerStorage.tasks[jidStr];
+        delete this.socketHandlerStorage.tasks[jobIdStr];
       });
       const task = factory.generate(data.lang);
       if (!task) {
         console.warn('unknown language: ', data.lang);
         return;
       }
-      this.socketHandlerStorage.tasks[jidStr] = task;
-      task.startAsync(data, jid);
+      this.socketHandlerStorage.tasks[jobIdStr] = task;
+      task.startAsync(data, query.id);
     }
     else if (data.action == 'kill') {
-      console.log("call kill");
-      const task = this.socketHandlerStorage.tasks[jidStr];
-      if (!task) return;  // do nothing if jid is unknown
+      const task = this.socketHandlerStorage.tasks[jobIdStr];
+      if (!task) return;  // do nothing if jobIdStr is unknown
       task.kill();
     }
 

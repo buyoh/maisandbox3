@@ -1,5 +1,6 @@
 import CallbackManager from "../../lib/CallbackManager";
 import { asyncError, ResultEmitter, Runnable } from "./TaskUtil";
+import { QueryData, Result, JobID, WorkID } from "../../lib/type";
 
 export class TaskRuby {
 
@@ -22,34 +23,34 @@ export class TaskRuby {
     this.handleKill?.call(this);
   }
 
-  private async phase1(data: any, jid: any) {
-    const res_data = await this.launcherCallbackManager.postp(
-      { method: 'store', files: [{ path: 'var/code.rb', data: data.code }] });
-    res_data.id = res_data.id.jid;
+  private async phase1(data: QueryData, jid: JobID) {
+    const res_data: Result = await this.launcherCallbackManager.postp(
+      { method: 'store', files: [{ path: 'var/code.rb', data: data.code }], id: { jid, sid: this.socketId } });
+    res_data.id = (res_data.id as WorkID).jid;
     if (!res_data.success) {
       this.resultEmitter(res_data);
       return await asyncError('launcher failed: method=store: ' + res_data.error);
     }
   }
 
-  private phase2(data: any, jid: any) {
+  private phase2(data: QueryData, jid: JobID) {
     return new Promise((resolve, reject) => {
       const caller = this.launcherCallbackManager.multipost(
-        (res_data2) => {
+        (res_data: Result) => {
           // note: call this callback twice or more
-          res_data2.id = res_data2.id.jid;
-          if (res_data2.result && res_data2.result.exited) {
+          res_data.id = (res_data.id as WorkID).jid;
+          if (res_data.result && res_data.result.exited) {
             this.finalize();
             this.handleKill = null;
-            if (res_data2.success) {
+            if (res_data.success) {
               resolve();
             } else {
               // note: NOT runtime error (it means rejected a bad query)
-              console.error('launcher failed: method=exec: ', res_data2.error);
+              console.error('launcher failed: method=exec: ', res_data.error);
               reject();
             }
           }
-          this.resultEmitter(res_data2);
+          this.resultEmitter(res_data);
         });
       caller.call(null,
         { method: 'exec', cmd: 'ruby', args: ['var/code.rb'], stdin: data.stdin, id: { jid, sid: this.socketId } }
@@ -62,7 +63,7 @@ export class TaskRuby {
     });
   }
 
-  async startAsync(data: any, jid: any) {
+  async startAsync(data: QueryData, jid: JobID) {
     console.log('task start:' + jid);
     try {
       await this.phase1(data, jid);

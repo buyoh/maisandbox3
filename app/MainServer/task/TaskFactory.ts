@@ -1,6 +1,6 @@
 import CallbackManager from "../../lib/CallbackManager";
 import { TaskRuby } from "./TaskRuby";
-import { ResultEmitter, Runnable } from "./TaskUtil";
+import { ResultEmitter, Runnable, Task } from "./TaskUtil";
 import { TaskCpp } from "./TaskCpp";
 
 
@@ -20,7 +20,7 @@ export class TaskFactory {
     this.handleKill = null;
   }
 
-  generate(lang: string): any {
+  generate(lang: string): Task {
     if (lang === 'ruby')
       return new TaskRuby(this.socketId, this.launcherCallbackManager, this.resultEmitter, this.finalize);
     if (lang === 'cpp')

@@ -3,6 +3,7 @@ import Http from "http";
 
 import CallbackManager from "../lib/CallbackManager";
 import { ExecHandler } from "./ExecHandler";
+import { Query } from "../lib/type";
 
 
 export function setupSocketIO(httpServer: Http.Server): SocketIO.Server {
@@ -19,15 +20,11 @@ export function setupSocketIOAndBindHandler(socketio: SocketIO.Server, launcherC
       console.log('disconnect', socket.id);
     });
 
-    socket.on('myping', (data) => {
-      console.log('myping', data);
-    });
-
-    socket.on('c2e_Exec', (data) => {
-      const jid = data.id;  // job id
-      data = data.data;
-      execHandler.handle(data, jid, (data) => {
-        console.log('s2c_ResultExec:', data);
+    socket.on('c2e_Exec', (raw_data) => {
+      const query: Query = raw_data;
+      console.log('query', query);
+      execHandler.handle(query, (data) => {
+        // callback to client
         socket.emit('s2c_ResultExec', data);
       })
     });

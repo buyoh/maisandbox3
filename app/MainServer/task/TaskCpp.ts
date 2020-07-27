@@ -1,5 +1,6 @@
 import CallbackManager from "../../lib/CallbackManager";
 import { asyncError, ResultEmitter, Runnable } from "./TaskUtil";
+import { QueryData, Result, WorkID, JobID, SubResultExec } from "../../lib/type";
 
 export class TaskCpp {
 
@@ -22,29 +23,30 @@ export class TaskCpp {
     this.handleKill?.call(this);
   }
 
-  private async phase1(data: any, jid: any) {
-    const res_data = await this.launcherCallbackManager.postp(
+  private async phase1(data: QueryData, jid: JobID) {
+    const res_data: Result = await this.launcherCallbackManager.postp(
       { method: 'store', files: [{ path: 'var/code.cpp', data: data.code }] });
-    res_data.id = res_data.id.jid;
+    res_data.id = (res_data.id as WorkID).jid;
     if (!res_data.success) {
       this.resultEmitter(res_data);
       return await asyncError('launcher failed: method=store: ' + res_data.error);
     }
   }
 
-  private async phase2(data: any, jid: any) {
+  private async phase2(data: QueryData, jid: JobID) {
     return new Promise((resolve, reject) => {
       this.launcherCallbackManager.post(
         { method: 'exec', cmd: 'g++', args: ['-std=c++17', '-O3', '-Wall', '-o', 'var/code', 'var/code.cpp'], stdin: data.stdin, id: { jid, sid: this.socketId } },
-        (res_data) => {
+        (res_data: Result) => {
           // note: call this callback twice or more
-          res_data.id = res_data.id.jid;
+          res_data.id = (res_data.id as WorkID).jid;
           if (!res_data.success) {
             this.resultEmitter(res_data);
             return reject(asyncError('launcher failed: method=store: ' + res_data.error));
           }
-          if (res_data.result.exited) {
-            if (res_data.result.exitstatus === 0) {
+          const res = res_data.result as SubResultExec;
+          if (res.exited) {
+            if (res.exitstatus === 0) {
               res_data.continue = true;
               this.resultEmitter(res_data);
               return resolve();
@@ -65,24 +67,24 @@ export class TaskCpp {
 
   }
 
-  private phase3(data: any, jid: any) {
+  private phase3(data: QueryData, jid: JobID) {
     return new Promise((resolve, reject) => {
       const caller = this.launcherCallbackManager.multipost(
-        (res_data2) => {
+        (res_data: Result) => {
           // note: call this callback twice or more
-          res_data2.id = res_data2.id.jid;
-          if (res_data2.result && res_data2.result.exited) {
+          res_data.id = (res_data.id as WorkID).jid;
+          if (res_data.result && res_data.result.exited) {
             this.finalize();
             this.handleKill = null;
-            if (res_data2.success) {
+            if (res_data.success) {
               resolve();
             } else {
               // note: NOT runtime error (it means rejected a bad query)
-              console.error('launcher failed: method=exec: ', res_data2.error);
+              console.error('launcher failed: method=exec: ', res_data.error);
               reject();
             }
           }
-          this.resultEmitter(res_data2);
+          this.resultEmitter(res_data);
         });
       caller.call(null,
         { method: 'exec', cmd: 'var/code', args: [], stdin: data.stdin, id: { jid, sid: this.socketId } }
@@ -95,8 +97,7 @@ export class TaskCpp {
     });
   }
 
-  async startAsync(data: any, jid: any) {
-    console.log('task start:' + jid);
+  async startAsync(data: QueryData, jid: JobID) {
     try {
       await this.phase1(data, jid);
       await this.phase2(data, jid);
@@ -105,6 +106,5 @@ export class TaskCpp {
       console.error(e);  // include compile error...
       this.finalize();
     }
-    console.log('task complete:' + jid);
   }
 }
