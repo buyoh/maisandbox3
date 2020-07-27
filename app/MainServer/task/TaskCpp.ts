@@ -1,4 +1,4 @@
-import CallbackManager from "../../lib/launcher/CallbackManager";
+import CallbackManager from "../../lib/CallbackManager";
 import { asyncError, ResultEmitter, Runnable } from "./TaskUtil";
 
 export class TaskCpp {

@@ -1,7 +1,7 @@
 import Next from "next";
 
 import { LauncherSocket } from "./lib/launcher/LauncherSocket";
-import CallbackManager from "./lib/launcher/CallbackManager";
+import CallbackManager from "./lib/CallbackManager";
 import { setupExpressServer } from "./MainServer/Express";
 import { setupSocketIO, setupSocketIOAndBindHandler } from "./MainServer/SocketIO";
 
@@ -16,7 +16,7 @@ const port = parseInt(process.env.PORT || '3030');
     const launcher = new LauncherSocket();
     const launcherCallbackManager = new CallbackManager((data) => {
       launcher.send(data);
-    });
+    }, 'lcmid');
     launcher.on('close', (code) => {
       if (code == 1) {
         console.error('launcher has raised exceptions');

@@ -7,13 +7,9 @@ name: upgrade-dependency-packages-minor
 # bundle update
 # Upgrade Gemfile.lock
 
-# on:
-#   push:
-#     branches:
-#     - master
-
-# for check
-on: [push]
+on:
+  schedule:
+    - cron: 0 12 * * 5  # At 12:00 on Friday.
 
 jobs:
   build:

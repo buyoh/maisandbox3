@@ -5,7 +5,7 @@ import Button from './Button';
 import StatusBadge from './StatusBadge';
 
 type StaticIOShellProps = {
-  onEmitMessage: (job: any, callback: (data: any) => void, id?: string) => string
+  onNeedEmitter: (callback: (data: any) => void) => (data: any) => void
 }
 
 type StaticIOShellStatus = {
@@ -16,7 +16,7 @@ type StaticIOShellStatus = {
 
 class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellStatus> {
 
-  emitMessageId?: string;
+  emitter?: (data: any) => void;
 
   constructor(props: StaticIOShellProps) {
     super(props);
@@ -26,7 +26,7 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
       statusText: 'ready',
     };
 
-    this.emitMessageId = null;
+    this.emitter = null;
 
     this.handleClickRun = this.handleClickRun.bind(this);
     this.handleClickKill = this.handleClickKill.bind(this);
@@ -45,7 +45,7 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
       if (data.result.exited) {
         this.setStdout(data.result.out);
         this.setState(Object.assign({}, this.state, { statusText: 'exited' }));
-        this.emitMessageId = null;
+        this.emitter = null;
       }
       else {
         this.setState(Object.assign({}, this.state, { statusText: 'running' }));
@@ -57,14 +57,14 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
   }
 
   private handleClickRun() {
-    const id = this.props.onEmitMessage(this.generateJobRun(), this.recieveResult.bind(this));
-    this.emitMessageId = id;
+    this.emitter = this.props.onNeedEmitter(this.recieveResult.bind(this));
+    this.emitter(this.generateJobRun());
   }
 
   private handleClickKill() {
-    const id = this.emitMessageId;
-    if (!id) { return; }
-    this.emitMessageId = this.props.onEmitMessage(this.generateJobKill(), null, id);
+    const em = this.emitter;
+    if (!em) { return; }
+    em(this.generateJobKill());
   }
 
   getStdin(): string {

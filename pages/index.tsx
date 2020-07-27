@@ -11,6 +11,7 @@ import Header from '../components/Header';
 import CodeEditor from '../components/CodeEditor';
 import CodeEditorShell from '../components/CodeEditorShell'
 import StaticIOShell from '../components/StaticIOShell';
+import { ClientSocket } from "../components/lib/ClientSocket";
 
 // const RowFlexStyle: CSSProperties = {
 //   display: 'flex',
@@ -26,7 +27,7 @@ type IndexState = {
 
 export default class extends React.Component<{}, IndexState> {
 
-  socket: SocketIOClient.Socket;
+  socket: ClientSocket;
   refIOEditor: React.RefObject<StaticIOShell>;
   refCodeEditor: React.RefObject<CodeEditorShell>;
   resultCallbacks: any;
@@ -44,31 +45,17 @@ export default class extends React.Component<{}, IndexState> {
   }
 
   componentDidMount() {
-    this.socket = SocketIOClient();
-    this.socket.on('connected', () => {
-      console.log('connected');
-    });
-    this.socket.on('mypong', (data) => {
-      console.log('mypong', data);
-    });
-    this.socket.on('s2c_ResultExec', (data) => {
-      console.log('resultexec', data);
-      const callback = this.resultCallbacks[data.id];
-      if (!callback) {
-        console.warn('data.id was not found: ', data.id);
-        return;
-      }
-      callback.call(null, data);
-    });
+    this.socket = new ClientSocket(SocketIOClient());
   }
 
-  private handleEmitMessage(jobs: any, callback?: (data: any) => void, id?: string): string {
+  private handleEmitMessage(callback: (data: any) => void): (data: any) => void {
     const editorValues = this.refCodeEditor.current.getAllValue();
-    id = id || IdProvider.nextNumber().toString();
-    if (callback) this.resultCallbacks[id] = callback;
-    jobs = Object.assign({}, jobs, editorValues);
-    this.socket.emit('c2e_Exec', { data: jobs, id });
-    return id;
+    const post = this.socket.generateForPostExec(callback);
+    const emitter = (data: any) => {
+      data = Object.assign({}, data, editorValues);
+      post({ data });
+    };
+    return emitter;
   }
 
   render() {
@@ -84,7 +71,7 @@ export default class extends React.Component<{}, IndexState> {
           </div>
 
           <div>
-            <StaticIOShell ref={this.refIOEditor} onEmitMessage={this.handleEmitMessage} />
+            <StaticIOShell ref={this.refIOEditor} onNeedEmitter={this.handleEmitMessage} />
           </div>
         </main>
       </div>
