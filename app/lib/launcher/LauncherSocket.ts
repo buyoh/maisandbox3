@@ -1,15 +1,21 @@
 import ChildProcess from 'child_process';
-import fs from 'fs';
+import net from 'net';
+import { runInThisContext } from 'vm';
+
+const UseChildProcess = true;  // false
+const UnixSocketPath = '/tmp/maisandbox3.sock';
 
 export class LauncherSocket {
 
   private process: ChildProcess.ChildProcess;
+  private netSocket: net.Socket;
   private bufferStdout: string;
 
   private callbacks: { close: Array<any>, recieve: Array<any> };  // close, recieve
 
   constructor() {
     this.process = null;
+    this.netSocket = null;
     this.bufferStdout = '';
     this.callbacks = {
       close: [],
@@ -53,7 +59,9 @@ export class LauncherSocket {
       c(j);
   }
 
-  start(): void {
+  //
+
+  private startChildProcess(): void {
     const p = ChildProcess.spawn('ruby', ['launcher/launcher.rb'], { stdio: ['pipe', 'pipe', 'inherit'] });
     this.process = p;
 
@@ -66,16 +74,63 @@ export class LauncherSocket {
     });
   }
 
-  stop(): void {
+  private stopChildProcess(): void {
     if (this.process !== null)
       this.process.kill();
   }
 
+  private isAliveChildProcess(): boolean {
+    return this.process !== null && !this.process.killed;
+  }
+
+  private writeChildProcess(str: string): void {
+    this.process.stdin.write(str.trimEnd() + "\n", () => { /* flushed */ });
+  }
+
+  //
+
+  private startSocket(): void {
+    const s = net.createConnection(UnixSocketPath);
+    this.netSocket = s;
+    s.on('end', () => {
+      this.handleClose(0, null);
+    });
+    s.on('data', (data) => {
+      this.handleRecieve(data.toString());
+    });
+  }
+
+  private stopSocket(): void {
+    this.netSocket.end();
+  }
+
+  private isAliveSocket(): boolean {
+    return this.netSocket !== null && !this.netSocket.destroyed;
+  }
+
+  private writeSocket(str: string): void {
+    this.netSocket.write(str.trimEnd() + "\n", () => { /* flushed */ });
+  }
+
+  //
+
+  start(): void {
+    UseChildProcess ? this.startChildProcess() : this.startSocket();
+  }
+
+  stop(): void {
+    UseChildProcess ? this.stopChildProcess() : this.stopSocket();
+  }
+
+  isAlive(): boolean {
+    return UseChildProcess ? this.isAliveChildProcess() : this.isAliveSocket();
+  }
+
   send(data: Object): boolean {
-    if (this.process === null || this.process.killed)
+    if (!this.isAlive())
       return false;
     const j = JSON.stringify(data);
-    this.process.stdin.write(j + "\n", () => { /* flushed */ });
+    UseChildProcess ? this.writeChildProcess(j) : this.writeSocket(j);
     return true;
   }
 

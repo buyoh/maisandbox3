@@ -22,6 +22,10 @@ const port = parseInt(process.env.PORT || '3030');
         console.error('launcher has raised exceptions');
         process.exit(1);
       }
+      else {
+        console.error('launcher disconnected code=' + code)
+        process.exit(0);
+      }
     })
     launcher.on('recieve', (data) => {
       launcherCallbackManager.handleRecieve(data, !!data.continue);

@@ -26,8 +26,8 @@ class ALSocket
   def puts(str)
     s = str.to_s
     @mutex_output.synchronize do
-      STDOUT.puts s
-      STDOUT.flush
+      @output.puts s
+      @output.flush
     end
   end
 
