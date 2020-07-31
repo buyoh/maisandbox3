@@ -1,7 +1,7 @@
 import React, { useEffect, ReactEventHandler } from "react";
 import { CSSProperties } from 'react';
 
-import { IdProvider } from '../components/lib/IdProvider';
+import { IdProvider } from '../lib/IdProvider';
 
 import SocketIOClient from 'socket.io-client';
 

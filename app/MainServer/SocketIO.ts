@@ -1,9 +1,9 @@
 import SocketIO from "socket.io";
 import Http from "http";
 
-import CallbackManager from "../lib/CallbackManager";
+import CallbackManager from "../../lib/CallbackManager";
 import { ExecHandler } from "./ExecHandler";
-import { Query } from "../lib/type";
+import { Query } from "../../lib/type";
 
 
 export function setupSocketIO(httpServer: Http.Server): SocketIO.Server {

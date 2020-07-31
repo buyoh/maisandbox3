@@ -1,5 +1,5 @@
 import SocketIOClient from 'socket.io-client';
-import { CallbackManager } from '../../app/lib/CallbackManager'
+import { CallbackManager } from '../../lib/CallbackManager'
 
 export class ClientSocket {
   private socket: SocketIOClient.Socket;

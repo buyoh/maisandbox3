@@ -1,7 +1,7 @@
 import Next from "next";
 
-import { LauncherSocket } from "./lib/launcher/LauncherSocket";
-import CallbackManager from "./lib/CallbackManager";
+import { LauncherSocket } from "./Launcher/LauncherSocket";
+import CallbackManager from "../lib/CallbackManager";
 import { setupExpressServer } from "./MainServer/Express";
 import { setupSocketIO, setupSocketIOAndBindHandler } from "./MainServer/SocketIO";
 
