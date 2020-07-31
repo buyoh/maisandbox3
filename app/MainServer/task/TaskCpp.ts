@@ -25,7 +25,7 @@ export class TaskCpp {
 
   private async phase1(data: QueryData, jid: JobID) {
     const res_data: Result = await this.launcherCallbackManager.postp(
-      { method: 'store', files: [{ path: 'var/code.cpp', data: data.code }] });
+      { method: 'store', files: [{ path: 'code.cpp', data: data.code }] });
     res_data.id = (res_data.id as WorkID).jid;
     if (!res_data.success) {
       this.resultEmitter(res_data);
@@ -36,7 +36,7 @@ export class TaskCpp {
   private async phase2(data: QueryData, jid: JobID) {
     return new Promise((resolve, reject) => {
       this.launcherCallbackManager.post(
-        { method: 'exec', cmd: 'g++', args: ['-std=c++17', '-O3', '-Wall', '-o', 'var/code', 'var/code.cpp'], stdin: data.stdin, id: { jid, sid: this.socketId } },
+        { method: 'exec', cmd: 'g++', args: ['-std=c++17', '-O3', '-Wall', '-o', 'code', 'code.cpp'], stdin: data.stdin, id: { jid, sid: this.socketId } },
         (res_data: Result) => {
           // note: call this callback twice or more
           res_data.id = (res_data.id as WorkID).jid;
@@ -87,7 +87,7 @@ export class TaskCpp {
           this.resultEmitter(res_data);
         });
       caller.call(null,
-        { method: 'exec', cmd: 'var/code', args: [], stdin: data.stdin, id: { jid, sid: this.socketId } }
+        { method: 'exec', cmd: 'code', args: [], stdin: data.stdin, id: { jid, sid: this.socketId } }
       );
       this.handleKill = () => {
         caller.call(null,

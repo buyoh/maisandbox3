@@ -12,6 +12,7 @@ class Executor
   # stdout: String(filepath) or IO(pipe)
   # stderr: String(filepath) or IO(pipe)
   # timeout: Number
+  # chdir: String
   def initialize(args)
     @cmd = args[:cmd]
     @args = args[:args] || []
@@ -19,6 +20,7 @@ class Executor
     @stdout = args[:stdout] || File::NULL
     @stderr = args[:stderr] || File::NULL
     @timeout = args[:timeout] || 10
+    @chdir = args[:chdir]
     raise ArgumentError unless @cmd
 
     @status = nil
@@ -41,7 +43,9 @@ class Executor
       exec(@cmd, *@args,
            in: @stdin,
            out: @stdout,
-           err: @stderr)
+           err: @stderr,
+           chdir: @chdir)
+      # TODO: catch exec exception!!
     end
 
     t1 = nil
