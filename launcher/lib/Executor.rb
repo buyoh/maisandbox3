@@ -45,7 +45,9 @@ class Executor
            out: @stdout,
            err: @stderr,
            chdir: @chdir)
-      # TODO: catch exec exception!!
+    rescue StandardError
+    ensure
+      exit 127
     end
 
     t1 = nil
