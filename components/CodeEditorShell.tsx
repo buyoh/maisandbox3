@@ -9,6 +9,11 @@ const converterKey2Style = {
   python: 'python'
 }
 
+type CodeEditorShellSerialized = {
+  code: string,
+  lang: string
+}
+
 type CodeEditorShellProps = {
 }
 
@@ -36,6 +41,20 @@ class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorSh
     const lang = this.state.lang;
     return { code, lang };
   }
+
+  setLang(lang: string): void {
+    this.setState(Object.assign({}, this.state, { lang }));
+  }
+
+  serialize(): CodeEditorShellSerialized {
+    return this.getAllValue();
+  }
+
+  deserialize(data: CodeEditorShellSerialized) {
+    this.refCodeEditor.current.setValue(data.code);
+    this.setLang(data.lang);
+  }
+
 
   private handleLangChange(lang: string) {
     this.setState(Object.assign({}, this.state, { lang }));
