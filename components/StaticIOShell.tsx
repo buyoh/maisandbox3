@@ -43,7 +43,13 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
   private recieveResult(data) {
     if (data.result) {
       if (data.result.exited) {
-        this.setStdout(data.result.out);
+        let out = '';
+        if (data.result.exitstatus !== 0) {
+          out += data.result.err;
+          out += '==========';
+        }
+        out += data.result.out || '';
+        this.setStdout(out);
         this.setState(Object.assign({}, this.state, { statusText: 'exited' }));
         this.emitter = null;
       }
