@@ -25,7 +25,7 @@ export class TaskCpp {
 
   private async phase1(data: QueryData, jid: JobID) {
     const res_data: Result = await this.launcherCallbackManager.postp(
-      { method: 'store', files: [{ path: 'code.cpp', data: data.code }] });
+      { method: 'store', files: [{ path: 'code.cpp', data: data.code }], id: { jid, sid: this.socketId } });
     res_data.id = (res_data.id as WorkID).jid;
     if (!res_data.success) {
       this.resultEmitter(res_data);
@@ -33,16 +33,16 @@ export class TaskCpp {
     }
   }
 
-  private async phase2(data: QueryData, jid: JobID) {
+  private phase2(data: QueryData, jid: JobID) {
     return new Promise((resolve, reject) => {
       this.launcherCallbackManager.post(
-        { method: 'exec', cmd: 'g++', args: ['-std=c++17', '-O3', '-Wall', '-o', 'code', 'code.cpp'], stdin: data.stdin, id: { jid, sid: this.socketId } },
+        { method: 'exec', cmd: 'g++', args: ['-std=c++17', '-O3', '-Wall', '-o', 'prog', 'code.cpp'], stdin: data.stdin, id: { jid, sid: this.socketId } },
         (res_data: Result) => {
           // note: call this callback twice or more
           res_data.id = (res_data.id as WorkID).jid;
           if (!res_data.success) {
             this.resultEmitter(res_data);
-            return reject(asyncError('launcher failed: method=store: ' + res_data.error));
+            return reject(new Error('launcher failed: method=store: ' + res_data.error));
           }
           const res = res_data.result as SubResultExec;
           if (res.exited) {
@@ -53,7 +53,7 @@ export class TaskCpp {
             }
             else {
               this.resultEmitter(res_data);
-              return reject(asyncError('compile error'));
+              return reject(new Error('compile error'));
             }
           }
           return;
@@ -87,7 +87,7 @@ export class TaskCpp {
           this.resultEmitter(res_data);
         });
       caller.call(null,
-        { method: 'exec', cmd: 'code', args: [], stdin: data.stdin, id: { jid, sid: this.socketId } }
+        { method: 'exec', cmd: './prog', args: [], stdin: data.stdin, id: { jid, sid: this.socketId } }
       );
       this.handleKill = () => {
         caller.call(null,
@@ -103,7 +103,7 @@ export class TaskCpp {
       await this.phase2(data, jid);
       await this.phase3(data, jid);
     } catch (e) {
-      console.error(e);  // include compile error...
+      console.error('task failed', e);  // include compile error...
       this.finalize();
     }
   }

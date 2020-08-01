@@ -22,7 +22,6 @@ export function setupSocketIOAndBindHandler(socketio: SocketIO.Server, launcherC
 
     socket.on('c2e_Exec', (raw_data) => {
       const query: Query = raw_data;
-      console.log('query', query);
       execHandler.handle(query, (data) => {
         // callback to client
         socket.emit('s2c_ResultExec', data);

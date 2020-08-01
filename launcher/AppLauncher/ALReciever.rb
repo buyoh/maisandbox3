@@ -41,6 +41,7 @@ class ALReciever
       # json.idを失わないようにALRecieverで管理する
       # ALRecieverの重要な役割のひとつ
       id = json_line['id'] # task-unique
+      vlog id
       id_str = JSON.generate(id).hash.to_s(36)
       job_id = json_line['id']['jid'] # task_list-unique
       job_id_str = JSON.generate(job_id).hash.to_s(36)

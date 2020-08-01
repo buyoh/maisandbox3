@@ -9,12 +9,10 @@ export class ClientSocket {
     this.socket = socket;
 
     this.callbackManager = new CallbackManager((data) => {
-      console.log(data);
       this.socket.emit('c2e_Exec', data);
     }, 'clicmid');
 
     this.socket.on('s2c_ResultExec', (data) => {
-      console.log('resultexec', data);
       this.callbackManager.handleRecieve(data, data.continue);
     });
   }
