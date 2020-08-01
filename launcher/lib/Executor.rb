@@ -40,14 +40,16 @@ class Executor
     # execute command
     pid = fork do
       # 実行ユーザ変更の機能追加を考慮してspawnでは無い
-      exec(@cmd, *@args,
-           in: @stdin,
-           out: @stdout,
-           err: @stderr,
-           chdir: @chdir)
+      h = {
+        in: @stdin,
+        out: @stdout,
+        err: @stderr
+      }
+      h[:chdir] = @chdir if @chdir
+      exec(@cmd, *@args, h)
     rescue StandardError
-    ensure
       exit 127
+    ensure
     end
 
     t1 = nil
