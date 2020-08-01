@@ -127,7 +127,7 @@ RSpec.describe Executor do
     end
 
     wdt = Thread.start do
-      sleep 5
+      sleep 20
       r2s_queue.push false
       launcher.close
     end
