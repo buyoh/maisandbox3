@@ -47,3 +47,17 @@ test
 bundle exec rspec
 yarn test
 ```
+
+lint(too many problem)
+
+```
+yarn lint
+bundle exec rubocop
+```
+
+lint-fix
+
+```
+yarn lint-fix
+bundle exec rubocop --auto-correct
+```

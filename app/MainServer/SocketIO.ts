@@ -1,9 +1,9 @@
 import SocketIO from "socket.io";
 import Http from "http";
 
-import CallbackManager from "../lib/CallbackManager";
+import CallbackManager from "../../lib/CallbackManager";
 import { ExecHandler } from "./ExecHandler";
-import { Query } from "../lib/type";
+import { Query } from "../../lib/type";
 
 
 export function setupSocketIO(httpServer: Http.Server): SocketIO.Server {
@@ -22,7 +22,6 @@ export function setupSocketIOAndBindHandler(socketio: SocketIO.Server, launcherC
 
     socket.on('c2e_Exec', (raw_data) => {
       const query: Query = raw_data;
-      console.log('query', query);
       execHandler.handle(query, (data) => {
         // callback to client
         socket.emit('s2c_ResultExec', data);

@@ -1,6 +1,6 @@
-import CallbackManager from "../../lib/CallbackManager";
+import CallbackManager from "../../../lib/CallbackManager";
 import { asyncError, ResultEmitter, Runnable } from "./TaskUtil";
-import { QueryData, Result, JobID, WorkID } from "../../lib/type";
+import { QueryData, Result, JobID, WorkID } from "../../../lib/type";
 
 export class TaskRuby {
 
@@ -25,7 +25,7 @@ export class TaskRuby {
 
   private async phase1(data: QueryData, jid: JobID) {
     const res_data: Result = await this.launcherCallbackManager.postp(
-      { method: 'store', files: [{ path: 'var/code.rb', data: data.code }], id: { jid, sid: this.socketId } });
+      { method: 'store', files: [{ path: 'code.rb', data: data.code }], id: { jid, sid: this.socketId } });
     res_data.id = (res_data.id as WorkID).jid;
     if (!res_data.success) {
       this.resultEmitter(res_data);
@@ -53,7 +53,7 @@ export class TaskRuby {
           this.resultEmitter(res_data);
         });
       caller.call(null,
-        { method: 'exec', cmd: 'ruby', args: ['var/code.rb'], stdin: data.stdin, id: { jid, sid: this.socketId } }
+        { method: 'exec', cmd: 'ruby', args: ['code.rb'], stdin: data.stdin, id: { jid, sid: this.socketId } }
       );
       this.handleKill = () => {
         caller.call(null,

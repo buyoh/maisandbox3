@@ -12,6 +12,7 @@ class Executor
   # stdout: String(filepath) or IO(pipe)
   # stderr: String(filepath) or IO(pipe)
   # timeout: Number
+  # chdir: String
   def initialize(args)
     @cmd = args[:cmd]
     @args = args[:args] || []
@@ -19,6 +20,7 @@ class Executor
     @stdout = args[:stdout] || File::NULL
     @stderr = args[:stderr] || File::NULL
     @timeout = args[:timeout] || 10
+    @chdir = args[:chdir]
     raise ArgumentError unless @cmd
 
     @status = nil
@@ -38,10 +40,16 @@ class Executor
     # execute command
     pid = fork do
       # 実行ユーザ変更の機能追加を考慮してspawnでは無い
-      exec(@cmd, *@args,
-           in: @stdin,
-           out: @stdout,
-           err: @stderr)
+      h = {
+        in: @stdin,
+        out: @stdout,
+        err: @stderr
+      }
+      h[:chdir] = @chdir if @chdir
+      exec(@cmd, *@args, h)
+    rescue StandardError
+      exit 127
+    ensure
     end
 
     t1 = nil

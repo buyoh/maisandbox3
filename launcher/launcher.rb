@@ -50,6 +50,8 @@ class AppLauncher
       reciever = ALReciever.new(socket)
 
       reciever.handle do |json_line, reporter, local_storage|
+        # note: ノンブロッキングで書く必要がある。TaskStoreがかなり怪しいが
+        # ノンブロッキングで書くか、thread + chdir禁止か。forkはメモリを簡単に共有出来ないのでNG
         case json_line['method']
         when 'store'
           task = ALTaskStore.new

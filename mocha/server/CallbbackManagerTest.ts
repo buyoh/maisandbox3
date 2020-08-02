@@ -1,4 +1,4 @@
-import CallbackManager from '../../app/lib/CallbackManager';
+import CallbackManager from '../../lib/CallbackManager';
 import { assert } from 'chai';
 
 /* eslint-env mocha */

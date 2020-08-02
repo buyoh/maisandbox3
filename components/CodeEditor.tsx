@@ -51,6 +51,10 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
     return this.state.value;
   }
 
+  setValue(value: string) {
+    this.setState(Object.assign({}, this.state, { value }));
+  }
+
   render() {
     return (
       <AceEditor

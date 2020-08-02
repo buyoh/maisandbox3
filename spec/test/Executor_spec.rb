@@ -6,9 +6,10 @@ RSpec.describe Executor do
   it 'blocking execution' do
     r, w = IO.pipe
     e = Executor.new(cmd: 'echo hello', stdout: w)
-    e.execute
+    pid, stat = e.execute
     msg = r.read
     r.close
+    expect(stat.success?).to eq true
     expect(msg.chomp).to eq 'hello'
   end
   it 'blocking execution (io)' do

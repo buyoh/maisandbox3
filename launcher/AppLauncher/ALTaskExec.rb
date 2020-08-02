@@ -16,12 +16,14 @@ class ALTaskExec
       return nil
     end
 
+    exec_chdir = work_directory + '/' + local_storage[:job_id_str]
+
     in_r, in_w = IO.pipe
     out_r, out_w = IO.pipe
     err_r, err_w = IO.pipe
     in_w.print stdin
     in_w.close
-    exe = Executor.new(cmd: command, args: arguments, stdin: in_r, stdout: out_w, stderr: err_w)
+    exe = Executor.new(cmd: command, args: arguments, stdin: in_r, stdout: out_w, stderr: err_w, chdir: exec_chdir)
     pid, = exe.execute(true) do |status|
       # finish
       vlog "do_exec: finish pid=#{pid}"

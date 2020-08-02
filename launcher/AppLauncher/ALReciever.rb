@@ -40,11 +40,20 @@ class ALReciever
 
       # json.idを失わないようにALRecieverで管理する
       # ALRecieverの重要な役割のひとつ
-      id = json_line['id']
-      id_str = JSON.generate(id)
-      # TODO: 削除しないと貯まる
-      # TODO: 無視したいが、攻撃によってidが滅茶苦茶長くなった場合に死ぬ(node側で処理したい)
-      ls = @local_storage_manager[id_str]
+      id = json_line['id'] # task-unique
+      job_id = json_line['id']['jid'] # (client)ビルド→実行のワークフローで共通　KILLも共通
+      socket_id = json_line['id']['sid'] # (server)ページ単位で共通
+      lcm_id =  json_line['id']['lcmid'] # (server)ユーザのアクション単位で共通　KILLは別のアクションなのでlcmidは異なる(launcher callback id)
+
+      id_str = JSON.generate(id).hash.to_s(36)
+      # note: job_idは純粋な連番なので、複数ページを同時に開くだけで衝突する
+      # socket_idを結合してこれを回避する
+      job_id_str = (JSON.generate(job_id) + '_' + JSON.generate(socket_id)).hash.to_s(36)
+      # socket_id = json_line['id']['sid'] # socket-user-unique
+      # TODO: 削除しないと貯まる まじで
+      ls = @local_storage_manager[job_id_str]
+      ls[:id_str] = id_str
+      ls[:job_id_str] = job_id_str
       callback.call(json_line, Reporter.new(@socket, id), ls)
     end
   end
