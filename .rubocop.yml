@@ -1,0 +1,24 @@
+AllCops:
+  Exclude:
+    - 'node_modules/**/*'
+    - '.next/**/*'
+    - 'var/**/*'
+    - 'build/**/*'
+
+AsciiComments:
+  Enabled: false
+
+Style/StderrPuts:
+  Enabled: false
+
+Lint/UselessAssignment:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Naming/FileName:
+  Enabled: false
