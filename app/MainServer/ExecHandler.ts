@@ -1,6 +1,6 @@
-import CallbackManager from "../../lib/CallbackManager";
-import { TaskFactory } from "./task/TaskFactory";
-import { Query } from "../../lib/type";
+import CallbackManager from '../../lib/CallbackManager';
+import { TaskFactory } from './task/TaskFactory';
+import { Query } from '../../lib/type';
 
 type ExecHandlerState = {
   tasks: { [key: string]: any };
@@ -18,7 +18,7 @@ export class ExecHandler {
     this.launcherCallbackManager = launcherCallbackManager;
   }
 
-  handle(query: Query, resultEmitter: (data: any) => void) {
+  handle(query: Query, resultEmitter: (data: any) => void): void {
     const jobIdStr = JSON.stringify(query.id);
     const data = query.data;
     if (data.action == 'run') {

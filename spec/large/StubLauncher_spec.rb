@@ -18,7 +18,27 @@ RSpec.describe Executor do
       din = JSON.generate(
         { 'method' => 'store',
           'files' => [
-            { 'path' => 'code.cpp', 'data' => "#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n  vector<int> vec;\n  int n; cin >> n;\n  for (int i = 0; i < n; ++i) {\n    int x; cin >> x;\n    vec.push_back(x);\n  }\n  sort(vec.begin(), vec.end());\n  for (int i = 0; i < n; ++i) {\n    cout << vec[i] << ' ';\n  }\n  cout << endl;\n  return 0;\n}" }
+            { 'path' => 'code.cpp',
+              'data' => <<~'CODE_CPP_EOS'
+                #include <bits/stdc++.h>
+                using namespace std;
+                
+                int main() {
+                  vector<int> vec;
+                  int n; cin >> n;
+                  for (int i = 0; i < n; ++i) {
+                    int x; cin >> x;
+                    vec.push_back(x);
+                  }
+                  sort(vec.begin(), vec.end());
+                  for (int i = 0; i < n; ++i) {
+                    cout << vec[i] << ' ';
+                  }
+                  cout << endl;
+                  return 0;
+                }
+              CODE_CPP_EOS
+}
           ],
           'id' => {
             'jid' => { 'clicmid' => 1 }, # (client)ビルド→実行のワークフローで共通　KILLも共通
@@ -27,7 +47,8 @@ RSpec.describe Executor do
           } }
       )
       phase += 1
-      w.puts din; w.flush
+      w.puts din
+      w.flush
 
       # phase 2: compile
       msg = r2s_queue.pop # block thread
@@ -40,7 +61,8 @@ RSpec.describe Executor do
           'id' => { 'jid' => { 'clicmid' => 1 }, 'sid' => 'socketio', 'lcmid' => 2 } }
       )
       phase += 1
-      w.puts din; w.flush
+      w.puts din
+      w.flush
 
       # phase 5: run
       msg = r2s_queue.pop # block thread
@@ -54,7 +76,8 @@ RSpec.describe Executor do
           'id' => { 'jid' => { 'clicmid' => 1 }, 'sid' => 'socketio', 'lcmid' => 3 } }
       )
       phase += 1
-      w.puts din; w.flush
+      w.puts din
+      w.flush
     end
 
     # reciever
@@ -76,7 +99,7 @@ RSpec.describe Executor do
       expect(phase).to eq 3
       expect(json['success']).to eq true
       expect(json['continue']).to eq true
-      taskid = json['taskid']
+      _taskid = json['taskid']
       expect(json['result']['exited']).to eq false
       expect(json['id']).to eq({ 'jid' => { 'clicmid' => 1 }, 'sid' => 'socketio', 'lcmid' => 2 })
       phase += 1
@@ -100,7 +123,7 @@ RSpec.describe Executor do
       expect(phase).to eq 6
       expect(json['success']).to eq true
       expect(json['continue']).to eq true
-      taskid = json['taskid'] # 上と同じtaskidで良いのか？
+      _taskid = json['taskid'] # 上と同じtaskidで良いのか？
       expect(json['result']['exited']).to eq false
       expect(json['id']).to eq({ 'jid' => { 'clicmid' => 1 }, 'sid' => 'socketio', 'lcmid' => 3 })
       phase += 1

@@ -25,7 +25,7 @@ class ALReciever
   end
 
   def handle(&callback)
-    while raw_line = @socket.gets
+    while (raw_line = @socket.gets)
       # note: dont forget "\n"
       # note: block each line
       raw_line = raw_line.chomp
@@ -43,7 +43,7 @@ class ALReciever
       id = json_line['id'] # task-unique
       job_id = json_line['id']['jid'] # (client)ビルド→実行のワークフローで共通　KILLも共通
       socket_id = json_line['id']['sid'] # (server)ページ単位で共通
-      lcm_id =  json_line['id']['lcmid'] # (server)ユーザのアクション単位で共通　KILLは別のアクションなのでlcmidは異なる(launcher callback id)
+      _lcm_id = json_line['id']['lcmid'] # (server)ユーザのアクション単位で共通　KILLは別のアクションなのでlcmidは異なる(launcher callback id)
 
       id_str = JSON.generate(id).hash.to_s(36)
       # note: job_idは純粋な連番なので、複数ページを同時に開くだけで衝突する

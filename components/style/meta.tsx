@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Head from 'next/head';
 
 export default () => {
   return (
@@ -6,5 +6,5 @@ export default () => {
       <title>maisandbox</title>
       <link rel="icon" href="/icons/787_me_f.svg" />
     </Head>
-  )
-}
+  );
+};

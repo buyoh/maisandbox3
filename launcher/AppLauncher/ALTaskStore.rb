@@ -7,6 +7,15 @@ require_relative 'ALTask'
 class ALTaskStore
   include ALTask
 
+  def check_valid_filequery(files)
+    files.none? do |file|
+      path = file['path']
+      data = file['data']
+      path.nil? || data.empty? || path.start_with?('/') || path.include?('..')
+    end
+  end
+  private :check_valid_filequery
+
   def action(param, reporter, local_storage)
     files = param['files']
     if files.nil? || !files.is_a?(Array)
@@ -15,12 +24,8 @@ class ALTaskStore
     end
 
     # check param
-    if files.any? do |file|
-         path = file['path']
-         data = file['data']
-         path.nil? || data.empty? || path.start_with?('/') || path.include?('..')
-       end
-      report_failed reporter, 'invalid filename ' + path.to_s
+    unless check_valid_filequery(files)
+      report_failed reporter, 'invalid files'
       return nil
     end
 

@@ -1,6 +1,5 @@
 import ChildProcess from 'child_process';
 import net from 'net';
-import { runInThisContext } from 'vm';
 
 const UseChildProcess = true;  // false
 const UnixSocketPath = '/tmp/maisandbox3.sock';
@@ -11,7 +10,7 @@ export class LauncherSocket {
   private netSocket: net.Socket;
   private bufferStdout: string;
 
-  private callbacks: { close: Array<any>, recieve: Array<any> };  // close, recieve
+  private callbacks: { close: Array<(code: number, signal: NodeJS.Signals) => void>, recieve: Array<(data: string) => void> };  // close, recieve
 
   constructor() {
     this.process = null;
@@ -23,13 +22,13 @@ export class LauncherSocket {
     };
   }
 
-  private handleClose(code, signal): void {
-    for (let c of this.callbacks.close)
+  private handleClose(code: number, signal: NodeJS.Signals): void {
+    for (const c of this.callbacks.close)
       c(code, signal);
   }
 
   private handleRecieve(str: string): void {
-    const li = str.split("\n");
+    const li = str.split('\n');
     if (li.length === 1) {
       // no breaks
       this.bufferStdout += li[0];
@@ -39,7 +38,7 @@ export class LauncherSocket {
       this.handleRecieveLine(this.bufferStdout + head);
       const tail = li.pop();
       this.bufferStdout = tail;
-      for (let line of li) {
+      for (const line of li) {
         this.handleRecieveLine(line);
       }
     }
@@ -52,10 +51,10 @@ export class LauncherSocket {
     }
     catch (e) {
       // TODO: rescue exception
-      console.error("LauncherSocket.handleRecieveLine: failed parse json", e);
+      console.error('LauncherSocket.handleRecieveLine: failed parse json', e);
       return;
     }
-    for (let c of this.callbacks['recieve'])
+    for (const c of this.callbacks['recieve'])
       c(j);
   }
 
@@ -84,7 +83,7 @@ export class LauncherSocket {
   }
 
   private writeChildProcess(str: string): void {
-    this.process.stdin.write(str.trimEnd() + "\n", () => { /* flushed */ });
+    this.process.stdin.write(str.trimEnd() + '\n', () => { /* flushed */ });
   }
 
   //
@@ -109,7 +108,7 @@ export class LauncherSocket {
   }
 
   private writeSocket(str: string): void {
-    this.netSocket.write(str.trimEnd() + "\n", () => { /* flushed */ });
+    this.netSocket.write(str.trimEnd() + '\n', () => { /* flushed */ });
   }
 
   //
@@ -126,7 +125,7 @@ export class LauncherSocket {
     return UseChildProcess ? this.isAliveChildProcess() : this.isAliveSocket();
   }
 
-  send(data: Object): boolean {
+  send(data: {}): boolean {
     if (!this.isAlive())
       return false;
     const j = JSON.stringify(data);

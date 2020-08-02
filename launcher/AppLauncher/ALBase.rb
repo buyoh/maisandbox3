@@ -15,10 +15,10 @@ module ALBase
   end
 
   def vlog(str)
-    if @@verbose
-      @@mutex_stderr.synchronize do
-        STDERR.puts str
-      end
+    return unless @@verbose
+
+    @@mutex_stderr.synchronize do
+      STDERR.puts str
     end
   end
 end

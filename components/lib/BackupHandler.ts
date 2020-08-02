@@ -25,7 +25,7 @@ export class BackupHandler {
     localStorage.setItem('msb3_backup', j);
   }
 
-  handlePull() {
+  handlePull(): void {
     const data = this.pullBackupData();
     if (!data) return;
     for (const key in this.serializers) {
@@ -35,7 +35,7 @@ export class BackupHandler {
     }
   }
 
-  handlePush() {
+  handlePush(): void {
     let data = this.pullBackupData();
     if (!data) data = {};
     for (const key in this.serializers) {
@@ -48,7 +48,7 @@ export class BackupHandler {
     this.pushBackupData(data);
   }
 
-  addSerializer(uniqueKey: string, serializer: AnySerializer, deserializer: AnyDeserializer) {
+  addSerializer(uniqueKey: string, serializer: AnySerializer, deserializer: AnyDeserializer): void {
     this.serializers[uniqueKey] = { serializer, deserializer };
   }
 }

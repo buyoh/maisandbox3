@@ -4,6 +4,7 @@ require_root 'launcher/AppLauncher/ALBase'
 require_root 'launcher/AppLauncher/ALTask'
 require_root 'launcher/AppLauncher/ALSocket'
 require_root 'launcher/AppLauncher/ALReciever'
+require_root 'launcher/AppLauncher/ALAllTasks'
 
 class StubLauncher
   include ALBase

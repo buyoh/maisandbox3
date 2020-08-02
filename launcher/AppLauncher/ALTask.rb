@@ -10,7 +10,3 @@ module ALTask
     reporter.report({ success: false, error: err })
   end
 end
-
-require_relative 'ALTaskExec'
-require_relative 'ALTaskKill'
-require_relative 'ALTaskStore'

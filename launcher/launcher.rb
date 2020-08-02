@@ -10,6 +10,8 @@ require_relative 'AppLauncher/ALTask'
 require_relative 'AppLauncher/ALSocket'
 require_relative 'AppLauncher/ALReciever'
 
+require_relative 'AppLauncher/ALAllTasks'
+
 class AppLauncher
   include ALBase
 
@@ -17,14 +19,16 @@ class AppLauncher
     @config = { ipc: :stdio, loop: false, sockpath: nil }
     opts = OptionParser.new
     opts.on('--stdio') { @config[:ipc] = :stdio }
-    opts.on('--unixsocket path') { |path| @config[:ipc] = :unix; @config[:sockpath] = path }
+    opts.on('--unixsocket path') do |path|
+      @config[:ipc] = :unix
+      @config[:sockpath] = path
+    end
     opts.on('--loop') { @config[:loop] = true }
     opts.parse!(ARGV)
   end
 
   def main
     case @config[:ipc]
-    when :stdio
     when :unix
       File.unlink @config[:sockpath] if File.exist? @config[:sockpath]
       @unix_server = UNIXServer.new(@config[:sockpath])
@@ -69,7 +73,6 @@ class AppLauncher
       end
 
       case @config[:ipc]
-      when :stdio
       when :unix
         unix_socket.close
       end

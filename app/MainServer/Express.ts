@@ -1,5 +1,5 @@
-import Http from "http";
-import Express from "express";
+import Http from 'http';
+import Express from 'express';
 
 type Handler = (req: Http.IncomingMessage, res: Http.ServerResponse) => Promise<void>;
 
@@ -9,7 +9,7 @@ export function setupExpressServer(pageHandler: Handler, port = 3030): [Express.
   const httpServer = Http.createServer(appExpress);
 
   // express binding
-  appExpress.all("*", (req: Express.Request, res: Express.Response) => {
+  appExpress.all('*', (req: Express.Request, res: Express.Response) => {
     if (req.path.includes('sushi')) {
       return res.json({ name: 'maguro' });
     }

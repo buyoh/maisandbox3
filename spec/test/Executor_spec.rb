@@ -6,7 +6,7 @@ RSpec.describe Executor do
   it 'blocking execution' do
     r, w = IO.pipe
     e = Executor.new(cmd: 'echo hello', stdout: w)
-    pid, stat = e.execute
+    _pid, stat = e.execute
     msg = r.read
     r.close
     expect(stat.success?).to eq true
@@ -38,7 +38,7 @@ RSpec.describe Executor do
     t = Time.now
     e = Executor.new(cmd: 'sleep 5', timeout: 0.2)
     diff = Time.now - t
-    pid, stat = e.execute
+    _pid, stat = e.execute
     expect(stat).to eq nil
     expect(diff).to be < 1
   end

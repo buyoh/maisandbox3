@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 
 import SocketIOClient from 'socket.io-client';
 
 import Meta from '../components/style/meta';
 import Header from '../components/Header';
 
-import CodeEditorShell from '../components/CodeEditorShell'
+import CodeEditorShell from '../components/CodeEditorShell';
 import StaticIOShell from '../components/StaticIOShell';
-import { ClientSocket } from "../components/lib/ClientSocket";
+import { ClientSocket } from '../components/lib/ClientSocket';
 
 // const RowFlexStyle: CSSProperties = {
 //   display: 'flex',
@@ -63,13 +63,13 @@ export default class extends React.Component<{}, IndexState> {
   }
 
   componentDidMount() {
-    window.addEventListener("beforeunload", this.handleUnload);
+    window.addEventListener('beforeunload', this.handleUnload);
     this.handleLoad();
     this.backupIntervalTimerId = window.setInterval(this.handleIntervalBackup, 60 * 1000);
   }
 
   componentWillUnmount() {
-    window.removeEventListener("beforeunload", this.handleUnload);
+    window.removeEventListener('beforeunload', this.handleUnload);
     window.clearInterval(this.backupIntervalTimerId);
   }
 
@@ -140,6 +140,6 @@ export default class extends React.Component<{}, IndexState> {
           </div>
         </main>
       </div>
-    )
+    );
   }
 }

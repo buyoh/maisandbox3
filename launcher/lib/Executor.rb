@@ -49,7 +49,6 @@ class Executor
       exec(@cmd, *@args, h)
     rescue StandardError
       exit 127
-    ensure
     end
 
     t1 = nil
