@@ -14,7 +14,7 @@ class LangSettingsCpp extends React.Component<LangSettingsCppProps, {}> {
 
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div className="flex_row">
         <div className="flex_elem_fix">
@@ -30,8 +30,7 @@ class LangSettingsCpp extends React.Component<LangSettingsCppProps, {}> {
           />
         </div>
       </div >
-    )// +lang-specified settings
-    // +load-store 
+    );
   }
 }
 

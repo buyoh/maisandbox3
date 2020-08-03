@@ -1,5 +1,4 @@
-import React from "react";
-// import { CSSProperties } from 'react';
+import React from 'react';
 
 type TextAreaProps = {
   value?: string,
@@ -15,7 +14,7 @@ class TextArea extends React.Component<TextAreaProps, TextAreaState> {
     super(props);
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div style={{ display: 'flex' }}>
         <textarea
@@ -30,7 +29,7 @@ class TextArea extends React.Component<TextAreaProps, TextAreaState> {
           value={this.props.value}
         />
       </div>
-    )
+    );
   }
 }
 

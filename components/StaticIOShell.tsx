@@ -77,17 +77,17 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
     return this.state.stdin;
   }
 
-  setStdout(value: string) {
+  setStdout(value: string): void {
     this.setState(Object.assign({}, this.state, { stdout: value }));
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div className="flex_row">
         <div className=".flex_elem_fix">
           <Button onClick={this.handleClickRun} >run</Button>
           <Button onClick={this.handleClickKill} >kill</Button>
-          <StatusBadge color={"light"}>{this.state.statusText}</StatusBadge>
+          <StatusBadge color={'light'}>{this.state.statusText}</StatusBadge>
         </div>
         <div className="flex_elem border">
           <TextArea value={this.state.stdin}
@@ -99,7 +99,7 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
             onChange={(txt) => (this.setState(Object.assign({}, this.state, { stdout: txt })))} />
         </div>
       </div>
-    )
+    );
   }
 }
 

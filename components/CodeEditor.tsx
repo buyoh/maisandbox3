@@ -1,21 +1,21 @@
-import React from "react";
-import AceEditor from "react-ace";
+import React from 'react';
+import AceEditor from 'react-ace';
 
-import "ace-builds/src-min-noconflict/mode-c_cpp";
-import "ace-builds/src-min-noconflict/mode-python";
-import "ace-builds/src-min-noconflict/mode-ruby";
+import 'ace-builds/src-min-noconflict/mode-c_cpp';
+import 'ace-builds/src-min-noconflict/mode-python';
+import 'ace-builds/src-min-noconflict/mode-ruby';
 
-import "ace-builds/src-noconflict/snippets/c_cpp";
-import "ace-builds/src-noconflict/snippets/python";
-import "ace-builds/src-noconflict/snippets/ruby";
+import 'ace-builds/src-noconflict/snippets/c_cpp';
+import 'ace-builds/src-noconflict/snippets/python';
+import 'ace-builds/src-noconflict/snippets/ruby';
 
-import "ace-builds/src-min-noconflict/theme-monokai";
+import 'ace-builds/src-min-noconflict/theme-monokai';
 
-import "ace-builds/src-min-noconflict/ext-language_tools";
-import "ace-builds/src-min-noconflict/ext-whitespace"; // ??
-import "ace-builds/src-min-noconflict/ext-beautify"; // ??
-import "ace-builds/src-min-noconflict/ext-options"; // ??
-// import "ace-builds/src-min-noconflict/ext-emmet";
+import 'ace-builds/src-min-noconflict/ext-language_tools';
+import 'ace-builds/src-min-noconflict/ext-whitespace'; // ??
+import 'ace-builds/src-min-noconflict/ext-beautify'; // ??
+import 'ace-builds/src-min-noconflict/ext-options'; // ??
+// import 'ace-builds/src-min-noconflict/ext-emmet';
 
 type CodeEditorProps = {
   lang: string
@@ -26,13 +26,8 @@ type CodeEditorState = {
   value: string;
 }
 
-// import "ace-builds/src-noconflict/mode-c_cpp";
-// import "ace-builds/src-noconflict/theme-github";
-
-// <AceEditor
-// mode="c_cpp"
-// theme="monokai"
-// />
+// import 'ace-builds/src-noconflict/mode-c_cpp';
+// import 'ace-builds/src-noconflict/theme-github';
 
 
 class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
@@ -51,11 +46,11 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
     return this.state.value;
   }
 
-  setValue(value: string) {
+  setValue(value: string): void {
     this.setState(Object.assign({}, this.state, { value }));
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <AceEditor
         mode={this.props.lang}
@@ -83,7 +78,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
         onChange={this.handleOnChange}
 
       />
-    )
+    );
   }
 }
 

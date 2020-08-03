@@ -29,6 +29,7 @@ class AppLauncher
 
   def main
     case @config[:ipc]
+    when :stdio
     when :unix
       File.unlink @config[:sockpath] if File.exist? @config[:sockpath]
       @unix_server = UNIXServer.new(@config[:sockpath])

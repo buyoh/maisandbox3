@@ -1,7 +1,5 @@
 import React from 'react';
 
-import SelectBox from './SelectBox';
-import LangSettingsCpp from './LangSettingsCpp';
 import Button from './Button';
 
 type TemplateLoaderPanelProps = {
@@ -16,7 +14,7 @@ class TemplateLoaderPanel extends React.Component<TemplateLoaderPanelProps, {}> 
 
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div className="flex_row">
         <div className="flex_elem">
@@ -26,7 +24,7 @@ class TemplateLoaderPanel extends React.Component<TemplateLoaderPanelProps, {}> 
           <Button onClick={this.props.onClickPush}>▲</Button>
         </div>
       </div>
-    )
+    );
   }
 }
 

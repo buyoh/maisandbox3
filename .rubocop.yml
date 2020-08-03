@@ -46,3 +46,6 @@ Metrics/PerceivedComplexity:
 
 Style/ClassVars:
   Enabled: false
+
+Lint/EmptyWhen:
+  Enabled: false

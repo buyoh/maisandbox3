@@ -1,6 +1,6 @@
 import Head from 'next/head';
 
-export default () => {
+export default (): JSX.Element => {
   return (
     <Head>
       <title>maisandbox</title>

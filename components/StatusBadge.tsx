@@ -1,5 +1,4 @@
-import React from "react";
-// import { CSSProperties } from 'react';
+import React from 'react';
 
 type StatusBadgeProps = {
   color: string
@@ -14,7 +13,7 @@ class StatusBadge extends React.Component<StatusBadgeProps, StatusBadgeState> {
     super(props);
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div
         className={'color-' + this.props.color}
@@ -26,7 +25,7 @@ class StatusBadge extends React.Component<StatusBadgeProps, StatusBadgeState> {
       >
         {this.props.children}
       </div>
-    )
+    );
   }
 }
 

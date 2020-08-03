@@ -1,5 +1,4 @@
-import React from "react";
-// import { CSSProperties } from 'react';
+import React from 'react';
 
 type ButtonProps = {
   disable?: boolean,
@@ -15,7 +14,7 @@ class Button extends React.Component<ButtonProps, ButtonState> {
     super(props);
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div>
         <button
@@ -26,7 +25,7 @@ class Button extends React.Component<ButtonProps, ButtonState> {
           onClick={(e) => (this.props.onClick())}
         >{this.props.children}</button>
       </div>
-    )
+    );
   }
 }
 

@@ -11,7 +11,7 @@ function renderOptionItem(item: { key: string, label: string }) {
   const { key, label } = item;
   return (
     <option value={key} key={key}>{label}</option>
-  )
+  );
 }
 
 class SelectBox extends React.Component<SelectBoxProps, {}> {
@@ -26,7 +26,7 @@ class SelectBox extends React.Component<SelectBoxProps, {}> {
     this.props.onChange?.call(null, val);
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div style={{ display: 'flex' }}>
         <select
@@ -39,7 +39,7 @@ class SelectBox extends React.Component<SelectBoxProps, {}> {
           onChange={this.handleChange}
         >{this.props.items?.map(renderOptionItem)}</select>
       </div>
-    )
+    );
   }
 }
 

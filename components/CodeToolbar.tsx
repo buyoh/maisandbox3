@@ -17,7 +17,7 @@ class CodeToolbar extends React.Component<CodeToolbarProps, {}> {
     this.state = {};
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div className="flex_row">
         <div className="flex_elem">
@@ -30,19 +30,18 @@ class CodeToolbar extends React.Component<CodeToolbarProps, {}> {
             onChange={this.props.onLangChange}
           />
         </div>
-        {/* {(this.props.lang == 'cpp') &&
+        {(this.props.lang == 'cpp') &&
           <div className="flex_elem_fix">
             <LangSettingsCpp std={'c++17'} />
           </div>
-        } */}
+        }
         <div className="flex_elem_fix">
           <TemplateLoaderPanelProps
             onClickPull={this.props.onClickPull}
             onClickPush={this.props.onClickPush} />
         </div>
       </div>
-    )// +lang-specified settings
-    // +load-store 
+    );
   }
 }
 

@@ -1,14 +1,14 @@
 import React from 'react';
 
-import CodeToolbar from './CodeToolbar'
-import CodeEditor from './CodeEditor'
+import CodeToolbar from './CodeToolbar';
+import CodeEditor from './CodeEditor';
 import { pullFromLocalStorage, pushToLocalStorage } from './lib/LocalStorage';
 
 const converterKey2Style = {
   cpp: 'c_cpp',
   ruby: 'ruby',
   python: 'python'
-}
+};
 
 type CodeEditorShellSerialized = {
   code: string,
@@ -61,7 +61,7 @@ class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorSh
     return this.getAllValue();
   }
 
-  deserialize(data: CodeEditorShellSerialized) {
+  deserialize(data: CodeEditorShellSerialized): void {
     this.setCode(data.code);
     this.setLang(data.lang);
   }
@@ -91,7 +91,7 @@ class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorSh
     pushToLocalStorage('templates', li);
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div>
         <div>
@@ -109,7 +109,7 @@ class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorSh
           />
         </div>
       </div>
-    )
+    );
   }
 }
 
