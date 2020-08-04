@@ -2,7 +2,7 @@ import React from 'react';
 
 import TextArea from './Textarea';
 import Button from './Button';
-import StatusBadge from './StatusBadge';
+import StatusBar from './StatusBar';
 
 type StaticIOShellProps = {
   onNeedEmitter: (callback: (data: any) => void) => (data: any) => void
@@ -11,7 +11,7 @@ type StaticIOShellProps = {
 type StaticIOShellStatus = {
   stdin: string,
   stdout: string,
-  statusText: string
+  statuses: Array<{ text: string, color: string }>
 }
 
 class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellStatus> {
@@ -23,7 +23,7 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
     this.state = {
       stdin: '',
       stdout: '',
-      statusText: 'ready',
+      statuses: [{ text: 'ready', color: 'light' }],
     };
 
     this.emitter = null;
@@ -33,6 +33,7 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
   }
 
   private generateJobRun() {
+    this.clearStatus();
     return { action: 'run', stdin: this.state.stdin };
   }
 
@@ -50,16 +51,24 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
         }
         out += data.result.out || '';
         this.setStdout(out);
-        this.setState(Object.assign({}, this.state, { statusText: 'exited' }));
+        this.addStatus('exited');
         this.emitter = null;
       }
       else {
-        this.setState(Object.assign({}, this.state, { statusText: 'running' }));
+        this.addStatus('running');
       }
     }
     else {
       // e.g. kill callback
     }
+  }
+
+  private addStatus(text: string, color = 'light') {
+    this.setState(Object.assign({}, this.state, { statuses: [{ text, color }].concat(this.state.statuses) }));
+  }
+
+  private clearStatus() {
+    this.setState(Object.assign({}, this.state, { statuses: [] }));
   }
 
   private handleClickRun() {
@@ -83,20 +92,28 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
 
   render(): JSX.Element {
     return (
-      <div className="flex_row">
-        <div className=".flex_elem_fix">
-          <Button onClick={this.handleClickRun} >run</Button>
-          <Button onClick={this.handleClickKill} >kill</Button>
-          <StatusBadge color={'light'}>{this.state.statusText}</StatusBadge>
+      <div className="flex_cols">
+        <div className="flex_elem flex_row">
+          <div className="flex_elem_fix flex_cols">
+            <div className="flex_elem_fix">
+              <Button onClick={this.handleClickRun} >run</Button>
+            </div>
+            <div className="flex_elem_fix">
+              <Button onClick={this.handleClickKill} >kill</Button>
+            </div>
+          </div>
+          <div className="flex_elem border">
+            <TextArea value={this.state.stdin}
+              onChange={(txt) => (this.setState(Object.assign({}, this.state, { stdin: txt })))}
+            />
+          </div>
+          <div className="flex_elem border">
+            <TextArea value={this.state.stdout}
+              onChange={(txt) => (this.setState(Object.assign({}, this.state, { stdout: txt })))} />
+          </div>
         </div>
-        <div className="flex_elem border">
-          <TextArea value={this.state.stdin}
-            onChange={(txt) => (this.setState(Object.assign({}, this.state, { stdin: txt })))}
-          />
-        </div>
-        <div className="flex_elem border">
-          <TextArea value={this.state.stdout}
-            onChange={(txt) => (this.setState(Object.assign({}, this.state, { stdout: txt })))} />
+        <div className="flex_elem_fix">
+          <StatusBar values={this.state.statuses}></StatusBar>
         </div>
       </div>
     );

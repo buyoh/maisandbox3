@@ -18,10 +18,10 @@ class TemplateLoaderPanel extends React.Component<TemplateLoaderPanelProps, {}> 
     return (
       <div className="flex_row">
         <div className="flex_elem">
-          <Button onClick={this.props.onClickPull}>▼</Button>
+          <Button onClick={this.props.onClickPush}>▲</Button>
         </div>
         <div className="flex_elem">
-          <Button onClick={this.props.onClickPush}>▲</Button>
+          <Button onClick={this.props.onClickPull}>▼</Button>
         </div>
       </div>
     );

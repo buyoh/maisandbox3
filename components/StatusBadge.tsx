@@ -19,8 +19,9 @@ class StatusBadge extends React.Component<StatusBadgeProps, StatusBadgeState> {
         className={'color-' + this.props.color}
         style={{
           textAlign: 'center',
-          padding: '0.5em 0em',
-          borderRadius: '0.5em'
+          padding: '0.25em 0.5em',
+          borderRadius: '0.5em',
+          marginRight: '0.25em'
         }}
       >
         {this.props.children}

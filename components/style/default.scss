@@ -68,6 +68,11 @@ select {
   flex-direction: row;
 }
 
+.flex_cols {
+  display: flex;
+  flex-direction: column;
+}
+
 .flex_elem {
   flex: 1;
 }
