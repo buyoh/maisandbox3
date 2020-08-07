@@ -81,6 +81,10 @@ select {
   flex: 0;
 }
 
+.flex_elem_shrinkable {
+  flex: 1 auto;
+}
+
 // -----------------------------
 
 .color-light{

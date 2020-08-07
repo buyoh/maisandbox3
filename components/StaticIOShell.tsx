@@ -11,7 +11,9 @@ type StaticIOShellProps = {
 type StaticIOShellStatus = {
   stdin: string,
   stdout: string,
-  statuses: Array<{ text: string, color: string, key: string }>
+  errlog: string,
+  statuses: Array<{ text: string, color: string, key: string }>,
+  visibleErr: boolean
 }
 
 class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellStatus> {
@@ -23,13 +25,16 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
     this.state = {
       stdin: '',
       stdout: '',
+      errlog: '',
       statuses: [{ text: 'ready', color: 'light', key: '' }],
+      visibleErr: false
     };
 
     this.emitter = null;
 
     this.handleClickRun = this.handleClickRun.bind(this);
     this.handleClickKill = this.handleClickKill.bind(this);
+    this.handleClickToggle = this.handleClickToggle.bind(this);
   }
 
   private generateJobRun() {
@@ -45,16 +50,13 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
     let summaryColor = 'gray';
     if (data.result) {
       if (data.result.exited) {
-        let out = '';
         if (data.result.exitstatus !== 0) {
           summaryColor = 'warning';
-          out += data.result.err;
-          out += '==========';
         } else {
           summaryColor = 'success';
         }
-        out += data.result.out || '';
-        this.setStdout(out);
+        this.setStdout(data.result.out || '');
+        this.setErrlog(data.result.err || '');
         this.emitter = null;
       }
     }
@@ -84,12 +86,20 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
     em(this.generateJobKill());
   }
 
+  private handleClickToggle() {
+    this.setState(Object.assign({}, this.state, { visibleErr: !this.state.visibleErr }));
+  }
+
   getStdin(): string {
     return this.state.stdin;
   }
 
   setStdout(value: string): void {
     this.setState(Object.assign({}, this.state, { stdout: value }));
+  }
+
+  setErrlog(value: string): void {
+    this.setState(Object.assign({}, this.state, { errlog: value }));
   }
 
   render(): JSX.Element {
@@ -103,16 +113,29 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
             <div className="flex_elem_fix">
               <Button onClick={this.handleClickKill} >kill</Button>
             </div>
+            <div className="flex_elem_fix">
+              <Button onClick={this.handleClickToggle} >IO/Err</Button>
+            </div>
           </div>
-          <div className="flex_elem border">
-            <TextArea value={this.state.stdin}
-              onChange={(txt) => (this.setState(Object.assign({}, this.state, { stdin: txt })))}
-            />
-          </div>
-          <div className="flex_elem border">
-            <TextArea value={this.state.stdout}
-              onChange={(txt) => (this.setState(Object.assign({}, this.state, { stdout: txt })))} />
-          </div>
+          {
+            this.state.visibleErr ? (
+              <div className="flex_elem flex_row">
+                <div className="flex_elem">
+                  <TextArea placeholder="stderr" value={this.state.errlog} readOnly={true} />
+                </div>
+              </div>
+            ) : (<div className="flex_elem flex_row">
+              <div className="flex_elem_fix">
+                <TextArea placeholder="stdin" value={this.state.stdin}
+                  onChange={(txt) => (this.setState(Object.assign({}, this.state, { stdin: txt })))} />
+              </div>
+              <div className="flex_elem">
+                <TextArea placeholder="stdout" value={this.state.stdout}
+                  onChange={(txt) => (this.setState(Object.assign({}, this.state, { stdout: txt })))} />
+              </div>
+            </div>)
+          }
+
         </div>
         <div className="flex_elem_fix">
           <StatusBar values={this.state.statuses}></StatusBar>

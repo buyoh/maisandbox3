@@ -3,6 +3,8 @@ import React from 'react';
 type TextAreaProps = {
   value?: string,
   onChange?: (string) => void
+  placeholder?: string,
+  readOnly?: boolean
 }
 
 type TextAreaState = {
@@ -25,7 +27,9 @@ class TextArea extends React.Component<TextAreaProps, TextAreaState> {
             height: 'auto',
             flex: '1',
           }}
-          onChange={this.props.onChange ? (e) => (this.props.onChange(e.target.value)) : () => { }}
+          readOnly={this.props.readOnly}
+          placeholder={this.props.placeholder}
+          onChange={this.props.onChange}
           value={this.props.value}
         />
       </div>
