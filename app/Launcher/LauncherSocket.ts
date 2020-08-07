@@ -1,8 +1,9 @@
 import ChildProcess from 'child_process';
 import net from 'net';
+import Config from '../../lib/Config';
 
-const UseChildProcess = true;  // false
-const UnixSocketPath = '/tmp/maisandbox3.sock';
+const UseChildProcess = Config.useChildProcess;
+const UnixSocketPath = Config.launcherSocketPath;
 
 export class LauncherSocket {
 
@@ -97,6 +98,12 @@ export class LauncherSocket {
     s.on('data', (data) => {
       this.handleRecieve(data.toString());
     });
+    s.on('error', (err) => {
+      console.error('LauncherSocket', err);
+      if (!s.connecting) {
+        this.handleClose(0, null);
+      }
+    });
   }
 
   private stopSocket(): void {
@@ -108,7 +115,7 @@ export class LauncherSocket {
   }
 
   private writeSocket(str: string): void {
-    this.netSocket.write(str.trimEnd() + '\n', () => { /* flushed */ });
+    this.netSocket.write(str.trimEnd() + '\n', () => { console.log('ok');/* flushed */ });
   }
 
   //

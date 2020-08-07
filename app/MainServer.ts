@@ -2,35 +2,20 @@ import Next from 'next';
 
 import { LauncherSocket } from './Launcher/LauncherSocket';
 import CallbackManager from '../lib/CallbackManager';
+import Config from '../lib/Config';
 import { setupExpressServer } from './MainServer/Express';
 import { setupSocketIO, setupSocketIOAndBindHandler } from './MainServer/SocketIO';
+import LauncherHolder from './MainServer/LauncherHolder';
 
-const enableDev = process.env.NODE_ENV !== 'production';
-const appNext = Next({ dev: enableDev });
-const port = parseInt(process.env.PORT || '3030');
+const appNext = Next({ dev: Config.develop });
+const port = Config.httpPort;
 
 (async () => {
   try {
 
     // launcher
-    const launcher = new LauncherSocket();
-    const launcherCallbackManager = new CallbackManager((data) => {
-      launcher.send(data);
-    }, 'lcmid');
-    launcher.on('close', (code) => {
-      if (code == 1) {
-        console.error('launcher has raised exceptions');
-        process.exit(1);
-      }
-      else {
-        console.error('launcher disconnected code=' + code)
-        process.exit(0);
-      }
-    });
-    launcher.on('recieve', (data) => {
-      launcherCallbackManager.handleRecieve(data, !!data.continue);
-    });
-    launcher.start();
+    const launcherHolder = new LauncherHolder(5000);
+    launcherHolder.start();
 
     // appServer
     await appNext.prepare();
@@ -38,11 +23,11 @@ const port = parseInt(process.env.PORT || '3030');
 
     // socketio
     const socketio = setupSocketIO(httpServer);
-    setupSocketIOAndBindHandler(socketio, launcherCallbackManager);
+    setupSocketIOAndBindHandler(socketio, launcherHolder.callbackManager);
 
     // trap
     process.on('SIGINT', () => {
-      launcher.stop();
+      launcherHolder.stop();
       process.exit(0);
     });
 

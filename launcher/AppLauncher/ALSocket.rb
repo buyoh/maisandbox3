@@ -18,8 +18,8 @@ class ALSocket
       vlog 'warning: ALSocket#gets may be called from some threads!'
       return nil
     end
-    line = input.gets
-    vlog '>' + line
+    line = @input.gets
+    vlog '>' + line.to_s
     @mutex_input.unlock
     line
   end
