@@ -11,7 +11,7 @@ type StaticIOShellProps = {
 type StaticIOShellStatus = {
   stdin: string,
   stdout: string,
-  statuses: Array<{ text: string, color: string }>
+  statuses: Array<{ text: string, color: string, key: string }>
 }
 
 class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellStatus> {
@@ -23,7 +23,7 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
     this.state = {
       stdin: '',
       stdout: '',
-      statuses: [{ text: 'ready', color: 'light' }],
+      statuses: [{ text: 'ready', color: 'light', key: '' }],
     };
 
     this.emitter = null;
@@ -42,29 +42,31 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
   }
 
   private recieveResult(data) {
+    let summaryColor = 'gray';
     if (data.result) {
       if (data.result.exited) {
         let out = '';
         if (data.result.exitstatus !== 0) {
+          summaryColor = 'warning';
           out += data.result.err;
           out += '==========';
+        } else {
+          summaryColor = 'success';
         }
         out += data.result.out || '';
         this.setStdout(out);
-        this.addStatus('exited');
         this.emitter = null;
-      }
-      else {
-        this.addStatus('running');
       }
     }
     else {
       // e.g. kill callback
     }
+    if (data.summary)
+      this.addStatus(data.summary, summaryColor);
   }
 
   private addStatus(text: string, color = 'light') {
-    this.setState(Object.assign({}, this.state, { statuses: [{ text, color }].concat(this.state.statuses) }));
+    this.setState(Object.assign({}, this.state, { statuses: [{ text, color, key: Math.random().toString() }].concat(this.state.statuses) }));
   }
 
   private clearStatus() {

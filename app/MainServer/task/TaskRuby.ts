@@ -31,6 +31,9 @@ export class TaskRuby {
       this.resultEmitter(res_data);
       return await asyncError('launcher failed: method=store: ' + res_data.error);
     }
+    res_data.continue = true;
+    res_data.summary = 'store: ok';
+    this.resultEmitter(res_data);
   }
 
   private phase2(data: QueryData, jid: JobID) {
@@ -43,12 +46,17 @@ export class TaskRuby {
             this.finalize();
             this.handleKill = null;
             if (res_data.success) {
+              res_data.summary = 'run: ok';
               resolve();
             } else {
+              res_data.summary = 'run: error';
               // note: NOT runtime error (it means rejected a bad query)
               console.error('launcher failed: method=exec: ', res_data.error);
               reject();
             }
+          }
+          else {
+            res_data.summary = 'run: running';
           }
           this.resultEmitter(res_data);
         });

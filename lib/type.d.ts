@@ -46,4 +46,5 @@ export interface Result {
   continue?: boolean,
   result: SubResult | SubResultExec
   error?: string,
+  summary?: string,
 }

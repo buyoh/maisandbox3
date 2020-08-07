@@ -1,7 +1,7 @@
 import React from 'react';
 import StatusBadge from './StatusBadge';
 
-type Item = { color: string, text: string };
+type Item = { color: string, text: string, key: string };
 
 type StatusBarProps = {
   values: Array<Item>
@@ -12,7 +12,7 @@ type StatusBarState = {
 
 function generateJSXFromItem(item: Item): JSX.Element {
   return (
-    <div className="flex_elem_fix">
+    <div className="flex_elem_fix" key={item.key}>
       <StatusBadge color={item.color}>{item.text}</StatusBadge>
     </div>
   );
