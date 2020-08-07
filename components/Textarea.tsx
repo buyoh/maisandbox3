@@ -18,21 +18,20 @@ class TextArea extends React.Component<TextAreaProps, TextAreaState> {
 
   render(): JSX.Element {
     return (
-      <div style={{ display: 'flex' }}>
-        <textarea
-          rows={8}
-          style={{
-            display: 'block',
-            width: 'auto',
-            height: 'auto',
-            flex: '1',
-          }}
-          readOnly={this.props.readOnly}
-          placeholder={this.props.placeholder}
-          onChange={this.props.onChange}
-          value={this.props.value}
-        />
-      </div>
+      <textarea
+        rows={8}
+        style={{
+          display: 'block',
+          width: 'auto',
+          height: 'auto',
+          flex: '1', // <<< BAD
+          resize: 'none'
+        }}
+        readOnly={this.props.readOnly}
+        placeholder={this.props.placeholder}
+        onChange={this.props.onChange}
+        value={this.props.value}
+      />
     );
   }
 }

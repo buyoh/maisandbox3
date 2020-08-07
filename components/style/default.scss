@@ -74,15 +74,11 @@ select {
 }
 
 .flex_elem {
-  flex: 1;
+  flex: 1 1 auto;
 }
 
 .flex_elem_fix {
-  flex: 0;
-}
-
-.flex_elem_shrinkable {
-  flex: 1 auto;
+  flex: 0 0 auto;
 }
 
 // -----------------------------
