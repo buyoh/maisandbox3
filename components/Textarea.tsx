@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
 type TextAreaProps = {
   value?: string,
@@ -14,6 +14,11 @@ type TextAreaState = {
 class TextArea extends React.Component<TextAreaProps, TextAreaState> {
   constructor(props: TextAreaProps) {
     super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  private handleChange(e: ChangeEvent<HTMLTextAreaElement>) {
+    this.props.onChange?.(e.target.value);
   }
 
   render(): JSX.Element {
@@ -29,7 +34,7 @@ class TextArea extends React.Component<TextAreaProps, TextAreaState> {
         }}
         readOnly={this.props.readOnly}
         placeholder={this.props.placeholder}
-        onChange={this.props.onChange}
+        onChange={this.handleChange}
         value={this.props.value}
       />
     );
