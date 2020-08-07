@@ -23,7 +23,7 @@ export class TaskRuby {
     this.handleKill?.call(this);
   }
 
-  private async phase1(data: QueryData, jid: JobID) {
+  private async phase1(data: QueryData, jid: JobID): Promise<boolean> {
     const res_data: Result = await this.launcherCallbackManager.postp(
       { method: 'store', files: [{ path: 'code.rb', data: data.code }], id: { jid, sid: this.socketId } });
     res_data.id = (res_data.id as WorkID).jid;
@@ -34,9 +34,10 @@ export class TaskRuby {
     res_data.continue = true;
     res_data.summary = 'store: ok';
     this.resultEmitter(res_data);
+    return true;
   }
 
-  private phase2(data: QueryData, jid: JobID) {
+  private phase2(data: QueryData, jid: JobID): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const caller = this.launcherCallbackManager.multipost(
         (res_data: Result) => {
@@ -47,7 +48,7 @@ export class TaskRuby {
             this.handleKill = null;
             if (res_data.success) {
               res_data.summary = 'run: ok';
-              resolve();
+              resolve(true);
             } else {
               res_data.summary = 'run: error';
               // note: NOT runtime error (it means rejected a bad query)
@@ -71,11 +72,11 @@ export class TaskRuby {
     });
   }
 
-  async startAsync(data: QueryData, jid: JobID) {
+  async startAsync(data: QueryData, jid: JobID): Promise<void> {
     console.log('task start:' + jid);
     try {
-      await this.phase1(data, jid);
-      await this.phase2(data, jid);
+      await this.phase1(data, jid)
+        && await this.phase2(data, jid);
     } catch (e) {
       console.error(e);
       this.finalize();

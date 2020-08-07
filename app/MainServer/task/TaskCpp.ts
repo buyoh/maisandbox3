@@ -1,5 +1,5 @@
 import CallbackManager from "../../../lib/CallbackManager";
-import { asyncError, ResultEmitter, Runnable } from "./TaskUtil";
+import { ResultEmitter, Runnable } from "./TaskUtil";
 import { QueryData, Result, WorkID, JobID, SubResultExec } from "../../../lib/type";
 
 export class TaskCpp {
@@ -23,20 +23,22 @@ export class TaskCpp {
     this.handleKill?.call(this);
   }
 
-  private async phase1(data: QueryData, jid: JobID) {
+  private async phase1(data: QueryData, jid: JobID): Promise<boolean> {
     const res_data: Result = await this.launcherCallbackManager.postp(
       { method: 'store', files: [{ path: 'code.cpp', data: data.code }], id: { jid, sid: this.socketId } });
     res_data.id = (res_data.id as WorkID).jid;
     if (!res_data.success) {
       this.resultEmitter(res_data);
-      return await asyncError('launcher failed: method=store: ' + res_data.error);
+      console.error('launcher failed: method=store:', res_data.error);
+      return await Promise.reject();
     }
     res_data.continue = true;
     res_data.summary = 'store: ok';
     this.resultEmitter(res_data);
+    return true;
   }
 
-  private phase2(data: QueryData, jid: JobID) {
+  private phase2(data: QueryData, jid: JobID): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.launcherCallbackManager.post(
         { method: 'exec', cmd: 'g++', args: ['-std=c++17', '-O3', '-Wall', '-o', 'prog', 'code.cpp'], stdin: data.stdin, id: { jid, sid: this.socketId } },
@@ -45,7 +47,8 @@ export class TaskCpp {
           res_data.id = (res_data.id as WorkID).jid;
           if (!res_data.success) {
             this.resultEmitter(res_data);
-            return reject(new Error('launcher failed: method=store: ' + res_data.error));
+            console.error('launcher failed: method=compile:', res_data.error);
+            return reject();
           }
           const res = res_data.result as SubResultExec;
           if (res.exited) {
@@ -53,11 +56,11 @@ export class TaskCpp {
               res_data.continue = true;
               res_data.summary = 'compile: ok';
               this.resultEmitter(res_data);
-              return resolve();
+              return resolve(true);
             } else {
               res_data.summary = 'compile: failed';
               this.resultEmitter(res_data);
-              return reject(new Error('compile error'));
+              return resolve(false);
             }
           }
           res_data.summary = 'compile: running';
@@ -73,7 +76,7 @@ export class TaskCpp {
 
   }
 
-  private phase3(data: QueryData, jid: JobID) {
+  private phase3(data: QueryData, jid: JobID): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const caller = this.launcherCallbackManager.multipost(
         (res_data: Result) => {
@@ -84,11 +87,11 @@ export class TaskCpp {
             this.handleKill = null;
             if (res_data.success) {
               res_data.summary = 'run: ok';
-              resolve();
+              resolve(true);
             } else {
               res_data.summary = 'run: error';
               // note: NOT runtime error (it means rejected a bad query)
-              console.error('launcher failed: method=exec: ', res_data.error);
+              console.error('launcher failed: method=exec ', res_data.error);
               reject();
             }
           }
@@ -108,13 +111,13 @@ export class TaskCpp {
     });
   }
 
-  async startAsync(data: QueryData, jid: JobID) {
+  async startAsync(data: QueryData, jid: JobID): Promise<void> {
     try {
-      await this.phase1(data, jid);
-      await this.phase2(data, jid);
-      await this.phase3(data, jid);
+      await this.phase1(data, jid)
+        && await this.phase2(data, jid)
+        && await this.phase3(data, jid);
     } catch (e) {
-      console.error('task failed', e);  // include compile error...
+      console.error('task failed', e);
       this.finalize();
     }
   }
