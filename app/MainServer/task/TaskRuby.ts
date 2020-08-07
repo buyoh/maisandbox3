@@ -1,6 +1,6 @@
-import CallbackManager from "../../../lib/CallbackManager";
-import { asyncError, ResultEmitter, Runnable } from "./TaskUtil";
-import { QueryData, Result, JobID, WorkID } from "../../../lib/type";
+import CallbackManager from '../../../lib/CallbackManager';
+import { asyncError, ResultEmitter, Runnable } from './TaskUtil';
+import { QueryData, Result, JobID, WorkID } from '../../../lib/type';
 
 export class TaskRuby {
 

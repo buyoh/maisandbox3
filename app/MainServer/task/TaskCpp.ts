@@ -1,6 +1,6 @@
-import CallbackManager from "../../../lib/CallbackManager";
-import { ResultEmitter, Runnable } from "./TaskUtil";
-import { QueryData, Result, WorkID, JobID, SubResultExec } from "../../../lib/type";
+import CallbackManager from '../../../lib/CallbackManager';
+import { ResultEmitter, Runnable } from './TaskUtil';
+import { QueryData, Result, WorkID, JobID, SubResultExec } from '../../../lib/type';
 
 export class TaskCpp {
 

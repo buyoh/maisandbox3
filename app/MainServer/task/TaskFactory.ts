@@ -1,7 +1,7 @@
-import CallbackManager from "../../../lib/CallbackManager";
-import { TaskRuby } from "./TaskRuby";
-import { ResultEmitter, Runnable, Task } from "./TaskUtil";
-import { TaskCpp } from "./TaskCpp";
+import CallbackManager from '../../../lib/CallbackManager';
+import { TaskRuby } from './TaskRuby';
+import { ResultEmitter, Runnable, Task } from './TaskUtil';
+import { TaskCpp } from './TaskCpp';
 
 
 export class TaskFactory {

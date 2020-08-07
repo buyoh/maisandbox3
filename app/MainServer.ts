@@ -1,11 +1,11 @@
-import Next from "next";
+import Next from 'next';
 
-import { LauncherSocket } from "./Launcher/LauncherSocket";
-import CallbackManager from "../lib/CallbackManager";
-import { setupExpressServer } from "./MainServer/Express";
-import { setupSocketIO, setupSocketIOAndBindHandler } from "./MainServer/SocketIO";
+import { LauncherSocket } from './Launcher/LauncherSocket';
+import CallbackManager from '../lib/CallbackManager';
+import { setupExpressServer } from './MainServer/Express';
+import { setupSocketIO, setupSocketIOAndBindHandler } from './MainServer/SocketIO';
 
-const enableDev = process.env.NODE_ENV !== "production";
+const enableDev = process.env.NODE_ENV !== 'production';
 const appNext = Next({ dev: enableDev });
 const port = parseInt(process.env.PORT || '3030');
 
@@ -26,7 +26,7 @@ const port = parseInt(process.env.PORT || '3030');
         console.error('launcher disconnected code=' + code)
         process.exit(0);
       }
-    })
+    });
     launcher.on('recieve', (data) => {
       launcherCallbackManager.handleRecieve(data, !!data.continue);
     });
