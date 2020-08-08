@@ -11,20 +11,20 @@ module ALBase
 
   module_function
 
-  def set_verbose(v)
-    @@verbose = v
+  def update_verbose(verbose)
+    @@verbose = verbose
   end
 
   def work_directory
     @@work_directory
   end
 
-  def work_directory=(path)
+  def update_work_directory(path)
     @@work_directory = path
   end
 
   def vlog(str)
-    return unless 1 <= @@verbose
+    return unless @@verbose >= 1
 
     @@mutex_stderr.synchronize do
       STDERR.puts str
@@ -32,7 +32,7 @@ module ALBase
   end
 
   def wlog(str)
-    return unless 0 <= @@silent
+    return unless @@silent >= 0
 
     @@mutex_stderr.synchronize do
       STDERR.puts str

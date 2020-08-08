@@ -41,9 +41,9 @@ class ALReciever
       # json.idを失わないようにALRecieverで管理する
       # ALRecieverの重要な役割のひとつ
       id = json_line['id'] # task-unique
-      job_id = json_line['id']['jid'] # (client)ビルド→実行のワークフローで共通　KILLも共通
-      socket_id = json_line['id']['sid'] # (server)ページ単位で共通
-      _lcm_id = json_line['id']['lcmid'] # (server)ユーザのアクション単位で共通　KILLは別のアクションなのでlcmidは異なる(launcher callback id)
+      job_id = id['jid'] # (client)ビルド→実行のワークフローで共通　KILLも共通
+      socket_id = id['sid'] # (server)ページ単位で共通
+      _lcm_id = id['lcmid'] # (server)ユーザのアクション単位で共通　KILLは別のアクションなのでlcmidは異なる(launcher callback id)
 
       id_str = JSON.generate(id).hash.to_s(36)
       # note: job_idは純粋な連番なので、複数ページを同時に開くだけで衝突する

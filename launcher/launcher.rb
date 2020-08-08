@@ -27,16 +27,16 @@ class AppLauncher
     end
     opts.on('--workdir path') do |path|
       FileUtils.mkdir_p path  unless Dir.exist?(path)
-      work_directory = path
+      update_work_directory path
     end
     opts.on('--verbose') do
-      set_verbose 1
+      update_verbose 1
     end
     opts.on('--quiet') do
-      set_verbose 0
+      update_verbose 0
     end
     opts.on('--silent') do
-      set_verbose(-1)
+      update_verbose(-1)
     end
     opts.on('--loop') { @config[:loop] = true }
     opts.parse!(ARGV)

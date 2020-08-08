@@ -7,6 +7,7 @@
     },
     "extends": [
         "eslint:recommended",
+        "plugin:react/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended"
     ],
@@ -36,6 +37,7 @@
             "always"
         ],
         "@typescript-eslint/ban-types": "off",
-        "@typescript-eslint/no-explicit-any": "off"
+        "@typescript-eslint/no-explicit-any": "off",
+        "react/jsx-uses-vars": "warn"
     }
 }

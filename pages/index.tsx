@@ -45,7 +45,7 @@ export default class extends React.Component<{}, IndexState> {
   private backupIntervalTimerId: number;
   // private backupHandler: BackupHandler;
 
-  constructor(props) {
+  constructor(props: {}) {
     super(props);
     this.state = {
     };
@@ -62,27 +62,27 @@ export default class extends React.Component<{}, IndexState> {
     this.pushBackup = this.pushBackup.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     window.addEventListener('beforeunload', this.handleUnload);
     this.handleLoad();
     this.backupIntervalTimerId = window.setInterval(this.handleIntervalBackup, 60 * 1000);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     window.removeEventListener('beforeunload', this.handleUnload);
     window.clearInterval(this.backupIntervalTimerId);
   }
 
-  private handleLoad() {
+  private handleLoad(): void {
     this.socket = new ClientSocket(SocketIOClient());
     this.pullBackup();
   }
 
-  private handleUnload() {
+  private handleUnload(): void {
     this.pushBackup();
   }
 
-  private handleIntervalBackup() {
+  private handleIntervalBackup(): void {
     this.pushBackup();
   }
 
@@ -123,7 +123,7 @@ export default class extends React.Component<{}, IndexState> {
     return emitter;
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div>
         <Meta />
