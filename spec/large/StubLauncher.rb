@@ -24,7 +24,7 @@ class StubLauncher
   end
 
   def main
-    set_verbose(1)
+    update_verbose(1)
     # socket = ALSocket.new(STDIN, STDOUT)
     socket = ALSocket.new(@iwr, @irw)
 
