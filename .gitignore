@@ -2,6 +2,7 @@
 
 # app
 /var
+/tmp
 
 # dependencies
 /node_modules

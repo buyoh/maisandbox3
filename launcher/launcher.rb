@@ -2,6 +2,7 @@
 
 # 適切な権限に変更して実行する人
 
+require 'fileutils'
 require 'json'
 require 'socket'
 require 'optparse'
@@ -23,6 +24,10 @@ class AppLauncher
       @config[:ipc] = :unix
       @config[:sockpath] = path
     end
+    opts.on('--workdir path') do |path|
+      FileUtils.mkdir_p path  unless Dir.exist?(path)
+      work_directory = path
+    end
     opts.on('--loop') { @config[:loop] = true }
     opts.parse!(ARGV)
   end
@@ -33,6 +38,7 @@ class AppLauncher
     when :unix
       File.unlink @config[:sockpath] if File.exist? @config[:sockpath]
       @unix_server = UNIXServer.new(@config[:sockpath])
+      system "chmod 666 #{@config[:sockpath]}"
     else
       abort "unknown ipc config: #{@config[:ipc]}"
     end

@@ -6,7 +6,7 @@
 - node v12
 - ruby 2.7
 
-install yarn
+#### install yarn
 
 ```
 npm i yarn
@@ -20,42 +20,50 @@ npm i -g yarn
 yarn
 ```
 
-- - -
-
-install tools
+#### install tools
 
 ```
 yarn
-bundle install  # for RSpec only
+bundle install  # for RSpec, rubocop only
 ```
 
-build...
-
-```
-yarn build
-```
-
-execute
+#### execute
 
 ```
 yarn dev
 ```
 
-test
+#### execute (independent process)
+
+(setup)
+```
+docker/build-launcher.sh
+```
+
+(run)
+
+```
+# launcher
+docker/start-launcher.sh
+# webserver
+LAUNCHER_PROCESS=SOCKET yarn dev
+```
+
+#### test
 
 ```
 bundle exec rspec
 yarn test
 ```
 
-lint(too many problem)
+#### lint(too many problem)
 
 ```
 yarn lint
 bundle exec rubocop
 ```
 
-lint-fix
+(fix)
 
 ```
 yarn lint-fix
