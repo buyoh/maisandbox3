@@ -1,4 +1,4 @@
-name: test
+name: lint
 
 on: [push, pull_request]
 
@@ -15,6 +15,10 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '12'
+    - name: Please tell me who you are.
+      run: |
+        git config --global user.email "mai@ukibune.net"
+        git config --global user.name "mai bot-worker"
     - name: install tools
       run: |
         sudo apt update
@@ -25,9 +29,18 @@ jobs:
       run: |
         yarn
         bundle install
-    - name: test javascript
+    - name: lint javascript
       run: |
-        yarn test
-    - name: test ruby
+        yarn lint-fix
+    - name: lint ruby
       run: |
-        bundle exec rspec
+        bundle exec rubocop --auto-correct
+    - name: commit phase
+      run: |
+        if [ `git diff | wc -l` -ne 0 ] ; then
+        git add .
+        git commit -m 'lint-fix by Github Actions'
+        fi
+    - name: Push
+      run: |
+        git push
