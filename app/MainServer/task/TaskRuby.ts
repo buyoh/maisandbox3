@@ -73,7 +73,6 @@ export class TaskRuby {
   }
 
   async startAsync(data: QueryData, jid: JobID): Promise<void> {
-    console.log('task start:' + jid);
     try {
       await this.phase1(data, jid)
         && await this.phase2(data, jid);
@@ -81,6 +80,5 @@ export class TaskRuby {
       console.error(e);
       this.finalize();
     }
-    console.log('task complete:' + jid);
   }
 }

@@ -115,7 +115,7 @@ export class LauncherSocket {
   }
 
   private writeSocket(str: string): void {
-    this.netSocket.write(str.trimEnd() + '\n', () => { console.log('ok');/* flushed */ });
+    this.netSocket.write(str.trimEnd() + '\n', () => { /* flushed */ });
   }
 
   //

@@ -28,6 +28,15 @@ class AppLauncher
       FileUtils.mkdir_p path  unless Dir.exist?(path)
       work_directory = path
     end
+    opts.on('--verbose') do
+      set_verbose 1
+    end
+    opts.on('--quiet') do
+      set_verbose 0
+    end
+    opts.on('--silent') do
+      set_verbose(-1)
+    end
     opts.on('--loop') { @config[:loop] = true }
     opts.parse!(ARGV)
   end
@@ -74,7 +83,7 @@ class AppLauncher
           task = ALTaskKill.new
           task.action(json_line, reporter, local_storage)
         else
-          vlog "unknown method: #{json_line['method']}"
+          wlog "unknown method: #{json_line['method']}"
           reporter.report({ success: false, error: 'unknown method' })
         end
       end

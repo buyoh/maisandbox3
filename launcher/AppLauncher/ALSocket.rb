@@ -15,7 +15,7 @@ class ALSocket
 
   def gets
     unless @mutex_input.try_lock
-      vlog 'warning: ALSocket#gets may be called from some threads!'
+      wlog 'warning: ALSocket#gets may be called from some threads!'
       return nil
     end
     line = @input.gets
