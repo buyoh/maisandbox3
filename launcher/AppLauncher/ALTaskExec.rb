@@ -6,7 +6,17 @@ require_relative 'ALTask'
 class ALTaskExec
   include ALTask
 
+  def initialize(directory_manager)
+    @directory_manager = directory_manager
+  end
+
   def action(param, reporter, local_storage)
+    box = param['box']
+    if box.nil? || !@directory_manager.box_exists?(local_storage[:socket_id_str], box)
+      report_failed reporter, 'uninitialized box'
+      return nil
+    end
+
     command = param['cmd']
     arguments = param['args']
     stdin = param['stdin'] || ''
@@ -16,7 +26,7 @@ class ALTaskExec
       return nil
     end
 
-    exec_chdir = work_directory + '/' + local_storage[:job_id_str]
+    exec_chdir = @directory_manager.get_boxdir(local_storage[:socket_id_str], box)
 
     in_r, in_w = IO.pipe
     out_r, out_w = IO.pipe

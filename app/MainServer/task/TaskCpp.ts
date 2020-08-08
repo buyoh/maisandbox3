@@ -1,6 +1,6 @@
 import CallbackManager from '../../../lib/CallbackManager';
 import { ResultEmitter, Runnable } from './TaskUtil';
-import { QueryData, Result, WorkID, JobID, SubResultExec } from '../../../lib/type';
+import { QueryData, Result, WorkID, JobID, SubResultExec, SubResultBox } from '../../../lib/type';
 
 export class TaskCpp {
 
@@ -9,6 +9,7 @@ export class TaskCpp {
   private resultEmitter: ResultEmitter;
   private finalize: Runnable;
   private handleKill?: Runnable;
+  private boxId: string;
 
   constructor(socketId: string, launcherCallbackManager: CallbackManager, resultEmitter: ResultEmitter, finalize: Runnable) {
     this.socketId = socketId;
@@ -17,6 +18,7 @@ export class TaskCpp {
     this.finalize = finalize;
     this.handleKill = null;
     this.kill = this.kill.bind(this);
+    this.boxId = null;
   }
 
   kill(): void {
@@ -25,7 +27,25 @@ export class TaskCpp {
 
   private async phase1(data: QueryData, jid: JobID): Promise<boolean> {
     const res_data: Result = await this.launcherCallbackManager.postp(
-      { method: 'store', files: [{ path: 'code.cpp', data: data.code }], id: { jid, sid: this.socketId } });
+      { method: 'setupbox', id: { jid, sid: this.socketId } });
+    res_data.id = (res_data.id as WorkID).jid;
+    if (!res_data.success) {
+      this.resultEmitter(res_data);
+      console.error('launcher failed: method=setupbox:', res_data.error);
+      return await Promise.reject();
+    }
+    const result = res_data.result as SubResultBox;
+    this.boxId = result.box;
+
+    res_data.continue = true;
+    res_data.summary = 'setup: ok';
+    this.resultEmitter(res_data);
+    return true;
+  }
+
+  private async phase2(data: QueryData, jid: JobID): Promise<boolean> {
+    const res_data: Result = await this.launcherCallbackManager.postp(
+      { method: 'store', box: this.boxId, files: [{ path: 'code.cpp', data: data.code }], id: { jid, sid: this.socketId } });
     res_data.id = (res_data.id as WorkID).jid;
     if (!res_data.success) {
       this.resultEmitter(res_data);
@@ -38,10 +58,10 @@ export class TaskCpp {
     return true;
   }
 
-  private phase2(data: QueryData, jid: JobID): Promise<boolean> {
+  private phase3(data: QueryData, jid: JobID): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.launcherCallbackManager.post(
-        { method: 'exec', cmd: 'g++', args: ['-std=c++17', '-O3', '-Wall', '-o', 'prog', 'code.cpp'], stdin: data.stdin, id: { jid, sid: this.socketId } },
+        { method: 'exec', box: this.boxId, cmd: 'g++', args: ['-std=c++17', '-O3', '-Wall', '-o', 'prog', 'code.cpp'], stdin: data.stdin, id: { jid, sid: this.socketId } },
         (res_data: Result) => {
           // note: call this callback twice or more
           res_data.id = (res_data.id as WorkID).jid;
@@ -76,7 +96,7 @@ export class TaskCpp {
 
   }
 
-  private phase3(data: QueryData, jid: JobID): Promise<boolean> {
+  private phase4(data: QueryData, jid: JobID): Promise<boolean> {
     return new Promise((resolve, reject) => {
       const caller = this.launcherCallbackManager.multipost(
         (res_data: Result) => {
@@ -101,11 +121,11 @@ export class TaskCpp {
           this.resultEmitter(res_data);
         });
       caller.call(null,
-        { method: 'exec', cmd: './prog', args: [], stdin: data.stdin, id: { jid, sid: this.socketId } }
+        { method: 'exec', box: this.boxId, cmd: './prog', args: [], stdin: data.stdin, id: { jid, sid: this.socketId } }
       );
       this.handleKill = () => {
         caller.call(null,
-          { method: 'kill', id: { jid, sid: this.socketId } }
+          { method: 'kill', box: this.boxId, id: { jid, sid: this.socketId } }
         );
       };
     });
@@ -115,7 +135,8 @@ export class TaskCpp {
     try {
       await this.phase1(data, jid)
         && await this.phase2(data, jid)
-        && await this.phase3(data, jid);
+        && await this.phase3(data, jid)
+        && await this.phase4(data, jid);
     } catch (e) {
       console.error('task failed', e);
       this.finalize();

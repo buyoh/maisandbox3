@@ -4,6 +4,7 @@ require_root 'launcher/AppLauncher/ALBase'
 require_root 'launcher/AppLauncher/ALTask'
 require_root 'launcher/AppLauncher/ALSocket'
 require_root 'launcher/AppLauncher/ALReciever'
+require_root 'launcher/AppLauncher/ALDirectoryManager'
 require_root 'launcher/AppLauncher/ALAllTasks'
 
 class StubLauncher
@@ -23,20 +24,25 @@ class StubLauncher
   end
 
   def main
+    set_verbose(1)
     # socket = ALSocket.new(STDIN, STDOUT)
     socket = ALSocket.new(@iwr, @irw)
 
+    directory_manager = ALDirectoryManager.new
     reciever = ALReciever.new(socket)
 
     reciever.handle do |json_line, reporter, local_storage|
       # note: ノンブロッキングで書く必要がある。TaskStoreがかなり怪しいが
       # ノンブロッキングで書くか、thread + chdir禁止か。forkはメモリを簡単に共有出来ないのでNG
       case json_line['method']
+      when 'setupbox'
+        task = ALTaskSetupBox.new directory_manager
+        task.action(json_line, reporter, local_storage)
       when 'store'
-        task = ALTaskStore.new
+        task = ALTaskStore.new directory_manager
         task.action(json_line, reporter, local_storage)
       when 'exec'
-        task = ALTaskExec.new
+        task = ALTaskExec.new directory_manager
         task.action(json_line, reporter, local_storage)
       when 'kill'
         task = ALTaskKill.new

@@ -3,3 +3,4 @@
 require_relative 'ALTaskExec'
 require_relative 'ALTaskKill'
 require_relative 'ALTaskStore'
+require_relative 'ALTaskSetupBox'

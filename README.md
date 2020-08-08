@@ -1,5 +1,13 @@
 # maisandbox3
 
+## concept
+
+即席で手軽にできるWebアプリケーションベースの実行環境
+
+## warning
+
+./tmp is not deleted automatically.
+
 ## setup (for develop)
 
 - Ubuntu 20.04 (recommended. may be runnable on *NIX)

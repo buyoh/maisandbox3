@@ -10,6 +10,7 @@ require_relative 'AppLauncher/ALBase'
 require_relative 'AppLauncher/ALTask'
 require_relative 'AppLauncher/ALSocket'
 require_relative 'AppLauncher/ALReciever'
+require_relative 'AppLauncher/ALDirectoryManager'
 
 require_relative 'AppLauncher/ALAllTasks'
 
@@ -58,6 +59,8 @@ class AppLauncher
       exit
     end
 
+    directory_manager = ALDirectoryManager.new
+
     loop do
       case @config[:ipc]
       when :stdio
@@ -73,11 +76,14 @@ class AppLauncher
         # note: ノンブロッキングで書く必要がある。TaskStoreがかなり怪しいが
         # ノンブロッキングで書くか、thread + chdir禁止か。forkはメモリを簡単に共有出来ないのでNG
         case json_line['method']
+        when 'setupbox'
+          task = ALTaskSetupBox.new directory_manager
+          task.action(json_line, reporter, local_storage)
         when 'store'
-          task = ALTaskStore.new
+          task = ALTaskStore.new directory_manager
           task.action(json_line, reporter, local_storage)
         when 'exec'
-          task = ALTaskExec.new
+          task = ALTaskExec.new directory_manager
           task.action(json_line, reporter, local_storage)
         when 'kill'
           task = ALTaskKill.new

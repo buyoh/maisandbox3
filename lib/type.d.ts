@@ -28,6 +28,11 @@ export interface SubResult {
   exited: boolean
 }
 
+export interface SubResultBox {
+  exited: boolean,
+  box?: string
+}
+
 export interface SubResultExec {
   exited: boolean,
   err: string,
@@ -44,7 +49,7 @@ export interface Result {
   success: boolean,
   taskid?: number,  // << ???
   continue?: boolean,
-  result: SubResult | SubResultExec
+  result: SubResult | SubResultBox | SubResultExec
   error?: string,
   summary?: string,
 }
