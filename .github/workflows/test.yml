@@ -31,3 +31,6 @@ jobs:
     - name: test ruby
       run: |
         bundle exec rspec
+    - name: try building javascript
+      run: |
+        yarn build
