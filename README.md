@@ -18,7 +18,7 @@
 We recommend `yarn`.
 
 ```
-npm i yarn
+npm i
 npx yarn --help
 ```
 
