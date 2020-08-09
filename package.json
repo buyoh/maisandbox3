@@ -1,25 +1,25 @@
 {
   "name": "maisandbox3",
-  "version": "0.1.0",
   "private": true,
   "main": "/dev/null",
   "scripts": {
     "dev": "ts-node --project tsconfig.server.json app/MainServer.ts ",
-    "next-build": "next build",
+    "prod": "NODE_ENV=production node build/app/MainServer.js",
+    "build": "yarn build-next && yarn build-server",
+    "build-next": "next build",
+    "build-server": "tsc --project tsconfig.server.json",
     "test": "yarn run test-server",
     "test-server": "TS_NODE_PROJECT=tsconfig.server.json npx mocha --require ts-node/register mocha/server/**/*.ts",
     "lint": "eslint components/**/*.ts components/**/*.tsx pages/**/*.ts pages/**/*.tsx mocha/**/*.ts app/**/*.ts",
-    "lint-fix": "eslint components/**/*.ts components/**/*.tsx pages/**/*.ts pages/**/*.tsx mocha/**/*.ts app/**/*.ts --fix"
+    "lint-fix": "eslint --fix components/**/*.ts components/**/*.tsx pages/**/*.ts pages/**/*.tsx mocha/**/*.ts app/**/*.ts"
   },
   "dependencies": {
-    "ace-builds": "^1.4.11",
     "express": "^4.17.1",
     "next": "9.4.2",
     "react": "16.13.1",
     "react-ace": "^9.0.0",
     "react-dom": "16.13.1",
     "sass": "^1.26.5",
-    "scss": "^0.2.4",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
@@ -38,6 +38,7 @@
     "mocha": "^8.0.1",
     "nodemon": "^2.0.4",
     "ts-node": "^8.10.1",
+    "tsc": "^1.20150623.0",
     "typescript": "^3.9.3"
   }
 }

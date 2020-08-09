@@ -8,25 +8,53 @@
 
 ./tmp is not deleted automatically.
 
-## setup (for develop)
+## environment
 
 - Ubuntu 20.04 (recommended. may be runnable on *NIX)
 - node v12
 - ruby 2.7
+- (docker)
 
-#### install yarn
+We recommend `yarn`.
 
 ```
 npm i yarn
-npx yarn
+npx yarn --help
 ```
 
 or
 
 ```
 npm i -g yarn
-yarn
+yarn -- help
 ```
+
+## setup(production)
+
+### build
+
+```
+yarn
+yarn build
+docker/build-launcher.sh  # for docker
+```
+
+### start (without docker)
+
+```
+yarn prod
+```
+
+### start (with docker as independent process)
+
+```
+# launcher
+docker/start-launcher.sh --silent
+# webserver
+LAUNCHER_PROCESS=SOCKET yarn prod
+```
+
+## setup(development)
 
 #### install tools
 
@@ -35,13 +63,23 @@ yarn
 bundle install  # for RSpec, rubocop only
 ```
 
-#### execute
+#### start(without docker)
 
 ```
 yarn dev
 ```
 
-#### execute (independent process)
+#### execute (without docker as independent process)
+
+```
+# launcher
+ruby launcher/launcher.rb --verbose
+# webserver
+LAUNCHER_PROCESS=SOCKET yarn dev
+```
+
+
+#### execute (with docker as independent process)
 
 (setup)
 ```
@@ -52,7 +90,7 @@ docker/build-launcher.sh
 
 ```
 # launcher
-docker/start-launcher.sh
+docker/start-launcher.sh --verbose
 # webserver
 LAUNCHER_PROCESS=SOCKET yarn dev
 ```
@@ -60,11 +98,11 @@ LAUNCHER_PROCESS=SOCKET yarn dev
 #### test
 
 ```
-bundle exec rspec
 yarn test
+bundle exec rspec
 ```
 
-#### lint(too many problem)
+#### lint
 
 ```
 yarn lint
