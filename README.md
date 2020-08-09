@@ -45,6 +45,14 @@ docker/build-launcher.sh  # for docker
 yarn prod
 ```
 
+port conifiguration
+
+```
+PORT=11460 yarn prod
+```
+
+check http://localhost:11460
+
 ### start (with docker as independent process)
 
 ```
@@ -114,4 +122,10 @@ bundle exec rubocop
 ```
 yarn lint-fix
 bundle exec rubocop --auto-correct
+```
+
+## install to systemd
+
+```
+sudo service/install-service.sh
 ```
