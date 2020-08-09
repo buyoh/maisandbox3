@@ -6,7 +6,7 @@ DIR_SH=`dirname $0`
 DIR_TREE="$DIR_SH/../"
 ADIR_TREE=`cd $DIR_TREE; pwd`
 
-docker run --rm \
+exec docker run --rm \
   -v $ADIR_TREE/launcher:/opt/msb/launcher:ro \
   -v $ADIR_TREE/var:/opt/msb/var \
   maisandbox3-launcher:default \

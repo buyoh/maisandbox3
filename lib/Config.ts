@@ -7,7 +7,7 @@ const httpPort = parseInt(process.env.PORT || '11460');
 
 // launcherを子プロセスとして起動するかどうか
 const useChildProcess = process.env.LAUNCHER_PROCESS !== 'SOCKET';
-const launcherSocketPath = __dirname + '/../var/launcher.sock';
+const launcherSocketPath = process.env.LAUNCHER_SOCKET_PATH || process.env.PWD + '/var/launcher.sock';
 
 export default {
   production,

@@ -20,7 +20,7 @@ Description = maisandbox3
 [Service]
 ExecStart = $DIR_WORK/service/start.sh
 Restart = no
-Type = simple
+Type = forking
 [Install]
 WantedBy = multi-user.target
 EOS
@@ -28,3 +28,5 @@ EOS
 sudo systemctl daemon-reload
 sudo systemctl enable maisandbox3
 sudo systemctl start maisandbox3
+
+echo "##### complete install-service #####"
