@@ -4,7 +4,7 @@ import CodeToolbar from './CodeToolbar';
 import CodeEditor from './CodeEditor';
 import { pullFromLocalStorage, pushToLocalStorage } from './lib/LocalStorage';
 
-const converterKey2Style = {
+const converterKey2Style: { [key: string]: string } = {
   cpp: 'c_cpp',
   ruby: 'ruby',
   python: 'python'
@@ -40,17 +40,18 @@ class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorSh
   }
 
   getAllValue(): { code: string, lang: string } {
-    const code = this.refCodeEditor.current.getValue();
+    const code = this.getCode()
+      || (() => { console.warn('getCode failed: this.refCodeEditor.current may null!!'); return ''; })();
     const lang = this.state.lang;
     return { code, lang };
   }
 
-  getCode(): string {
-    return this.refCodeEditor.current.getValue();
+  getCode(): string | null {
+    return this.refCodeEditor.current?.getValue() || null;
   }
 
   setCode(code: string): void {
-    this.refCodeEditor.current.setValue(code);
+    this.refCodeEditor.current?.setValue(code);
   }
 
   setLang(lang: string): void {
@@ -105,7 +106,7 @@ class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorSh
         <div className="border">
           <CodeEditor
             ref={this.refCodeEditor}
-            lang={converterKey2Style[this.state.lang]}
+            lang={converterKey2Style[this.state.lang] || ''}
           />
         </div>
       </div>

@@ -8,8 +8,8 @@ export class TaskRuby {
   private launcherCallbackManager: CallbackManager;
   private resultEmitter: ResultEmitter;
   private finalize: Runnable;
-  private handleKill?: Runnable;
-  private boxId: string;
+  private handleKill: Runnable | null;
+  private boxId: string | null;
 
   constructor(socketId: string, launcherCallbackManager: CallbackManager, resultEmitter: ResultEmitter, finalize: Runnable) {
     this.socketId = socketId;
@@ -34,7 +34,7 @@ export class TaskRuby {
       return await asyncError('launcher failed: method=setupbox: ' + res_data.error);
     }
     const result = res_data.result as SubResultBox;
-    this.boxId = result.box;
+    this.boxId = result.box || null;
 
     res_data.continue = true;
     res_data.summary = 'setup: ok';

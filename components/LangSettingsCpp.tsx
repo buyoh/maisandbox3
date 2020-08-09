@@ -3,7 +3,7 @@ import React from 'react';
 import SelectBox from './SelectBox';
 
 type LangSettingsCppProps = {
-  std?: string
+  std: string
   onLangChange?: (lang: string) => void
 }
 

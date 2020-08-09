@@ -3,6 +3,7 @@ import React from 'react';
 import TextArea from './Textarea';
 import Button from './Button';
 import StatusBar from './StatusBar';
+import { Result, SubResultExec } from '../lib/type';
 
 type StaticIOShellProps = {
   onNeedEmitter: (callback: (data: any) => void) => (data: any) => void
@@ -18,7 +19,7 @@ type StaticIOShellStatus = {
 
 class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellStatus> {
 
-  emitter?: (data: any) => void;
+  emitter: ((data: any) => void) | null;
 
   constructor(props: StaticIOShellProps) {
     super(props);
@@ -46,17 +47,18 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
     return { action: 'kill' };  // TODO: index.tsx側でソースコードを無駄に送っている
   }
 
-  private recieveResult(data) {
+  private recieveResult(data: Result) {
     let summaryColor = 'gray';
     if (data.result) {
-      if (data.result.exited) {
-        if (data.result.exitstatus !== 0) {
+      const resultAsExec = data.result as SubResultExec;
+      if (resultAsExec.exited) {
+        if (resultAsExec.exitstatus !== 0) {
           summaryColor = 'warning';
         } else {
           summaryColor = 'success';
         }
-        this.setStdout(data.result.out || '');
-        this.setErrlog(data.result.err || '');
+        this.setStdout(resultAsExec.out || '');
+        this.setErrlog(resultAsExec.err || '');
         this.emitter = null;
       }
     }

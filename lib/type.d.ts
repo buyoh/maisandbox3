@@ -1,14 +1,14 @@
 
 export interface JobID {
   clicmid?: number,  // client callback manager id
-};
+}
 
 export interface WorkID {
   jid?: JobID,
   sid?: string,  // socketio identifier
   lcmid?: string,  // launcher callback manager id
   // cbmid?: string
-};
+}
 
 export type QueryActions = 'run' | 'kill';
 
@@ -17,12 +17,12 @@ export interface QueryData {
   code: string,
   lang: string,
   stdin: string
-};
+}
 
 export interface Query {
   id?: JobID,
   data: QueryData,
-};
+}
 
 export interface SubResult {
   exited: boolean
@@ -30,7 +30,7 @@ export interface SubResult {
 
 export interface SubResultBox {
   exited: boolean,
-  box?: string
+  box?: string | null
 }
 
 export interface SubResultExec {

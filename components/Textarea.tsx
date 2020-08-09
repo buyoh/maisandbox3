@@ -2,7 +2,7 @@ import React, { ChangeEvent } from 'react';
 
 type TextAreaProps = {
   value?: string,
-  onChange?: (string) => void
+  onChange?: (val: string) => void
   placeholder?: string,
   readOnly?: boolean
 }

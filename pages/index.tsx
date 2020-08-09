@@ -8,6 +8,7 @@ import Header from '../components/Header';
 import CodeEditorShell from '../components/CodeEditorShell';
 import StaticIOShell from '../components/StaticIOShell';
 import { ClientSocket } from '../components/lib/ClientSocket';
+import { pullFromLocalStorage, pushToLocalStorage } from '../components/lib/LocalStorage';
 
 // const RowFlexStyle: CSSProperties = {
 //   display: 'flex',
@@ -23,26 +24,19 @@ type IndexState = {
 
 
 function pullBackupData(): any {
-  const s = localStorage.getItem('msb3_backup');
-  try {
-    return JSON.parse(s);
-  }
-  catch (e) {
-    return null;
-  }
+  return pullFromLocalStorage('backup');
 }
 
-function pushBackupData(data: any): any {
-  const j = JSON.stringify(data);
-  localStorage.setItem('msb3_backup', j);
+function pushBackupData(data: any): void {
+  pushToLocalStorage('backup', data);
 }
 
 export default class extends React.Component<{}, IndexState> {
 
-  private socket: ClientSocket;
+  private socket: ClientSocket | null;
   private refIOEditor: React.RefObject<StaticIOShell>;
   private refCodeEditor: React.RefObject<CodeEditorShell>;
-  private backupIntervalTimerId: number;
+  private backupIntervalTimerId: number | null;
   // private backupHandler: BackupHandler;
 
   constructor(props: {}) {
@@ -52,6 +46,7 @@ export default class extends React.Component<{}, IndexState> {
     this.socket = null;
     this.refIOEditor = React.createRef();
     this.refCodeEditor = React.createRef();
+    this.backupIntervalTimerId = null;
     // this.backupHandler = new BackupHandler();
 
     this.handleEmitMessage = this.handleEmitMessage.bind(this);
@@ -70,7 +65,9 @@ export default class extends React.Component<{}, IndexState> {
 
   componentWillUnmount(): void {
     window.removeEventListener('beforeunload', this.handleUnload);
-    window.clearInterval(this.backupIntervalTimerId);
+    if (this.backupIntervalTimerId !== null)
+      window.clearInterval(this.backupIntervalTimerId);
+    this.backupIntervalTimerId = null;
   }
 
   private handleLoad(): void {
@@ -90,7 +87,7 @@ export default class extends React.Component<{}, IndexState> {
     let data = pullBackupData();
     if (!data) data = {};
     if (data['codeEditorShell'])
-      this.refCodeEditor.current.deserialize(data['codeEditorShell']);
+      this.refCodeEditor.current?.deserialize(data['codeEditorShell']);
 
   }
 
@@ -104,7 +101,7 @@ export default class extends React.Component<{}, IndexState> {
       // なので、関数型を渡すだけはNGで、正しく実装するならば、
       // 「現在のserialize関数を取得する関数」を渡す必要がある。
       // BackupHandlerをそう書き直しても良いけど…
-      const d = this.refCodeEditor.current.serialize();
+      const d = this.refCodeEditor.current?.serialize();
       if (d === undefined)
         delete data['codeEditorShell'];
       else
@@ -114,8 +111,12 @@ export default class extends React.Component<{}, IndexState> {
   }
 
   private handleEmitMessage(callback: (data: any) => void): (data: any) => void {
-    const editorValues = this.refCodeEditor.current.getAllValue();
-    const post = this.socket.generateForPostExec(callback);
+    const editorValues = this.refCodeEditor.current?.getAllValue();
+    const post = this.socket?.generateForPostExec(callback);
+    if (editorValues === undefined || post === undefined) {
+      console.warn('handleEmitMessage failed: something is not initialized');
+      return () => { return; };
+    }
     const emitter = (data: any) => {
       data = Object.assign({}, data, editorValues);
       post({ data });

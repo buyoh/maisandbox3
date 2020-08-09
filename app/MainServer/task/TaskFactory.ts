@@ -9,7 +9,7 @@ export class TaskFactory {
   private launcherCallbackManager: CallbackManager;
   private resultEmitter: ResultEmitter;
   private finalize: Runnable;
-  private handleKill: Runnable;
+  private handleKill: Runnable | null;
 
   constructor(socketId: string, launcherCallbackManager: CallbackManager, resultEmitter: ResultEmitter, finalize: Runnable) {
     this.socketId = socketId;
@@ -20,7 +20,7 @@ export class TaskFactory {
     this.handleKill = null;
   }
 
-  generate(lang: string): Task {
+  generate(lang: string): Task | null {
     if (lang === 'ruby')
       return new TaskRuby(this.socketId, this.launcherCallbackManager, this.resultEmitter, this.finalize);
     if (lang === 'cpp')

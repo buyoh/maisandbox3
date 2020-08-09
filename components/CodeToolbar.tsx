@@ -6,9 +6,9 @@ import TemplateLoaderPanelProps from './TemplateLoaderPanel';
 
 type CodeToolbarProps = {
   lang: string
-  onLangChange?: (lang: string) => void
-  onClickPull?: () => void
-  onClickPush?: () => void
+  onLangChange: (lang: string) => void
+  onClickPull: () => void
+  onClickPush: () => void
 }
 
 class CodeToolbar extends React.Component<CodeToolbarProps, {}> {

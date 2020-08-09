@@ -5,13 +5,16 @@ import Config from '../../lib/Config';
 const UseChildProcess = Config.useChildProcess;
 const UnixSocketPath = Config.launcherSocketPath;
 
+type CallbackClose = (code: number, signal: NodeJS.Signals | null) => void;
+type CallbackRecieve = (data: string) => void;
+
 export class LauncherSocket {
 
-  private process: ChildProcess.ChildProcess;
-  private netSocket: net.Socket;
+  private process: ChildProcess.ChildProcess | null;
+  private netSocket: net.Socket | null;
   private bufferStdout: string;
 
-  private callbacks: { close: Array<(code: number, signal: NodeJS.Signals) => void>, recieve: Array<(data: string) => void> };  // close, recieve
+  private callbacks: { close: Array<CallbackClose>, recieve: Array<CallbackRecieve> };  // close, recieve
 
   constructor() {
     this.process = null;
@@ -23,7 +26,7 @@ export class LauncherSocket {
     };
   }
 
-  private handleClose(code: number, signal: NodeJS.Signals): void {
+  private handleClose(code: number, signal: NodeJS.Signals | null): void {
     for (const c of this.callbacks.close)
       c(code, signal);
   }
@@ -35,9 +38,9 @@ export class LauncherSocket {
       this.bufferStdout += li[0];
     }
     else {
-      const head = li.shift();
+      const head = li.shift() || '';  // always string, not undefined
       this.handleRecieveLine(this.bufferStdout + head);
-      const tail = li.pop();
+      const tail = li.pop() || '';  // always string, not undefined
       this.bufferStdout = tail;
       for (const line of li) {
         this.handleRecieveLine(line);
@@ -84,7 +87,7 @@ export class LauncherSocket {
   }
 
   private writeChildProcess(str: string): void {
-    this.process.stdin.write(str.trimEnd() + '\n', () => { /* flushed */ });
+    this.process?.stdin?.write(str.trimEnd() + '\n', () => { /* flushed */ });
   }
 
   //
@@ -107,7 +110,7 @@ export class LauncherSocket {
   }
 
   private stopSocket(): void {
-    this.netSocket.end();
+    this.netSocket?.end();
   }
 
   private isAliveSocket(): boolean {
@@ -115,7 +118,7 @@ export class LauncherSocket {
   }
 
   private writeSocket(str: string): void {
-    this.netSocket.write(str.trimEnd() + '\n', () => { /* flushed */ });
+    this.netSocket?.write(str.trimEnd() + '\n', () => { /* flushed */ });
   }
 
   //
@@ -140,9 +143,11 @@ export class LauncherSocket {
     return true;
   }
 
-  on(keyword: string, callback: (args) => void): void {
-    if (!this.callbacks[keyword])
-      return;
-    this.callbacks[keyword].push(callback);
+  onClose(callback: CallbackClose): void {
+    this.callbacks['close'].push(callback);
+  }
+
+  onRecieve(callback: CallbackRecieve): void {
+    this.callbacks['recieve'].push(callback);
   }
 }

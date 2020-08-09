@@ -11,7 +11,7 @@ export default class LauncherHolder {
 
   private createLauncherSocket() {
     const launcher = new LauncherSocket();
-    launcher.on('close', (code) => {
+    launcher.onClose((code: number) => {
       if (Config.useChildProcess) {
         if (code == 1) {
           console.error('launcher has raised exceptions');
@@ -27,7 +27,7 @@ export default class LauncherHolder {
           this.triggerRestart();
         }, this.restartMs);
     });
-    launcher.on('recieve', (data) => {
+    launcher.onRecieve((data: any) => {
       this.callbackManager.handleRecieve(data, !!data.continue);
     });
     return launcher;
@@ -64,7 +64,7 @@ export default class LauncherHolder {
   }
 
   triggerRestart(): void {
-    let failed: string = null;
+    let failed: string | null = null;
     try {
       this.running = false;
       this.resetLauncher();

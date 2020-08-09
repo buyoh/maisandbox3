@@ -3,8 +3,8 @@ import React from 'react';
 import Button from './Button';
 
 type TemplateLoaderPanelProps = {
-  onClickPull?: () => void
-  onClickPush?: () => void
+  onClickPull: () => void
+  onClickPush: () => void
 }
 
 class TemplateLoaderPanel extends React.Component<TemplateLoaderPanelProps, {}> {

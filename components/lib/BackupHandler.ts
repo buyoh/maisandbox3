@@ -12,6 +12,7 @@ export class BackupHandler {
 
   private pullBackupData(): any {
     const s = localStorage.getItem('msb3_backup');
+    if (!s) return null;
     try {
       return JSON.parse(s);
     }

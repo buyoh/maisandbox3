@@ -1,7 +1,7 @@
 
 const NamePrefix = 'msb3-';
 
-export function pullFromLocalStorage<T = any>(name: string): T {
+export function pullFromLocalStorage<T = any>(name: string): T | null {
   const v = localStorage.getItem(NamePrefix + name);
   if (v === null) return null;
   try {

@@ -14,10 +14,10 @@ export class CallbackManager {
 
   private identifier: string;
   private counter: number;
-  private sender: (any) => any;
+  private sender: (data: any) => any;
   private callbacks: { [index: number]: (data: any) => any };
 
-  constructor(sender: (any) => any, identifier = 'cmid') {
+  constructor(sender: (data: any) => any, identifier = 'cmid') {
     this.identifier = identifier;
     this.counter = 1;
     this.sender = sender;

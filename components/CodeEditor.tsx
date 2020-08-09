@@ -37,7 +37,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
     this.handleOnChange = this.handleOnChange.bind(this);
   }
 
-  private handleOnChange(value): void {
+  private handleOnChange(value: string): void {
     this.setState(Object.assign({}, this.props, { value }));
     this.props.onChange?.(value);
   }

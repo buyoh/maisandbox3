@@ -6,10 +6,12 @@ import { assert } from 'chai';
 describe('CallbackManagerTest', () => {
 
   it('simple post', (done) => {
-    let myCallback: (data: any) => void = null;
+    let myCallback: ((data: any) => void) | null = null;
     const cm = new CallbackManager((data) => {
       setTimeout(() => {
-        myCallback(data);
+        assert.isNotNull(myCallback);
+        if (myCallback)
+          myCallback(data);
       }, data.delay || 0);
     });
     myCallback = cm.getRecieveCallback();
@@ -23,10 +25,11 @@ describe('CallbackManagerTest', () => {
   });
 
   it('twice post', (done) => {
-    let myCallback: (data: any) => void = null;
+    let myCallback: ((data: any) => void) | null = null;
     const cm = new CallbackManager((data) => {
       setTimeout(() => {
-        myCallback(data);
+        if (myCallback)
+          myCallback(data);
       }, data.delay || 0);
     });
     myCallback = cm.getRecieveCallback();
@@ -43,10 +46,11 @@ describe('CallbackManagerTest', () => {
   });
 
   it('twice post cross', (done) => {
-    let myCallback: (data: any) => void = null;
+    let myCallback: ((data: any) => void) | null = null;
     const cm = new CallbackManager((data) => {
       setTimeout(() => {
-        myCallback(data);
+        if (myCallback)
+          myCallback(data);
       }, data.delay || 0);
     });
     myCallback = cm.getRecieveCallback();
@@ -63,10 +67,11 @@ describe('CallbackManagerTest', () => {
   });
 
   it('simple promise post', (done) => {
-    let myCallback: (data: any) => void = null;
+    let myCallback: ((data: any) => void) | null = null;
     const cm = new CallbackManager((data) => {
       setTimeout(() => {
-        myCallback(data);
+        if (myCallback)
+          myCallback(data);
       }, data.delay || 0);
     });
     myCallback = cm.getRecieveCallback();
@@ -81,7 +86,7 @@ describe('CallbackManagerTest', () => {
   });
 
   it('post2, recv1', (done) => {
-    let myCallback: (data: any) => void = null;
+    let myCallback: ((data: any) => void) | null = null;
     let sendCount = 0;
     let sum = 0;
 
@@ -90,7 +95,8 @@ describe('CallbackManagerTest', () => {
 
       if (++sendCount == 2)
         setTimeout(() => {
-          myCallback({ sum, id: data.id });
+          if (myCallback)
+            myCallback({ sum, id: data.id });
         }, data.delay || 0);
     });
     myCallback = cm.getRecieveCallback();
@@ -106,7 +112,7 @@ describe('CallbackManagerTest', () => {
   });
 
   it('post2, recv2', (done) => {
-    let myCallback: (data: any, continu: boolean) => void = null;
+    let myCallback: ((data: any, continu: boolean) => void) | null = null;
     let sendCount = 0;
     let sum = 0;
 
@@ -115,10 +121,12 @@ describe('CallbackManagerTest', () => {
 
       if (++sendCount == 2) {
         setTimeout(() => {
-          myCallback({ sum, idx: 0, id: data.id }, true);
+          if (myCallback)
+            myCallback({ sum, idx: 0, id: data.id }, true);
         }, 0);
         setTimeout(() => {
-          myCallback({ sum, idx: 1, id: data.id }, false);
+          if (myCallback)
+            myCallback({ sum, idx: 1, id: data.id }, false);
         }, 20);
       }
     });

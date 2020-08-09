@@ -12,7 +12,7 @@ export class ClientSocket {
       this.socket.emit('c2e_Exec', data);
     }, 'clicmid');
 
-    this.socket.on('s2c_ResultExec', (data) => {
+    this.socket.on('s2c_ResultExec', (data: any) => {
       this.callbackManager.handleRecieve(data, data.continue);
     });
   }
