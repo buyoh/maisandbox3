@@ -8,13 +8,15 @@ jobs:
     runs-on: ubuntu-20.04
     
     steps:
-    - uses: actions/checkout@v2
     - uses: actions/setup-ruby@v1
       with:
         ruby-version: '2.7'
     - uses: actions/setup-node@v1
       with:
         node-version: '12'
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
     - name: Please tell me who you are.
       run: |
         git config --global user.email "mai@ukibune.net"
@@ -38,10 +40,10 @@ jobs:
     - name: commit phase
       run: |
         if [ `git diff | wc -l` -ne 0 ] ; then
+        echo detect diff
         git add .
         git commit -m 'lint-fix by Github Actions'
         fi
-    - name: Push
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: push
+      run: |
+        git push origin
