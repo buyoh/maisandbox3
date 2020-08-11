@@ -46,4 +46,4 @@ jobs:
         fi
     - name: push
       run: |
-        git push origin
+        git push origin || : # tag checkout 時に detached となり失敗する為
