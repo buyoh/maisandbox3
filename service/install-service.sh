@@ -12,6 +12,7 @@ rsync -a $DIR_TREE/* $DIR_WORK/ \
 
 pushd $DIR_WORK
 npx yarn build
+npx yarn --production  # erase development dependencies
 popd
 
 cat <<EOS > /etc/systemd/system/maisandbox3.service
