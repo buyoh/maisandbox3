@@ -1,5 +1,8 @@
 # maisandbox3
 
+![test](https://github.com/buyoh/maisandbox3/workflows/test/badge.svg)
+![lint](https://github.com/buyoh/maisandbox3/workflows/lint/badge.svg)
+
 ## concept
 
 即席で手軽にできるWebアプリケーションベースの実行環境
@@ -13,7 +16,7 @@
 - Ubuntu 20.04 (recommended. may be runnable on *NIX)
 - node v12
 - ruby 2.7
-- (docker)
+- docker (for production environment)
 
 We recommend `yarn`.
 
@@ -125,6 +128,8 @@ bundle exec rubocop --auto-correct
 ```
 
 ## install to systemd
+
+launch as production with docker as independent process
 
 ```
 sudo service/install-service.sh
