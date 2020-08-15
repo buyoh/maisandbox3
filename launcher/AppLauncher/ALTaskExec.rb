@@ -48,7 +48,7 @@ class ALTaskExec
       err_r.close
       reporter.report(
         { success: true,
-          result: { exited: true, exitstatus: status.exitstatus, out: output, err: errlog } }
+          result: { exited: true, exitstatus: status&.exitstatus, out: output, err: errlog } }
       )
       local_storage.delete :pid
     end
