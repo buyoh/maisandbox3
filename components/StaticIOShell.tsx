@@ -129,12 +129,12 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
           </div>
           {
             this.state.visibleErr ? (
-              <div className="flex_elem flex_row">
+              <div className="flex_elem flex_row" style={{ overflow: 'hidden', resize: 'vertical' }}>
                 <TextArea placeholder="stderr" key="inp-err" value={this.state.errlog} readOnly={true} />
               </div>
-            ) : (<div className="flex_elem flex_row">
-              <div className="flex_elem_fix flex_cols" style={{ overflow: 'hidden', resize: 'both' }}>
-                <TextArea placeholder="stdin" key="inp-in" value={this.state.stdin}
+            ) : (<div className="flex_elem flex_row" style={{ overflow: 'hidden', resize: 'vertical' }}>
+              <div className="flex_elem_fix flex_cols">
+                <TextArea placeholder="stdin" key="inp-in" value={this.state.stdin} resizable='horizontal'
                   onChange={(txt) => (this.setState(Object.assign({}, this.state, { stdin: txt })))} />
               </div>
               <div className="flex_elem flex_cols">

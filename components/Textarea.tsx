@@ -4,7 +4,8 @@ type TextAreaProps = {
   value?: string,
   onChange?: (val: string) => void
   placeholder?: string,
-  readOnly?: boolean
+  readOnly?: boolean,
+  resizable?: 'horizontal' | 'vertical' | 'both' | 'none',
 }
 
 type TextAreaState = {
@@ -29,9 +30,11 @@ class TextArea extends React.Component<TextAreaProps, TextAreaState> {
           display: 'block',
           width: 'auto',
           height: 'auto',
-          flex: '1', // <<< BAD
-          resize: 'none'
+          flex: '1 1 auto',
+          overflow: 'scroll',
+          resize: this.props.resizable || 'none'
         }}
+        spellCheck='false'
         readOnly={this.props.readOnly}
         placeholder={this.props.placeholder}
         onChange={this.handleChange}
