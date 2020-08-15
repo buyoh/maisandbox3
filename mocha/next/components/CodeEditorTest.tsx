@@ -29,12 +29,12 @@ describe('CodeEditor', () => {
   });
 
   it('render CodeEditor', () => {
-    const refEditor = React.createRef<CodeEditor>();
-    const codeEditor = (<CodeEditor ref={refEditor} lang='ruby' />);
+    const ref = React.createRef<CodeEditor>();
+    const codeEditor = (<CodeEditor ref={ref} lang='ruby' />);
     act(() => {
       render(codeEditor, container);
-      refEditor.current?.setValue('hello\nworld\n');
+      ref.current?.setValue('hello\nworld\n');
     });
-    assert.equal(refEditor.current?.getValue(), 'hello\nworld\n', 'setValue / getValue failed');
+    assert.equal(ref.current?.getValue(), 'hello\nworld\n', 'setValue / getValue failed');
   });
 });
