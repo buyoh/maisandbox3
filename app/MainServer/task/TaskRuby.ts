@@ -63,10 +63,11 @@ export class TaskRuby {
           // note: call this callback twice or more
           res_data.id = (res_data.id as WorkID).jid;
           if (res_data.result && res_data.result.exited) {
+            const res = res_data.result as SubResultExec;
             this.finalize();
             this.handleKill = null;
             if (res_data.success) {
-              res_data.summary = 'run: ok';
+              res_data.summary = `run: ok(${res.exitstatus})`;
               resolve(true);
             } else {
               res_data.summary = 'run: error';

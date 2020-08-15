@@ -25,7 +25,12 @@ class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
 
   render(): JSX.Element {
     return (
-      <div className="flex_row">
+      <div className="flex_row" style={{
+        borderTop: '2px solid #111',
+        borderBottom: '2px solid #666',
+        padding: '2px',
+        overflow: 'hidden'
+      }}>
         {this.props.values?.map(generateJSXFromItem)}
       </div>
     );
