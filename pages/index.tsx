@@ -110,6 +110,7 @@ export default class extends React.Component<{}, IndexState> {
     pushBackupData(data);
   }
 
+  // wrapper of generateForPostExec
   private handleEmitMessage(callback: (data: any) => void): (data: any) => void {
     const editorValues = this.refCodeEditor.current?.getAllValue();
     const post = this.socket?.generateForPostExec(callback);

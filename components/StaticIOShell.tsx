@@ -92,6 +92,14 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
     this.setState(Object.assign({}, this.state, { visibleErr: !this.state.visibleErr }));
   }
 
+  testApis(): { handleClickRun: () => void, handleClickKill: () => void, handleClickToggle: () => void } {
+    return {
+      handleClickRun: this.handleClickRun,
+      handleClickKill: this.handleClickKill,
+      handleClickToggle: this.handleClickToggle
+    };
+  }
+
   getStdin(): string {
     return this.state.stdin;
   }
@@ -110,27 +118,27 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
         <div className="flex_elem flex_row">
           <div className="flex_elem_fix flex_cols">
             <div className="flex_elem_fix">
-              <Button onClick={this.handleClickRun} >run</Button>
+              <Button onClick={this.handleClickRun} key="btn-run">run</Button>
             </div>
             <div className="flex_elem_fix">
-              <Button onClick={this.handleClickKill} >kill</Button>
+              <Button onClick={this.handleClickKill} key="btn-kill">kill</Button>
             </div>
             <div className="flex_elem_fix">
-              <Button onClick={this.handleClickToggle} >IO/Err</Button>
+              <Button onClick={this.handleClickToggle} key="btn-toggle-display">IO/Err</Button>
             </div>
           </div>
           {
             this.state.visibleErr ? (
-              <div className="flex_elem flex_row">
-                <TextArea placeholder="stderr" value={this.state.errlog} readOnly={true} />
+              <div className="flex_elem flex_row" style={{ overflow: 'hidden', resize: 'vertical' }}>
+                <TextArea placeholder="stderr" key="inp-err" value={this.state.errlog} readOnly={true} />
               </div>
-            ) : (<div className="flex_elem flex_row">
-              <div className="flex_elem_fix flex_cols" style={{ overflow: 'hidden', resize: 'both' }}>
-                <TextArea placeholder="stdin" value={this.state.stdin}
+            ) : (<div className="flex_elem flex_row" style={{ overflow: 'hidden', resize: 'vertical' }}>
+              <div className="flex_elem_fix flex_cols">
+                <TextArea placeholder="stdin" key="inp-in" value={this.state.stdin} resizable='horizontal'
                   onChange={(txt) => (this.setState(Object.assign({}, this.state, { stdin: txt })))} />
               </div>
               <div className="flex_elem flex_cols">
-                <TextArea placeholder="stdout" value={this.state.stdout}
+                <TextArea placeholder="stdout" key="inp-out" value={this.state.stdout}
                   onChange={(txt) => (this.setState(Object.assign({}, this.state, { stdout: txt })))} />
               </div>
             </div>)
