@@ -51,6 +51,9 @@ class Executor
       exit 127
     end
 
+    startTime = Time.now
+    time = nil
+
     t1 = nil
     t2 = nil
     # timeout thread
@@ -62,6 +65,7 @@ class Executor
     # waitpid thread
     t2 = Thread.start do
       pid, s = Process.waitpid2(pid)
+      time = Time.now - startTime
       @status = s
       t1.exit
     end
@@ -76,17 +80,17 @@ class Executor
       @stderr.close if @stderr.respond_to?(:close)
 
       # callback if onfinished is not nil
-      onfinished&.call(@status)
+      onfinished&.call(@status, time)
     end
 
     if noblock
       # wait by another thread
       Thread.start(&race_and_finalize)
       # pid を返すので、殺したくなったら Process::kill してね
-      [pid, nil]
+      [pid, nil, nil]
     else
       race_and_finalize.call
-      [pid, @status]
+      [pid, @status, time]
     end
   end
 

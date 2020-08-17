@@ -12,6 +12,12 @@ RSpec.describe Executor do
     expect(stat.success?).to eq true
     expect(msg.chomp).to eq 'hello'
   end
+  it 'tictoc' do
+    e = Executor.new(cmd: 'sleep 1')
+    _pid, stat, time = e.execute
+    expect(stat.success?).to eq true
+    expect(time).to be_between(0.8, 1.2)
+  end
   it 'blocking execution (io)' do
     ir, iw = IO.pipe
     r, ow = IO.pipe

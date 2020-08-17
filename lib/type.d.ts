@@ -38,6 +38,7 @@ export interface SubResultExec {
   err: string,
   out: string,
   exitstatus: number,
+  time: number,
 }
 
 export interface SubResultAccepted {

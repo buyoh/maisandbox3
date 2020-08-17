@@ -39,7 +39,7 @@ class ALTaskExec
       stdin: in_r, stdout: out_w, stderr: err_w,
       chdir: exec_chdir
     )
-    pid, = exe.execute(true) do |status|
+    pid, = exe.execute(true) do |status, time|
       # finish
       # vlog "do_exec: finish pid=#{pid}"
       output = out_r.read
@@ -48,7 +48,8 @@ class ALTaskExec
       err_r.close
       reporter.report(
         { success: true,
-          result: { exited: true, exitstatus: status&.exitstatus, out: output, err: errlog } }
+          result: { exited: true, exitstatus: status&.exitstatus, time: time,
+                    out: output, err: errlog } }
       )
       local_storage.delete :pid
     end
