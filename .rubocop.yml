@@ -13,7 +13,7 @@ Style/StderrPuts:
   Enabled: false
 
 Metrics/MethodLength:
-  Max: 40
+  Max: 60
   Exclude:
     - 'launcher/launcher.rb'
     - 'spec/large/**/*.rb'
