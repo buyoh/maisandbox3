@@ -51,7 +51,7 @@ class Executor
       exit 127
     end
 
-    startTime = Time.now
+    start_time = Time.now
     time = nil
 
     t1 = nil
@@ -65,7 +65,7 @@ class Executor
     # waitpid thread
     t2 = Thread.start do
       pid, s = Process.waitpid2(pid)
-      time = Time.now - startTime
+      time = Time.now - start_time
       @status = s
       t1.exit
     end
