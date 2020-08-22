@@ -5,7 +5,6 @@ require 'json'
 module ALBase
   @@mutex_stderr = Mutex.new
   @@verbose = 0
-  @@silent = false
   @@superuser = false
   @@work_directory = __dir__ + '/../../tmp'
 
@@ -32,7 +31,7 @@ module ALBase
   end
 
   def wlog(str)
-    return unless @@silent >= 0
+    return unless @@verbose >= 0
 
     @@mutex_stderr.synchronize do
       STDERR.puts str
