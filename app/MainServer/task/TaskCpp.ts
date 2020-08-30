@@ -34,9 +34,12 @@ export class TaskCpp {
       console.error('launcher failed: method=setupbox:', res_data.error);
       return await Promise.reject();
     }
+    // store result of setupbox
     const result = res_data.result as SubResultBox;
     this.boxId = result.box || null;
 
+    // launcherからの応答はこれ以上続かないのでres_data.continue = falseだが、
+    // phase2移行の為、trueを指定する。
     res_data.continue = true;
     res_data.summary = 'setup: ok';
     this.resultEmitter(res_data);
@@ -80,7 +83,7 @@ export class TaskCpp {
             } else {
               res_data.summary = `compile: failed(${res.exitstatus})[${Math.floor(res.time * 1000) / 1000}s]`;
               this.resultEmitter(res_data);
-              return resolve(false);
+              return resolve(false);  // not continue
             }
           }
           res_data.summary = 'compile: running';
