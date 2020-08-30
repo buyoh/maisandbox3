@@ -1,26 +1,35 @@
 import React from 'react';
 import StatusBadge from './StatusBadge';
 
-type Item = { color: string, text: string, key: string };
+type ClickHandler = (key: string) => void;
+type Key = string;
+type Item = {
+  color: string,
+  text: string,
+  key: Key,
+  onClick?: ClickHandler
+};
 
 type StatusBarProps = {
-  values: Array<Item>
+  values: Array<Item>,
+  active?: Key
 }
 
 type StatusBarState = {
 }
 
-function generateJSXFromItem(item: Item): JSX.Element {
-  return (
-    <div className="flex_elem_fix" key={item.key}>
-      <StatusBadge color={item.color}>{item.text}</StatusBadge>
-    </div>
-  );
-}
-
 class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
   constructor(props: StatusBarProps) {
     super(props);
+    this.generateJSXFromItem = this.generateJSXFromItem.bind(this);
+  }
+
+  private generateJSXFromItem(item: Item): JSX.Element {
+    return (
+      <div className="flex_elem_fix" key={item.key} onClick={() => { item.onClick?.call(null, item.key); }}>
+        <StatusBadge color={item.color} active={item.key === this.props.active}>{item.text}</StatusBadge>
+      </div>
+    );
   }
 
   render(): JSX.Element {
@@ -31,7 +40,7 @@ class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
         padding: '2px',
         overflow: 'hidden'
       }}>
-        {this.props.values?.map(generateJSXFromItem)}
+        {this.props.values?.map(this.generateJSXFromItem)}
       </div>
     );
   }

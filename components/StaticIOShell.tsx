@@ -13,7 +13,8 @@ type StaticIOShellStatus = {
   stdin: string,
   stdout: string,
   errlog: string,
-  statuses: Array<{ text: string, color: string, key: string }>,
+  statuses: Array<{ text: string, color: string, key: string, onClick?: (key: string) => void }>,
+  activatedStatusKey: string,
   visibleErr: boolean
 }
 
@@ -28,6 +29,7 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
       stdout: '',
       errlog: '',
       statuses: [{ text: 'ready', color: 'light', key: '' }],
+      activatedStatusKey: '',
       visibleErr: false
     };
 
@@ -49,6 +51,7 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
 
   private recieveResult(data: Result) {
     let summaryColor = 'gray';
+    let errLog = '';
     if (data.result) {
       const resultAsExec = data.result as SubResultExec;
       if (resultAsExec.exited) {
@@ -59,18 +62,36 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
         }
         this.setStdout(resultAsExec.out || '');
         this.setErrlog(resultAsExec.err || '');
+        errLog = resultAsExec.err || '';
         this.emitter = null;
       }
     }
     else {
       // e.g. kill callback
     }
-    if (data.summary)
-      this.addStatus(data.summary, summaryColor);
+    if (data.summary) {
+      this.addStatus(data.summary, summaryColor, errLog === '' ? undefined : (key: string) => {
+        this.activateStatus(key);
+        this.setErrlog(errLog);
+      }, true);
+    }
   }
 
-  private addStatus(text: string, color = 'light') {
-    this.setState(Object.assign({}, this.state, { statuses: [{ text, color, key: Math.random().toString() }].concat(this.state.statuses) }));
+  private addStatus(text: string, color = 'light', onClick?: (key: string) => void, active?: boolean) {
+    const key = Math.random().toString();
+    const status = {
+      text,
+      color,
+      key,
+      onClick
+    };
+    this.setState(Object.assign({}, this.state, { statuses: [status].concat(this.state.statuses) }));
+    if (active)
+      this.activateStatus(key);
+  }
+
+  private activateStatus(key: string): void {
+    this.setState(Object.assign({}, this.state, { activatedStatusKey: key }));
   }
 
   private clearStatus() {
@@ -146,7 +167,7 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
 
         </div>
         <div className="flex_elem_fix">
-          <StatusBar values={this.state.statuses}></StatusBar>
+          <StatusBar values={this.state.statuses} active={this.state.activatedStatusKey}></StatusBar>
         </div>
       </div>
     );
