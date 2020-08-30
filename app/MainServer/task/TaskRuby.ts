@@ -64,7 +64,6 @@ export class TaskRuby {
           res_data.id = (res_data.id as WorkID).jid;
           if (res_data.result && res_data.result.exited) {
             const res = res_data.result as SubResultExec;
-            this.finalize();
             this.handleKill = null;
             if (res_data.success) {
               res_data.summary = `run: ok(${res.exitstatus})[${Math.floor(res.time * 1000) / 1000}s]`;
@@ -99,6 +98,7 @@ export class TaskRuby {
         && await this.phase3(data, jid);
     } catch (e) {
       console.error(e);
+    } finally {
       this.finalize();
     }
   }
