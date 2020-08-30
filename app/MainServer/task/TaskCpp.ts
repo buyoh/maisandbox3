@@ -74,11 +74,11 @@ export class TaskCpp {
           if (res.exited) {
             if (res.exitstatus === 0) {
               res_data.continue = true;
-              res_data.summary = 'compile: ok';
+              res_data.summary = `compile: ok[${Math.floor(res.time * 1000) / 1000}s]`;
               this.resultEmitter(res_data);
               return resolve(true);
             } else {
-              res_data.summary = `compile: failed(${res.exitstatus})`;
+              res_data.summary = `compile: failed(${res.exitstatus})[${Math.floor(res.time * 1000) / 1000}s]`;
               this.resultEmitter(res_data);
               return resolve(false);
             }
@@ -107,7 +107,8 @@ export class TaskCpp {
             this.finalize();
             this.handleKill = null;
             if (res_data.success) {
-              res_data.summary = `run: ok(${res.exitstatus})`;
+
+              res_data.summary = `run: ok(${res.exitstatus})[${Math.floor(res.time * 1000) / 1000}s]`;
               resolve(true);
             } else {
               res_data.summary = 'run: error';

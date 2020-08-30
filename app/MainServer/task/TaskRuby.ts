@@ -67,7 +67,7 @@ export class TaskRuby {
             this.finalize();
             this.handleKill = null;
             if (res_data.success) {
-              res_data.summary = `run: ok(${res.exitstatus})`;
+              res_data.summary = `run: ok(${res.exitstatus})[${Math.floor(res.time * 1000) / 1000}s]`;
               resolve(true);
             } else {
               res_data.summary = 'run: error';
