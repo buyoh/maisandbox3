@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'tempfile'
+
 require_relative '../lib/Executor'
 require_relative 'ALTask'
 
@@ -20,6 +22,7 @@ class ALTaskExec
     command = param['cmd']
     arguments = param['args']
     stdin = param['stdin'] || ''
+    fileio = param['fileio'] == true
 
     if command.nil? || command.empty?
       report_failed reporter, 'invalid arguments'
@@ -28,24 +31,55 @@ class ALTaskExec
 
     exec_chdir = @directory_manager.get_boxdir(local_storage[:socket_id_str], box)
 
-    in_r, in_w = IO.pipe
-    out_r, out_w = IO.pipe
-    err_r, err_w = IO.pipe
-    in_w.print stdin
-    in_w.close
-    exe = Executor.new(
-      cmd: command,
-      args: arguments,
-      stdin: in_r, stdout: out_w, stderr: err_w,
-      chdir: exec_chdir
-    )
+    if fileio
+      in_file = Tempfile.open('in', exec_chdir, mode: File::Constants::RDWR)
+      out_file = Tempfile.open('in', exec_chdir, mode: File::Constants::RDWR)
+      err_file = Tempfile.open('in', exec_chdir, mode: File::Constants::RDWR)
+      in_file.print stdin
+      in_file.close
+      in_file.open
+      exe = Executor.new(
+        cmd: command,
+        args: arguments,
+        stdin: in_file, stdout: out_file, stderr: err_file,
+        chdir: exec_chdir
+      )
+    else
+      in_r, in_w = IO.pipe
+      out_r, out_w = IO.pipe
+      err_r, err_w = IO.pipe
+      in_w.print stdin
+      in_w.close
+      exe = Executor.new(
+        cmd: command,
+        args: arguments,
+        stdin: in_r, stdout: out_w, stderr: err_w,
+        chdir: exec_chdir
+      )
+    end
+
     pid, = exe.execute(true) do |status, time|
       # finish
       # vlog "do_exec: finish pid=#{pid}"
-      output = out_r.read
-      errlog = err_r.read
-      out_r.close
-      err_r.close
+      if fileio
+        in_file.close
+        out_file.close
+        err_file.close
+        out_file.open
+        output = out_file.read
+        out_file.close
+        err_file.open
+        errlog = err_file.read
+        err_file.close
+        in_file.delete
+        out_file.delete
+        err_file.delete
+      else
+        output = out_r.read
+        errlog = err_r.read
+        out_r.close
+        err_r.close
+      end
       reporter.report(
         { success: true,
           result: { exited: true, exitstatus: status&.exitstatus, time: time,

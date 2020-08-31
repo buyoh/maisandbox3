@@ -81,7 +81,7 @@ export class TaskRuby {
           this.resultEmitter(res_data);
         });
       caller.call(null,
-        { method: 'exec', box: this.boxId, cmd: 'ruby', args: ['code.rb'], stdin: data.stdin, id: { jid, sid: this.socketId } }
+        { method: 'exec', box: this.boxId, cmd: 'ruby', args: ['code.rb'], stdin: data.stdin, id: { jid, sid: this.socketId }, fileio: true }
       );
       this.handleKill = () => {
         caller.call(null,

@@ -124,7 +124,7 @@ export class TaskCpp {
           this.resultEmitter(res_data);
         });
       caller.call(null,
-        { method: 'exec', box: this.boxId, cmd: './prog', args: [], stdin: data.stdin, id: { jid, sid: this.socketId } }
+        { method: 'exec', box: this.boxId, cmd: './prog', args: [], stdin: data.stdin, id: { jid, sid: this.socketId }, fileio: true }
       );
       this.handleKill = () => {
         caller.call(null,
