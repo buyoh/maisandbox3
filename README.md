@@ -21,7 +21,7 @@
 We recommend `yarn`.
 
 ```
-npm i
+npm i yarn
 npx yarn --help
 ```
 
