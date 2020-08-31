@@ -3,6 +3,7 @@ import React from 'react';
 import TextArea from './Textarea';
 import Button from './Button';
 import StatusBar from './StatusBar';
+import { Item as StatusBarItem } from './StatusBar';
 import { Result, SubResultExec } from '../lib/type';
 
 type StaticIOShellProps = {
@@ -13,7 +14,7 @@ type StaticIOShellStatus = {
   stdin: string,
   stdout: string,
   errlog: string,
-  statuses: Array<{ text: string, color: string, key: string, onClick?: (key: string) => void }>,
+  statuses: Array<StatusBarItem>,
   activatedStatusKey: string,
   visibleErr: boolean
 }
@@ -79,7 +80,7 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
 
   private addStatus(text: string, color = 'light', onClick?: (key: string) => void, active?: boolean) {
     const key = Math.random().toString();
-    const status = {
+    const status: StatusBarItem = {
       text,
       color,
       key,

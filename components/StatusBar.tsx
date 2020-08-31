@@ -3,7 +3,7 @@ import StatusBadge from './StatusBadge';
 
 type ClickHandler = (key: string) => void;
 type Key = string;
-type Item = {
+export type Item = {
   color: string,
   text: string,
   key: Key,
