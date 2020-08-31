@@ -10,7 +10,7 @@
     "build-server": "tsc --project tsconfig.server.json",
     "test": "yarn run test-server && yarn run test-next",
     "test-server": "TS_NODE_PROJECT=tsconfig.server.json mocha --require ts-node/register mocha/server/**/*Test.ts",
-    "test-next": "TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\", \"jsx\": \"react\"}' mocha --require ts-node/register  mocha/next/**/*Test.{ts,tsx}",
+    "test-next": "TS_NODE_FILES=true TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\", \"jsx\": \"react\"}' mocha --require ts-node/register --require ignore-styles mocha/next/**/*Test.{ts,tsx}",
     "lint": "eslint components/**/*.ts components/**/*.tsx pages/**/*.ts pages/**/*.tsx mocha/**/*.ts app/**/*.ts",
     "lint-fix": "eslint --fix components/**/*.ts components/**/*.tsx pages/**/*.ts pages/**/*.tsx mocha/**/*.ts app/**/*.ts"
   },
@@ -41,6 +41,7 @@
     "enzyme-adapter-react-16": "^1.15.3",
     "eslint": "^7.6.0",
     "eslint-plugin-react": "^7.20.5",
+    "ignore-styles": "^5.0.1",
     "mocha": "^8.0.1",
     "mocha-jsdom": "^2.0.0",
     "nodemon": "^2.0.4",
