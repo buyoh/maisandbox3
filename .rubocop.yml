@@ -15,6 +15,7 @@ Style/StderrPuts:
 Metrics/MethodLength:
   Max: 60
   Exclude:
+    - 'launcher/AppLauncher/ALTaskExec.rb'  # TODO
     - 'launcher/launcher.rb'
     - 'spec/large/**/*.rb'
 
@@ -40,11 +41,13 @@ Metrics/CyclomaticComplexity:
   Exclude:
     - 'launcher/launcher.rb'
     - 'launcher/lib/Executor.rb'  # TODO
+    - 'launcher/AppLauncher/ALTaskExec.rb'  # TODO
 
 Metrics/PerceivedComplexity:
   Exclude:
     - 'launcher/launcher.rb'
     - 'launcher/lib/Executor.rb'  # TODO
+    - 'launcher/AppLauncher/ALTaskExec.rb'  # TODO
 
 Style/ClassVars:
   Enabled: false
