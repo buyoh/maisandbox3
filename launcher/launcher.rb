@@ -39,6 +39,10 @@ class AppLauncher
       update_verbose(-1)
     end
     opts.on('--loop') { @config[:loop] = true }
+    opts.on('--validate') do
+      # validate input-output
+      update_validate true
+    end
     opts.parse!(ARGV)
   end
 

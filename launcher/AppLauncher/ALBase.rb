@@ -5,6 +5,7 @@ require 'json'
 module ALBase
   @@mutex_stderr = Mutex.new
   @@verbose = 0
+  @@validate = false
   @@superuser = false
   @@work_directory = __dir__ + '/../../tmp'
 
@@ -12,6 +13,14 @@ module ALBase
 
   def update_verbose(verbose)
     @@verbose = verbose
+  end
+
+  def update_validate(_validate)
+    @@validate = true
+  end
+
+  def validation_enabled?
+    @@validate
   end
 
   def work_directory

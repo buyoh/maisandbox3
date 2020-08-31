@@ -25,6 +25,7 @@ class StubLauncher
 
   def main
     update_verbose(1)
+    update_validate true
     # socket = ALSocket.new(STDIN, STDOUT)
     socket = ALSocket.new(@iwr, @irw)
 

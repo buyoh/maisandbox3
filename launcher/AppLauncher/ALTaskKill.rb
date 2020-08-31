@@ -6,7 +6,13 @@ require_relative 'ALTask'
 class ALTaskKill
   include ALTask
 
-  def action(_param, reporter, local_storage)
+  def validate_param(param, _local_storage)
+    param = param.clone
+    param.delete 'method'
+  end
+
+  def action(param, reporter, local_storage)
+    validate_param param, local_storage if validation_enabled?
     if !local_storage.key?(:pid) || local_storage[:pid].nil?
       vlog 'do_kill: no action'
       reporter.report({ success: true, continue: true, result: { accepted: false } })

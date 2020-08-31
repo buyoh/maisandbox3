@@ -32,12 +32,13 @@ Style/Documentation:
 
 # https://docs.rubocop.org/rubocop/cops_metrics.html
 Metrics/AbcSize:
-  Max: 32  # 36
+  Max: 33
   Exclude:
     - 'launcher/launcher.rb'
     - 'launcher/AppLauncher/ALTaskExec.rb'  # TODO
 
 Metrics/CyclomaticComplexity:
+  Max: 8
   Exclude:
     - 'launcher/launcher.rb'
     - 'launcher/lib/Executor.rb'  # TODO

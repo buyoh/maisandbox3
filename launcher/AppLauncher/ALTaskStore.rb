@@ -20,7 +20,19 @@ class ALTaskStore
   end
   private :check_valid_filequery
 
+  def validate_param(param, local_storage)
+    param = param.clone
+    param.delete 'method'
+    box = param['box']
+    if box.nil? || !@directory_manager.box_exists?(local_storage[:socket_id_str], box)
+      abort 'ALTaskStore: validation failed: box'
+    end
+    param.delete 'box'
+    abort 'ALTaskStore: validation failed: files' if param['files'].nil?
+  end
+
   def action(param, reporter, local_storage)
+    validate_param param, local_storage if validation_enabled?
     box = param['box']
     if box.nil? || !@directory_manager.box_exists?(local_storage[:socket_id_str], box)
       report_failed reporter, 'uninitialized box'
