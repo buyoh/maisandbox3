@@ -134,3 +134,9 @@ launch as production with docker as independent process
 ```
 sudo service/install-service.sh
 ```
+
+if you want to upgrade when already installed,
+
+```
+sudo service/upgrade-service.sh
+```
