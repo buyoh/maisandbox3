@@ -61,8 +61,13 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
         } else {
           summaryColor = 'success';
         }
-        this.setStdout(resultAsExec.out || '');
-        this.setErrlog(resultAsExec.err || '');
+        // this.setStdout(resultAsExec.out || '');
+        // this.setErrlog(resultAsExec.err || '');
+        // tentative implementation
+        this.setState(Object.assign({}, this.state, {
+          stdout: resultAsExec.out || '',
+          errlog: resultAsExec.err || ''
+        }));
         errLog = resultAsExec.err || '';
         this.emitter = null;
       }
@@ -72,8 +77,12 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
     }
     if (data.summary) {
       this.addStatus(data.summary, summaryColor, errLog === '' ? undefined : (key: string) => {
-        this.activateStatus(key);
-        this.setErrlog(errLog);
+        // this.activateStatus(key);
+        // this.setErrlog(errLog);
+        // tentative implementation
+        this.setState(Object.assign({}, this.state, {
+          activatedStatusKey: key, errlog: errLog
+        }));
       }, true);
     }
   }
