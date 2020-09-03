@@ -31,6 +31,10 @@ RSpec.describe ALDirectoryManager do
     expect(user1_box1_dir).not_to eq user1_box2_dir
     expect(user1_box1_dir).not_to eq user2_box1_dir
 
+    dm.delete_box(user1, user1_box2)
+    expect(Dir.exist?(user1_box1_dir)).to eq true
+    expect(Dir.exist?(user1_box2_dir)).to eq false
+
     dm.uninstall_user user1
     expect(Dir.exist?(user1_box1_dir)).to eq false
     expect(Dir.exist?(user2_box1_dir)).to eq true

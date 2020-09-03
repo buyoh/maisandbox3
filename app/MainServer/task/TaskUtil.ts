@@ -112,23 +112,14 @@ export async function utilPhaseFinalize(
   boxId: string | null)
   : Promise<void> {
 
-  if (boxId) boxId = ''; // for eslint
-  // TODO: 
-  // const res_data: Result = await kits.launcherCallbackManager.postp(
-  //   { method: 'cleanupbox', box: boxId, id: { jid, sid: kits.socketId } });
-  // res_data.id = (res_data.id as WorkID).jid;
-  // if (!res_data.success) {
-  //   kits.resultEmitter(res_data);
-  //   console.error('launcher failed: method=cleanupbox:', res_data.error);
-  //   // return await Promise.reject();
-  //   return;
-  // }
-  const res_data: Result = {
-    success: true,
-    id: jid,
-    continue: false,
-    summary: 'finalize: ok',
-  };
+  const res_data: Result = await kits.launcherCallbackManager.postp(
+    { method: 'cleanupbox', box: boxId, id: { jid, sid: kits.socketId } });
+  res_data.id = (res_data.id as WorkID).jid;
+  if (!res_data.success) {
+    kits.resultEmitter(res_data);
+    console.error('launcher failed: method=cleanupbox:', res_data.error);
+    return await Promise.reject();
+  }
   kits.resultEmitter(res_data);
   return;
 }

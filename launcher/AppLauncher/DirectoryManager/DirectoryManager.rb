@@ -5,6 +5,8 @@ require_relative '../ALBase'
 require_relative 'UserDir'
 
 # root/[user]/[box] の2層を管理する
+# userは外部から与えられる識別子を使って管理する
+# boxは自身で生成する識別子を使って管理する（統一したほうが良いかも）
 class DirectoryManager
   include ALBase
 
@@ -42,6 +44,18 @@ class DirectoryManager
     j = u.get_boxdir(key)
     FileUtils.mkdir_p work_directory + u.dirname + j
     key
+  end
+
+  def delete_box(user_key, box_key)
+    u = @key2userdir[user_key]
+    return nil unless u
+
+    j = u.get_boxdir(box_key)
+    return nil unless j
+
+    FileUtils.rm_rf work_directory + u.dirname + j
+    u.delete_box box_key
+    nil
   end
 
   def get_boxdir(user_key, box_key)

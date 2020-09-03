@@ -25,6 +25,10 @@ class UserDir
     box.dirname
   end
 
+  def delete_box(key)
+    @key2box.delete key
+  end
+
   def exists?(key)
     !@key2box[key].nil?
   end

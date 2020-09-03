@@ -39,6 +39,9 @@ class StubLauncher
       when 'setupbox'
         task = ALTaskSetupBox.new directory_manager
         task.action(json_line, reporter, local_storage)
+      when 'cleanupbox'
+        task = ALTaskCleanupBox.new directory_manager
+        task.action(json_line, reporter, local_storage)
       when 'store'
         task = ALTaskStore.new directory_manager
         task.action(json_line, reporter, local_storage)

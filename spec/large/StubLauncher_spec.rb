@@ -95,6 +95,19 @@ RSpec.describe Executor do
       phase_count += 1
       w.puts din
       w.flush
+
+      # phase 8: box finalization
+      msg = r2s_queue.pop # block thread
+      Thread.current.exit unless msg
+      expect(phase_count).to eq 8
+      din = JSON.generate(
+        { 'method' => 'cleanupbox',
+          'box' => work_box_id,
+          'id' => { 'jid' => { 'clicmid' => 1 }, 'sid' => 'socketio', 'lcmid' => 4 } }
+      )
+      phase_count += 1
+      w.puts din
+      w.flush
     end
 
     # reciever
@@ -166,6 +179,15 @@ RSpec.describe Executor do
       expect(json['result']['exitstatus']).to eq 0
       expect(json['result']['out']).to eq "2 3 4 5 7 \n"
       expect(json['id']).to eq({ 'jid' => { 'clicmid' => 1 }, 'sid' => 'socketio', 'lcmid' => 3 })
+      phase_count += 1
+      r2s_queue.push phase_count
+
+      # phase 9: notification(cleanup box complete) of phase 8
+      line = r.gets
+      json = JSON.parse(line)
+      expect(phase_count).to eq 9
+      expect(json['success']).to eq true
+
       phase_count += 1
     end
 

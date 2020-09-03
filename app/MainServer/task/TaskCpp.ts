@@ -49,8 +49,13 @@ export class TaskCpp {
       console.error('task failed', e);
     } finally {
       isFinal = true;
-      await utilPhaseFinalize(jid, kits, boxId);
-      this.finalize();
+      try {
+        await utilPhaseFinalize(jid, kits, boxId);
+      } catch (e) {
+        console.error('launcher finalize failed', e);
+      } finally {
+        this.finalize();
+      }
     }
   }
 }
