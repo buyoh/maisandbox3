@@ -50,7 +50,7 @@ export interface Result {
   success: boolean,
   taskid?: number,  // << ???
   continue?: boolean,
-  result: SubResult | SubResultBox | SubResultExec
+  result?: SubResult | SubResultBox | SubResultExec
   error?: string,
   summary?: string,
 }

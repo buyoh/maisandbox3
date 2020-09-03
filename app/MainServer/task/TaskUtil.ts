@@ -17,8 +17,7 @@ type Kits = { socketId: string, launcherCallbackManager: CallbackManager, result
 
 export async function utilPhaseSetupBox(
   jid: JobID,
-  kits: Kits,
-  continu: boolean)
+  kits: Kits)
   : Promise<string | null> {
 
   const res_data: Result = await kits.launcherCallbackManager.postp(
@@ -33,9 +32,6 @@ export async function utilPhaseSetupBox(
   const result = res_data.result as SubResultBox;
   const boxId = result.box || null;
 
-  // launcherからの応答はこれ以上続かないのでres_data.continue = falseだが、
-  // phase2移行の為、trueを指定する。
-  res_data.continue = continu;
   res_data.summary = 'setup: ok';
   kits.resultEmitter(res_data);
   return boxId;
@@ -45,8 +41,7 @@ export async function utilPhaseStoreFiles(
   jid: JobID,
   kits: Kits,
   boxId: string,
-  files: Array<{ path: string, data: string }>,
-  continu: boolean)
+  files: Array<{ path: string, data: string }>)
   : Promise<void> {
 
   const res_data: Result = await kits.launcherCallbackManager.postp(
@@ -57,7 +52,6 @@ export async function utilPhaseStoreFiles(
     console.error('launcher failed: method=store:', res_data.error);
     return await Promise.reject();
   }
-  res_data.continue = continu;
   res_data.summary = 'store: ok';
   kits.resultEmitter(res_data);
   return;
@@ -71,8 +65,7 @@ export async function utilPhaseExecute(
   cmd: string,
   args: Array<string>,
   stdin: string,
-  fileio: boolean,
-  continu: boolean): Promise<SubResultExec> {
+  fileio: boolean): Promise<SubResultExec> {
 
   return new Promise((resolve, reject) => {
     const caller = kits.launcherCallbackManager.multipost(
@@ -85,7 +78,6 @@ export async function utilPhaseExecute(
           setHandleKill(null);
           if (res_data.success) {
             res_data.summary = `run: ok(${res.exitstatus})[${Math.floor(res.time * 1000) / 1000}s]`;
-            res_data.continue = continu;
             kits.resultEmitter(res_data);
             resolve(res);
             return;
@@ -112,4 +104,31 @@ export async function utilPhaseExecute(
       );
     });
   });
+}
+
+export async function utilPhaseFinalize(
+  jid: JobID,
+  kits: Kits,
+  boxId: string | null)
+  : Promise<void> {
+
+  if (boxId) boxId = ''; // for eslint
+  // TODO: 
+  // const res_data: Result = await kits.launcherCallbackManager.postp(
+  //   { method: 'cleanupbox', box: boxId, id: { jid, sid: kits.socketId } });
+  // res_data.id = (res_data.id as WorkID).jid;
+  // if (!res_data.success) {
+  //   kits.resultEmitter(res_data);
+  //   console.error('launcher failed: method=cleanupbox:', res_data.error);
+  //   // return await Promise.reject();
+  //   return;
+  // }
+  const res_data: Result = {
+    success: true,
+    id: jid,
+    continue: false,
+    summary: 'finalize: ok',
+  };
+  kits.resultEmitter(res_data);
+  return;
 }

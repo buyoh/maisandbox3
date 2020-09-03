@@ -1,5 +1,5 @@
 import CallbackManager from '../../../lib/CallbackManager';
-import { ResultEmitter, Runnable, utilPhaseSetupBox, utilPhaseStoreFiles, utilPhaseExecute } from './TaskUtil';
+import { ResultEmitter, Runnable, utilPhaseSetupBox, utilPhaseStoreFiles, utilPhaseExecute, utilPhaseFinalize } from './TaskUtil';
 import { QueryData, JobID } from '../../../lib/type';
 
 export class TaskRuby {
@@ -24,24 +24,27 @@ export class TaskRuby {
   }
 
   async startAsync(data: QueryData, jid: JobID): Promise<void> {
+    let isFinal = false;
+    const kits = {
+      socketId: this.socketId,
+      launcherCallbackManager: this.launcherCallbackManager,
+      resultEmitter: (data: any) => { data.continue = !isFinal; this.resultEmitter(data); }
+    };
+    let boxId: string | null = null;
     try {
-      const kits = {
-        socketId: this.socketId,
-        launcherCallbackManager: this.launcherCallbackManager,
-        resultEmitter: this.resultEmitter
-      };
-
-      const boxId = await utilPhaseSetupBox(jid, kits, true);
+      boxId = await utilPhaseSetupBox(jid, kits);
       if (boxId === null)
         throw Error('recieved null boxId');
 
-      await utilPhaseStoreFiles(jid, kits, boxId, [{ path: 'code.rb', data: data.code }], true);
+      await utilPhaseStoreFiles(jid, kits, boxId, [{ path: 'code.rb', data: data.code }]);
 
       await utilPhaseExecute(jid, kits, boxId, (hk) => { this.handleKill = hk; },
-        'ruby', ['code.rb'], data.stdin, true, false);
+        'ruby', ['code.rb'], data.stdin, true);
     } catch (e) {
       console.error(e);
     } finally {
+      isFinal = true;
+      await utilPhaseFinalize(jid, kits, boxId);
       this.finalize();
     }
   }
