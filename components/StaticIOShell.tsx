@@ -4,10 +4,11 @@ import TextArea from './Textarea';
 import Button from './Button';
 import StatusBar from './StatusBar';
 import { Item as StatusBarItem } from './StatusBar';
-import { Result, SubResultExec } from '../lib/type';
+import { Result, SubResultExec, Annotation } from '../lib/type';
 
 type StaticIOShellProps = {
-  onNeedEmitter: (callback: (data: any) => void) => (data: any) => void
+  onNeedEmitter: (callback: (data: any) => void) => (data: any) => void,
+  annotationSetter: (annotaions: Annotation[]) => void  // TODO: refactor
 }
 
 type StaticIOShellStatus = {
@@ -22,6 +23,7 @@ type StaticIOShellStatus = {
 class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellStatus> {
 
   emitter: ((data: any) => void) | null;
+  annotations: Annotation[];
 
   constructor(props: StaticIOShellProps) {
     super(props);
@@ -35,6 +37,7 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
     };
 
     this.emitter = null;
+    this.annotations = [];  // TODO: move somewhere
 
     this.handleClickRun = this.handleClickRun.bind(this);
     this.handleClickKill = this.handleClickKill.bind(this);
@@ -64,6 +67,10 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
         // this.setStdout(resultAsExec.out || '');
         // this.setErrlog(resultAsExec.err || '');
         // tentative implementation
+        if (resultAsExec.annotations) {
+          this.annotations = this.annotations.concat(resultAsExec.annotations);
+          this.props.annotationSetter(this.annotations);
+        }
         this.setState(Object.assign({}, this.state, {
           stdout: resultAsExec.out || '',
           errlog: resultAsExec.err || ''
@@ -106,6 +113,7 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
 
   private clearStatus() {
     this.setState(Object.assign({}, this.state, { statuses: [] }));
+    this.annotations = [];
   }
 
   private handleClickRun() {

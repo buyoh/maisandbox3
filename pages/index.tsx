@@ -9,6 +9,7 @@ import CodeEditorShell from '../components/CodeEditorShell';
 import StaticIOShell from '../components/StaticIOShell';
 import { ClientSocket } from '../components/lib/ClientSocket';
 import { pullFromLocalStorage, pushToLocalStorage } from '../components/lib/LocalStorage';
+import { Annotation } from '../lib/type';
 
 // const RowFlexStyle: CSSProperties = {
 //   display: 'flex',
@@ -55,6 +56,7 @@ export default class extends React.Component<{}, IndexState> {
     this.handleIntervalBackup = this.handleIntervalBackup.bind(this);
     this.pullBackup = this.pullBackup.bind(this);
     this.pushBackup = this.pushBackup.bind(this);
+    this.setAnnotations = this.setAnnotations.bind(this);
   }
 
   componentDidMount(): void {
@@ -112,7 +114,7 @@ export default class extends React.Component<{}, IndexState> {
 
   // wrapper of generateForPostExec
   private handleEmitMessage(callback: (data: any) => void): (data: any) => void {
-    const editorValues = this.refCodeEditor.current?.getAllValue();
+    const editorValues = this.refCodeEditor.current?.getAllValue();  // TODO: refactor this
     const post = this.socket?.generateForPostExec(callback);
     if (editorValues === undefined || post === undefined) {
       console.warn('handleEmitMessage failed: something is not initialized');
@@ -123,6 +125,11 @@ export default class extends React.Component<{}, IndexState> {
       post({ data });
     };
     return emitter;
+  }
+
+  private setAnnotations(annotatios: Annotation[]): void {
+    // TODO: refactor this as Accessor
+    this.refCodeEditor.current?.setAnnotations(annotatios);
   }
 
   render(): JSX.Element {
@@ -138,7 +145,7 @@ export default class extends React.Component<{}, IndexState> {
           </div>
 
           <div>
-            <StaticIOShell ref={this.refIOEditor} onNeedEmitter={this.handleEmitMessage} />
+            <StaticIOShell ref={this.refIOEditor} onNeedEmitter={this.handleEmitMessage} annotationSetter={this.setAnnotations} />
           </div>
         </main>
       </div>

@@ -3,6 +3,7 @@ import React from 'react';
 import CodeToolbar from './CodeToolbar';
 import CodeEditor from './CodeEditor';
 import { pullFromLocalStorage, pushToLocalStorage } from './lib/LocalStorage';
+import { Annotation } from '../lib/type';
 
 const converterKey2Style: { [key: string]: string } = {
   cpp: 'c_cpp',
@@ -19,7 +20,8 @@ type CodeEditorShellProps = {
 }
 
 type CodeEditorShellState = {
-  lang: string
+  lang: string,
+  annotations: Annotation[]
 }
 
 class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorShellState> {
@@ -29,7 +31,8 @@ class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorSh
   constructor(props: CodeEditorShellProps) {
     super(props);
     this.state = {
-      lang: 'cpp'
+      lang: 'cpp',
+      annotations: []
     };
 
     this.refCodeEditor = React.createRef();
@@ -52,6 +55,10 @@ class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorSh
 
   setCode(code: string): void {
     this.refCodeEditor.current?.setValue(code);
+  }
+
+  setAnnotations(annotations: Annotation[]): void {
+    this.setState(Object.assign({}, this.state, { annotations }));
   }
 
   setLang(lang: string): void {
@@ -107,6 +114,7 @@ class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorSh
           <CodeEditor
             ref={this.refCodeEditor}
             lang={converterKey2Style[this.state.lang] || ''}
+            annotations={this.state.annotations}
           />
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { QueryData, JobID, Result, WorkID, SubResultBox, SubResultExec } from '../../../lib/type';
+import { QueryData, JobID, Result, WorkID, SubResultBox, SubResultExec, Annotation } from '../../../lib/type';
 import CallbackManager from '../../../lib/CallbackManager';
 
 export type Runnable = () => void;
@@ -65,6 +65,7 @@ export async function utilPhaseExecute(
   cmd: string,
   args: Array<string>,
   stdin: string,
+  annotator: undefined | ((stderr: string) => Annotation[]),
   fileio: boolean): Promise<SubResultExec> {
 
   return new Promise((resolve, reject) => {
@@ -78,6 +79,8 @@ export async function utilPhaseExecute(
           setHandleKill(null);
           if (res_data.success) {
             res_data.summary = `run: ok(${res.exitstatus})[${Math.floor(res.time * 1000) / 1000}s]`;
+            if (annotator)
+              (res_data.result as SubResultExec).annotations = annotator(res.err);
             kits.resultEmitter(res_data);
             resolve(res);
             return;

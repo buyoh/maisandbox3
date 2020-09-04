@@ -1,6 +1,25 @@
 import CallbackManager from '../../../lib/CallbackManager';
 import { ResultEmitter, Runnable, utilPhaseSetupBox, utilPhaseStoreFiles, utilPhaseExecute, utilPhaseFinalize } from './TaskUtil';
-import { QueryData, JobID } from '../../../lib/type';
+import { QueryData, JobID, Annotation } from '../../../lib/type';
+
+
+function annotateFromStderr(stderr: string): Annotation[] {
+  if (!stderr) return [];
+  const infos = [];
+  for (const line of stderr.split('\n')) {
+    const m = line.match(/^(?:\.\/)?code\.rb:(\d+):/);
+    if (m) {
+      infos.push({
+        text: line,
+        row: +m[1] - 1,
+        column: 0,
+        type: 'error'
+      });
+    }
+  }
+  return infos;
+}
+
 
 export class TaskRuby {
 
@@ -39,7 +58,7 @@ export class TaskRuby {
       await utilPhaseStoreFiles(jid, kits, boxId, [{ path: 'code.rb', data: data.code }]);
 
       await utilPhaseExecute(jid, kits, boxId, (hk) => { this.handleKill = hk; },
-        'ruby', ['code.rb'], data.stdin, true);
+        'ruby', ['./code.rb'], data.stdin, annotateFromStderr, true);
     } catch (e) {
       console.error(e);
     } finally {
