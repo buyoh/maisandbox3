@@ -39,6 +39,9 @@ jobs:
       run: |
         yarn upgrade
         bundle update
+    - name: presubmit
+      run: |
+        ./presubmit.sh
     - name: commit phase
       run: |
         if [ `git diff | wc -l` -ne 0 ] ; then
