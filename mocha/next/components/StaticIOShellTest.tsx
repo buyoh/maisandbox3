@@ -2,7 +2,7 @@ import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 import { assert } from 'chai';
-import { configure, shallow } from 'enzyme';
+import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 configure({ adapter: new Adapter() });
 
@@ -33,6 +33,7 @@ describe('StaticIOShell', () => {
   });
 
   it('emit run', (done) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handlerOnNeedEmitter = (_: (data: any) => void) => {
       return (data: any) => {
         assert.hasAllKeys(data, { action: 'run', stdin: '' }, 'check emitted data');
@@ -42,7 +43,8 @@ describe('StaticIOShell', () => {
     };
 
     const ref = React.createRef<StaticIOShell>();
-    const codeEditor = (<StaticIOShell ref={ref} onNeedEmitter={handlerOnNeedEmitter} />);
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    const codeEditor = (<StaticIOShell ref={ref} onNeedEmitter={handlerOnNeedEmitter} annotationSetter={() => { }} />);
     // const wrapper = shallow(codeEditor);
     act(() => {
       render(codeEditor, container);
