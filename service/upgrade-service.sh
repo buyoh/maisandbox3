@@ -22,7 +22,7 @@ npx yarn build
 npx yarn --production  # erase development dependencies
 popd
 
-docker/build-launcher.sh 
+docker/build-docker.sh 
 
 sudo systemctl start maisandbox3
 

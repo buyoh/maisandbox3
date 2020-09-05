@@ -39,7 +39,7 @@ yarn -- help
 ```
 yarn
 yarn build
-docker/build-launcher.sh  # for docker
+docker/build-docker.sh  # for docker
 ```
 
 ### start (without docker)

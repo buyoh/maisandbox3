@@ -15,7 +15,7 @@ npx yarn build
 npx yarn --production  # erase development dependencies
 popd
 
-docker/build-launcher.sh 
+docker/build-docker.sh 
 
 cat <<EOS > /etc/systemd/system/maisandbox3.service
 [Unit]
