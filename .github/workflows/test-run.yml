@@ -1,0 +1,36 @@
+name: test-run
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-20.04
+    
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: '2.7'
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+    - name: install tools
+      run: |
+        sudo apt update
+        sudo apt install g++
+        sudo npm i -g yarn
+        gem install bundler
+    - name: install packages
+      run: |
+        yarn
+        bundle install
+    - name: test launch develop
+      run: |
+        PORT=3030 timeout 20 yarn dev || [[ $? -eq 124 ]]
+    - name: test launch production
+      run: |
+        yarn build
+        yarn --production
+        ruby launcher/launcher.rb &
+        LAUNCHER_PROCESS=SOCKET timeout 20 yarn prod || [[ $? -eq 124 ]]
