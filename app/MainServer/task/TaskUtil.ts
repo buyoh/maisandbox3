@@ -123,6 +123,7 @@ export async function utilPhaseFinalize(
     console.error('launcher failed: method=cleanupbox:', res_data.error);
     return await Promise.reject();
   }
+  res_data.summary = undefined;
   kits.resultEmitter(res_data);
   return;
 }
