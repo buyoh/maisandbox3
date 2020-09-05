@@ -26,7 +26,7 @@ class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
 
   private generateJSXFromItem(item: Item): JSX.Element {
     return (
-      <div className="flex_elem_fix" key={item.key} onClick={() => { console.log(item); item.onClick?.call(null, item.key); }}>
+      <div className="flex_elem_fix" key={item.key} onClick={() => { item.onClick?.call(null, item.key); }}>
         <StatusBadge color={item.color} active={item.key === this.props.active} clickable={!!item.onClick}>{item.text}</StatusBadge>
       </div>
     );
