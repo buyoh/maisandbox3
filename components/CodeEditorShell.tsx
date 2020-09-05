@@ -37,9 +37,24 @@ class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorSh
 
     this.refCodeEditor = React.createRef();
     this.getAllValue = this.getAllValue.bind(this);
+    this.setAnnotations = this.setAnnotations.bind(this);
+    this.serialize = this.serialize.bind(this);
+    this.deserialize = this.deserialize.bind(this);
     this.handleLangChange = this.handleLangChange.bind(this);
     this.handleTemplatePull = this.handleTemplatePull.bind(this);
     this.handleTemplatePush = this.handleTemplatePush.bind(this);
+  }
+
+  private getCode(): string | null {
+    return this.refCodeEditor.current?.getValue() || null;
+  }
+
+  private setCode(code: string): void {
+    this.refCodeEditor.current?.setValue(code);
+  }
+
+  private setLang(lang: string): void {
+    this.setState(Object.assign({}, this.state, { lang }));
   }
 
   getAllValue(): { code: string, lang: string } {
@@ -49,20 +64,8 @@ class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorSh
     return { code, lang };
   }
 
-  getCode(): string | null {
-    return this.refCodeEditor.current?.getValue() || null;
-  }
-
-  setCode(code: string): void {
-    this.refCodeEditor.current?.setValue(code);
-  }
-
   setAnnotations(annotations: Annotation[]): void {
     this.setState(Object.assign({}, this.state, { annotations }));
-  }
-
-  setLang(lang: string): void {
-    this.setState(Object.assign({}, this.state, { lang }));
   }
 
   serialize(): CodeEditorShellSerialized {
