@@ -8,7 +8,8 @@ import { Annotation } from '../lib/type';
 const converterKey2Style: { [key: string]: string } = {
   cpp: 'c_cpp',
   ruby: 'ruby',
-  python: 'python'
+  python: 'python',
+  clay: 'c_cpp'
 };
 
 type CodeEditorShellSerialized = {
