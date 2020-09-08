@@ -51,19 +51,19 @@ export class TaskRuby {
     };
     let boxId: string | null = null;
     try {
-      boxId = await utilPhaseSetupBox(jid, kits);
+      boxId = await utilPhaseSetupBox('setup', jid, kits);
       if (boxId === null)
         throw Error('recieved null boxId');
 
-      await utilPhaseStoreFiles(jid, kits, boxId, [{ path: 'code.rb', data: data.code }]);
+      await utilPhaseStoreFiles('store', jid, kits, boxId, [{ path: 'code.rb', data: data.code }]);
 
-      await utilPhaseExecute(jid, kits, boxId, (hk) => { this.handleKill = hk; },
+      await utilPhaseExecute('run', jid, kits, boxId, (hk) => { this.handleKill = hk; },
         'ruby', ['./code.rb'], data.stdin, annotateFromStderr, true);
     } catch (e) {
       console.error(e);
     } finally {
       isFinal = true;
-      await utilPhaseFinalize(jid, kits, boxId);
+      await utilPhaseFinalize('finalize', jid, kits, boxId);
       this.finalize();
     }
   }

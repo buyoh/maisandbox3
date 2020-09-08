@@ -16,6 +16,7 @@ export function asyncError(message: string): Promise<boolean> {
 type Kits = { socketId: string, launcherCallbackManager: CallbackManager, resultEmitter: ResultEmitter };
 
 export async function utilPhaseSetupBox(
+  summaryLabel: string,
   jid: JobID,
   kits: Kits)
   : Promise<string | null> {
@@ -32,12 +33,13 @@ export async function utilPhaseSetupBox(
   const result = res_data.result as SubResultBox;
   const boxId = result.box || null;
 
-  res_data.summary = 'setup: ok';
+  res_data.summary = `${summaryLabel}: ok`;
   kits.resultEmitter(res_data);
   return boxId;
 }
 
 export async function utilPhaseStoreFiles(
+  summaryLabel: string,
   jid: JobID,
   kits: Kits,
   boxId: string,
@@ -52,12 +54,13 @@ export async function utilPhaseStoreFiles(
     console.error('launcher failed: method=store:', res_data.error);
     return await Promise.reject();
   }
-  res_data.summary = 'store: ok';
+  res_data.summary = `${summaryLabel}: ok`;
   kits.resultEmitter(res_data);
   return;
 }
 
 export async function utilPhaseExecute(
+  summaryLabel: string,
   jid: JobID,
   kits: Kits,
   boxId: string,
@@ -78,14 +81,14 @@ export async function utilPhaseExecute(
           const res = res_data.result as SubResultExec;
           setHandleKill(null);
           if (res_data.success) {
-            res_data.summary = `run: ok(${res.exitstatus})[${Math.floor(res.time * 1000) / 1000}s]`;
+            res_data.summary = `${summaryLabel}: ok(${res.exitstatus})[${Math.floor(res.time * 1000) / 1000}s]`;
             if (annotator)
               (res_data.result as SubResultExec).annotations = annotator(res.err);
             kits.resultEmitter(res_data);
             resolve(res);
             return;
           } else {
-            res_data.summary = 'run: error';
+            res_data.summary = `${summaryLabel}: error`;
             // note: NOT runtime error (it means rejected a bad query)
             console.error('launcher failed: method=exec ', res_data.error);
             kits.resultEmitter(res_data);
@@ -94,7 +97,7 @@ export async function utilPhaseExecute(
           }
         }
         // execution inprogress
-        res_data.summary = 'run: running';
+        res_data.summary = `${summaryLabel}: running`;
         kits.resultEmitter(res_data);
         return;
       });
@@ -110,6 +113,7 @@ export async function utilPhaseExecute(
 }
 
 export async function utilPhaseFinalize(
+  _summaryLabel: string,
   jid: JobID,
   kits: Kits,
   boxId: string | null)
