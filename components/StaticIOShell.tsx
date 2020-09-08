@@ -51,6 +51,10 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
       this.activateStatus(key);
   }
 
+  removeAllStatuses(): void {
+    this.setState(Object.assign({}, this.state, { statuses: [] }));
+  }
+
   private activateStatus(key: string): void {
     this.setState(Object.assign({}, this.state, { activatedStatusKey: key }));
   }

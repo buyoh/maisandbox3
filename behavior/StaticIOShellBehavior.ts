@@ -74,6 +74,7 @@ export class StaticIOShellBehavior {
     const staticIO = this.refStaticIO.current;
     const codeEditor = this.refCodeEditor.current;
     if (!staticIO || !codeEditor) return;
+    staticIO.removeAllStatuses();
 
     const stdin = staticIO.getStdin();
     const { code, lang } = codeEditor.getAllValue();
