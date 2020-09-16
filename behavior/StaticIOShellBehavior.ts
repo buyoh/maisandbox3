@@ -75,6 +75,8 @@ export class StaticIOShellBehavior {
     const codeEditor = this.refCodeEditor.current;
     if (!staticIO || !codeEditor) return;
     staticIO.removeAllStatuses();
+    this.annotations = [];
+    this.refCodeEditor.current?.setAnnotations(this.annotations);
 
     const stdin = staticIO.getStdin();
     const { code, lang } = codeEditor.getAllValue();
