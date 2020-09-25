@@ -1,0 +1,19 @@
+.status {
+  text-align: center;
+  padding: 0.25em 0.5em;
+  border-radius: 0.5em;
+  margin-right: 0.25em;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  outline-offset: -2px,
+}
+
+.status.active {
+  margin-top: 0px;
+  margin-bottom: 5px;
+  /* outline: 3px solid #ffe8; */
+}
+
+.status.clickable:hover {
+  outline: 3px solid #ff7c;
+}

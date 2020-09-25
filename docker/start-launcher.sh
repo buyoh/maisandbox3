@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -eu
+
 ARGS=$@
 
 DIR_SH=`dirname $0`

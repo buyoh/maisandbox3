@@ -25,6 +25,7 @@ class StubLauncher
 
   def main
     update_verbose(1)
+    update_validate true
     # socket = ALSocket.new(STDIN, STDOUT)
     socket = ALSocket.new(@iwr, @irw)
 
@@ -37,6 +38,9 @@ class StubLauncher
       case json_line['method']
       when 'setupbox'
         task = ALTaskSetupBox.new directory_manager
+        task.action(json_line, reporter, local_storage)
+      when 'cleanupbox'
+        task = ALTaskCleanupBox.new directory_manager
         task.action(json_line, reporter, local_storage)
       when 'store'
         task = ALTaskStore.new directory_manager

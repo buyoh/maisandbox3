@@ -7,6 +7,13 @@ DIR_TREE="$DIR_SH/.."
 DIR_WORK=/opt/maisandbox3
 
 mkdir -p $DIR_WORK
+if [[ ! -w $DIR_WORK ]]; then
+  echo "Permission denied: $DIR_WORK"
+  exit 1
+fi
+
+sudo systemctl stop maisandbox3
+
 rsync -a $DIR_TREE/* $DIR_WORK/ \
   --exclude "tmp" --exclude "var"
 
@@ -17,19 +24,6 @@ popd
 
 docker/build-docker.sh 
 
-cat <<EOS > /etc/systemd/system/maisandbox3.service
-[Unit]
-Description = maisandbox3
-[Service]
-ExecStart = $DIR_WORK/service/start.sh
-Restart = no
-Type = forking
-[Install]
-WantedBy = multi-user.target
-EOS
-
-sudo systemctl daemon-reload
-sudo systemctl enable maisandbox3
 sudo systemctl start maisandbox3
 
-echo "##### complete install-service #####"
+echo "##### complete upgrade-service #####"

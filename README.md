@@ -11,6 +11,15 @@
 
 ./tmp is not deleted automatically.
 
+## clone
+
+you may need to sync git submodules
+
+```
+git submodule init
+git submodule update
+```
+
 ## environment
 
 - Ubuntu 20.04 (recommended. may be runnable on *NIX)
@@ -21,7 +30,7 @@
 We recommend `yarn`.
 
 ```
-npm i
+npm i yarn
 npx yarn --help
 ```
 
@@ -39,7 +48,7 @@ yarn -- help
 ```
 yarn
 yarn build
-docker/build-launcher.sh  # for docker
+docker/build-docker.sh  # for docker
 ```
 
 ### start (without docker)
@@ -133,4 +142,10 @@ launch as production with docker as independent process
 
 ```
 sudo service/install-service.sh
+```
+
+if you want to upgrade when already installed,
+
+```
+sudo service/upgrade-service.sh
 ```

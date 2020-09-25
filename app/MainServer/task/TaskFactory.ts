@@ -2,6 +2,7 @@ import CallbackManager from '../../../lib/CallbackManager';
 import { TaskRuby } from './TaskRuby';
 import { ResultEmitter, Runnable, Task } from './TaskUtil';
 import { TaskCpp } from './TaskCpp';
+import { TaskCLay } from './TaskCLay';
 
 
 export class TaskFactory {
@@ -25,6 +26,8 @@ export class TaskFactory {
       return new TaskRuby(this.socketId, this.launcherCallbackManager, this.resultEmitter, this.finalize);
     if (lang === 'cpp')
       return new TaskCpp(this.socketId, this.launcherCallbackManager, this.resultEmitter, this.finalize);
+    if (lang === 'clay')
+      return new TaskCLay(this.socketId, this.launcherCallbackManager, this.resultEmitter, this.finalize);
     return null;
   }
 }

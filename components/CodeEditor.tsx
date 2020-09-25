@@ -1,6 +1,8 @@
 import React from 'react';
 import AceEditor from 'react-ace';
 
+import { Annotation } from '../lib/type';
+
 import 'ace-builds/src-min-noconflict/mode-c_cpp';
 import 'ace-builds/src-min-noconflict/mode-python';
 import 'ace-builds/src-min-noconflict/mode-ruby';
@@ -20,6 +22,7 @@ import 'ace-builds/src-min-noconflict/ext-options'; // ??
 type CodeEditorProps = {
   lang: string
   onChange?: (value: string) => void
+  annotations?: Annotation[]
 }
 
 type CodeEditorState = {
@@ -74,6 +77,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
           display: 'block',
           width: 'auto'
         }}
+        annotations={this.props.annotations}
         value={this.state.value}
         onChange={this.handleOnChange}
 

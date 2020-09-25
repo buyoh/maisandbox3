@@ -1,3 +1,9 @@
+export type Annotation = {
+  row?: number;
+  column?: number;
+  text: string;
+  type: string;
+};
 
 export interface JobID {
   clicmid?: number,  // client callback manager id
@@ -38,6 +44,7 @@ export interface SubResultExec {
   err: string,
   out: string,
   exitstatus: number,
+  annotations?: Annotation[],
   time: number,
 }
 
@@ -50,7 +57,7 @@ export interface Result {
   success: boolean,
   taskid?: number,  // << ???
   continue?: boolean,
-  result: SubResult | SubResultBox | SubResultExec
+  result?: SubResult | SubResultBox | SubResultExec
   error?: string,
   summary?: string,
 }

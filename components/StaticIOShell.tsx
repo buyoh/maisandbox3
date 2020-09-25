@@ -3,23 +3,23 @@ import React from 'react';
 import TextArea from './Textarea';
 import Button from './Button';
 import StatusBar from './StatusBar';
-import { Result, SubResultExec } from '../lib/type';
+import { Item as StatusBarItem } from './StatusBar';
 
 type StaticIOShellProps = {
-  onNeedEmitter: (callback: (data: any) => void) => (data: any) => void
+  onClickRun: () => void,
+  onClickKill: () => void,
 }
 
 type StaticIOShellStatus = {
   stdin: string,
   stdout: string,
   errlog: string,
-  statuses: Array<{ text: string, color: string, key: string }>,
+  statuses: Array<StatusBarItem>,
+  activatedStatusKey: string,
   visibleErr: boolean
 }
 
 class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellStatus> {
-
-  emitter: ((data: any) => void) | null;
 
   constructor(props: StaticIOShellProps) {
     super(props);
@@ -28,76 +28,39 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
       stdout: '',
       errlog: '',
       statuses: [{ text: 'ready', color: 'light', key: '' }],
+      activatedStatusKey: '',
       visibleErr: false
     };
 
-    this.emitter = null;
-
-    this.handleClickRun = this.handleClickRun.bind(this);
-    this.handleClickKill = this.handleClickKill.bind(this);
     this.handleClickToggle = this.handleClickToggle.bind(this);
   }
 
-  private generateJobRun() {
-    this.clearStatus();
-    return { action: 'run', stdin: this.state.stdin };
+  addStatus(text: string, color = 'light', errlog: string | undefined, active?: boolean): void {
+    const key = Math.random().toString();
+    const status: StatusBarItem = {
+      text,
+      color,
+      key,
+      onClick: errlog ? (key: string) => {
+        this.activateStatus(key);
+        this.setErrlog(errlog);
+      } : undefined
+    };
+    this.setState(Object.assign({}, this.state, { statuses: [status].concat(this.state.statuses) }));
+    if (active)
+      this.activateStatus(key);
   }
 
-  private generateJobKill() {
-    return { action: 'kill' };  // TODO: index.tsx側でソースコードを無駄に送っている
-  }
-
-  private recieveResult(data: Result) {
-    let summaryColor = 'gray';
-    if (data.result) {
-      const resultAsExec = data.result as SubResultExec;
-      if (resultAsExec.exited) {
-        if (resultAsExec.exitstatus !== 0) {
-          summaryColor = 'warning';
-        } else {
-          summaryColor = 'success';
-        }
-        this.setStdout(resultAsExec.out || '');
-        this.setErrlog(resultAsExec.err || '');
-        this.emitter = null;
-      }
-    }
-    else {
-      // e.g. kill callback
-    }
-    if (data.summary)
-      this.addStatus(data.summary, summaryColor);
-  }
-
-  private addStatus(text: string, color = 'light') {
-    this.setState(Object.assign({}, this.state, { statuses: [{ text, color, key: Math.random().toString() }].concat(this.state.statuses) }));
-  }
-
-  private clearStatus() {
+  removeAllStatuses(): void {
     this.setState(Object.assign({}, this.state, { statuses: [] }));
   }
 
-  private handleClickRun() {
-    this.emitter = this.props.onNeedEmitter(this.recieveResult.bind(this));
-    this.emitter(this.generateJobRun());
-  }
-
-  private handleClickKill() {
-    const em = this.emitter;
-    if (!em) { return; }
-    em(this.generateJobKill());
+  private activateStatus(key: string): void {
+    this.setState(Object.assign({}, this.state, { activatedStatusKey: key }));
   }
 
   private handleClickToggle() {
     this.setState(Object.assign({}, this.state, { visibleErr: !this.state.visibleErr }));
-  }
-
-  testApis(): { handleClickRun: () => void, handleClickKill: () => void, handleClickToggle: () => void } {
-    return {
-      handleClickRun: this.handleClickRun,
-      handleClickKill: this.handleClickKill,
-      handleClickToggle: this.handleClickToggle
-    };
   }
 
   getStdin(): string {
@@ -118,10 +81,10 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
         <div className="flex_elem flex_row">
           <div className="flex_elem_fix flex_cols">
             <div className="flex_elem_fix">
-              <Button onClick={this.handleClickRun} key="btn-run">run</Button>
+              <Button onClick={this.props.onClickRun} key="btn-run">run</Button>
             </div>
             <div className="flex_elem_fix">
-              <Button onClick={this.handleClickKill} key="btn-kill">kill</Button>
+              <Button onClick={this.props.onClickKill} key="btn-kill">kill</Button>
             </div>
             <div className="flex_elem_fix">
               <Button onClick={this.handleClickToggle} key="btn-toggle-display">IO/Err</Button>
@@ -146,7 +109,7 @@ class StaticIOShell extends React.Component<StaticIOShellProps, StaticIOShellSta
 
         </div>
         <div className="flex_elem_fix">
-          <StatusBar values={this.state.statuses}></StatusBar>
+          <StatusBar values={this.state.statuses} active={this.state.activatedStatusKey}></StatusBar>
         </div>
       </div>
     );

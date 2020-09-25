@@ -8,9 +8,6 @@ jobs:
     runs-on: ubuntu-20.04
     
     steps:
-    - uses: actions/setup-ruby@v1
-      with:
-        ruby-version: '2.7'
     - uses: actions/setup-node@v1
       with:
         node-version: '12'
@@ -21,22 +18,21 @@ jobs:
       run: |
         git config --global user.email "mai@ukibune.net"
         git config --global user.name "mai bot-worker"
+    - name: get git submodules
+      run: |
+        git submodule init
+        git submodule update
     - name: install tools
       run: |
         sudo apt update
         sudo apt install g++
         sudo npm i -g yarn
-        gem install bundler
     - name: install packages
       run: |
         yarn
-        bundle install
     - name: lint javascript
       run: |
         yarn lint-fix
-    - name: lint ruby
-      run: |
-        bundle exec rubocop --auto-correct
     - name: commit phase
       run: |
         if [ `git diff | wc -l` -ne 0 ] ; then

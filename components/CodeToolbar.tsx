@@ -26,7 +26,8 @@ class CodeToolbar extends React.Component<CodeToolbarProps, {}> {
             items={[
               { key: 'ruby', label: 'Ruby' },
               { key: 'python', label: 'Python' },
-              { key: 'cpp', label: 'C++' }]}
+              { key: 'cpp', label: 'C++' },
+              { key: 'clay', label: 'cLay' }]}
             onChange={this.props.onLangChange}
           />
         </div>

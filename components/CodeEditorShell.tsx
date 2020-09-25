@@ -3,11 +3,13 @@ import React from 'react';
 import CodeToolbar from './CodeToolbar';
 import CodeEditor from './CodeEditor';
 import { pullFromLocalStorage, pushToLocalStorage } from './lib/LocalStorage';
+import { Annotation } from '../lib/type';
 
 const converterKey2Style: { [key: string]: string } = {
   cpp: 'c_cpp',
   ruby: 'ruby',
-  python: 'python'
+  python: 'python',
+  clay: 'c_cpp'
 };
 
 type CodeEditorShellSerialized = {
@@ -19,7 +21,8 @@ type CodeEditorShellProps = {
 }
 
 type CodeEditorShellState = {
-  lang: string
+  lang: string,
+  annotations: Annotation[]
 }
 
 class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorShellState> {
@@ -29,14 +32,30 @@ class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorSh
   constructor(props: CodeEditorShellProps) {
     super(props);
     this.state = {
-      lang: 'cpp'
+      lang: 'cpp',
+      annotations: []
     };
 
     this.refCodeEditor = React.createRef();
     this.getAllValue = this.getAllValue.bind(this);
+    this.setAnnotations = this.setAnnotations.bind(this);
+    this.serialize = this.serialize.bind(this);
+    this.deserialize = this.deserialize.bind(this);
     this.handleLangChange = this.handleLangChange.bind(this);
     this.handleTemplatePull = this.handleTemplatePull.bind(this);
     this.handleTemplatePush = this.handleTemplatePush.bind(this);
+  }
+
+  private getCode(): string | null {
+    return this.refCodeEditor.current?.getValue() || null;
+  }
+
+  private setCode(code: string): void {
+    this.refCodeEditor.current?.setValue(code);
+  }
+
+  private setLang(lang: string): void {
+    this.setState(Object.assign({}, this.state, { lang }));
   }
 
   getAllValue(): { code: string, lang: string } {
@@ -46,16 +65,8 @@ class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorSh
     return { code, lang };
   }
 
-  getCode(): string | null {
-    return this.refCodeEditor.current?.getValue() || null;
-  }
-
-  setCode(code: string): void {
-    this.refCodeEditor.current?.setValue(code);
-  }
-
-  setLang(lang: string): void {
-    this.setState(Object.assign({}, this.state, { lang }));
+  setAnnotations(annotations: Annotation[]): void {
+    this.setState(Object.assign({}, this.state, { annotations }));
   }
 
   serialize(): CodeEditorShellSerialized {
@@ -107,6 +118,7 @@ class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorSh
           <CodeEditor
             ref={this.refCodeEditor}
             lang={converterKey2Style[this.state.lang] || ''}
+            annotations={this.state.annotations}
           />
         </div>
       </div>
