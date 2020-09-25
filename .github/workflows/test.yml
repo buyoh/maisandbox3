@@ -9,9 +9,6 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-ruby@v1
-      with:
-        ruby-version: '2.7'
     - uses: actions/setup-node@v1
       with:
         node-version: '12'
@@ -21,16 +18,16 @@ jobs:
         sudo apt install g++
         sudo npm i -g yarn
         gem install bundler
+    - name: get git submodules
+      run: |
+        git submodule init
+        git submodule update
     - name: install packages
       run: |
         yarn
-        bundle install
     - name: test javascript
       run: |
         yarn test
-    - name: test ruby
-      run: |
-        bundle exec rspec
     - name: try building javascript
       run: |
         yarn build

@@ -1,0 +1,3 @@
+[submodule "deps/applauncher"]
+	path = deps/applauncher
+	url = https://github.com/buyoh/applauncher.git

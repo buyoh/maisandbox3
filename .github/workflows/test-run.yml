@@ -9,22 +9,21 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-ruby@v1
-      with:
-        ruby-version: '2.7'
     - uses: actions/setup-node@v1
       with:
         node-version: '12'
+    - name: get git submodules
+      run: |
+        git submodule init
+        git submodule update
     - name: install tools
       run: |
         sudo apt update
         sudo apt install g++
         sudo npm i -g yarn
-        gem install bundler
     - name: install packages
       run: |
         yarn
-        bundle install
     - name: test launch develop
       run: |
         PORT=3030 timeout 20 yarn dev || [[ $? -eq 124 ]]

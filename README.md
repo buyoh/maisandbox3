@@ -11,6 +11,15 @@
 
 ./tmp is not deleted automatically.
 
+## clone
+
+you may need to sync git submodules
+
+```
+git submodule init
+git submodule update
+```
+
 ## environment
 
 - Ubuntu 20.04 (recommended. may be runnable on *NIX)
