@@ -67,7 +67,7 @@ export class LauncherSocket {
   private startChildProcess(): void {
     const args = [];
     if (Config.develop) args.push('--validate');
-    const p = ChildProcess.spawn('ruby', ['launcher/launcher.rb'].concat(args), { stdio: ['pipe', 'pipe', 'inherit'] });
+    const p = ChildProcess.spawn('ruby', ['deps/applauncher/index.rb'].concat(args), { stdio: ['pipe', 'pipe', 'inherit'] });
     this.process = p;
 
     p.on('close', (code, signal) => {

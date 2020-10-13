@@ -93,7 +93,7 @@ yarn dev
 
 ```
 # launcher
-ruby launcher/launcher.rb --verbose
+ruby deps/applauncher/index.rb --verbose
 # webserver
 LAUNCHER_PROCESS=SOCKET yarn dev
 ```

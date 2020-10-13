@@ -31,5 +31,5 @@ jobs:
       run: |
         yarn build
         yarn --production
-        ruby launcher/launcher.rb &
+        ruby deps/applauncher/index.rb --verbose &
         LAUNCHER_PROCESS=SOCKET timeout 20 yarn prod || [[ $? -eq 124 ]]
