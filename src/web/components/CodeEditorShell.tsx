@@ -3,7 +3,7 @@ import React from 'react';
 import CodeToolbar from './CodeToolbar';
 import CodeEditor from './CodeEditor';
 import { pullFromLocalStorage, pushToLocalStorage } from './lib/LocalStorage';
-import { Annotation } from '../lib/type';
+import { Annotation } from '../../lib/type';
 
 const converterKey2Style: { [key: string]: string } = {
   cpp: 'c_cpp',

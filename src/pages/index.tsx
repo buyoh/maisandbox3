@@ -2,15 +2,15 @@ import React from 'react';
 
 import SocketIOClient from 'socket.io-client';
 
-import Meta from '../components/style/meta';
-import Header from '../components/Header';
+import Meta from '../web/components/style/meta';
+import Header from '../web/components/Header';
 
-import CodeEditorShell from '../components/CodeEditorShell';
-import StaticIOShell from '../components/StaticIOShell';
-import { StaticIOShellBehavior } from '../behavior/StaticIOShellBehavior';
-import { CoreBehavior } from '../behavior/CoreBehavior';
-import { BackupBehavior } from '../behavior/BackupBehavior';
-import { ClientSocket } from '../components/lib/ClientSocket';
+import CodeEditorShell from '../web/components/CodeEditorShell';
+import StaticIOShell from '../web/components/StaticIOShell';
+import { StaticIOShellBehavior } from '../web/behavior/StaticIOShellBehavior';
+import { CoreBehavior } from '../web/behavior/CoreBehavior';
+import { BackupBehavior } from '../web/behavior/BackupBehavior';
+import { ClientSocket } from '../web/components/lib/ClientSocket';
 
 type IndexState = {
 }

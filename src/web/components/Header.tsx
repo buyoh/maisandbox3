@@ -1,3 +1,4 @@
+import React from 'react';
 import { CSSProperties } from 'react';
 
 const HeaderStyle: CSSProperties = {
@@ -12,8 +13,12 @@ const TitleStyle: CSSProperties = {
   fontWeight: 'bold'
 };
 
-export default (): JSX.Element => (
-  <header style={HeaderStyle}>
-    <h1 style={TitleStyle}>maisandbox3</h1>
-  </header>
-);
+function Header(): JSX.Element {
+  return (
+    <header style={HeaderStyle}>
+      <h1 style={TitleStyle}>maisandbox3</h1>
+    </header>
+  );
+}
+
+export default Header;

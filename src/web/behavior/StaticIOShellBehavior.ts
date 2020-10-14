@@ -1,6 +1,6 @@
 import StaticIOShell from '../components/StaticIOShell';
 import CodeEditorShell from '../components/CodeEditorShell';
-import { Annotation, SubResultExec, Result } from '../lib/type';
+import { Annotation, SubResultExec, Result } from '../../lib/type';
 
 type Runnable = (data: any) => void;
 type EmitterMaker = (callback: Runnable) => Runnable;

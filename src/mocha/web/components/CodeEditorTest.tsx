@@ -5,7 +5,7 @@ import { assert } from 'chai';
 //@ts-ignore
 import jsdom from 'mocha-jsdom';
 
-import CodeEditor from '../../../components/CodeEditor';
+import CodeEditor from '../../../web/components/CodeEditor';
 
 let container: Element | null = null;
 beforeEach(() => {

@@ -3,16 +3,16 @@
   "private": true,
   "main": "/dev/null",
   "scripts": {
-    "dev": "ts-node --project tsconfig.server.json app/MainServer.ts ",
+    "dev": "ts-node --project tsconfig.server.json src/app/MainServer.ts ",
     "prod": "NODE_ENV=production node build/app/MainServer.js",
     "build": "yarn build-next && yarn build-server",
     "build-next": "next build",
     "build-server": "tsc --project tsconfig.server.json",
     "test": "yarn run test-server && yarn run test-next",
-    "test-server": "TS_NODE_PROJECT=tsconfig.server.json mocha --require ts-node/register mocha/server/**/*Test.ts",
-    "test-next": "TS_NODE_FILES=true TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\", \"jsx\": \"react\"}' mocha --require ts-node/register --require ignore-styles mocha/next/**/*Test.{ts,tsx}",
-    "lint": "eslint components/**/*.ts components/**/*.tsx pages/**/*.ts pages/**/*.tsx mocha/**/*.ts app/**/*.ts",
-    "lint-fix": "eslint --fix components/**/*.ts components/**/*.tsx pages/**/*.ts pages/**/*.tsx mocha/**/*.ts app/**/*.ts"
+    "test-server": "TS_NODE_PROJECT=tsconfig.server.json mocha --require ts-node/register src/mocha/app/**/*Test.ts",
+    "test-next": "TS_NODE_FILES=true TS_NODE_COMPILER_OPTIONS='{\"module\":\"commonjs\",\"jsx\":\"react\"}' mocha --require ts-node/register --require ignore-styles src/mocha/web/**/*Test.{ts,tsx}",
+    "lint": "eslint src/**/*.ts src/**/*.tsx",
+    "lint-fix": "eslint --fix src/**/*.ts src/**/*.tsx"
   },
   "dependencies": {
     "express": "^4.17.1",
