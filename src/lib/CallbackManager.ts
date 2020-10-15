@@ -7,8 +7,6 @@
 // cm.post(myQuery, (result) => { });
 // // task2 ...
 
-import { runInThisContext } from "vm";
-
 // cm.post(myQuery, (result) => { });
 export class CallbackManager {
 
@@ -29,6 +27,7 @@ export class CallbackManager {
   }
 
   // siglepost, multicallbacks
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   post(data: any, callback: (data: any) => any): void {
     const cbmid = this.generateCbmId();
     data = { ...data };
@@ -39,6 +38,7 @@ export class CallbackManager {
   }
 
   // siglepost, singlecallback
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   postp(data: any): Promise<any> {
     return new Promise((resolve) => {
       const cbmid = this.generateCbmId();
@@ -65,6 +65,7 @@ export class CallbackManager {
   }
 
   // continu: もう一度このcallbackを呼ぶ場合はtrue
+  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   handleRecieve(data: any, continu = false): void {
     if (!data) {
       console.warn('CallbackManager::handleRecieve: null recieved. reject.');
@@ -91,7 +92,7 @@ export class CallbackManager {
     cb.call(null, data);
   }
 
-  getRecieveCallback() {
+  getRecieveCallback(): (data: any, continu?: boolean) => void {
     return this.handleRecieve.bind(this);
   }
 }

@@ -1,7 +1,5 @@
 import Next from 'next';
 
-import { LauncherSocket } from './Launcher/LauncherSocket';
-import CallbackManager from '../lib/CallbackManager';
 import Config from '../lib/Config';
 import { setupExpressServer } from './MainServer/Express';
 import { setupSocketIO, setupSocketIOAndBindHandler } from './MainServer/SocketIO';
@@ -19,7 +17,7 @@ const port = Config.httpPort;
 
     // appServer
     await appNext.prepare();
-    const [expressServer, httpServer] = setupExpressServer(appNext.getRequestHandler(), port);
+    const [, httpServer] = setupExpressServer(appNext.getRequestHandler(), port);
 
     // socketio
     const socketio = setupSocketIO(httpServer);

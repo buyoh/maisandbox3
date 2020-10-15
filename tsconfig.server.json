@@ -7,6 +7,6 @@
     "strict": true
   },
   "include": [
-    "app/**/*"
+    "src/app/**/*"
   ]
 }
