@@ -1,9 +1,14 @@
 import React from 'react';
 
-import CodeToolbar from './CodeToolbar';
-import CodeEditor from './CodeEditor';
-import { pullFromLocalStorage, pushToLocalStorage } from './lib/LocalStorage';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import { RootState } from '../stores';
+import CodeToolbar from '../components/CodeToolbar';
+import CodeEditor from '../components/CodeEditor';
+import { pullFromLocalStorage, pushToLocalStorage } from '../lib/LocalStorage';
 import { Annotation } from '../../lib/type';
+import * as Actions from '../stores/CodeEditor/actions';
+import { CodeEditorActionTypes } from '../stores/CodeEditor/types';
 
 const converterKey2Style: { [key: string]: string } = {
   cpp: 'c_cpp',
@@ -17,19 +22,45 @@ type CodeEditorShellSerialized = {
   lang: string
 }
 
-type CodeEditorShellProps = {
+type StateProps = {
+  code: string
 }
 
+type DispatchProps = {
+  updateCode: (code: string) => CodeEditorActionTypes
+}
+
+type ReactProps = {
+
+}
+
+type CombinedProps = ReactProps & StateProps & DispatchProps;
+
+
+function mapStateToProps(state: RootState): StateProps {
+  return {
+    code: state.codeEditor.code
+  };
+}
+
+function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
+  return {
+    updateCode: (code: string) => dispatch(Actions.updateKeyword(code))
+  };
+}
+
+
+// TODO:
 type CodeEditorShellState = {
   lang: string,
   annotations: Annotation[]
 }
 
-class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorShellState> {
+class CodeEditorShell extends React.Component<CombinedProps, CodeEditorShellState> {
 
   refCodeEditor: React.RefObject<CodeEditor>;
 
-  constructor(props: CodeEditorShellProps) {
+  constructor(props: CombinedProps) {
     super(props);
     this.state = {
       lang: 'cpp',
@@ -47,11 +78,11 @@ class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorSh
   }
 
   private getCode(): string | null {
-    return this.refCodeEditor.current?.getValue() || null;
+    return this.props.code;
   }
 
   private setCode(code: string): void {
-    this.refCodeEditor.current?.setValue(code);
+    this.props.updateCode(code);
   }
 
   private setLang(lang: string): void {
@@ -116,6 +147,8 @@ class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorSh
         </div>
         <div className="border">
           <CodeEditor
+            value={this.props.code}
+            onChange={this.props.updateCode}
             ref={this.refCodeEditor}
             lang={converterKey2Style[this.state.lang] || ''}
             annotations={this.state.annotations}
@@ -126,4 +159,4 @@ class CodeEditorShell extends React.Component<CodeEditorShellProps, CodeEditorSh
   }
 }
 
-export default CodeEditorShell;
+export default connect<StateProps, DispatchProps, ReactProps, RootState>(mapStateToProps, mapDispatchToProps)(CodeEditorShell);

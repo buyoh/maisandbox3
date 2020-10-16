@@ -5,12 +5,12 @@ import SocketIOClient from 'socket.io-client';
 import Meta from '../web/components/style/meta';
 import Header from '../web/components/Header';
 
-import CodeEditorShell from '../web/components/CodeEditorShell';
+import CodeEditorShell from '../web/containers/CodeEditorShell';
 import StaticIOShell from '../web/components/StaticIOShell';
 import { StaticIOShellBehavior } from '../web/behavior/StaticIOShellBehavior';
 import { CoreBehavior } from '../web/behavior/CoreBehavior';
 import { BackupBehavior } from '../web/behavior/BackupBehavior';
-import { ClientSocket } from '../web/components/lib/ClientSocket';
+import { ClientSocket } from '../web/lib/ClientSocket';
 
 type IndexState = {
 }

@@ -1,4 +1,4 @@
-import { ClientSocket } from '../components/lib/ClientSocket';
+import { ClientSocket } from '../lib/ClientSocket';
 
 export class CoreBehavior {
   private socket: ClientSocket | null;

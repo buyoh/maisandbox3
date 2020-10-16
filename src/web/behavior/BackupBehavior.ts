@@ -1,5 +1,5 @@
 import CodeEditorShell from '../components/CodeEditorShell';
-import { pullFromLocalStorage, pushToLocalStorage } from '../components/lib/LocalStorage';
+import { pullFromLocalStorage, pushToLocalStorage } from '../lib/LocalStorage';
 
 
 function pullBackupData(): any {

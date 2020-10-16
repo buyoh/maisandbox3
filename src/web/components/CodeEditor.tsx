@@ -21,12 +21,12 @@ import 'ace-builds/src-min-noconflict/ext-options'; // ??
 
 type CodeEditorProps = {
   lang: string
+  value: string;
   onChange?: (value: string) => void
   annotations?: Annotation[]
 }
 
 type CodeEditorState = {
-  value: string;
 }
 
 // import 'ace-builds/src-noconflict/mode-c_cpp';
@@ -41,16 +41,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
   }
 
   private handleOnChange(value: string): void {
-    this.setState(Object.assign({}, this.props, { value }));
     this.props.onChange?.(value);
-  }
-
-  getValue(): string {
-    return this.state.value;
-  }
-
-  setValue(value: string): void {
-    this.setState(Object.assign({}, this.state, { value }));
   }
 
   render(): JSX.Element {
@@ -78,7 +69,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
           width: 'auto'
         }}
         annotations={this.props.annotations}
-        value={this.state.value}
+        value={this.props.value}
         onChange={this.handleOnChange}
 
       />
