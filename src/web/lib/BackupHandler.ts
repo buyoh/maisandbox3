@@ -1,4 +1,4 @@
-// note: 未使用。index.tsx参照。
+// note: 未使用。
 
 type AnySerializer = () => any;
 type AnyDeserializer = (data: any) => void;

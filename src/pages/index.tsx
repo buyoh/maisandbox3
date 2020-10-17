@@ -1,78 +1,35 @@
 import React from 'react';
 
-import SocketIOClient from 'socket.io-client';
-
 import Meta from '../web/components/style/meta';
 import Header from '../web/components/Header';
 
 import CodeEditorShell from '../web/containers/CodeEditorShell';
-import StaticIOShell from '../web/components/StaticIOShell';
-import { StaticIOShellBehavior } from '../web/behavior/StaticIOShellBehavior';
-import { CoreBehavior } from '../web/behavior/CoreBehavior';
-import { BackupBehavior } from '../web/behavior/BackupBehavior';
-import { ClientSocket } from '../web/lib/ClientSocket';
+import StaticIOShell from '../web/containers/StaticIOShell';
+import BackupService from '../web/containers/BackupService';
+import SocketService from '../web/containers/SocketService';
 
-type IndexState = {
-}
-
-export default class Index extends React.Component<{}, IndexState> {
-
-  private refIOEditor: React.RefObject<StaticIOShell>;
-  private refCodeEditor: React.RefObject<CodeEditorShell>;
-  private coreBehavior: CoreBehavior;
-  private backupBehavior: BackupBehavior;
-  private staticIOShellBehavior: StaticIOShellBehavior;
+export default class Index extends React.Component<{}, {}> {
 
   constructor(props: {}) {
     super(props);
-    this.state = {};
-    this.refIOEditor = React.createRef();
-    this.refCodeEditor = React.createRef();
-
-    this.handleLoad = this.handleLoad.bind(this);
-    this.handleUnload = this.handleUnload.bind(this);
-
-    this.coreBehavior = new CoreBehavior();
-    this.backupBehavior = new BackupBehavior(this.refCodeEditor);
-    this.staticIOShellBehavior = new StaticIOShellBehavior(
-      this.coreBehavior.handleEmitMessage, this.refIOEditor, this.refCodeEditor);
-  }
-
-  componentDidMount(): void {
-    window.addEventListener('beforeunload', this.handleUnload);
-    this.handleLoad();
-  }
-
-  componentWillUnmount(): void {
-    window.removeEventListener('beforeunload', this.handleUnload);
-    this.handleUnload();  // call twice?
-  }
-
-  private handleLoad(): void {
-    this.coreBehavior.setClientSocket(new ClientSocket(SocketIOClient()));
-    this.backupBehavior.handlePageLoad();
-  }
-
-  private handleUnload(): void {
-    this.backupBehavior.handlePageUnLoad();
   }
 
   render(): JSX.Element {
     return (
       <div>
         <Meta />
+        <BackupService />
+        <SocketService />
         <Header />
         <main>
           <div className="flex_row">
             <div className="flex_elem">
-              <CodeEditorShell ref={this.refCodeEditor} />
+              <CodeEditorShell />
             </div>
           </div>
 
           <div>
-            <StaticIOShell ref={this.refIOEditor}
-              onClickRun={this.staticIOShellBehavior.handlePostRun}
-              onClickKill={this.staticIOShellBehavior.handlePostKill} />
+            <StaticIOShell />
           </div>
         </main>
       </div>

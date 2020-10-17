@@ -17,101 +17,54 @@ const converterKey2Style: { [key: string]: string } = {
   clay: 'c_cpp'
 };
 
-type CodeEditorShellSerialized = {
+interface StateProps {
   code: string,
-  lang: string
+  lang: string,
+  annotations: Annotation[]
 }
 
-type StateProps = {
-  code: string
-}
-
-type DispatchProps = {
+interface DispatchProps {
   updateCode: (code: string) => CodeEditorActionTypes
+  updateLang: (lang: string) => CodeEditorActionTypes
 }
 
-type ReactProps = {
-
-}
+type ReactProps = {}
 
 type CombinedProps = ReactProps & StateProps & DispatchProps;
 
-
 function mapStateToProps(state: RootState): StateProps {
   return {
-    code: state.codeEditor.code
+    code: state.codeEditor.code,
+    lang: state.codeEditor.lang,
+    annotations: state.codeEditor.annotations
   };
 }
 
 function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
   return {
-    updateCode: (code: string) => dispatch(Actions.updateKeyword(code))
+    updateCode: (code: string) => dispatch(Actions.updateCode(code)),
+    updateLang: (lang: string) => dispatch(Actions.updateLang(lang))
   };
 }
 
+type ReactState = {}
 
-// TODO:
-type CodeEditorShellState = {
-  lang: string,
-  annotations: Annotation[]
-}
-
-class CodeEditorShell extends React.Component<CombinedProps, CodeEditorShellState> {
+class CodeEditorShell extends React.Component<CombinedProps, ReactState> {
 
   refCodeEditor: React.RefObject<CodeEditor>;
 
   constructor(props: CombinedProps) {
     super(props);
-    this.state = {
-      lang: 'cpp',
-      annotations: []
-    };
+    this.state = {};
 
     this.refCodeEditor = React.createRef();
-    this.getAllValue = this.getAllValue.bind(this);
     this.setAnnotations = this.setAnnotations.bind(this);
-    this.serialize = this.serialize.bind(this);
-    this.deserialize = this.deserialize.bind(this);
-    this.handleLangChange = this.handleLangChange.bind(this);
     this.handleTemplatePull = this.handleTemplatePull.bind(this);
     this.handleTemplatePush = this.handleTemplatePush.bind(this);
   }
 
-  private getCode(): string | null {
-    return this.props.code;
-  }
-
-  private setCode(code: string): void {
-    this.props.updateCode(code);
-  }
-
-  private setLang(lang: string): void {
-    this.setState(Object.assign({}, this.state, { lang }));
-  }
-
-  getAllValue(): { code: string, lang: string } {
-    const code = this.getCode()
-      || (() => { console.warn('getCode failed: this.refCodeEditor.current may null!!'); return ''; })();
-    const lang = this.state.lang;
-    return { code, lang };
-  }
-
   setAnnotations(annotations: Annotation[]): void {
     this.setState(Object.assign({}, this.state, { annotations }));
-  }
-
-  serialize(): CodeEditorShellSerialized {
-    return this.getAllValue();
-  }
-
-  deserialize(data: CodeEditorShellSerialized): void {
-    this.setCode(data.code);
-    this.setLang(data.lang);
-  }
-
-
-  private handleLangChange(lang: string) {
-    this.setState(Object.assign({}, this.state, { lang }));
   }
 
   private handleTemplatePull() {
@@ -119,10 +72,10 @@ class CodeEditorShell extends React.Component<CombinedProps, CodeEditorShellStat
     if (!li) {
       return;
     }
-    if (!li[this.state.lang]) {
+    if (!li[this.props.lang]) {
       return;
     }
-    this.setCode(li[this.state.lang]);
+    this.props.updateCode(li[this.props.lang]);
   }
 
   private handleTemplatePush() {
@@ -130,7 +83,7 @@ class CodeEditorShell extends React.Component<CombinedProps, CodeEditorShellStat
     if (!li) {
       li = {};
     }
-    li[this.state.lang] = this.getCode();
+    li[this.props.lang] = this.props.code;
     pushToLocalStorage('templates', li);
   }
 
@@ -139,8 +92,8 @@ class CodeEditorShell extends React.Component<CombinedProps, CodeEditorShellStat
       <div>
         <div>
           <CodeToolbar
-            lang={this.state.lang}
-            onLangChange={this.handleLangChange}
+            lang={this.props.lang}
+            onLangChange={this.props.updateLang}
             onClickPull={this.handleTemplatePull}
             onClickPush={this.handleTemplatePush}
           />
@@ -150,8 +103,8 @@ class CodeEditorShell extends React.Component<CombinedProps, CodeEditorShellStat
             value={this.props.code}
             onChange={this.props.updateCode}
             ref={this.refCodeEditor}
-            lang={converterKey2Style[this.state.lang] || ''}
-            annotations={this.state.annotations}
+            lang={converterKey2Style[this.props.lang] || ''}
+            annotations={this.props.annotations}
           />
         </div>
       </div>
