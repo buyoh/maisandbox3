@@ -14,6 +14,9 @@ fi
 
 sudo systemctl stop maisandbox3
 
+rm -rf $DIR_WORK
+mkdir -p $DIR_WORK
+
 rsync -a $DIR_TREE/* $DIR_WORK/ \
   --exclude "tmp" --exclude "var"
 

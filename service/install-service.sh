@@ -7,6 +7,8 @@ DIR_TREE="$DIR_SH/.."
 DIR_WORK=/opt/maisandbox3
 
 mkdir -p $DIR_WORK
+rm -rfI $DIR_WORK
+mkdir -p $DIR_WORK
 rsync -a $DIR_TREE/* $DIR_WORK/ \
   --exclude "tmp" --exclude "var"
 
