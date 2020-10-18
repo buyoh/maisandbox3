@@ -3,7 +3,8 @@
         "browser": true,
         "commonjs": true,
         "es6": true,
-        "node": true
+        "node": true,
+        "jest/globals": true
     },
     "extends": [
         "eslint:recommended",
@@ -40,5 +41,8 @@
         "@typescript-eslint/ban-types": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "react/jsx-uses-vars": "warn"
-    }
+    },
+    "plugins": [
+        "jest"
+    ]
 }

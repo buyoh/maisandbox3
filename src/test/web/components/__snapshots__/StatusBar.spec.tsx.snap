@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`aaa 1`] = `
+<div
+  className="flex_row"
+  style={
+    Object {
+      "borderBottom": "2px solid #666",
+      "borderTop": "2px solid #111",
+      "overflow": "hidden",
+      "padding": "2px",
+    }
+  }
+>
+  <div
+    className="flex_elem_fix"
+    onClick={[Function]}
+  >
+    <div
+      className="color-gray  "
+    >
+      zero
+    </div>
+  </div>
+  <div
+    className="flex_elem_fix"
+    onClick={[Function]}
+  >
+    <div
+      className="color-success "
+    >
+      one
+    </div>
+  </div>
+</div>
+`;
+
+exports[`aaa 2`] = `
+<div
+  className="flex_row"
+  style={
+    Object {
+      "borderBottom": "2px solid #666",
+      "borderTop": "2px solid #111",
+      "overflow": "hidden",
+      "padding": "2px",
+    }
+  }
+>
+  <div
+    className="flex_elem_fix"
+    onClick={[Function]}
+  >
+    <div
+      className="color-gray "
+    >
+      zero
+    </div>
+  </div>
+  <div
+    className="flex_elem_fix"
+    onClick={[Function]}
+  >
+    <div
+      className="color-success  "
+    >
+      one
+    </div>
+  </div>
+</div>
+`;
