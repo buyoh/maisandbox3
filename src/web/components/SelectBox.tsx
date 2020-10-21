@@ -1,16 +1,18 @@
 import React from 'react';
 
 type SelectBoxProps = {
-  value: string,
-  disable?: boolean,
-  items?: Array<{ key: string, label: string }>
-  onChange?: (key: string) => void
-}
+  value: string;
+  disable?: boolean;
+  items?: Array<{ key: string; label: string }>;
+  onChange?: (key: string) => void;
+};
 
-function renderOptionItem(item: { key: string, label: string }) {
+function renderOptionItem(item: { key: string; label: string }) {
   const { key, label } = item;
   return (
-    <option value={key} key={key}>{label}</option>
+    <option value={key} key={key}>
+      {label}
+    </option>
   );
 }
 
@@ -33,11 +35,13 @@ class SelectBox extends React.Component<SelectBoxProps, {}> {
           disabled={this.props.disable}
           style={{
             display: 'block',
-            flex: '1'
+            flex: '1',
           }}
           value={this.props.value}
           onChange={this.handleChange}
-        >{this.props.items?.map(renderOptionItem)}</select>
+        >
+          {this.props.items?.map(renderOptionItem)}
+        </select>
       </div>
     );
   }

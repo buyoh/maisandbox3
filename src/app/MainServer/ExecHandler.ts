@@ -4,10 +4,9 @@ import { Query } from '../../lib/type';
 
 type ExecHandlerState = {
   tasks: { [key: string]: any };
-}
+};
 
 export class ExecHandler {
-
   private socketHandlerStorage: ExecHandlerState;
   private socketId: string;
   private launcherCallbackManager: CallbackManager;
@@ -22,9 +21,14 @@ export class ExecHandler {
     const jobIdStr = JSON.stringify(query.id);
     const data = query.data;
     if (data.action == 'run') {
-      const factory = new TaskFactory(this.socketId, this.launcherCallbackManager, resultEmitter, () => {
-        delete this.socketHandlerStorage.tasks[jobIdStr];
-      });
+      const factory = new TaskFactory(
+        this.socketId,
+        this.launcherCallbackManager,
+        resultEmitter,
+        () => {
+          delete this.socketHandlerStorage.tasks[jobIdStr];
+        }
+      );
       const task = factory.generate(data.lang);
       if (!task) {
         console.warn('unknown language: ', data.lang);
@@ -32,12 +36,10 @@ export class ExecHandler {
       }
       this.socketHandlerStorage.tasks[jobIdStr] = task;
       task.startAsync(data, query.id);
-    }
-    else if (data.action == 'kill') {
+    } else if (data.action == 'kill') {
       const task = this.socketHandlerStorage.tasks[jobIdStr];
-      if (!task) return;  // do nothing if jobIdStr is unknown
+      if (!task) return; // do nothing if jobIdStr is unknown
       task.kill();
     }
-
   }
 }

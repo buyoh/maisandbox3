@@ -1,16 +1,14 @@
 import React, { ChangeEvent } from 'react';
 
 type TextAreaProps = {
-  value?: string,
-  onChange?: (val: string) => void
-  placeholder?: string,
-  readOnly?: boolean,
-  resizable?: 'horizontal' | 'vertical' | 'both' | 'none',
-}
+  value?: string;
+  onChange?: (val: string) => void;
+  placeholder?: string;
+  readOnly?: boolean;
+  resizable?: 'horizontal' | 'vertical' | 'both' | 'none';
+};
 
-type TextAreaState = {
-}
-
+type TextAreaState = {};
 
 class TextArea extends React.Component<TextAreaProps, TextAreaState> {
   constructor(props: TextAreaProps) {
@@ -32,9 +30,9 @@ class TextArea extends React.Component<TextAreaProps, TextAreaState> {
           height: 'auto',
           flex: '1 1 auto',
           overflow: 'scroll',
-          resize: this.props.resizable || 'none'
+          resize: this.props.resizable || 'none',
         }}
-        spellCheck='false'
+        spellCheck="false"
         readOnly={this.props.readOnly}
         placeholder={this.props.placeholder}
         onChange={this.handleChange}

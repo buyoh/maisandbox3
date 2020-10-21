@@ -4,7 +4,9 @@ type AnySerializer = () => any;
 type AnyDeserializer = (data: any) => void;
 
 export class BackupHandler {
-  private serializers: { [key: string]: { serializer: AnySerializer, deserializer: AnyDeserializer } };
+  private serializers: {
+    [key: string]: { serializer: AnySerializer; deserializer: AnyDeserializer };
+  };
 
   constructor() {
     this.serializers = {};
@@ -15,8 +17,7 @@ export class BackupHandler {
     if (!s) return null;
     try {
       return JSON.parse(s);
-    }
-    catch (e) {
+    } catch (e) {
       return null;
     }
   }
@@ -41,15 +42,17 @@ export class BackupHandler {
     if (!data) data = {};
     for (const key in this.serializers) {
       const d = this.serializers[key].serializer();
-      if (d === undefined)
-        delete data[key];
-      else
-        data[key] = d;
+      if (d === undefined) delete data[key];
+      else data[key] = d;
     }
     this.pushBackupData(data);
   }
 
-  addSerializer(uniqueKey: string, serializer: AnySerializer, deserializer: AnyDeserializer): void {
+  addSerializer(
+    uniqueKey: string,
+    serializer: AnySerializer,
+    deserializer: AnyDeserializer
+  ): void {
     this.serializers[uniqueKey] = { serializer, deserializer };
   }
 }

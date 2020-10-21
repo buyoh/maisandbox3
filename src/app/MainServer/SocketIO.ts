@@ -5,12 +5,14 @@ import CallbackManager from '../../lib/CallbackManager';
 import { ExecHandler } from './ExecHandler';
 import { Query } from '../../lib/type';
 
-
 export function setupSocketIO(httpServer: Http.Server): SocketIO.Server {
   return SocketIO(httpServer);
 }
 
-export function setupSocketIOAndBindHandler(socketio: SocketIO.Server, launcherCallbackManager: CallbackManager): void {
+export function setupSocketIOAndBindHandler(
+  socketio: SocketIO.Server,
+  launcherCallbackManager: CallbackManager
+): void {
   // socketio binding
   socketio.on('connection', (socket: SocketIO.Socket) => {
     const execHandler = new ExecHandler(socket.id, launcherCallbackManager);
@@ -27,5 +29,5 @@ export function setupSocketIOAndBindHandler(socketio: SocketIO.Server, launcherC
         socket.emit('s2c_ResultExec', data);
       });
     });
-  });  // on connection
+  }); // on connection
 }

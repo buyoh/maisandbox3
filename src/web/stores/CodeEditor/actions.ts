@@ -5,26 +5,28 @@ import { Annotation } from '../../../lib/type';
 export function updateCode(code: string): CodeEditorActionTypes {
   return {
     type: Types.K_A_UPDATE_CODE,
-    code
+    code,
   };
 }
 
 export function updateLang(lang: string): CodeEditorActionTypes {
   return {
     type: Types.K_A_UPDATE_LANG,
-    lang
+    lang,
   };
 }
 
-export function addAnnotations(annotations: Annotation[]): CodeEditorActionTypes {
+export function addAnnotations(
+  annotations: Annotation[]
+): CodeEditorActionTypes {
   return {
     type: Types.K_A_ADDLIST_ANNOTATIONS,
-    annotations
+    annotations,
   };
 }
 
-export function removeAllAnnotations() : CodeEditorActionTypes {
+export function removeAllAnnotations(): CodeEditorActionTypes {
   return {
-    type: Types.K_A_REMOVEALL_ANNOTATIONS
+    type: Types.K_A_REMOVEALL_ANNOTATIONS,
   };
 }

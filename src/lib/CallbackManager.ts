@@ -1,5 +1,4 @@
-
-// usage: 
+// usage:
 // var cm = new CallbackManager((query) => {
 //   nanika.fetch(cm.getRecieveCallback());
 // });
@@ -9,7 +8,6 @@
 
 // cm.post(myQuery, (result) => { });
 export class CallbackManager {
-
   private identifier: string;
   private counter: number;
   private sender: (data: any) => any;
@@ -61,7 +59,6 @@ export class CallbackManager {
       data.id[this.identifier] = cbmid;
       this.sender.call(null, data);
     };
-
   }
 
   // continu: もう一度このcallbackを呼ぶ場合はtrue
@@ -77,13 +74,21 @@ export class CallbackManager {
     }
     const cbmid = data.id[this.identifier];
     if (!cbmid) {
-      console.warn('CallbackManager::handleRecieve: id.' + this.identifier + ' not found. reject.');
+      console.warn(
+        'CallbackManager::handleRecieve: id.' +
+          this.identifier +
+          ' not found. reject.'
+      );
       return;
     }
-    data.id = { ...data.id, cbmid: undefined };  // clone
+    data.id = { ...data.id, cbmid: undefined }; // clone
     const cb = this.callbacks[cbmid];
     if (!cb) {
-      console.warn('CallbackManager::handleRecieve: unknown id.' + this.identifier + '. reject.');
+      console.warn(
+        'CallbackManager::handleRecieve: unknown id.' +
+          this.identifier +
+          '. reject.'
+      );
       return;
     }
     if (!continu) {

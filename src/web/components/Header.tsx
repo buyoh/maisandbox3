@@ -3,14 +3,14 @@ import { CSSProperties } from 'react';
 
 const HeaderStyle: CSSProperties = {
   backgroundColor: '#ccc',
-  color: '#222'
+  color: '#222',
 };
 
 const TitleStyle: CSSProperties = {
   padding: '0.5em',
   margin: 0,
   fontSize: '1.2em',
-  fontWeight: 'bold'
+  fontWeight: 'bold',
 };
 
 function Header(): JSX.Element {

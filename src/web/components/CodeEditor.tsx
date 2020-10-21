@@ -20,18 +20,16 @@ import 'ace-builds/src-min-noconflict/ext-options'; // ??
 // import 'ace-builds/src-min-noconflict/ext-emmet';
 
 type CodeEditorProps = {
-  lang: string
+  lang: string;
   value: string;
-  onChange?: (value: string) => void
-  annotations?: Annotation[]
-}
+  onChange?: (value: string) => void;
+  annotations?: Annotation[];
+};
 
-type CodeEditorState = {
-}
+type CodeEditorState = {};
 
 // import 'ace-builds/src-noconflict/mode-c_cpp';
 // import 'ace-builds/src-noconflict/theme-github';
-
 
 class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
   constructor(props: CodeEditorProps) {
@@ -48,10 +46,9 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
     return (
       <AceEditor
         mode={this.props.lang}
-        theme='monokai'
+        theme="monokai"
         editorProps={{
           $blockScrolling: true,
-
         }}
         setOptions={{
           animatedScroll: false,
@@ -60,18 +57,17 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
           printMarginColumn: 100,
           enableBasicAutocompletion: true,
           enableSnippets: true,
-          enableLiveAutocompletion: true
+          enableLiveAutocompletion: true,
         }}
-        fontSize='1.4rem'
+        fontSize="1.4rem"
         tabSize={2}
         style={{
           display: 'block',
-          width: 'auto'
+          width: 'auto',
         }}
         annotations={this.props.annotations}
         value={this.props.value}
         onChange={this.handleOnChange}
-
       />
     );
   }

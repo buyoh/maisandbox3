@@ -14,21 +14,21 @@ const converterKey2Style: { [key: string]: string } = {
   cpp: 'c_cpp',
   ruby: 'ruby',
   python: 'python',
-  clay: 'c_cpp'
+  clay: 'c_cpp',
 };
 
 interface StateProps {
-  code: string,
-  lang: string,
-  annotations: Annotation[]
+  code: string;
+  lang: string;
+  annotations: Annotation[];
 }
 
 interface DispatchProps {
-  updateCode: (code: string) => CodeEditorActionTypes
-  updateLang: (lang: string) => CodeEditorActionTypes
+  updateCode: (code: string) => CodeEditorActionTypes;
+  updateLang: (lang: string) => CodeEditorActionTypes;
 }
 
-type ReactProps = {}
+type ReactProps = {};
 
 type CombinedProps = ReactProps & StateProps & DispatchProps;
 
@@ -36,21 +36,20 @@ function mapStateToProps(state: RootState): StateProps {
   return {
     code: state.codeEditor.code,
     lang: state.codeEditor.lang,
-    annotations: state.codeEditor.annotations
+    annotations: state.codeEditor.annotations,
   };
 }
 
 function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
   return {
     updateCode: (code: string) => dispatch(Actions.updateCode(code)),
-    updateLang: (lang: string) => dispatch(Actions.updateLang(lang))
+    updateLang: (lang: string) => dispatch(Actions.updateLang(lang)),
   };
 }
 
-type ReactState = {}
+type ReactState = {};
 
 class CodeEditorShell extends React.Component<CombinedProps, ReactState> {
-
   refCodeEditor: React.RefObject<CodeEditor>;
 
   constructor(props: CombinedProps) {
@@ -112,4 +111,7 @@ class CodeEditorShell extends React.Component<CombinedProps, ReactState> {
   }
 }
 
-export default connect<StateProps, DispatchProps, ReactProps, RootState>(mapStateToProps, mapDispatchToProps)(CodeEditorShell);
+export default connect<StateProps, DispatchProps, ReactProps, RootState>(
+  mapStateToProps,
+  mapDispatchToProps
+)(CodeEditorShell);

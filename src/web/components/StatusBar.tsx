@@ -4,19 +4,18 @@ import StatusBadge from './StatusBadge';
 type ClickHandler = (key: string) => void;
 type Key = string;
 export type Item = {
-  color: string,
-  text: string,
-  key: Key,
-  onClick?: ClickHandler
+  color: string;
+  text: string;
+  key: Key;
+  onClick?: ClickHandler;
 };
 
 type StatusBarProps = {
-  values: Array<Item>,
-  active?: Key
-}
+  values: Array<Item>;
+  active?: Key;
+};
 
-type StatusBarState = {
-}
+type StatusBarState = {};
 
 class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
   constructor(props: StatusBarProps) {
@@ -26,20 +25,35 @@ class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
 
   private generateJSXFromItem(item: Item): JSX.Element {
     return (
-      <div className="flex_elem_fix" key={item.key} onClick={() => { item.onClick?.call(null, item.key); }}>
-        <StatusBadge color={item.color} active={item.key === this.props.active} clickable={!!item.onClick}>{item.text}</StatusBadge>
+      <div
+        className="flex_elem_fix"
+        key={item.key}
+        onClick={() => {
+          item.onClick?.call(null, item.key);
+        }}
+      >
+        <StatusBadge
+          color={item.color}
+          active={item.key === this.props.active}
+          clickable={!!item.onClick}
+        >
+          {item.text}
+        </StatusBadge>
       </div>
     );
   }
 
   render(): JSX.Element {
     return (
-      <div className="flex_row" style={{
-        borderTop: '2px solid #111',
-        borderBottom: '2px solid #666',
-        padding: '2px',
-        overflow: 'hidden'
-      }}>
+      <div
+        className="flex_row"
+        style={{
+          borderTop: '2px solid #111',
+          borderBottom: '2px solid #666',
+          padding: '2px',
+          overflow: 'hidden',
+        }}
+      >
         {this.props.values?.map(this.generateJSXFromItem)}
       </div>
     );

@@ -1,4 +1,12 @@
-import { QueryData, JobID, Result, WorkID, SubResultBox, SubResultExec, Annotation } from '../../../lib/type';
+import {
+  QueryData,
+  JobID,
+  Result,
+  WorkID,
+  SubResultBox,
+  SubResultExec,
+  Annotation,
+} from '../../../lib/type';
 import CallbackManager from '../../../lib/CallbackManager';
 
 export type Runnable = () => void;
@@ -13,16 +21,21 @@ export function asyncError(message: string): Promise<boolean> {
   return Promise.reject(new Error(message));
 }
 
-type Kits = { socketId: string, launcherCallbackManager: CallbackManager, resultEmitter: ResultEmitter };
+type Kits = {
+  socketId: string;
+  launcherCallbackManager: CallbackManager;
+  resultEmitter: ResultEmitter;
+};
 
 export async function utilPhaseSetupBox(
   summaryLabel: string,
   jid: JobID,
-  kits: Kits)
-  : Promise<string | null> {
-
-  const res_data: Result = await kits.launcherCallbackManager.postp(
-    { method: 'setupbox', id: { jid, sid: kits.socketId } });
+  kits: Kits
+): Promise<string | null> {
+  const res_data: Result = await kits.launcherCallbackManager.postp({
+    method: 'setupbox',
+    id: { jid, sid: kits.socketId },
+  });
   res_data.id = (res_data.id as WorkID).jid;
   if (!res_data.success) {
     kits.resultEmitter(res_data);
@@ -43,11 +56,14 @@ export async function utilPhaseStoreFiles(
   jid: JobID,
   kits: Kits,
   boxId: string,
-  files: Array<{ path: string, data: string }>)
-  : Promise<void> {
-
-  const res_data: Result = await kits.launcherCallbackManager.postp(
-    { method: 'store', box: boxId, files, id: { jid, sid: kits.socketId } });
+  files: Array<{ path: string; data: string }>
+): Promise<void> {
+  const res_data: Result = await kits.launcherCallbackManager.postp({
+    method: 'store',
+    box: boxId,
+    files,
+    id: { jid, sid: kits.socketId },
+  });
   res_data.id = (res_data.id as WorkID).jid;
   if (!res_data.success) {
     kits.resultEmitter(res_data);
@@ -69,8 +85,8 @@ export async function utilPhaseExecute(
   args: Array<string>,
   stdin: string,
   annotator: undefined | ((stderr: string) => Annotation[]),
-  fileio: boolean): Promise<SubResultExec> {
-
+  fileio: boolean
+): Promise<SubResultExec> {
   return new Promise((resolve, reject) => {
     const caller = kits.launcherCallbackManager.multipost(
       (res_data: Result) => {
@@ -81,9 +97,13 @@ export async function utilPhaseExecute(
           const res = res_data.result as SubResultExec;
           setHandleKill(null);
           if (res_data.success) {
-            res_data.summary = `${summaryLabel}: ok(${res.exitstatus})[${Math.floor(res.time * 1000) / 1000}s]`;
+            res_data.summary = `${summaryLabel}: ok(${res.exitstatus})[${
+              Math.floor(res.time * 1000) / 1000
+            }s]`;
             if (annotator)
-              (res_data.result as SubResultExec).annotations = annotator(res.err);
+              (res_data.result as SubResultExec).annotations = annotator(
+                res.err
+              );
             kits.resultEmitter(res_data);
             resolve(res);
             return;
@@ -100,14 +120,23 @@ export async function utilPhaseExecute(
         res_data.summary = `${summaryLabel}: running`;
         kits.resultEmitter(res_data);
         return;
-      });
-    caller.call(null,
-      { method: 'exec', box: boxId, cmd, args, stdin, id: { jid, sid: kits.socketId }, fileio }
+      }
     );
+    caller.call(null, {
+      method: 'exec',
+      box: boxId,
+      cmd,
+      args,
+      stdin,
+      id: { jid, sid: kits.socketId },
+      fileio,
+    });
     setHandleKill(() => {
-      caller.call(null,
-        { method: 'kill', box: boxId, id: { jid, sid: kits.socketId } }
-      );
+      caller.call(null, {
+        method: 'kill',
+        box: boxId,
+        id: { jid, sid: kits.socketId },
+      });
     });
   });
 }
@@ -116,11 +145,13 @@ export async function utilPhaseFinalize(
   _summaryLabel: string,
   jid: JobID,
   kits: Kits,
-  boxId: string | null)
-  : Promise<void> {
-
-  const res_data: Result = await kits.launcherCallbackManager.postp(
-    { method: 'cleanupbox', box: boxId, id: { jid, sid: kits.socketId } });
+  boxId: string | null
+): Promise<void> {
+  const res_data: Result = await kits.launcherCallbackManager.postp({
+    method: 'cleanupbox',
+    box: boxId,
+    id: { jid, sid: kits.socketId },
+  });
   res_data.id = (res_data.id as WorkID).jid;
   if (!res_data.success) {
     kits.resultEmitter(res_data);

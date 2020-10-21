@@ -16,38 +16,37 @@ function pushBackupData(data: any): void {
 // - - - - -
 
 type StateProps = {
-  lang: string,
-  code: string
-}
+  lang: string;
+  code: string;
+};
 
 interface DispatchProps {
-  updateLang: (lang: string) => void,
-  updateCode: (code: string) => void
+  updateLang: (lang: string) => void;
+  updateCode: (code: string) => void;
 }
 
-type ReactProps = {}
+type ReactProps = {};
 
 type CombinedProps = ReactProps & StateProps & DispatchProps;
 
 function mapStateToProps(state: RootState): StateProps {
   return {
     lang: state.codeEditor.lang,
-    code: state.codeEditor.code
+    code: state.codeEditor.code,
   };
 }
 
 function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
   return {
     updateLang: (lang: string) => dispatch(CodeEditorActions.updateLang(lang)),
-    updateCode: (code: string) => dispatch(CodeEditorActions.updateCode(code))
+    updateCode: (code: string) => dispatch(CodeEditorActions.updateCode(code)),
   };
 }
 
-type ReactState = {}
+type ReactState = {};
 
 class BackupService extends React.Component<CombinedProps, ReactState> {
-
-  private timerId: number | null
+  private timerId: number | null;
 
   constructor(props: CombinedProps) {
     super(props);
@@ -58,13 +57,15 @@ class BackupService extends React.Component<CombinedProps, ReactState> {
 
   componentDidMount(): void {
     window.addEventListener('beforeunload', this.storeBackup);
-    this.timerId = window.setInterval(() => { this.storeBackup(); }, 60 * 1000);
+    this.timerId = window.setInterval(() => {
+      this.storeBackup();
+    }, 60 * 1000);
     this.restoreBackup();
   }
 
   componentWillUnmount(): void {
     window.removeEventListener('beforeunload', this.storeBackup);
-    this.storeBackup();  // call twice?
+    this.storeBackup(); // call twice?
     if (this.timerId !== null) {
       clearInterval(this.timerId);
       this.timerId = null;
@@ -86,7 +87,7 @@ class BackupService extends React.Component<CombinedProps, ReactState> {
     {
       const cds = {
         code: this.props.code,
-        lang: this.props.lang
+        lang: this.props.lang,
       };
       data['codeEditorShell'] = cds;
     }
@@ -98,4 +99,7 @@ class BackupService extends React.Component<CombinedProps, ReactState> {
   }
 }
 
-export default connect<StateProps, DispatchProps, ReactProps, RootState>(mapStateToProps, mapDispatchToProps)(BackupService);
+export default connect<StateProps, DispatchProps, ReactProps, RootState>(
+  mapStateToProps,
+  mapDispatchToProps
+)(BackupService);

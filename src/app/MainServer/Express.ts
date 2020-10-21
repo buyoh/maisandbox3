@@ -1,10 +1,15 @@
 import Http from 'http';
 import Express from 'express';
 
-type Handler = (req: Http.IncomingMessage, res: Http.ServerResponse) => Promise<void>;
+type Handler = (
+  req: Http.IncomingMessage,
+  res: Http.ServerResponse
+) => Promise<void>;
 
-export function setupExpressServer(pageHandler: Handler, port = 3030): [Express.Express, Http.Server] {
-
+export function setupExpressServer(
+  pageHandler: Handler,
+  port = 3030
+): [Express.Express, Http.Server] {
   const appExpress = Express();
   const httpServer = Http.createServer(appExpress);
 

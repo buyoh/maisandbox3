@@ -24,5 +24,4 @@ export class ClientSocket {
   getSocket(): SocketIOClient.Socket {
     return this.socket;
   }
-
 }

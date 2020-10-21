@@ -4,7 +4,6 @@ import { ResultEmitter, Runnable, Task } from './TaskUtil';
 import { TaskCpp } from './TaskCpp';
 import { TaskCLay } from './TaskCLay';
 
-
 export class TaskFactory {
   private socketId: string;
   private launcherCallbackManager: CallbackManager;
@@ -12,7 +11,12 @@ export class TaskFactory {
   private finalize: Runnable;
   private handleKill: Runnable | null;
 
-  constructor(socketId: string, launcherCallbackManager: CallbackManager, resultEmitter: ResultEmitter, finalize: Runnable) {
+  constructor(
+    socketId: string,
+    launcherCallbackManager: CallbackManager,
+    resultEmitter: ResultEmitter,
+    finalize: Runnable
+  ) {
     this.socketId = socketId;
     this.launcherCallbackManager = launcherCallbackManager;
     this.resultEmitter = resultEmitter;
@@ -23,11 +27,26 @@ export class TaskFactory {
 
   generate(lang: string): Task | null {
     if (lang === 'ruby')
-      return new TaskRuby(this.socketId, this.launcherCallbackManager, this.resultEmitter, this.finalize);
+      return new TaskRuby(
+        this.socketId,
+        this.launcherCallbackManager,
+        this.resultEmitter,
+        this.finalize
+      );
     if (lang === 'cpp')
-      return new TaskCpp(this.socketId, this.launcherCallbackManager, this.resultEmitter, this.finalize);
+      return new TaskCpp(
+        this.socketId,
+        this.launcherCallbackManager,
+        this.resultEmitter,
+        this.finalize
+      );
     if (lang === 'clay')
-      return new TaskCLay(this.socketId, this.launcherCallbackManager, this.resultEmitter, this.finalize);
+      return new TaskCLay(
+        this.socketId,
+        this.launcherCallbackManager,
+        this.resultEmitter,
+        this.finalize
+      );
     return null;
   }
 }

@@ -1,13 +1,11 @@
 import React from 'react';
 
 type ButtonProps = {
-  disable?: boolean,
-  onClick: () => void,
-}
+  disable?: boolean;
+  onClick: () => void;
+};
 
-type ButtonState = {
-}
-
+type ButtonState = {};
 
 class Button extends React.Component<ButtonProps, ButtonState> {
   constructor(props: ButtonProps) {
@@ -23,8 +21,10 @@ class Button extends React.Component<ButtonProps, ButtonState> {
           style={{
             display: 'block',
           }}
-          onClick={(e) => (this.props.onClick())}
-        >{this.props.children}</button>
+          onClick={(e) => this.props.onClick()}
+        >
+          {this.props.children}
+        </button>
       </div>
     );
   }

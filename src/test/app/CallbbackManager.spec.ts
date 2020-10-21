@@ -5,16 +5,15 @@ test('simple post', (done) => {
   const cm = new CallbackManager((data) => {
     setTimeout(() => {
       expect(myCallback).not.toBeNull();
-      if (myCallback)
-        myCallback(data);
+      if (myCallback) myCallback(data);
     }, data.delay || 0);
   });
   myCallback = cm.getRecieveCallback();
 
   cm.post({ msg: 100, delay: 0 }, (data) => {
-    expect(data.msg).toEqual(100);  // keep data
-    expect(data.cbmid).not.toBeInstanceOf(Number);  // cbmid hidden
-    expect(data.cbmid).toBeFalsy();  // cbmid hidden
+    expect(data.msg).toEqual(100); // keep data
+    expect(data.cbmid).not.toBeInstanceOf(Number); // cbmid hidden
+    expect(data.cbmid).toBeFalsy(); // cbmid hidden
     done();
   });
 });
@@ -23,8 +22,7 @@ test('twice post', (done) => {
   let myCallback: ((data: any) => void) | null = null;
   const cm = new CallbackManager((data) => {
     setTimeout(() => {
-      if (myCallback)
-        myCallback(data);
+      if (myCallback) myCallback(data);
     }, data.delay || 0);
   });
   myCallback = cm.getRecieveCallback();
@@ -44,8 +42,7 @@ test('twice post cross', (done) => {
   let myCallback: ((data: any) => void) | null = null;
   const cm = new CallbackManager((data) => {
     setTimeout(() => {
-      if (myCallback)
-        myCallback(data);
+      if (myCallback) myCallback(data);
     }, data.delay || 0);
   });
   myCallback = cm.getRecieveCallback();
@@ -65,8 +62,7 @@ test('simple promise post', (done) => {
   let myCallback: ((data: any) => void) | null = null;
   const cm = new CallbackManager((data) => {
     setTimeout(() => {
-      if (myCallback)
-        myCallback(data);
+      if (myCallback) myCallback(data);
     }, data.delay || 0);
   });
   myCallback = cm.getRecieveCallback();
@@ -90,15 +86,14 @@ test('post2, recv1', (done) => {
 
     if (++sendCount == 2)
       setTimeout(() => {
-        if (myCallback)
-          myCallback({ sum, id: data.id });
+        if (myCallback) myCallback({ sum, id: data.id });
       }, data.delay || 0);
   });
   myCallback = cm.getRecieveCallback();
 
   const poster = cm.multipost((data) => {
-    expect(sum).toEqual(3);  // call sender successfully
-    expect(data.sum).toEqual(3);  // check keep data
+    expect(sum).toEqual(3); // call sender successfully
+    expect(data.sum).toEqual(3); // check keep data
     done();
   });
 
@@ -116,12 +111,10 @@ test('post2, recv2', (done) => {
 
     if (++sendCount == 2) {
       setTimeout(() => {
-        if (myCallback)
-          myCallback({ sum, idx: 0, id: data.id }, true);
+        if (myCallback) myCallback({ sum, idx: 0, id: data.id }, true);
       }, 0);
       setTimeout(() => {
-        if (myCallback)
-          myCallback({ sum, idx: 1, id: data.id }, false);
+        if (myCallback) myCallback({ sum, idx: 1, id: data.id }, false);
       }, 20);
     }
   });
@@ -129,12 +122,11 @@ test('post2, recv2', (done) => {
 
   let cntCallback = 0;
   const poster = cm.multipost((data) => {
-    expect(sum).toEqual(3);  // call sender successfully
-    expect(data.sum).toEqual(3);  // check keep data
-    expect(data.idx).toEqual(cntCallback);  // lazy callback successfully
+    expect(sum).toEqual(3); // call sender successfully
+    expect(data.sum).toEqual(3); // check keep data
+    expect(data.idx).toEqual(cntCallback); // lazy callback successfully
     ++cntCallback;
-    if (cntCallback == 2)
-      done();
+    if (cntCallback == 2) done();
   });
 
   poster({ val: 1 });

@@ -3,7 +3,6 @@ import CallbackManager from '../../lib/CallbackManager';
 import Config from '../../lib/Config';
 
 export default class LauncherHolder {
-
   private running: boolean;
   private restartMs: number;
   private launcher: LauncherSocket;
@@ -16,8 +15,7 @@ export default class LauncherHolder {
         if (code == 1) {
           console.error('launcher has raised exceptions');
           process.exit(1);
-        }
-        else {
+        } else {
           console.error('launcher disconnected code=' + code);
           process.exit(0);
         }
@@ -47,8 +45,7 @@ export default class LauncherHolder {
   }
 
   resetLauncher(): void {
-    if (this.running)
-      console.warn('LauncherHolder running, but called reset');
+    if (this.running) console.warn('LauncherHolder running, but called reset');
 
     this.launcher = this.createLauncherSocket();
   }
@@ -71,8 +68,7 @@ export default class LauncherHolder {
       this.start();
       // if (!this.launcher.isAlive())
       //   failed = 'success, but dead';
-    }
-    catch (e) {
+    } catch (e) {
       failed = e.message || 'catch something';
     }
     if (failed) {
@@ -81,8 +77,7 @@ export default class LauncherHolder {
         setTimeout(() => {
           this.triggerRestart();
         }, this.restartMs);
-    }
-    else {
+    } else {
       console.log('restart launcher: complete');
     }
   }

@@ -1,4 +1,3 @@
-
 const NamePrefix = 'msb3-';
 
 export function pullFromLocalStorage<T = any>(name: string): T | null {
@@ -6,8 +5,7 @@ export function pullFromLocalStorage<T = any>(name: string): T | null {
   if (v === null) return null;
   try {
     return JSON.parse(v);
-  }
-  catch (e) {
+  } catch (e) {
     return null;
   }
 }

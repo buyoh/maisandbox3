@@ -5,11 +5,11 @@ import LangSettingsCpp from './LangSettingsCpp';
 import TemplateLoaderPanelProps from './TemplateLoaderPanel';
 
 type CodeToolbarProps = {
-  lang: string
-  onLangChange: (lang: string) => void
-  onClickPull: () => void
-  onClickPush: () => void
-}
+  lang: string;
+  onLangChange: (lang: string) => void;
+  onClickPull: () => void;
+  onClickPush: () => void;
+};
 
 class CodeToolbar extends React.Component<CodeToolbarProps, {}> {
   constructor(props: CodeToolbarProps) {
@@ -27,19 +27,21 @@ class CodeToolbar extends React.Component<CodeToolbarProps, {}> {
               { key: 'ruby', label: 'Ruby' },
               { key: 'python', label: 'Python' },
               { key: 'cpp', label: 'C++' },
-              { key: 'clay', label: 'cLay' }]}
+              { key: 'clay', label: 'cLay' },
+            ]}
             onChange={this.props.onLangChange}
           />
         </div>
-        {(this.props.lang == 'cpp') &&
+        {this.props.lang == 'cpp' && (
           <div className="flex_elem_fix">
             <LangSettingsCpp std={'c++17'} />
           </div>
-        }
+        )}
         <div className="flex_elem_fix">
           <TemplateLoaderPanelProps
             onClickPull={this.props.onClickPull}
-            onClickPush={this.props.onClickPush} />
+            onClickPush={this.props.onClickPush}
+          />
         </div>
       </div>
     );

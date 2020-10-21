@@ -9,7 +9,6 @@ import BackupService from '../web/containers/BackupService';
 import SocketService from '../web/containers/SocketService';
 
 export default class Index extends React.Component<{}, {}> {
-
   constructor(props: {}) {
     super(props);
   }

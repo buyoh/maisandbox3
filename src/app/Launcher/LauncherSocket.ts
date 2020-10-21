@@ -9,12 +9,14 @@ type CallbackClose = (code: number, signal: NodeJS.Signals | null) => void;
 type CallbackRecieve = (data: string) => void;
 
 export class LauncherSocket {
-
   private process: ChildProcess.ChildProcess | null;
   private netSocket: net.Socket | null;
   private bufferStdout: string;
 
-  private callbacks: { close: Array<CallbackClose>, recieve: Array<CallbackRecieve> };  // close, recieve
+  private callbacks: {
+    close: Array<CallbackClose>;
+    recieve: Array<CallbackRecieve>;
+  }; // close, recieve
 
   constructor() {
     this.process = null;
@@ -22,13 +24,12 @@ export class LauncherSocket {
     this.bufferStdout = '';
     this.callbacks = {
       close: [],
-      recieve: []
+      recieve: [],
     };
   }
 
   private handleClose(code: number, signal: NodeJS.Signals | null): void {
-    for (const c of this.callbacks.close)
-      c(code, signal);
+    for (const c of this.callbacks.close) c(code, signal);
   }
 
   private handleRecieve(str: string): void {
@@ -36,11 +37,10 @@ export class LauncherSocket {
     if (li.length === 1) {
       // no breaks
       this.bufferStdout += li[0];
-    }
-    else {
-      const head = li.shift() || '';  // always string, not undefined
+    } else {
+      const head = li.shift() || ''; // always string, not undefined
       this.handleRecieveLine(this.bufferStdout + head);
-      const tail = li.pop() || '';  // always string, not undefined
+      const tail = li.pop() || ''; // always string, not undefined
       this.bufferStdout = tail;
       for (const line of li) {
         this.handleRecieveLine(line);
@@ -52,14 +52,12 @@ export class LauncherSocket {
     let j = null;
     try {
       j = JSON.parse(line);
-    }
-    catch (e) {
+    } catch (e) {
       // TODO: rescue exception
       console.error('LauncherSocket.handleRecieveLine: failed parse json', e);
       return;
     }
-    for (const c of this.callbacks['recieve'])
-      c(j);
+    for (const c of this.callbacks['recieve']) c(j);
   }
 
   //
@@ -67,7 +65,11 @@ export class LauncherSocket {
   private startChildProcess(): void {
     const args = [];
     if (Config.develop) args.push('--validate');
-    const p = ChildProcess.spawn('ruby', ['deps/applauncher/index.rb'].concat(args), { stdio: ['pipe', 'pipe', 'inherit'] });
+    const p = ChildProcess.spawn(
+      'ruby',
+      ['deps/applauncher/index.rb'].concat(args),
+      { stdio: ['pipe', 'pipe', 'inherit'] }
+    );
     this.process = p;
 
     p.on('close', (code, signal) => {
@@ -80,8 +82,7 @@ export class LauncherSocket {
   }
 
   private stopChildProcess(): void {
-    if (this.process !== null)
-      this.process.kill();
+    if (this.process !== null) this.process.kill();
   }
 
   private isAliveChildProcess(): boolean {
@@ -89,7 +90,9 @@ export class LauncherSocket {
   }
 
   private writeChildProcess(str: string): void {
-    this.process?.stdin?.write(str.trimEnd() + '\n', () => { /* flushed */ });
+    this.process?.stdin?.write(str.trimEnd() + '\n', () => {
+      /* flushed */
+    });
   }
 
   //
@@ -120,7 +123,9 @@ export class LauncherSocket {
   }
 
   private writeSocket(str: string): void {
-    this.netSocket?.write(str.trimEnd() + '\n', () => { /* flushed */ });
+    this.netSocket?.write(str.trimEnd() + '\n', () => {
+      /* flushed */
+    });
   }
 
   //
@@ -138,8 +143,7 @@ export class LauncherSocket {
   }
 
   send(data: {}): boolean {
-    if (!this.isAlive())
-      return false;
+    if (!this.isAlive()) return false;
     const j = JSON.stringify(data);
     UseChildProcess ? this.writeChildProcess(j) : this.writeSocket(j);
     return true;

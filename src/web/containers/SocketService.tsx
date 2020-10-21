@@ -7,13 +7,13 @@ import { connect } from 'react-redux';
 
 type StateProps = {
   // socket: ClientSocket | null,
-}
+};
 
 interface DispatchProps {
-  setSocket: (socket: ClientSocket) => void
+  setSocket: (socket: ClientSocket) => void;
 }
 
-type ReactProps = {}
+type ReactProps = {};
 
 type CombinedProps = ReactProps & StateProps & DispatchProps;
 
@@ -29,10 +29,9 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
   };
 }
 
-type ReactState = {}
+type ReactState = {};
 
 class SocketService extends React.Component<CombinedProps, ReactState> {
-
   constructor(props: CombinedProps) {
     super(props);
     this.state = {};
@@ -47,4 +46,7 @@ class SocketService extends React.Component<CombinedProps, ReactState> {
   }
 }
 
-export default connect<StateProps, DispatchProps, ReactProps, RootState>(mapStateToProps, mapDispatchToProps)(SocketService);
+export default connect<StateProps, DispatchProps, ReactProps, RootState>(
+  mapStateToProps,
+  mapDispatchToProps
+)(SocketService);

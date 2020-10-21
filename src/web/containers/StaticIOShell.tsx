@@ -17,9 +17,9 @@ import { ClientSocket } from '../lib/ClientSocket';
 type Runnable = (data: any) => void;
 
 export interface ExecResult {
-  color: string,
-  summary: string,
-  log: string,
+  color: string;
+  summary: string;
+  log: string;
 }
 
 function determineResultColor(data: Result): string {
@@ -41,30 +41,30 @@ function determineResultColor(data: Result): string {
 // - - - - -
 
 interface StateProps {
-  stdin: string
-  stdout: string
-  errlog: string
-  statuses: Array<StatusBarItem>
-  activatedStatusKey: number
-  socket: ClientSocket | null
-  code: string
-  lang: string
+  stdin: string;
+  stdout: string;
+  errlog: string;
+  statuses: Array<StatusBarItem>;
+  activatedStatusKey: number;
+  socket: ClientSocket | null;
+  code: string;
+  lang: string;
 }
 
 interface DispatchProps {
-  updateStdin: (stdin: string) => void
-  updateStdout: (stdout: string) => void
-  activateResult: () => void
-  addResult: (r: ExecResult) => void
-  clearResults: () => void
-  addAnnotations: (annos: Annotation[]) => void
-  clearAnnotations: () => void
+  updateStdin: (stdin: string) => void;
+  updateStdout: (stdout: string) => void;
+  activateResult: () => void;
+  addResult: (r: ExecResult) => void;
+  clearResults: () => void;
+  addAnnotations: (annos: Annotation[]) => void;
+  clearAnnotations: () => void;
 }
 
 type ReactProps = {
   // onClickRun: () => void,
   // onClickKill: () => void,
-}
+};
 
 type CombinedProps = ReactProps & StateProps & DispatchProps;
 
@@ -73,10 +73,18 @@ function mapStateToProps(state: RootState): StateProps {
     stdin: state.staticIO.stdin,
     stdout: state.staticIO.stdout,
     errlog: '',
-    statuses:
-      state.staticIO.results.map((r, i) =>
-        ({ color: r.color, text: r.summary, key: '' + i, onClick: undefined })).reverse(),
-    activatedStatusKey: state.staticIO.activatedResultIndex === null ? -1 : state.staticIO.activatedResultIndex,
+    statuses: state.staticIO.results
+      .map((r, i) => ({
+        color: r.color,
+        text: r.summary,
+        key: '' + i,
+        onClick: undefined,
+      }))
+      .reverse(),
+    activatedStatusKey:
+      state.staticIO.activatedResultIndex === null
+        ? -1
+        : state.staticIO.activatedResultIndex,
     socket: state.clientSocket.value,
     code: state.codeEditor.code,
     lang: state.codeEditor.lang,
@@ -90,23 +98,23 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
     activateResult: () => dispatch(Actions.activateResult(0)),
     addResult: (r: ExecResult) => dispatch(Actions.addResult(r)),
     clearResults: () => dispatch(Actions.removeAllResults()),
-    addAnnotations: (annos: Annotation[]) => dispatch(CodeEditorActions.addAnnotations(annos)),
+    addAnnotations: (annos: Annotation[]) =>
+      dispatch(CodeEditorActions.addAnnotations(annos)),
     clearAnnotations: () => dispatch(CodeEditorActions.removeAllAnnotations()),
   };
 }
 
 interface ReactStatus {
-  visibleErr: boolean
+  visibleErr: boolean;
 }
 
 class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
-
-  private emitter: Runnable | null;  // for setd kill message
+  private emitter: Runnable | null; // for setd kill message
 
   constructor(props: CombinedProps) {
     super(props);
     this.state = {
-      visibleErr: false
+      visibleErr: false,
     };
 
     this.emitter = null;
@@ -120,7 +128,7 @@ class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
   private processResult(data: Result): void {
     let errLog = '';
     if (data.continue === false) {
-      this.emitter = null;  // disable kill
+      this.emitter = null; // disable kill
     }
     if (data.result) {
       const resultAsExec = data.result as SubResultExec;
@@ -131,21 +139,22 @@ class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
         this.props.updateStdout(resultAsExec.out);
         errLog = resultAsExec.err || '';
       }
-    }
-    else {
+    } else {
       // e.g. kill callback
     }
     if (data.summary) {
       this.props.addResult({
         color: determineResultColor(data),
         summary: data.summary,
-        log: errLog
+        log: errLog,
       });
     }
   }
 
   private handleClickToggle(): void {
-    this.setState(Object.assign({}, this.state, { visibleErr: !this.state.visibleErr }));
+    this.setState(
+      Object.assign({}, this.state, { visibleErr: !this.state.visibleErr })
+    );
   }
 
   private handleClickRun(): void {
@@ -161,7 +170,7 @@ class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
       action: 'run',
       stdin: this.props.stdin,
       code: this.props.code,
-      lang: this.props.lang
+      lang: this.props.lang,
     };
     emitter({ data });
     this.emitter = emitter;
@@ -173,46 +182,76 @@ class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
     }
   }
 
-
   render(): JSX.Element {
     return (
       <div className="flex_cols">
         <div className="flex_elem flex_row">
           <div className="flex_elem_fix flex_cols">
             <div className="flex_elem_fix">
-              <Button onClick={this.handleClickRun} key="btn-run">run</Button>
+              <Button onClick={this.handleClickRun} key="btn-run">
+                run
+              </Button>
             </div>
             <div className="flex_elem_fix">
-              <Button onClick={this.handleClickKill} key="btn-kill">kill</Button>
+              <Button onClick={this.handleClickKill} key="btn-kill">
+                kill
+              </Button>
             </div>
             <div className="flex_elem_fix">
-              <Button onClick={this.handleClickToggle} key="btn-toggle-display">IO/Err</Button>
+              <Button onClick={this.handleClickToggle} key="btn-toggle-display">
+                IO/Err
+              </Button>
             </div>
           </div>
-          {
-            this.state.visibleErr ? (
-              <div className="flex_elem flex_row" style={{ overflow: 'hidden', resize: 'vertical' }}>
-                <TextArea placeholder="stderr" key="inp-err" value={this.props.errlog} readOnly={true} />
-              </div>
-            ) : (<div className="flex_elem flex_row" style={{ overflow: 'hidden', resize: 'vertical' }}>
+          {this.state.visibleErr ? (
+            <div
+              className="flex_elem flex_row"
+              style={{ overflow: 'hidden', resize: 'vertical' }}
+            >
+              <TextArea
+                placeholder="stderr"
+                key="inp-err"
+                value={this.props.errlog}
+                readOnly={true}
+              />
+            </div>
+          ) : (
+            <div
+              className="flex_elem flex_row"
+              style={{ overflow: 'hidden', resize: 'vertical' }}
+            >
               <div className="flex_elem_fix flex_cols">
-                <TextArea placeholder="stdin" key="inp-in" value={this.props.stdin} resizable='horizontal'
-                  onChange={this.props.updateStdin} />
+                <TextArea
+                  placeholder="stdin"
+                  key="inp-in"
+                  value={this.props.stdin}
+                  resizable="horizontal"
+                  onChange={this.props.updateStdin}
+                />
               </div>
               <div className="flex_elem flex_cols">
-                <TextArea placeholder="stdout" key="inp-out" value={this.props.stdout}
-                  onChange={this.props.updateStdout} />
+                <TextArea
+                  placeholder="stdout"
+                  key="inp-out"
+                  value={this.props.stdout}
+                  onChange={this.props.updateStdout}
+                />
               </div>
-            </div>)
-          }
-
+            </div>
+          )}
         </div>
         <div className="flex_elem_fix">
-          <StatusBar values={this.props.statuses} active={'' + this.props.activatedStatusKey}></StatusBar>
+          <StatusBar
+            values={this.props.statuses}
+            active={'' + this.props.activatedStatusKey}
+          ></StatusBar>
         </div>
       </div>
     );
   }
 }
 
-export default connect<StateProps, DispatchProps, ReactProps, RootState>(mapStateToProps, mapDispatchToProps)(StaticIOShell);
+export default connect<StateProps, DispatchProps, ReactProps, RootState>(
+  mapStateToProps,
+  mapDispatchToProps
+)(StaticIOShell);
