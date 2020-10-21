@@ -12,14 +12,16 @@
     "old-test": "yarn run test-server && yarn run test-next",
     "old-test-server": "TS_NODE_PROJECT=tsconfig.server.json TEST_TARGET='**/src/test/app/' jest --coverage",
     "old-test-next": "TS_NODE_FILES=true TEST_TARGET='**/src/test/web/' jest --coverage",
-    "lint": "eslint src/**/*.ts src/**/*.tsx",
-    "lint-fix": "eslint --fix src/**/*.ts src/**/*.tsx"
+    "lint": "prettier --check 'src/**/*.ts' 'src/**/*.tsx' && eslint src/**/*.ts src/**/*.tsx",
+    "lint-fix": "prettier --write 'src/**/*.ts' 'src/**/*.tsx'"
   },
   "dependencies": {
     "@types/react-redux": "^7.1.9",
     "@types/redux": "^3.6.0",
+    "eslint-config-prettier": "^6.13.0",
     "express": "^4.17.1",
     "next": "9.4.2",
+    "prettier": "^2.1.2",
     "react": "16.13.1",
     "react-ace": "^9.0.0",
     "react-dom": "16.13.1",
