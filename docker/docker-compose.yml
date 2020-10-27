@@ -1,0 +1,31 @@
+version: "3"
+services:
+  web:
+    # container_name: redmine-dk
+    build: ./base  # 使い回す
+    restart: always
+    user: 1001:1001
+    ports:
+      - 11460:11460
+    volumes:
+      - $PWD/..:/opt/msb:ro 
+      - var:/var/opt/msb:rw
+    environment:
+      - LAUNCHER_PROCESS=SOCKET 
+      - LAUNCHER_SOCKET_PATH=/var/opt/msb/launcher.sock
+      - NODE_ENV=production
+    working_dir: /opt/msb
+    command: node build/app/MainServer.js
+  runner:
+    # container_name: redmine-dk
+    build: ./base
+    restart: always
+    user: 1000:1000
+    volumes:
+      - $PWD/../deps/applauncher:/opt/msb/deps/applauncher:ro 
+      - var:/var/opt/msb:rw
+    working_dir: /opt/msb
+    command: ruby /opt/msb/deps/applauncher/index.rb --workdir /tmp/msb --unixsocket /var/opt/msb/launcher.sock
+
+volumes:
+  var:

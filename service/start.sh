@@ -6,6 +6,10 @@ ADIR_TREE=`cd $DIR_TREE; pwd`
 
 cd $ADIR_TREE
 
-rm -rf tmp
-./docker/start-launcher.sh --silent &
-LAUNCHER_PROCESS=SOCKET NODE_ENV=production node build/app/MainServer.js &
+cd docker
+exec docker-compose up
+
+# note: legacy impl without docker-compose
+# rm -rf tmp
+# ./docker/start-launcher.sh --silent &
+# LAUNCHER_PROCESS=SOCKET NODE_ENV=production node build/app/MainServer.js &

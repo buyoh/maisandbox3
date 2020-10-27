@@ -25,8 +25,19 @@ npx yarn build
 npx yarn --production  # erase development dependencies
 popd
 
-docker/build-docker.sh 
+cat <<EOS > /etc/systemd/system/maisandbox3.service
+[Unit]
+Description = maisandbox3
+[Service]
+ExecStart = $DIR_WORK/service/start.sh
+Restart = no
+# Type = forking
+Type = simple
+[Install]
+WantedBy = multi-user.target
+EOS
 
+sudo systemctl daemon-reload
 sudo systemctl start maisandbox3
 
 echo "##### complete upgrade-service #####"

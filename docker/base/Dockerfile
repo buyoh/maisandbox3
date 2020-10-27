@@ -5,9 +5,11 @@ RUN useradd -u 1001 -U -M -s /usr/sbin/nologin user
 RUN mkdir /opt/msb \
   && chown 1000:1000 /opt/msb -R \
   && chmod o-rwx /opt/msb -R
+RUN mkdir /var/opt/msb \
+  && chown 1000:1000 /var/opt/msb -R
 
 RUN apt update && apt upgrade -y
-RUN apt install -y ruby g++ curl unzip
+RUN apt install -y ruby g++ curl unzip nodejs
 # RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 # RUN apt-get install -y nodejs
 

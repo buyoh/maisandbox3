@@ -26,6 +26,7 @@ git submodule update
 - node v12
 - ruby 2.7
 - docker (for production environment)
+- docker-compose (for production environment)
 
 We recommend `yarn`.
 
@@ -41,6 +42,21 @@ npm i -g yarn
 yarn -- help
 ```
 
+## install to systemd
+
+launch as production with docker-compose as independent process
+
+```
+sudo service/install-service.sh
+```
+
+if you want to upgrade when already installed,
+
+```
+sudo service/upgrade-service.sh
+```
+
+
 ## setup(production)
 
 ### build
@@ -48,16 +64,21 @@ yarn -- help
 ```
 yarn
 yarn build
-docker/build-docker.sh  # for docker
+```
+
+```
+# only for docker without docker-compose
+docker/build-docker.sh
+```
+
+### start (docker-compose)
+
+```
+cd docker
+docker-compose up
 ```
 
 ### start (without docker)
-
-```
-yarn prod
-```
-
-port conifiguration
 
 ```
 PORT=11460 yarn prod
@@ -134,18 +155,4 @@ bundle exec rubocop
 ```
 yarn lint-fix
 bundle exec rubocop --auto-correct
-```
-
-## install to systemd
-
-launch as production with docker as independent process
-
-```
-sudo service/install-service.sh
-```
-
-if you want to upgrade when already installed,
-
-```
-sudo service/upgrade-service.sh
 ```
