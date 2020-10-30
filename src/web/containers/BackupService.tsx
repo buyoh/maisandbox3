@@ -45,7 +45,7 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
 
 type ReactState = {};
 
-class BackupService extends React.Component<CombinedProps, ReactState> {
+export class BackupService extends React.Component<CombinedProps, ReactState> {
   private timerId: number | null;
 
   constructor(props: CombinedProps) {
