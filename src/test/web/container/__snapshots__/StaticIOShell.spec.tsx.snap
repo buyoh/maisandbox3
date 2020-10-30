@@ -1,0 +1,2135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StaticIOShell 1`] = `
+<div
+  className="flex_cols"
+>
+  <div
+    className="flex_elem flex_row"
+  >
+    <div
+      className="flex_elem_fix flex_cols"
+    >
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            run
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            kill
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            IO/Err
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex_elem flex_row"
+      style={
+        Object {
+          "overflow": "hidden",
+          "resize": "vertical",
+        }
+      }
+    >
+      <div
+        className="flex_elem_fix flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdin"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "horizontal",
+              "width": "auto",
+            }
+          }
+          value="ruby"
+        />
+      </div>
+      <div
+        className="flex_elem flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdout"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "none",
+              "width": "auto",
+            }
+          }
+          value="puts gets"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex_elem_fix"
+  >
+    <div
+      className="flex_row"
+      style={
+        Object {
+          "borderBottom": "2px solid #666",
+          "borderTop": "2px solid #111",
+          "overflow": "hidden",
+          "padding": "2px",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`StaticIOShell 2`] = `
+<div
+  className="flex_cols"
+>
+  <div
+    className="flex_elem flex_row"
+  >
+    <div
+      className="flex_elem_fix flex_cols"
+    >
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            run
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            kill
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            IO/Err
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex_elem flex_row"
+      style={
+        Object {
+          "overflow": "hidden",
+          "resize": "vertical",
+        }
+      }
+    >
+      <textarea
+        onChange={[Function]}
+        placeholder="stderr"
+        readOnly={true}
+        rows={8}
+        spellCheck="false"
+        style={
+          Object {
+            "display": "block",
+            "flex": "1 1 auto",
+            "height": "auto",
+            "overflow": "scroll",
+            "resize": "none",
+            "width": "auto",
+          }
+        }
+        value=""
+      />
+    </div>
+  </div>
+  <div
+    className="flex_elem_fix"
+  >
+    <div
+      className="flex_row"
+      style={
+        Object {
+          "borderBottom": "2px solid #666",
+          "borderTop": "2px solid #111",
+          "overflow": "hidden",
+          "padding": "2px",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`StaticIOShell 3`] = `
+Array [
+  Object {
+    "data": Object {
+      "action": "run",
+      "code": "ruby",
+      "lang": "p gets",
+      "stdin": "ruby",
+    },
+    "id": Object {
+      "clicmid": 1,
+    },
+  },
+]
+`;
+
+exports[`StaticIOShell 4`] = `
+<div
+  className="flex_cols"
+>
+  <div
+    className="flex_elem flex_row"
+  >
+    <div
+      className="flex_elem_fix flex_cols"
+    >
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            run
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            kill
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            IO/Err
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex_elem flex_row"
+      style={
+        Object {
+          "overflow": "hidden",
+          "resize": "vertical",
+        }
+      }
+    >
+      <div
+        className="flex_elem_fix flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdin"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "horizontal",
+              "width": "auto",
+            }
+          }
+          value="ruby"
+        />
+      </div>
+      <div
+        className="flex_elem flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdout"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "none",
+              "width": "auto",
+            }
+          }
+          value="puts gets"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex_elem_fix"
+  >
+    <div
+      className="flex_row"
+      style={
+        Object {
+          "borderBottom": "2px solid #666",
+          "borderTop": "2px solid #111",
+          "overflow": "hidden",
+          "padding": "2px",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`StaticIOShell 5`] = `
+Array [
+  Array [],
+  Array [],
+  Array [],
+  Array [
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "setup: ok",
+      },
+    ],
+  ],
+  Array [
+    Array [],
+  ],
+  Array [],
+  Array [
+    Array [],
+  ],
+]
+`;
+
+exports[`StaticIOShell 6`] = `
+<div
+  className="flex_cols"
+>
+  <div
+    className="flex_elem flex_row"
+  >
+    <div
+      className="flex_elem_fix flex_cols"
+    >
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            run
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            kill
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            IO/Err
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex_elem flex_row"
+      style={
+        Object {
+          "overflow": "hidden",
+          "resize": "vertical",
+        }
+      }
+    >
+      <div
+        className="flex_elem_fix flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdin"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "horizontal",
+              "width": "auto",
+            }
+          }
+          value="ruby"
+        />
+      </div>
+      <div
+        className="flex_elem flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdout"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "none",
+              "width": "auto",
+            }
+          }
+          value="puts gets"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex_elem_fix"
+  >
+    <div
+      className="flex_row"
+      style={
+        Object {
+          "borderBottom": "2px solid #666",
+          "borderTop": "2px solid #111",
+          "overflow": "hidden",
+          "padding": "2px",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`StaticIOShell 7`] = `
+Array [
+  Array [],
+  Array [],
+  Array [],
+  Array [
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "setup: ok",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "store: ok",
+      },
+    ],
+  ],
+  Array [
+    Array [],
+  ],
+  Array [],
+  Array [
+    Array [],
+  ],
+]
+`;
+
+exports[`StaticIOShell 8`] = `
+<div
+  className="flex_cols"
+>
+  <div
+    className="flex_elem flex_row"
+  >
+    <div
+      className="flex_elem_fix flex_cols"
+    >
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            run
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            kill
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            IO/Err
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex_elem flex_row"
+      style={
+        Object {
+          "overflow": "hidden",
+          "resize": "vertical",
+        }
+      }
+    >
+      <div
+        className="flex_elem_fix flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdin"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "horizontal",
+              "width": "auto",
+            }
+          }
+          value="ruby"
+        />
+      </div>
+      <div
+        className="flex_elem flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdout"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "none",
+              "width": "auto",
+            }
+          }
+          value="puts gets"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex_elem_fix"
+  >
+    <div
+      className="flex_row"
+      style={
+        Object {
+          "borderBottom": "2px solid #666",
+          "borderTop": "2px solid #111",
+          "overflow": "hidden",
+          "padding": "2px",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`StaticIOShell 9`] = `
+Array [
+  Array [],
+  Array [],
+  Array [],
+  Array [
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "setup: ok",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "store: ok",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "run: running",
+      },
+    ],
+  ],
+  Array [
+    Array [],
+  ],
+  Array [],
+  Array [
+    Array [],
+  ],
+]
+`;
+
+exports[`StaticIOShell 10`] = `
+<div
+  className="flex_cols"
+>
+  <div
+    className="flex_elem flex_row"
+  >
+    <div
+      className="flex_elem_fix flex_cols"
+    >
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            run
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            kill
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            IO/Err
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex_elem flex_row"
+      style={
+        Object {
+          "overflow": "hidden",
+          "resize": "vertical",
+        }
+      }
+    >
+      <div
+        className="flex_elem_fix flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdin"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "horizontal",
+              "width": "auto",
+            }
+          }
+          value="ruby"
+        />
+      </div>
+      <div
+        className="flex_elem flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdout"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "none",
+              "width": "auto",
+            }
+          }
+          value="puts gets"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex_elem_fix"
+  >
+    <div
+      className="flex_row"
+      style={
+        Object {
+          "borderBottom": "2px solid #666",
+          "borderTop": "2px solid #111",
+          "overflow": "hidden",
+          "padding": "2px",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`StaticIOShell 11`] = `
+Array [
+  Array [],
+  Array [
+    Array [
+      "output
+",
+    ],
+  ],
+  Array [],
+  Array [
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "setup: ok",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "store: ok",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "run: running",
+      },
+    ],
+    Array [
+      Object {
+        "color": "success",
+        "log": "errors
+",
+        "summary": "run: ok(0)[0.041s]",
+      },
+    ],
+  ],
+  Array [
+    Array [],
+  ],
+  Array [
+    Array [
+      Array [],
+    ],
+  ],
+  Array [
+    Array [],
+  ],
+]
+`;
+
+exports[`StaticIOShell 12`] = `
+<div
+  className="flex_cols"
+>
+  <div
+    className="flex_elem flex_row"
+  >
+    <div
+      className="flex_elem_fix flex_cols"
+    >
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            run
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            kill
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            IO/Err
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex_elem flex_row"
+      style={
+        Object {
+          "overflow": "hidden",
+          "resize": "vertical",
+        }
+      }
+    >
+      <div
+        className="flex_elem_fix flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdin"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "horizontal",
+              "width": "auto",
+            }
+          }
+          value="ruby"
+        />
+      </div>
+      <div
+        className="flex_elem flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdout"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "none",
+              "width": "auto",
+            }
+          }
+          value="puts gets"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex_elem_fix"
+  >
+    <div
+      className="flex_row"
+      style={
+        Object {
+          "borderBottom": "2px solid #666",
+          "borderTop": "2px solid #111",
+          "overflow": "hidden",
+          "padding": "2px",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`StaticIOShell 13`] = `
+Array [
+  Array [],
+  Array [
+    Array [
+      "output
+",
+    ],
+  ],
+  Array [],
+  Array [
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "setup: ok",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "store: ok",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "run: running",
+      },
+    ],
+    Array [
+      Object {
+        "color": "success",
+        "log": "errors
+",
+        "summary": "run: ok(0)[0.041s]",
+      },
+    ],
+  ],
+  Array [
+    Array [],
+  ],
+  Array [
+    Array [
+      Array [],
+    ],
+  ],
+  Array [
+    Array [],
+  ],
+]
+`;
+
+exports[`StaticIOShell_Kill 1`] = `
+Array [
+  Array [
+    Object {
+      "data": Object {
+        "action": "run",
+        "code": "ruby",
+        "lang": "p gets",
+        "stdin": "ruby",
+      },
+      "id": Object {
+        "clicmid": 1,
+      },
+    },
+  ],
+  Array [
+    Object {
+      "data": Object {
+        "action": "kill",
+      },
+      "id": Object {
+        "clicmid": 1,
+      },
+    },
+  ],
+]
+`;
+
+exports[`StaticIOShell_Kill 2`] = `
+<div
+  className="flex_cols"
+>
+  <div
+    className="flex_elem flex_row"
+  >
+    <div
+      className="flex_elem_fix flex_cols"
+    >
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            run
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            kill
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            IO/Err
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex_elem flex_row"
+      style={
+        Object {
+          "overflow": "hidden",
+          "resize": "vertical",
+        }
+      }
+    >
+      <div
+        className="flex_elem_fix flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdin"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "horizontal",
+              "width": "auto",
+            }
+          }
+          value="ruby"
+        />
+      </div>
+      <div
+        className="flex_elem flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdout"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "none",
+              "width": "auto",
+            }
+          }
+          value="puts gets"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex_elem_fix"
+  >
+    <div
+      className="flex_row"
+      style={
+        Object {
+          "borderBottom": "2px solid #666",
+          "borderTop": "2px solid #111",
+          "overflow": "hidden",
+          "padding": "2px",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`StaticIOShell_Kill 3`] = `
+Array [
+  Array [
+    Object {
+      "data": Object {
+        "action": "run",
+        "code": "ruby",
+        "lang": "p gets",
+        "stdin": "ruby",
+      },
+      "id": Object {
+        "clicmid": 2,
+      },
+    },
+  ],
+  Array [
+    Object {
+      "data": Object {
+        "action": "kill",
+      },
+      "id": Object {
+        "clicmid": 2,
+      },
+    },
+  ],
+]
+`;
+
+exports[`StaticIOShell_Kill 4`] = `
+<div
+  className="flex_cols"
+>
+  <div
+    className="flex_elem flex_row"
+  >
+    <div
+      className="flex_elem_fix flex_cols"
+    >
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            run
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            kill
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            IO/Err
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex_elem flex_row"
+      style={
+        Object {
+          "overflow": "hidden",
+          "resize": "vertical",
+        }
+      }
+    >
+      <div
+        className="flex_elem_fix flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdin"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "horizontal",
+              "width": "auto",
+            }
+          }
+          value="ruby"
+        />
+      </div>
+      <div
+        className="flex_elem flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdout"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "none",
+              "width": "auto",
+            }
+          }
+          value="puts gets"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex_elem_fix"
+  >
+    <div
+      className="flex_row"
+      style={
+        Object {
+          "borderBottom": "2px solid #666",
+          "borderTop": "2px solid #111",
+          "overflow": "hidden",
+          "padding": "2px",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`StaticIOShell_Kill 5`] = `
+Array [
+  Array [
+    Object {
+      "data": Object {
+        "action": "run",
+        "code": "ruby",
+        "lang": "p gets",
+        "stdin": "ruby",
+      },
+      "id": Object {
+        "clicmid": 3,
+      },
+    },
+  ],
+  Array [
+    Object {
+      "data": Object {
+        "action": "kill",
+      },
+      "id": Object {
+        "clicmid": 3,
+      },
+    },
+  ],
+]
+`;
+
+exports[`StaticIOShell_Kill 6`] = `
+<div
+  className="flex_cols"
+>
+  <div
+    className="flex_elem flex_row"
+  >
+    <div
+      className="flex_elem_fix flex_cols"
+    >
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            run
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            kill
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            IO/Err
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex_elem flex_row"
+      style={
+        Object {
+          "overflow": "hidden",
+          "resize": "vertical",
+        }
+      }
+    >
+      <div
+        className="flex_elem_fix flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdin"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "horizontal",
+              "width": "auto",
+            }
+          }
+          value="ruby"
+        />
+      </div>
+      <div
+        className="flex_elem flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdout"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "none",
+              "width": "auto",
+            }
+          }
+          value="puts gets"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex_elem_fix"
+  >
+    <div
+      className="flex_row"
+      style={
+        Object {
+          "borderBottom": "2px solid #666",
+          "borderTop": "2px solid #111",
+          "overflow": "hidden",
+          "padding": "2px",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`StaticIOShell_Kill 7`] = `
+Array [
+  Array [
+    Object {
+      "data": Object {
+        "action": "run",
+        "code": "ruby",
+        "lang": "p gets",
+        "stdin": "ruby",
+      },
+      "id": Object {
+        "clicmid": 4,
+      },
+    },
+  ],
+  Array [
+    Object {
+      "data": Object {
+        "action": "kill",
+      },
+      "id": Object {
+        "clicmid": 4,
+      },
+    },
+  ],
+]
+`;
+
+exports[`StaticIOShell_Kill 8`] = `
+<div
+  className="flex_cols"
+>
+  <div
+    className="flex_elem flex_row"
+  >
+    <div
+      className="flex_elem_fix flex_cols"
+    >
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            run
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            kill
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            IO/Err
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex_elem flex_row"
+      style={
+        Object {
+          "overflow": "hidden",
+          "resize": "vertical",
+        }
+      }
+    >
+      <div
+        className="flex_elem_fix flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdin"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "horizontal",
+              "width": "auto",
+            }
+          }
+          value="ruby"
+        />
+      </div>
+      <div
+        className="flex_elem flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdout"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "none",
+              "width": "auto",
+            }
+          }
+          value="puts gets"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex_elem_fix"
+  >
+    <div
+      className="flex_row"
+      style={
+        Object {
+          "borderBottom": "2px solid #666",
+          "borderTop": "2px solid #111",
+          "overflow": "hidden",
+          "padding": "2px",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`StaticIOShell_Kill 9`] = `
+Array [
+  Array [
+    Object {
+      "data": Object {
+        "action": "run",
+        "code": "ruby",
+        "lang": "p gets",
+        "stdin": "ruby",
+      },
+      "id": Object {
+        "clicmid": 5,
+      },
+    },
+  ],
+]
+`;
+
+exports[`StaticIOShell_Kill 10`] = `
+<div
+  className="flex_cols"
+>
+  <div
+    className="flex_elem flex_row"
+  >
+    <div
+      className="flex_elem_fix flex_cols"
+    >
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            run
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            kill
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            IO/Err
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex_elem flex_row"
+      style={
+        Object {
+          "overflow": "hidden",
+          "resize": "vertical",
+        }
+      }
+    >
+      <div
+        className="flex_elem_fix flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdin"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "horizontal",
+              "width": "auto",
+            }
+          }
+          value="ruby"
+        />
+      </div>
+      <div
+        className="flex_elem flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdout"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "none",
+              "width": "auto",
+            }
+          }
+          value="puts gets"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="flex_elem_fix"
+  >
+    <div
+      className="flex_row"
+      style={
+        Object {
+          "borderBottom": "2px solid #666",
+          "borderTop": "2px solid #111",
+          "overflow": "hidden",
+          "padding": "2px",
+        }
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`StaticIOShell_Kill 11`] = `
+Array [
+  Array [],
+  Array [
+    Array [
+      "output
+",
+    ],
+    Array [
+      "output
+",
+    ],
+  ],
+  Array [],
+  Array [
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "setup: ok",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "setup: ok",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "store: ok",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "setup: ok",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "store: ok",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "run: running",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "setup: ok",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "store: ok",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "run: running",
+      },
+    ],
+    Array [
+      Object {
+        "color": "success",
+        "log": "errors
+",
+        "summary": "run: ok(0)[0.041s]",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "setup: ok",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "store: ok",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "log": "",
+        "summary": "run: running",
+      },
+    ],
+    Array [
+      Object {
+        "color": "success",
+        "log": "errors
+",
+        "summary": "run: ok(0)[0.041s]",
+      },
+    ],
+  ],
+  Array [
+    Array [],
+    Array [],
+    Array [],
+    Array [],
+    Array [],
+  ],
+  Array [
+    Array [
+      Array [],
+    ],
+    Array [
+      Array [],
+    ],
+  ],
+  Array [
+    Array [],
+    Array [],
+    Array [],
+    Array [],
+    Array [],
+  ],
+]
+`;

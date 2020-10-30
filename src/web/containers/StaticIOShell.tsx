@@ -6,12 +6,10 @@ import TextArea from '../components/Textarea';
 import Button from '../components/Button';
 import StatusBar from '../components/StatusBar';
 import { Item as StatusBarItem } from '../components/StatusBar';
-import { StaticIOActionTypes } from '../stores/StaticIO/types';
 import * as Actions from '../stores/StaticIO/actions';
 import { connect } from 'react-redux';
 import { Annotation, Result, SubResultExec } from '../../lib/type';
 import * as CodeEditorActions from '../stores/CodeEditor/actions';
-import { CodeEditorActionTypes } from '../stores/CodeEditor/types';
 import { ClientSocket } from '../lib/ClientSocket';
 
 type Runnable = (data: any) => void;
@@ -108,7 +106,7 @@ interface ReactStatus {
   visibleErr: boolean;
 }
 
-class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
+export class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
   private emitter: Runnable | null; // for setd kill message
 
   constructor(props: CombinedProps) {
@@ -248,6 +246,18 @@ class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
         </div>
       </div>
     );
+  }
+
+  forTestHandler(): {
+    handleClickRun: StaticIOShell['handleClickRun'];
+    handleClickKill: StaticIOShell['handleClickKill'];
+    handleClickToggle: StaticIOShell['handleClickToggle'];
+  } {
+    return {
+      handleClickRun: this.handleClickRun,
+      handleClickKill: this.handleClickKill,
+      handleClickToggle: this.handleClickToggle,
+    };
   }
 }
 
