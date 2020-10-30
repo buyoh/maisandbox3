@@ -1,11 +1,9 @@
 import React from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
 import renderer from 'react-test-renderer';
-import { act, Simulate } from 'react-dom/test-utils';
 
 import StatusBar, { Item } from '../../../web/components/StatusBar';
 
-test('aaa', () => {
+test('StatusBar', () => {
   const values: Item[] = [
     {
       color: 'gray',

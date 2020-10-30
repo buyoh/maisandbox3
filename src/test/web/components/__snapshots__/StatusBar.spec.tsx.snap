@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`aaa 1`] = `
+exports[`StatusBar 1`] = `
 <div
   className="flex_row"
   style={
@@ -35,7 +35,7 @@ exports[`aaa 1`] = `
 </div>
 `;
 
-exports[`aaa 2`] = `
+exports[`StatusBar 2`] = `
 <div
   className="flex_row"
   style={
