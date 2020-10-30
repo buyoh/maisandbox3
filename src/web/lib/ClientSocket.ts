@@ -2,8 +2,8 @@ import SocketIOClient from 'socket.io-client';
 import { CallbackManager } from '../../lib/CallbackManager';
 
 export interface SocketInterface {
-  emit: (data: any) => void
-  onRecieve: (handler: (data: any) => void) => void
+  emit: (data: any) => void;
+  onRecieve: (handler: (data: any) => void) => void;
 }
 
 export class ClientSocket {
