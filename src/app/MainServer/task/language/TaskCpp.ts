@@ -1,4 +1,4 @@
-import CallbackManager from '../../../lib/CallbackManager';
+import CallbackManager from '../../../../lib/CallbackManager';
 import {
   ResultEmitter,
   Runnable,
@@ -6,10 +6,28 @@ import {
   utilPhaseStoreFiles,
   utilPhaseExecute,
   utilPhaseFinalize,
-} from './TaskUtil';
-import { QueryData, JobID } from '../../../lib/type';
+} from '../TaskUtil';
+import { QueryData, JobID, Annotation } from '../../../../lib/type';
+import { TaskInterface } from '../TaskInterface';
 
-export class TaskCLay {
+function annotateFromStderr(stderr: string): Annotation[] {
+  if (!stderr) return [];
+  const infos: Annotation[] = [];
+  for (const line of stderr.split('\n')) {
+    const m = line.match(/^(?:\.\/)?code\.cpp:(\d+):(\d+): (\w+):/);
+    if (m) {
+      infos.push({
+        text: line,
+        row: +m[1] - 1,
+        column: +m[2] - 1,
+        type: m[3],
+      });
+    }
+  }
+  return infos;
+}
+
+export class TaskCpp implements TaskInterface {
   private socketId: string;
   private launcherCallbackManager: CallbackManager;
   private resultEmitter: ResultEmitter;
@@ -53,22 +71,6 @@ export class TaskCLay {
         { path: 'code.cpp', data: data.code },
       ]);
 
-      const res_tns = await utilPhaseExecute(
-        'transpile',
-        jid,
-        kits,
-        boxId,
-        (hk) => {
-          this.handleKill = hk;
-        },
-        'clay < code.cpp > out.cpp',
-        [],
-        '',
-        undefined,
-        true
-      ); // TODO: refactor this
-      if (res_tns.exitstatus !== 0) return;
-
       const res_cmp = await utilPhaseExecute(
         'compile',
         jid,
@@ -78,27 +80,37 @@ export class TaskCLay {
           this.handleKill = hk;
         },
         'g++',
-        ['-std=c++14', '-O3', '-o', 'prog', './out.cpp'],
+        [
+          '-std=c++17',
+          '-O3',
+          '-Wall',
+          '-I',
+          '/opt/ac-library',
+          '-o',
+          'prog',
+          './code.cpp',
+        ],
         '',
-        undefined,
+        annotateFromStderr,
         true
       );
-      if (res_cmp.exitstatus !== 0) return;
 
-      await utilPhaseExecute(
-        'run',
-        jid,
-        kits,
-        boxId,
-        (hk) => {
-          this.handleKill = hk;
-        },
-        './prog',
-        [],
-        data.stdin,
-        undefined,
-        true
-      );
+      if (res_cmp.exitstatus === 0) {
+        await utilPhaseExecute(
+          'run',
+          jid,
+          kits,
+          boxId,
+          (hk) => {
+            this.handleKill = hk;
+          },
+          './prog',
+          [],
+          data.stdin,
+          undefined,
+          true
+        );
+      }
     } catch (e) {
       console.error('task failed', e);
     } finally {

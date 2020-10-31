@@ -1,4 +1,4 @@
-import CallbackManager from '../../../lib/CallbackManager';
+import CallbackManager from '../../../../lib/CallbackManager';
 import {
   ResultEmitter,
   Runnable,
@@ -6,27 +6,11 @@ import {
   utilPhaseStoreFiles,
   utilPhaseExecute,
   utilPhaseFinalize,
-} from './TaskUtil';
-import { QueryData, JobID, Annotation } from '../../../lib/type';
+} from '../TaskUtil';
+import { QueryData, JobID } from '../../../../lib/type';
+import { TaskInterface } from '../TaskInterface';
 
-function annotateFromStderr(stderr: string): Annotation[] {
-  if (!stderr) return [];
-  const infos = [];
-  for (const line of stderr.split('\n')) {
-    const m = line.match(/^(?:\.\/)?code\.rb:(\d+):/);
-    if (m) {
-      infos.push({
-        text: line,
-        row: +m[1] - 1,
-        column: 0,
-        type: 'error',
-      });
-    }
-  }
-  return infos;
-}
-
-export class TaskRuby {
+export class TaskCLay implements TaskInterface {
   private socketId: string;
   private launcherCallbackManager: CallbackManager;
   private resultEmitter: ResultEmitter;
@@ -67,8 +51,40 @@ export class TaskRuby {
       if (boxId === null) throw Error('recieved null boxId');
 
       await utilPhaseStoreFiles('store', jid, kits, boxId, [
-        { path: 'code.rb', data: data.code },
+        { path: 'code.cpp', data: data.code },
       ]);
+
+      const res_tns = await utilPhaseExecute(
+        'transpile',
+        jid,
+        kits,
+        boxId,
+        (hk) => {
+          this.handleKill = hk;
+        },
+        'clay < code.cpp > out.cpp',
+        [],
+        '',
+        undefined,
+        true
+      ); // TODO: refactor this
+      if (res_tns.exitstatus !== 0) return;
+
+      const res_cmp = await utilPhaseExecute(
+        'compile',
+        jid,
+        kits,
+        boxId,
+        (hk) => {
+          this.handleKill = hk;
+        },
+        'g++',
+        ['-std=c++14', '-O3', '-o', 'prog', './out.cpp'],
+        '',
+        undefined,
+        true
+      );
+      if (res_cmp.exitstatus !== 0) return;
 
       await utilPhaseExecute(
         'run',
@@ -78,18 +94,23 @@ export class TaskRuby {
         (hk) => {
           this.handleKill = hk;
         },
-        'ruby',
-        ['./code.rb'],
+        './prog',
+        [],
         data.stdin,
-        annotateFromStderr,
+        undefined,
         true
       );
     } catch (e) {
-      console.error(e);
+      console.error('task failed', e);
     } finally {
       isFinal = true;
-      await utilPhaseFinalize('finalize', jid, kits, boxId);
-      this.finalize();
+      try {
+        await utilPhaseFinalize('finalize', jid, kits, boxId);
+      } catch (e) {
+        console.error('launcher finalize failed', e);
+      } finally {
+        this.finalize();
+      }
     }
   }
 }

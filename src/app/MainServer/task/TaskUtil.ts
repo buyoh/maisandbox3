@@ -1,5 +1,4 @@
 import {
-  QueryData,
   JobID,
   Result,
   WorkID,
@@ -11,11 +10,6 @@ import CallbackManager from '../../../lib/CallbackManager';
 
 export type Runnable = () => void;
 export type ResultEmitter = (data: any) => void;
-
-export interface Task {
-  kill(): void;
-  startAsync(data: QueryData, jid: any): Promise<any>;
-}
 
 export function asyncError(message: string): Promise<boolean> {
   return Promise.reject(new Error(message));
@@ -97,9 +91,8 @@ export async function utilPhaseExecute(
           const res = res_data.result as SubResultExec;
           setHandleKill(null);
           if (res_data.success) {
-            res_data.summary = `${summaryLabel}: ok(${res.exitstatus})[${
-              Math.floor(res.time * 1000) / 1000
-            }s]`;
+            res_data.summary = `${summaryLabel}: ok(${res.exitstatus})[${Math.floor(res.time * 1000) / 1000
+              }s]`;
             if (annotator)
               (res_data.result as SubResultExec).annotations = annotator(
                 res.err

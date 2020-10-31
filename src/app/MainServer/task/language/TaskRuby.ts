@@ -1,4 +1,3 @@
-import CallbackManager from '../../../lib/CallbackManager';
 import {
   ResultEmitter,
   Runnable,
@@ -6,27 +5,29 @@ import {
   utilPhaseStoreFiles,
   utilPhaseExecute,
   utilPhaseFinalize,
-} from './TaskUtil';
-import { QueryData, JobID, Annotation } from '../../../lib/type';
+} from '../TaskUtil';
+import { QueryData, JobID, Annotation } from '../../../../lib/type';
+import { TaskInterface } from '../TaskInterface';
+import CallbackManager from '../../../../lib/CallbackManager';
 
 function annotateFromStderr(stderr: string): Annotation[] {
   if (!stderr) return [];
-  const infos: Annotation[] = [];
+  const infos = [];
   for (const line of stderr.split('\n')) {
-    const m = line.match(/^(?:\.\/)?code\.cpp:(\d+):(\d+): (\w+):/);
+    const m = line.match(/^(?:\.\/)?code\.rb:(\d+):/);
     if (m) {
       infos.push({
         text: line,
         row: +m[1] - 1,
-        column: +m[2] - 1,
-        type: m[3],
+        column: 0,
+        type: 'error',
       });
     }
   }
   return infos;
 }
 
-export class TaskCpp {
+export class TaskRuby implements TaskInterface {
   private socketId: string;
   private launcherCallbackManager: CallbackManager;
   private resultEmitter: ResultEmitter;
@@ -67,60 +68,29 @@ export class TaskCpp {
       if (boxId === null) throw Error('recieved null boxId');
 
       await utilPhaseStoreFiles('store', jid, kits, boxId, [
-        { path: 'code.cpp', data: data.code },
+        { path: 'code.rb', data: data.code },
       ]);
 
-      const res_cmp = await utilPhaseExecute(
-        'compile',
+      await utilPhaseExecute(
+        'run',
         jid,
         kits,
         boxId,
         (hk) => {
           this.handleKill = hk;
         },
-        'g++',
-        [
-          '-std=c++17',
-          '-O3',
-          '-Wall',
-          '-I',
-          '/opt/ac-library',
-          '-o',
-          'prog',
-          './code.cpp',
-        ],
-        '',
+        'ruby',
+        ['./code.rb'],
+        data.stdin,
         annotateFromStderr,
         true
       );
-
-      if (res_cmp.exitstatus === 0) {
-        await utilPhaseExecute(
-          'run',
-          jid,
-          kits,
-          boxId,
-          (hk) => {
-            this.handleKill = hk;
-          },
-          './prog',
-          [],
-          data.stdin,
-          undefined,
-          true
-        );
-      }
     } catch (e) {
-      console.error('task failed', e);
+      console.error(e);
     } finally {
       isFinal = true;
-      try {
-        await utilPhaseFinalize('finalize', jid, kits, boxId);
-      } catch (e) {
-        console.error('launcher finalize failed', e);
-      } finally {
-        this.finalize();
-      }
+      await utilPhaseFinalize('finalize', jid, kits, boxId);
+      this.finalize();
     }
   }
 }

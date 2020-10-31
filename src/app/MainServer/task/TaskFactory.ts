@@ -1,8 +1,9 @@
 import CallbackManager from '../../../lib/CallbackManager';
-import { TaskRuby } from './TaskRuby';
-import { ResultEmitter, Runnable, Task } from './TaskUtil';
-import { TaskCpp } from './TaskCpp';
-import { TaskCLay } from './TaskCLay';
+import { TaskRuby } from './language/TaskRuby';
+import { ResultEmitter, Runnable } from './TaskUtil';
+import { TaskInterface } from './TaskInterface';
+import { TaskCpp } from './language/TaskCpp';
+import { TaskCLay } from './language/TaskCLay';
 
 export class TaskFactory {
   private socketId: string;
@@ -25,7 +26,7 @@ export class TaskFactory {
     this.handleKill = null;
   }
 
-  generate(lang: string): Task | null {
+  generate(lang: string): TaskInterface | null {
     if (lang === 'ruby')
       return new TaskRuby(
         this.socketId,
