@@ -1,6 +1,5 @@
 import { QueryData } from '../../../lib/type';
 
-
 export interface TaskInterface {
   kill(): void;
   //languageIdentifier: string;
