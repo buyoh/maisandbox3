@@ -15,11 +15,6 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node }}
-    - name: install tools
-      run: |
-        sudo apt update
-        sudo apt install g++
-        sudo npm i -g yarn
     - name: get git submodules
       run: |
         git submodule init

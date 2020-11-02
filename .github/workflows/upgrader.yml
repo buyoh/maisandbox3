@@ -31,10 +31,6 @@ jobs:
       run: |
         git submodule init
         git submodule update
-    - name: install tools
-      run: |
-        sudo apt update
-        sudo npm i -g yarn
     - name: upgrade packages (light)
       run: |
         yarn upgrade
