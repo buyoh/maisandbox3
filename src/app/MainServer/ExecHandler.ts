@@ -1,6 +1,6 @@
 import CallbackManager from '../../lib/CallbackManager';
 import { TaskFactory } from './task/TaskFactory';
-import { Query } from '../../lib/type';
+import { Query, Result } from '../../lib/type';
 
 type ExecHandlerState = {
   tasks: { [key: string]: any };
@@ -31,6 +31,10 @@ export class ExecHandler {
       );
       const task = factory.generate(data.lang);
       if (!task) {
+        const res: Result = {
+          success: false
+        };
+        resultEmitter(res);
         console.warn('unknown language: ', data.lang);
         return;
       }
