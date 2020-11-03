@@ -52,7 +52,7 @@ interface StateProps {
 interface DispatchProps {
   updateStdin: (stdin: string) => void;
   updateStdout: (stdout: string) => void;
-  activateResult: () => void;
+  activateResult: (idx: number) => void;
   addResult: (r: ExecResult) => void;
   clearResults: () => void;
   addAnnotations: (annos: Annotation[]) => void;
@@ -67,22 +67,24 @@ type ReactProps = {
 type CombinedProps = ReactProps & StateProps & DispatchProps;
 
 function mapStateToProps(state: RootState): StateProps {
+  const activatedResultIndex = state.staticIO.activatedResultIndex;
   return {
     stdin: state.staticIO.stdin,
     stdout: state.staticIO.stdout,
-    errlog: '',
+    errlog:
+      activatedResultIndex === null
+        ? ''
+        : state.staticIO.results[activatedResultIndex].log,
     statuses: state.staticIO.results
       .map((r, i) => ({
         color: r.color,
         text: r.summary,
         key: '' + i,
-        onClick: undefined,
+        onClick: undefined, // renderで挿入する
       }))
       .reverse(),
     activatedStatusKey:
-      state.staticIO.activatedResultIndex === null
-        ? -1
-        : state.staticIO.activatedResultIndex,
+      activatedResultIndex === null ? -1 : activatedResultIndex,
     socket: state.clientSocket.value,
     code: state.codeEditor.code,
     lang: state.codeEditor.lang,
@@ -93,7 +95,7 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
   return {
     updateStdin: (stdin: string) => dispatch(Actions.updateStdin(stdin)),
     updateStdout: (stdout: string) => dispatch(Actions.updateStdout(stdout)),
-    activateResult: () => dispatch(Actions.activateResult(0)),
+    activateResult: (idx: number) => dispatch(Actions.activateResult(idx)),
     addResult: (r: ExecResult) => dispatch(Actions.addResult(r)),
     clearResults: () => dispatch(Actions.removeAllResults()),
     addAnnotations: (annos: Annotation[]) =>
@@ -240,7 +242,10 @@ export class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
         </div>
         <div className="flex_elem_fix">
           <StatusBar
-            values={this.props.statuses}
+            values={this.props.statuses.map((e) => ({
+              ...e,
+              onClick: () => this.props.activateResult(+e.key),
+            }))}
             active={'' + this.props.activatedStatusKey}
           ></StatusBar>
         </div>
