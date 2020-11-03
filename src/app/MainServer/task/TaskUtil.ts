@@ -91,8 +91,9 @@ export async function utilPhaseExecute(
           const res = res_data.result as SubResultExec;
           setHandleKill(null);
           if (res_data.success) {
-            res_data.summary = `${summaryLabel}: ok(${res.exitstatus})[${Math.floor(res.time * 1000) / 1000
-              }s]`;
+            res_data.summary = `${summaryLabel}: ok(${res.exitstatus})[${
+              Math.floor(res.time * 1000) / 1000
+            }s]`;
             if (annotator)
               (res_data.result as SubResultExec).annotations = annotator(
                 res.err
