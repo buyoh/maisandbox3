@@ -32,7 +32,7 @@ export class ExecHandler {
       const task = factory.generate(data.lang);
       if (!task) {
         const res: Result = {
-          success: false
+          success: false,
         };
         resultEmitter(res);
         console.warn('unknown language: ', data.lang);
