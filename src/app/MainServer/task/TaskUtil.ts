@@ -1,7 +1,5 @@
 import {
-  JobID,
   Result,
-  WorkID,
   SubResultBox,
   SubResultExec,
   Annotation,
@@ -16,21 +14,17 @@ export function asyncError(message: string): Promise<boolean> {
 }
 
 type Kits = {
-  socketId: string;
   launcherCallbackManager: CallbackManager;
   resultEmitter: ResultEmitter;
 };
 
 export async function utilPhaseSetupBox(
   summaryLabel: string,
-  jid: JobID,
   kits: Kits
 ): Promise<string | null> {
   const res_data: Result = await kits.launcherCallbackManager.postp({
     method: 'setupbox',
-    id: { jid, sid: kits.socketId },
   });
-  res_data.id = (res_data.id as WorkID).jid;
   if (!res_data.success) {
     kits.resultEmitter(res_data);
     console.error('launcher failed: method=setupbox:', res_data.error);
@@ -47,7 +41,6 @@ export async function utilPhaseSetupBox(
 
 export async function utilPhaseStoreFiles(
   summaryLabel: string,
-  jid: JobID,
   kits: Kits,
   boxId: string,
   files: Array<{ path: string; data: string }>
@@ -55,10 +48,8 @@ export async function utilPhaseStoreFiles(
   const res_data: Result = await kits.launcherCallbackManager.postp({
     method: 'store',
     box: boxId,
-    files,
-    id: { jid, sid: kits.socketId },
+    files
   });
-  res_data.id = (res_data.id as WorkID).jid;
   if (!res_data.success) {
     kits.resultEmitter(res_data);
     console.error('launcher failed: method=store:', res_data.error);
@@ -71,7 +62,6 @@ export async function utilPhaseStoreFiles(
 
 export async function utilPhaseExecute(
   summaryLabel: string,
-  jid: JobID,
   kits: Kits,
   boxId: string,
   setHandleKill: (f: (() => void) | null) => void,
@@ -85,15 +75,13 @@ export async function utilPhaseExecute(
     const caller = kits.launcherCallbackManager.multipost(
       (res_data: Result) => {
         // note: call this callback twice or more
-        res_data.id = (res_data.id as WorkID).jid;
         if (res_data.result && res_data.result.exited) {
           // execution complete
           const res = res_data.result as SubResultExec;
           setHandleKill(null);
           if (res_data.success) {
-            res_data.summary = `${summaryLabel}: ok(${res.exitstatus})[${
-              Math.floor(res.time * 1000) / 1000
-            }s]`;
+            res_data.summary = `${summaryLabel}: ok(${res.exitstatus})[${Math.floor(res.time * 1000) / 1000
+              }s]`;
             if (annotator)
               (res_data.result as SubResultExec).annotations = annotator(
                 res.err
@@ -122,14 +110,12 @@ export async function utilPhaseExecute(
       cmd,
       args,
       stdin,
-      id: { jid, sid: kits.socketId },
       fileio,
     });
     setHandleKill(() => {
       caller.call(null, {
         method: 'kill',
         box: boxId,
-        id: { jid, sid: kits.socketId },
       });
     });
   });
@@ -137,16 +123,13 @@ export async function utilPhaseExecute(
 
 export async function utilPhaseFinalize(
   _summaryLabel: string,
-  jid: JobID,
   kits: Kits,
   boxId: string | null
 ): Promise<void> {
   const res_data: Result = await kits.launcherCallbackManager.postp({
     method: 'cleanupbox',
     box: boxId,
-    id: { jid, sid: kits.socketId },
   });
-  res_data.id = (res_data.id as WorkID).jid;
   if (!res_data.success) {
     kits.resultEmitter(res_data);
     console.error('launcher failed: method=cleanupbox:', res_data.error);

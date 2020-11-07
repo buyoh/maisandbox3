@@ -3,7 +3,7 @@ import { QueryData } from '../../../lib/type';
 export interface TaskInterface {
   kill(): void;
   //languageIdentifier: string;
-  startAsync(data: QueryData, jid: any): Promise<void>;
+  startAsync(data: QueryData): Promise<void>;
 
   // configured(): boolean;
   // initialize(data: QueryData, jid: any): Promise<boolean>;

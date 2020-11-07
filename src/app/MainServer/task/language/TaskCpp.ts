@@ -7,7 +7,7 @@ import {
   utilPhaseExecute,
   utilPhaseFinalize,
 } from '../TaskUtil';
-import { QueryData, JobID, Annotation } from '../../../../lib/type';
+import { QueryData, Annotation } from '../../../../lib/type';
 import { TaskInterface } from '../TaskInterface';
 
 function annotateFromStderr(stderr: string): Annotation[] {
@@ -28,19 +28,16 @@ function annotateFromStderr(stderr: string): Annotation[] {
 }
 
 export class TaskCpp implements TaskInterface {
-  private socketId: string;
   private launcherCallbackManager: CallbackManager;
   private resultEmitter: ResultEmitter;
   private finalize: Runnable;
   private handleKill: Runnable | null;
 
   constructor(
-    socketId: string,
     launcherCallbackManager: CallbackManager,
     resultEmitter: ResultEmitter,
     finalize: Runnable
   ) {
-    this.socketId = socketId;
     this.launcherCallbackManager = launcherCallbackManager;
     this.resultEmitter = resultEmitter;
     this.finalize = finalize;
@@ -52,10 +49,9 @@ export class TaskCpp implements TaskInterface {
     this.handleKill?.call(this);
   }
 
-  async startAsync(data: QueryData, jid: JobID): Promise<void> {
+  async startAsync(data: QueryData): Promise<void> {
     let isFinal = false;
     const kits = {
-      socketId: this.socketId,
       launcherCallbackManager: this.launcherCallbackManager,
       resultEmitter: (data: any) => {
         data.continue = !isFinal;
@@ -64,16 +60,15 @@ export class TaskCpp implements TaskInterface {
     };
     let boxId: string | null = null;
     try {
-      boxId = await utilPhaseSetupBox('setup', jid, kits);
+      boxId = await utilPhaseSetupBox('setup', kits);
       if (boxId === null) throw Error('recieved null boxId');
 
-      await utilPhaseStoreFiles('store', jid, kits, boxId, [
+      await utilPhaseStoreFiles('store', kits, boxId, [
         { path: 'code.cpp', data: data.code },
       ]);
 
       const res_cmp = await utilPhaseExecute(
         'compile',
-        jid,
         kits,
         boxId,
         (hk) => {
@@ -98,7 +93,6 @@ export class TaskCpp implements TaskInterface {
       if (res_cmp.exitstatus === 0) {
         await utilPhaseExecute(
           'run',
-          jid,
           kits,
           boxId,
           (hk) => {
@@ -116,7 +110,7 @@ export class TaskCpp implements TaskInterface {
     } finally {
       isFinal = true;
       try {
-        await utilPhaseFinalize('finalize', jid, kits, boxId);
+        await utilPhaseFinalize('finalize', kits, boxId);
       } catch (e) {
         console.error('launcher finalize failed', e);
       } finally {

@@ -34,7 +34,7 @@ export default class LauncherHolder {
   private createCallbackManager() {
     return new CallbackManager((data) => {
       this.launcher.send(data);
-    }, 'lcmid');
+    }, 'request_id');
   }
 
   constructor(restartMsec: number) {
