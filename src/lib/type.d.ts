@@ -5,15 +5,15 @@ export type Annotation = {
   type: string;
 };
 
-export interface JobID {
+// clientがserverとのcallbackを識別するためのID
+export interface ClientJobID {
   clicmid?: number; // client callback manager id
 }
 
-export interface WorkID {
-  jid?: JobID;
-  sid?: string; // socketio identifier
-  lcmid?: string; // launcher callback manager id
-  // cbmid?: string
+// serverがlauncherとのcallbackを識別するためのID
+export interface LauncherQueryID {
+  request_id?: string; // launcher callback manager id
+  // user_id? : string; // equal to socketid
 }
 
 export type QueryActions = 'run' | 'kill';
@@ -26,7 +26,7 @@ export interface QueryData {
 }
 
 export interface Query {
-  id?: JobID;
+  id?: ClientJobID;
   data: QueryData;
 }
 
@@ -53,7 +53,7 @@ export interface SubResultAccepted {
 }
 
 export interface Result {
-  id?: JobID | WorkID;
+  id?: ClientJobID;
   success: boolean;
   taskid?: number; // << ???
   continue?: boolean;
