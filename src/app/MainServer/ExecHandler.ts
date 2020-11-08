@@ -30,7 +30,7 @@ export class ExecHandler {
       const factory = new TaskFactory(
         this.launcherCallbackManager,
         (data: any) => {
-          data.id = query.id;  // clientに結果を返す際に必要となる識別子をここで挿入
+          data.id = query.id; // clientに結果を返す際に必要となる識別子をここで挿入
           resultEmitter(data);
         },
         () => {

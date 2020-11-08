@@ -48,7 +48,7 @@ export async function utilPhaseStoreFiles(
   const res_data: Result = await kits.launcherCallbackManager.postp({
     method: 'store',
     box: boxId,
-    files
+    files,
   });
   if (!res_data.success) {
     kits.resultEmitter(res_data);
@@ -80,8 +80,9 @@ export async function utilPhaseExecute(
           const res = res_data.result as SubResultExec;
           setHandleKill(null);
           if (res_data.success) {
-            res_data.summary = `${summaryLabel}: ok(${res.exitstatus})[${Math.floor(res.time * 1000) / 1000
-              }s]`;
+            res_data.summary = `${summaryLabel}: ok(${res.exitstatus})[${
+              Math.floor(res.time * 1000) / 1000
+            }s]`;
             if (annotator)
               (res_data.result as SubResultExec).annotations = annotator(
                 res.err
