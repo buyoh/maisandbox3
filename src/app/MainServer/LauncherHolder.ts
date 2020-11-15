@@ -1,24 +1,19 @@
-import { LauncherSocket } from '../Launcher/LauncherSocket';
 import CallbackManager from '../../lib/CallbackManager';
-import Config from '../../lib/Config';
+import { ISocket } from '../Launcher/SocketInterface';
 
 export default class LauncherHolder {
   private running: boolean;
   private restartMs: number;
-  private launcher: LauncherSocket;
+  private launcherFactory: () => ISocket;
+  private launcher: ISocket;
+  private isRestartable: (code: number, signal: NodeJS.Signals | null) => boolean;
   callbackManager: CallbackManager;
 
   private createLauncherSocket() {
-    const launcher = new LauncherSocket();
-    launcher.onClose((code: number) => {
-      if (Config.useChildProcess) {
-        if (code == 1) {
-          console.error('launcher has raised exceptions');
-          process.exit(1);
-        } else {
-          console.error('launcher disconnected code=' + code);
-          process.exit(0);
-        }
+    const launcher = this.launcherFactory();
+    launcher.onClose((code: number, signal: NodeJS.Signals | null) => {
+      if (!this.isRestartable(code, signal)) {
+        return;
       }
       if (this.running)
         setTimeout(() => {
@@ -37,10 +32,12 @@ export default class LauncherHolder {
     }, 'request_id');
   }
 
-  constructor(restartMsec: number) {
+  constructor(restartMsec: number, isRestartable: LauncherHolder['isRestartable'], launcherFactory: () => ISocket) {
     this.restartMs = restartMsec;
     this.running = false;
+    this.launcherFactory = launcherFactory;
     this.launcher = this.createLauncherSocket();
+    this.isRestartable = isRestartable;
     this.callbackManager = this.createCallbackManager();
   }
 
@@ -60,6 +57,7 @@ export default class LauncherHolder {
     this.launcher.stop();
   }
 
+  // restart while fail startup
   triggerRestart(): void {
     let failed: string | null = null;
     try {

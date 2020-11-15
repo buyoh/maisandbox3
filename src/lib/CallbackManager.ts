@@ -76,8 +76,8 @@ export class CallbackManager {
     if (!cbmid) {
       console.warn(
         'CallbackManager::handleRecieve: id.' +
-          this.identifier +
-          ' not found. reject.'
+        this.identifier +
+        ' not found. reject.'
       );
       return;
     }
@@ -86,8 +86,8 @@ export class CallbackManager {
     if (!cb) {
       console.warn(
         'CallbackManager::handleRecieve: unknown id.' +
-          this.identifier +
-          '. reject.'
+        this.identifier +
+        '. reject.'
       );
       return;
     }

@@ -7,6 +7,7 @@ import {
   setupSocketIOAndBindHandler,
 } from './MainServer/SocketIO';
 import LauncherHolder from './MainServer/LauncherHolder';
+import { LauncherSocket } from './Launcher/LauncherSocket';
 
 const appNext = Next({ dev: Config.develop });
 const port = Config.httpPort;
@@ -14,7 +15,23 @@ const port = Config.httpPort;
 (async () => {
   try {
     // launcher
-    const launcherHolder = new LauncherHolder(5000);
+    const launcherHolder = new LauncherHolder(
+      5000,
+      (code: number) => {
+        if (Config.useChildProcess) {
+          if (code == 1) {
+            console.error('launcher has raised exceptions');
+            process.exit(1);
+          } else {
+            console.error('launcher disconnected code=' + code);
+            process.exit(0);
+          }
+          return false;
+        }
+        return true;
+      },
+      () => new LauncherSocket()
+    );
     launcherHolder.start();
 
     // appServer

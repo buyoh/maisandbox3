@@ -1,14 +1,12 @@
 import ChildProcess from 'child_process';
 import net from 'net';
 import Config from '../../lib/Config';
+import { CallbackClose, CallbackRecieve, ISocket } from './SocketInterface';
 
 const UseChildProcess = Config.useChildProcess;
 const UnixSocketPath = Config.launcherSocketPath;
 
-type CallbackClose = (code: number, signal: NodeJS.Signals | null) => void;
-type CallbackRecieve = (data: string) => void;
-
-export class LauncherSocket {
+export class LauncherSocket implements ISocket {
   private process: ChildProcess.ChildProcess | null;
   private netSocket: net.Socket | null;
   private bufferStdout: string;
@@ -142,7 +140,7 @@ export class LauncherSocket {
     return UseChildProcess ? this.isAliveChildProcess() : this.isAliveSocket();
   }
 
-  send(data: {}): boolean {
+  send(data: unknown): boolean {
     if (!this.isAlive()) return false;
     const j = JSON.stringify(data);
     UseChildProcess ? this.writeChildProcess(j) : this.writeSocket(j);
