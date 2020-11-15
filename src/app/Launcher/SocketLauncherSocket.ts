@@ -1,29 +1,24 @@
-import ChildProcess from 'child_process';
 import net from 'net';
-import Config from '../../lib/Config';
 import { CallbackClose, CallbackRecieve, ISocket } from './SocketInterface';
 
-const UseChildProcess = Config.useChildProcess;
-const UnixSocketPath = Config.launcherSocketPath;
-
-export class LauncherSocket implements ISocket {
-  private process: ChildProcess.ChildProcess | null;
+export class SocketLauncherSocket implements ISocket {
   private netSocket: net.Socket | null;
   private bufferStdout: string;
+  private socketPath: string;
 
   private callbacks: {
     close: Array<CallbackClose>;
     recieve: Array<CallbackRecieve>;
   }; // close, recieve
 
-  constructor() {
-    this.process = null;
+  constructor(socketPath: string) {
     this.netSocket = null;
     this.bufferStdout = '';
     this.callbacks = {
       close: [],
       recieve: [],
     };
+    this.socketPath = socketPath;
   }
 
   private handleClose(code: number, signal: NodeJS.Signals | null): void {
@@ -60,43 +55,8 @@ export class LauncherSocket implements ISocket {
 
   //
 
-  private startChildProcess(): void {
-    const args = [];
-    if (Config.develop) args.push('--validate');
-    const p = ChildProcess.spawn(
-      'ruby',
-      ['deps/applauncher/index.rb'].concat(args),
-      { stdio: ['pipe', 'pipe', 'inherit'] }
-    );
-    this.process = p;
-
-    p.on('close', (code, signal) => {
-      this.handleClose(code, signal);
-    });
-    p.stdout.on('data', (data) => {
-      // buffstdout.write(data.toString());
-      this.handleRecieve(data.toString());
-    });
-  }
-
-  private stopChildProcess(): void {
-    if (this.process !== null) this.process.kill();
-  }
-
-  private isAliveChildProcess(): boolean {
-    return this.process !== null && !this.process.killed;
-  }
-
-  private writeChildProcess(str: string): void {
-    this.process?.stdin?.write(str.trimEnd() + '\n', () => {
-      /* flushed */
-    });
-  }
-
-  //
-
-  private startSocket(): void {
-    const s = net.createConnection(UnixSocketPath);
+  start(): void {
+    const s = net.createConnection(this.socketPath);
     this.netSocket = s;
     s.on('end', () => {
       this.handleClose(0, null);
@@ -112,11 +72,11 @@ export class LauncherSocket implements ISocket {
     });
   }
 
-  private stopSocket(): void {
+  stop(): void {
     this.netSocket?.end();
   }
 
-  private isAliveSocket(): boolean {
+  isAlive(): boolean {
     return this.netSocket !== null && !this.netSocket.destroyed;
   }
 
@@ -126,26 +86,14 @@ export class LauncherSocket implements ISocket {
     });
   }
 
-  //
-
-  start(): void {
-    UseChildProcess ? this.startChildProcess() : this.startSocket();
-  }
-
-  stop(): void {
-    UseChildProcess ? this.stopChildProcess() : this.stopSocket();
-  }
-
-  isAlive(): boolean {
-    return UseChildProcess ? this.isAliveChildProcess() : this.isAliveSocket();
-  }
-
   send(data: unknown): boolean {
     if (!this.isAlive()) return false;
     const j = JSON.stringify(data);
-    UseChildProcess ? this.writeChildProcess(j) : this.writeSocket(j);
+    this.writeSocket(j);
     return true;
   }
+
+  //
 
   onClose(callback: CallbackClose): void {
     this.callbacks['close'].push(callback);

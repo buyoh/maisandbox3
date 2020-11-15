@@ -7,7 +7,7 @@ import {
   setupSocketIOAndBindHandler,
 } from './MainServer/SocketIO';
 import LauncherHolder from './MainServer/LauncherHolder';
-import { LauncherSocket } from './Launcher/LauncherSocket';
+import { createLauncherSocket } from './Launcher/LauncherSocketFactory';
 
 const appNext = Next({ dev: Config.develop });
 const port = Config.httpPort;
@@ -30,7 +30,7 @@ const port = Config.httpPort;
         }
         return true;
       },
-      () => new LauncherSocket()
+      () => createLauncherSocket()
     );
     launcherHolder.start();
 
