@@ -1,8 +1,11 @@
-import { CallbackClose, CallbackRecieve, ISocket } from '../../../app/Launcher/SocketInterface';
+import {
+  CallbackClose,
+  CallbackRecieve,
+  ISocket,
+} from '../../../app/Launcher/SocketInterface';
 import LauncherHolder from '../../../app/MainServer/LauncherHolder';
 
 class TestSocket implements ISocket {
-
   startMock: jest.Mock<void, any>;
   stopMock: jest.Mock<void, any>;
   isAliveMock: jest.Mock<void, any>;
@@ -42,12 +45,15 @@ class TestSocket implements ISocket {
   onRecieve(callback: CallbackRecieve): void {
     this.onRecieveCallback = callback;
   }
-
 }
 
 test('start and call and stop', (done) => {
   let socket: TestSocket | undefined;
-  const holder = new LauncherHolder(10, () => true, () => (socket = new TestSocket()));
+  const holder = new LauncherHolder(
+    10,
+    () => true,
+    () => (socket = new TestSocket())
+  );
 
   holder.start();
   expect(socket).toBeTruthy();
@@ -56,21 +62,27 @@ test('start and call and stop', (done) => {
   }
   expect(socket.startMock.mock.calls.length).toEqual(1);
 
-  holder.callbackManager.postp({ msg: 'message' }).then((data) => {
-    expect(data.msg).toEqual('message');
-    return Promise.resolve();
-  }).then(() => {
-    holder.stop();
-    if (!socket) return;  // never
-    expect(socket.stopMock.mock.calls.length).toEqual(1);
-    done();
-  });
+  holder.callbackManager
+    .postp({ msg: 'message' })
+    .then((data) => {
+      expect(data.msg).toEqual('message');
+      return Promise.resolve();
+    })
+    .then(() => {
+      holder.stop();
+      if (!socket) return; // never
+      expect(socket.stopMock.mock.calls.length).toEqual(1);
+      done();
+    });
 });
-
 
 test('restart', (done) => {
   let socket: TestSocket | undefined;
-  const holder = new LauncherHolder(5, () => true, () => (socket = new TestSocket()));
+  const holder = new LauncherHolder(
+    5,
+    () => true,
+    () => (socket = new TestSocket())
+  );
 
   holder.start();
   expect(socket).toBeTruthy();
@@ -87,4 +99,3 @@ test('restart', (done) => {
     done();
   }, 50);
 });
-

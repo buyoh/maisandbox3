@@ -6,7 +6,10 @@ export default class LauncherHolder {
   private restartMs: number;
   private launcherFactory: () => ISocket;
   private launcher: ISocket;
-  private isRestartable: (code: number, signal: NodeJS.Signals | null) => boolean;
+  private isRestartable: (
+    code: number,
+    signal: NodeJS.Signals | null
+  ) => boolean;
   callbackManager: CallbackManager;
 
   private createLauncherSocket() {
@@ -32,7 +35,11 @@ export default class LauncherHolder {
     }, 'request_id');
   }
 
-  constructor(restartMsec: number, isRestartable: LauncherHolder['isRestartable'], launcherFactory: () => ISocket) {
+  constructor(
+    restartMsec: number,
+    isRestartable: LauncherHolder['isRestartable'],
+    launcherFactory: () => ISocket
+  ) {
     this.restartMs = restartMsec;
     this.running = false;
     this.launcherFactory = launcherFactory;

@@ -1,5 +1,7 @@
-
-export type CallbackClose = (code: number, signal: NodeJS.Signals | null) => void;
+export type CallbackClose = (
+  code: number,
+  signal: NodeJS.Signals | null
+) => void;
 export type CallbackRecieve = (data: any) => void;
 
 export interface ISocket {
