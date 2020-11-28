@@ -1,4 +1,4 @@
-import SocketIO from 'socket.io';
+import * as SocketIO from 'socket.io';
 import Http from 'http';
 
 import CallbackManager from '../../lib/CallbackManager';
@@ -6,7 +6,7 @@ import { ExecHandler } from './ExecHandler';
 import { Query } from '../../lib/type';
 
 export function setupSocketIO(httpServer: Http.Server): SocketIO.Server {
-  return SocketIO(httpServer);
+  return new SocketIO.Server(httpServer);
 }
 
 export function setupSocketIOAndBindHandler(
