@@ -44,6 +44,7 @@ jobs:
         git commit -m 'upgrade by Github Actions'
         fi
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v2
+      uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
+        author: mai bot-worker <mai@ukibune.net>
