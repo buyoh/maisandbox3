@@ -1,4 +1,5 @@
 import Http from 'http';
+import Https from 'https';
 import Express from 'express';
 
 type Handler = (
@@ -8,10 +9,13 @@ type Handler = (
 
 export function setupExpressServer(
   pageHandler: Handler,
-  port = 3030
+  port = 3030,
+  sslConfig: null | Object
 ): [Express.Express, Http.Server] {
   const appExpress = Express();
-  const httpServer = Http.createServer(appExpress);
+  const httpServer = sslConfig
+    ? Https.createServer(sslConfig, appExpress)
+    : Http.createServer(appExpress);
 
   // express binding
   appExpress.all('*', (req: Express.Request, res: Express.Response) => {

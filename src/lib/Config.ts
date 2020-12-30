@@ -10,10 +10,17 @@ const useChildProcess = process.env.LAUNCHER_PROCESS !== 'SOCKET';
 const launcherSocketPath =
   process.env.LAUNCHER_SOCKET_PATH || process.env.PWD + '/var/launcher.sock';
 
+// sssl対応にするかどうか
+const sslConfigPath = (() => {
+  const s = process.env.SSL_CONFIG_PATH;
+  return s ? `${s}` : null;
+})();
+
 export default {
   production,
   develop,
   httpPort,
   useChildProcess,
   launcherSocketPath,
+  sslConfigPath,
 };
