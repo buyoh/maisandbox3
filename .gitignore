@@ -3,6 +3,7 @@
 # app
 /var
 /tmp
+/*.env.json
 
 # dependencies
 /node_modules

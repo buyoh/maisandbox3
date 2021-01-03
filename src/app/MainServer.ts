@@ -8,6 +8,7 @@ import {
 } from './MainServer/SocketIO';
 import LauncherHolder from './MainServer/LauncherHolder';
 import { createLauncherSocket } from './Launcher/LauncherSocketFactory';
+import { readFileSync } from 'fs';
 
 const appNext = Next({ dev: Config.develop });
 const port = Config.httpPort;
@@ -34,11 +35,25 @@ const port = Config.httpPort;
     );
     launcherHolder.start();
 
+    // sslconfig
+    const sslConfigPath = Config.sslConfigPath;
+    const sslConfig = !sslConfigPath
+      ? null
+      : Object.entries(
+          JSON.parse(readFileSync(sslConfigPath).toString()) as {
+            [index: string]: string;
+          }
+        ).reduce((s, keyPath) => {
+          s[keyPath[0]] = readFileSync(keyPath[1]).toString();
+          return s;
+        }, {} as { [index: string]: string });
+
     // appServer
     await appNext.prepare();
     const [, httpServer] = setupExpressServer(
       appNext.getRequestHandler(),
-      port
+      port,
+      sslConfig
     );
 
     // socketio
