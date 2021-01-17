@@ -20,7 +20,10 @@ export class ChildProcessLauncherSocket implements ISocket {
     };
   }
 
-  private handleClose(code: number | null, signal: NodeJS.Signals | null): void {
+  private handleClose(
+    code: number | null,
+    signal: NodeJS.Signals | null
+  ): void {
     for (const c of this.callbacks.close) c(code, signal);
   }
 

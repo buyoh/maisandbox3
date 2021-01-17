@@ -40,13 +40,13 @@ const port = Config.httpPort;
     const sslConfig = !sslConfigPath
       ? null
       : Object.entries(
-        JSON.parse(readFileSync(sslConfigPath).toString()) as {
-          [index: string]: string;
-        }
-      ).reduce((s, keyPath) => {
-        s[keyPath[0]] = readFileSync(keyPath[1]).toString();
-        return s;
-      }, {} as { [index: string]: string });
+          JSON.parse(readFileSync(sslConfigPath).toString()) as {
+            [index: string]: string;
+          }
+        ).reduce((s, keyPath) => {
+          s[keyPath[0]] = readFileSync(keyPath[1]).toString();
+          return s;
+        }, {} as { [index: string]: string });
 
     // appServer
     await appNext.prepare();
