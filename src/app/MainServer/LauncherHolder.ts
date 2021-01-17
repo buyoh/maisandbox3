@@ -7,14 +7,14 @@ export default class LauncherHolder {
   private launcherFactory: () => ISocket;
   private launcher: ISocket;
   private isRestartable: (
-    code: number,
+    code: number | null,
     signal: NodeJS.Signals | null
   ) => boolean;
   callbackManager: CallbackManager;
 
   private createLauncherSocket() {
     const launcher = this.launcherFactory();
-    launcher.onClose((code: number, signal: NodeJS.Signals | null) => {
+    launcher.onClose((code: number | null, signal: NodeJS.Signals | null) => {
       if (!this.isRestartable(code, signal)) {
         return;
       }
