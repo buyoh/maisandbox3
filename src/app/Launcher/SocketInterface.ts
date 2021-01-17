@@ -1,5 +1,5 @@
 export type CallbackClose = (
-  code: number,
+  code: number | null,
   signal: NodeJS.Signals | null
 ) => void;
 export type CallbackRecieve = (data: any) => void;

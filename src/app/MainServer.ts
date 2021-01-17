@@ -18,9 +18,9 @@ const port = Config.httpPort;
     // launcher
     const launcherHolder = new LauncherHolder(
       5000,
-      (code: number) => {
+      (code: number | null) => {
         if (Config.useChildProcess) {
-          if (code == 1) {
+          if (code === 1) {
             console.error('launcher has raised exceptions');
             process.exit(1);
           } else {
