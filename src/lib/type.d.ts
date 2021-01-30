@@ -55,7 +55,7 @@ export interface SubResultAccepted {
 export interface Result {
   id?: ClientJobID;
   success: boolean;
-  taskid?: number; // << ???
+  taskid?: string;
   continue?: boolean;
   result?: SubResult | SubResultBox | SubResultExec;
   error?: string;
