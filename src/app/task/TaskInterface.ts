@@ -1,4 +1,4 @@
-import { QueryData } from '../../../lib/type';
+import { QueryData } from '../../lib/type';
 
 export interface TaskInterface {
   kill(): void;

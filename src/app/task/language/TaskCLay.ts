@@ -1,4 +1,4 @@
-import CallbackManager from '../../../../lib/CallbackManager';
+import CallbackManager from '../../../lib/CallbackManager';
 import {
   ResultEmitter,
   Runnable,
@@ -7,7 +7,7 @@ import {
   utilPhaseExecute,
   utilPhaseFinalize,
 } from '../TaskUtil';
-import { QueryData } from '../../../../lib/type';
+import { QueryData } from '../../../lib/type';
 import { TaskInterface } from '../TaskInterface';
 
 export class TaskCLay implements TaskInterface {

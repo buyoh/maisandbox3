@@ -3,8 +3,8 @@ import {
   SubResultBox,
   SubResultExec,
   Annotation,
-} from '../../../lib/type';
-import CallbackManager from '../../../lib/CallbackManager';
+} from '../../lib/type';
+import CallbackManager from '../../lib/CallbackManager';
 
 export type Runnable = () => void;
 export type ResultEmitter = (data: any) => void;

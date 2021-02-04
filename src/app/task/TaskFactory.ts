@@ -1,4 +1,4 @@
-import CallbackManager from '../../../lib/CallbackManager';
+import CallbackManager from '../../lib/CallbackManager';
 import { TaskRuby } from './language/TaskRuby';
 import { ResultEmitter, Runnable } from './TaskUtil';
 import { TaskInterface } from './TaskInterface';

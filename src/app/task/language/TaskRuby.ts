@@ -6,9 +6,9 @@ import {
   utilPhaseExecute,
   utilPhaseFinalize,
 } from '../TaskUtil';
-import { QueryData, Annotation } from '../../../../lib/type';
+import { QueryData, Annotation } from '../../../lib/type';
 import { TaskInterface } from '../TaskInterface';
-import CallbackManager from '../../../../lib/CallbackManager';
+import CallbackManager from '../../../lib/CallbackManager';
 
 function annotateFromStderr(stderr: string): Annotation[] {
   if (!stderr) return [];

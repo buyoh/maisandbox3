@@ -1,7 +1,7 @@
 import CallbackManager from '../../lib/CallbackManager';
-import { TaskFactory } from './task/TaskFactory';
+import { TaskFactory } from '../task/TaskFactory';
 import { Query, Result } from '../../lib/type';
-import { TaskInterface } from './task/TaskInterface';
+import { TaskInterface } from '../task/TaskInterface';
 
 type ExecHandlerState = {
   tasks: { [key: string]: TaskInterface };
