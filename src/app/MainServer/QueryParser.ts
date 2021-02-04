@@ -7,10 +7,14 @@ import { TaskRunnerManager } from './TaskRunnerManager';
 // SocketIOのconnection単位（ブラウザタブ単位）で生成される。
 export class QueryParser {
   private taskRunnerManager: TaskRunnerManager;
-  private socketId: string;  // note: 今は要らないけどユーザ識別の為いずれ必要になる
+  private socketId: string; // note: 今は要らないけどユーザ識別の為いずれ必要になる
   private launcherCallbackManager: CallbackManager;
 
-  constructor(socketId: string, taskRunnerManager: TaskRunnerManager, launcherCallbackManager: CallbackManager) {
+  constructor(
+    socketId: string,
+    taskRunnerManager: TaskRunnerManager,
+    launcherCallbackManager: CallbackManager
+  ) {
     this.socketId = socketId;
     this.taskRunnerManager = taskRunnerManager;
     this.launcherCallbackManager = launcherCallbackManager;

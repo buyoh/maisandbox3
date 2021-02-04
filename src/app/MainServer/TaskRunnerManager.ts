@@ -1,4 +1,3 @@
-
 import { ClientJobID } from '../../lib/type';
 import { TaskRunner } from './TaskRunner';
 
@@ -9,7 +8,6 @@ function keyFromClientJobID(clientJobId: ClientJobID) {
 // あるconnection（ブラウザタブ）によって生成されたTaskRunnerを管理する
 // 全てのTaskRunnerは管理しない。
 export class TaskRunnerManager {
-
   tasks: { [key: string]: TaskRunner };
 
   constructor() {

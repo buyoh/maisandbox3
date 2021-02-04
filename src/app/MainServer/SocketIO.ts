@@ -17,7 +17,11 @@ export function setupSocketIOAndBindHandler(
   // socketio binding
   socketio.on('connection', (socket: SocketIO.Socket) => {
     const taskRunnerManager = new TaskRunnerManager();
-    const queryParser = new QueryParser(socket.id, taskRunnerManager, launcherCallbackManager);
+    const queryParser = new QueryParser(
+      socket.id,
+      taskRunnerManager,
+      launcherCallbackManager
+    );
     console.log('connect', socket.id);
 
     socket.on('disconnect', () => {
