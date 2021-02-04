@@ -4,6 +4,7 @@ import Http from 'http';
 import CallbackManager from '../../lib/CallbackManager';
 import { QueryParser } from './QueryParser';
 import { Query } from '../../lib/type';
+import { TaskRunnerManager } from './TaskRunnerManager';
 
 export function setupSocketIO(httpServer: Http.Server): SocketIO.Server {
   return new SocketIO.Server(httpServer);
@@ -15,11 +16,13 @@ export function setupSocketIOAndBindHandler(
 ): void {
   // socketio binding
   socketio.on('connection', (socket: SocketIO.Socket) => {
-    const queryParser = new QueryParser(socket.id, launcherCallbackManager);
+    const taskRunnerManager = new TaskRunnerManager();
+    const queryParser = new QueryParser(socket.id, taskRunnerManager, launcherCallbackManager);
     console.log('connect', socket.id);
 
     socket.on('disconnect', () => {
       console.log('disconnect', socket.id);
+      taskRunnerManager.cleanup();
     });
 
     socket.on('c2e_Exec', (raw_data) => {

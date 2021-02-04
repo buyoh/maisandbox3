@@ -1,48 +1,45 @@
 import CallbackManager from '../../lib/CallbackManager';
 import { Query } from '../../lib/type';
 import { TaskRunner } from './TaskRunner';
-
-type QueryParserState = {
-  // TODO: split to TaskRunnerManager
-  tasks: { [key: string]: TaskRunner };
-};
+import { TaskRunnerManager } from './TaskRunnerManager';
 
 // QueryParser
 // SocketIOのconnection単位（ブラウザタブ単位）で生成される。
 export class QueryParser {
-  private socketHandlerStorage: QueryParserState;
-  private socketId: string;
+  private taskRunnerManager: TaskRunnerManager;
+  private socketId: string;  // note: 今は要らないけどユーザ識別の為いずれ必要になる
   private launcherCallbackManager: CallbackManager;
 
-  constructor(socketId: string, launcherCallbackManager: CallbackManager) {
+  constructor(socketId: string, taskRunnerManager: TaskRunnerManager, launcherCallbackManager: CallbackManager) {
     this.socketId = socketId;
-    this.socketHandlerStorage = { tasks: {} };
+    this.taskRunnerManager = taskRunnerManager;
     this.launcherCallbackManager = launcherCallbackManager;
   }
 
   handle(query: Query, resultEmitter: (data: any) => void): void {
+    const data = query.data;
+    const clientJobId = query.id;
     // note: query.id は client に返す場合と、
     // QueryParser 内での Task 判定の場合のみに必要
-    if (!query.id) {
+    if (!clientJobId) {
       // can't report to client.
       resultEmitter({ success: false });
       return;
     }
 
-    const jobIdStr = JSON.stringify(query.id);
-    const data = query.data;
-    const taskRunner = this.socketHandlerStorage.tasks[jobIdStr];
+    const taskRunner = this.taskRunnerManager.getTaskRunner(clientJobId);
 
     if (data.action == 'run') {
       const newTaskRunner = new TaskRunner(
-        query.id,
+        clientJobId,
         this.launcherCallbackManager,
         resultEmitter,
         () => {
-          delete this.socketHandlerStorage.tasks[jobIdStr];
+          this.taskRunnerManager.unregister(clientJobId);
         }
       );
-      this.socketHandlerStorage.tasks[jobIdStr] = newTaskRunner;
+      // registration must be before execution.
+      this.taskRunnerManager.register(clientJobId, newTaskRunner);
       newTaskRunner.run(data);
     } else if (data.action == 'kill') {
       if (!taskRunner) {
