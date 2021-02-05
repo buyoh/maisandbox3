@@ -1,6 +1,10 @@
 import ChildProcess from 'child_process';
 import Config from '../../lib/Config';
-import { CallbackClose, CallbackRecieve, ISocket } from './SocketInterface';
+import {
+  CallbackClose,
+  CallbackRecieve,
+  ISocket,
+} from './LauncherSocketInterface';
 
 export class ChildProcessLauncherSocket implements ISocket {
   private process: ChildProcess.ChildProcess | null;

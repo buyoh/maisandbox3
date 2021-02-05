@@ -1,5 +1,5 @@
 import CallbackManager from '../../lib/CallbackManager';
-import { ISocket } from '../Launcher/SocketInterface';
+import { ISocket } from './LauncherSocketInterface';
 
 export default class LauncherHolder {
   private running: boolean;

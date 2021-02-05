@@ -6,7 +6,7 @@ import {
   setupSocketIO,
   setupSocketIOAndBindHandler,
 } from './MainServer/SocketIO';
-import LauncherHolder from './MainServer/LauncherHolder';
+import LauncherHolder from './Launcher/LauncherHolder';
 import { createLauncherSocket } from './Launcher/LauncherSocketFactory';
 import { readFileSync } from 'fs';
 

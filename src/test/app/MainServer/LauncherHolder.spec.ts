@@ -2,8 +2,8 @@ import {
   CallbackClose,
   CallbackRecieve,
   ISocket,
-} from '../../../app/Launcher/SocketInterface';
-import LauncherHolder from '../../../app/MainServer/LauncherHolder';
+} from '../../../app/Launcher/LauncherSocketInterface';
+import LauncherHolder from '../../../app/Launcher/LauncherHolder';
 
 class TestSocket implements ISocket {
   startMock: jest.Mock<void, any>;

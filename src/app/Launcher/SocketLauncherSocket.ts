@@ -1,5 +1,9 @@
 import net from 'net';
-import { CallbackClose, CallbackRecieve, ISocket } from './SocketInterface';
+import {
+  CallbackClose,
+  CallbackRecieve,
+  ISocket,
+} from './LauncherSocketInterface';
 
 export class SocketLauncherSocket implements ISocket {
   private netSocket: net.Socket | null;

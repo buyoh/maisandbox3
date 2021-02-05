@@ -1,7 +1,7 @@
 import { CallbackManager } from '../../lib/CallbackManager';
 import { ClientJobID, QueryData, Result } from '../../lib/type';
-import { TaskFactory } from '../task/TaskFactory';
-import { TaskInterface } from '../task/TaskInterface';
+import { TaskFactory } from '../Task/TaskFactory';
+import { TaskInterface } from '../Task/TaskInterface';
 
 type ResultEmitterFunc = (data: any) => void;
 type FinalizerFunc = () => void;

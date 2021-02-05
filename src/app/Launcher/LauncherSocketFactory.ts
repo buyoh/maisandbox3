@@ -1,6 +1,6 @@
 import Config from '../../lib/Config';
 import { ChildProcessLauncherSocket } from './ChildProcessLauncherSocket';
-import { ISocket } from './SocketInterface';
+import { ISocket } from './LauncherSocketInterface';
 import { SocketLauncherSocket } from './SocketLauncherSocket';
 
 const UseChildProcess = Config.useChildProcess;

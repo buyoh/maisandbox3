@@ -1,9 +1,9 @@
 import CallbackManager from '../../lib/CallbackManager';
-import { TaskRuby } from './language/TaskRuby';
+import { TaskRuby } from './Language/TaskRuby';
 import { ResultEmitter, Runnable } from './TaskUtil';
 import { TaskInterface } from './TaskInterface';
-import { TaskCpp } from './language/TaskCpp';
-import { TaskCLay } from './language/TaskCLay';
+import { TaskCpp } from './Language/TaskCpp';
+import { TaskCLay } from './Language/TaskCLay';
 
 export class TaskFactory {
   private launcherCallbackManager: CallbackManager;
