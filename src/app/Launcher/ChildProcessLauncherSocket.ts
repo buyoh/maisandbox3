@@ -68,8 +68,13 @@ export class ChildProcessLauncherSocket implements ISocket {
   //
 
   start(): void {
-    const args = [];
-    if (Config.develop) args.push('--validate');
+    const args = ['--workdir', `${Config.appRootDirectory}/tmp/omochi`];
+    if (Config.develop) {
+      args.push('--validate');
+    }
+    else {
+      args.push('--quiet');
+    }
     const p = ChildProcess.spawn(
       'ruby',
       ['deps/applauncher/index.rb'].concat(args),
