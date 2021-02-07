@@ -71,8 +71,7 @@ export class ChildProcessLauncherSocket implements ISocket {
     const args = ['--workdir', `${Config.appRootDirectory}/tmp/omochi`];
     if (Config.develop) {
       args.push('--validate');
-    }
-    else {
+    } else {
       args.push('--quiet');
     }
     const p = ChildProcess.spawn(
