@@ -9,6 +9,10 @@ import {
 } from '../TaskUtil';
 import { QueryData } from '../../../lib/type';
 import { TaskInterface } from '../TaskInterface';
+import {
+  annotateSummaryExec,
+  annotateSummaryDefault,
+} from '../SummaryAnnotator';
 
 export class TaskCLay implements TaskInterface {
   private launcherCallbackManager: CallbackManager;
@@ -34,25 +38,29 @@ export class TaskCLay implements TaskInterface {
 
   async startAsync(data: QueryData): Promise<void> {
     let isFinal = false;
-    const kits = {
-      launcherCallbackManager: this.launcherCallbackManager,
-      resultEmitter: (data: any) => {
-        data.continue = !isFinal;
-        this.resultEmitter(data);
-      },
+    const kits = (label: string) => {
+      return {
+        launcherCallbackManager: this.launcherCallbackManager,
+        resultEmitter: (data: any) => {
+          data.summary = /exec/.test(label)
+            ? annotateSummaryExec(data, label)
+            : annotateSummaryDefault(data, label);
+          data.continue = !isFinal;
+          this.resultEmitter(data);
+        },
+      };
     };
     let boxId: string | null = null;
     try {
-      boxId = await utilPhaseSetupBox('setup', kits);
+      boxId = await utilPhaseSetupBox(kits('setup'));
       if (boxId === null) throw Error('recieved null boxId');
 
-      await utilPhaseStoreFiles('store', kits, boxId, [
+      await utilPhaseStoreFiles(kits('store'), boxId, [
         { path: 'code.cpp', data: data.code },
       ]);
 
       const res_tns = await utilPhaseExecute(
-        'transpile',
-        kits,
+        kits('transpile'),
         boxId,
         (hk) => {
           this.handleKill = hk;
@@ -60,14 +68,12 @@ export class TaskCLay implements TaskInterface {
         'clay < code.cpp > out.cpp',
         [],
         '',
-        undefined,
         true
       ); // TODO: refactor this
       if (res_tns.exitstatus !== 0) return;
 
       const res_cmp = await utilPhaseExecute(
-        'compile',
-        kits,
+        kits('compile'),
         boxId,
         (hk) => {
           this.handleKill = hk;
@@ -75,14 +81,12 @@ export class TaskCLay implements TaskInterface {
         'g++',
         ['-std=c++14', '-O3', '-o', 'prog', './out.cpp'],
         '',
-        undefined,
         true
       );
       if (res_cmp.exitstatus !== 0) return;
 
       await utilPhaseExecute(
-        'run',
-        kits,
+        kits('run'),
         boxId,
         (hk) => {
           this.handleKill = hk;
@@ -90,7 +94,6 @@ export class TaskCLay implements TaskInterface {
         './prog',
         [],
         data.stdin,
-        undefined,
         true
       );
     } catch (e) {
@@ -98,7 +101,7 @@ export class TaskCLay implements TaskInterface {
     } finally {
       isFinal = true;
       try {
-        await utilPhaseFinalize('finalize', kits, boxId);
+        await utilPhaseFinalize(kits('finalize'), boxId);
       } catch (e) {
         console.error('launcher finalize failed', e);
       } finally {

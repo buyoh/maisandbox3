@@ -9,6 +9,10 @@ import {
 import { QueryData, Annotation } from '../../../lib/type';
 import { TaskInterface } from '../TaskInterface';
 import CallbackManager from '../../../lib/CallbackManager';
+import {
+  annotateSummaryDefault,
+  annotateSummaryExec,
+} from '../SummaryAnnotator';
 
 function annotateFromStderr(stderr: string): Annotation[] {
   if (!stderr) return [];
@@ -51,25 +55,32 @@ export class TaskRuby implements TaskInterface {
 
   async startAsync(data: QueryData): Promise<void> {
     let isFinal = false;
-    const kits = {
-      launcherCallbackManager: this.launcherCallbackManager,
-      resultEmitter: (data: any) => {
-        data.continue = !isFinal;
-        this.resultEmitter(data);
-      },
+    const kits = (label: string) => {
+      return {
+        launcherCallbackManager: this.launcherCallbackManager,
+        resultEmitter: (data: any) => {
+          if (/exec/.test(label)) {
+            data.summary = annotateSummaryExec(data, label);
+            data.result.annotations = annotateFromStderr(data.result.err);
+          } else {
+            data.summary = annotateSummaryDefault(data, label);
+          }
+          data.continue = !isFinal;
+          this.resultEmitter(data);
+        },
+      };
     };
     let boxId: string | null = null;
     try {
-      boxId = await utilPhaseSetupBox('setup', kits);
+      boxId = await utilPhaseSetupBox(kits('setup'));
       if (boxId === null) throw Error('recieved null boxId');
 
-      await utilPhaseStoreFiles('store', kits, boxId, [
+      await utilPhaseStoreFiles(kits('store'), boxId, [
         { path: 'code.rb', data: data.code },
       ]);
 
       await utilPhaseExecute(
-        'run',
-        kits,
+        kits('exec'),
         boxId,
         (hk) => {
           this.handleKill = hk;
@@ -77,14 +88,13 @@ export class TaskRuby implements TaskInterface {
         'ruby',
         ['./code.rb'],
         data.stdin,
-        annotateFromStderr,
         true
       );
     } catch (e) {
       console.error(e);
     } finally {
       isFinal = true;
-      await utilPhaseFinalize('finalize', kits, boxId);
+      await utilPhaseFinalize(kits('finalize'), boxId);
       this.finalize();
     }
   }

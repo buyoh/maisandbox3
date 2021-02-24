@@ -1,9 +1,4 @@
-import {
-  Result,
-  SubResultBox,
-  SubResultExec,
-  Annotation,
-} from '../../lib/type';
+import { Result, SubResultBox, SubResultExec } from '../../lib/type';
 import CallbackManager from '../../lib/CallbackManager';
 
 export type Runnable = () => void;
@@ -18,10 +13,7 @@ type Kits = {
   resultEmitter: ResultEmitter;
 };
 
-export async function utilPhaseSetupBox(
-  summaryLabel: string,
-  kits: Kits
-): Promise<string | null> {
+export async function utilPhaseSetupBox(kits: Kits): Promise<string | null> {
   const res_data: Result = await kits.launcherCallbackManager.postp({
     method: 'setupbox',
   });
@@ -34,13 +26,11 @@ export async function utilPhaseSetupBox(
   const result = res_data.result as SubResultBox;
   const boxId = result.box || null;
 
-  res_data.summary = `${summaryLabel}: ok`;
   kits.resultEmitter(res_data);
   return boxId;
 }
 
 export async function utilPhaseStoreFiles(
-  summaryLabel: string,
   kits: Kits,
   boxId: string,
   files: Array<{ path: string; data: string }>
@@ -55,20 +45,17 @@ export async function utilPhaseStoreFiles(
     console.error('launcher failed: method=store:', res_data.error);
     return await Promise.reject();
   }
-  res_data.summary = `${summaryLabel}: ok`;
   kits.resultEmitter(res_data);
   return;
 }
 
 export async function utilPhaseExecute(
-  summaryLabel: string,
   kits: Kits,
   boxId: string,
   setHandleKill: (f: (() => void) | null) => void,
   cmd: string,
   args: Array<string>,
   stdin: string,
-  annotator: undefined | ((stderr: string) => Annotation[]),
   fileio: boolean
 ): Promise<SubResultExec> {
   return new Promise((resolve, reject) => {
@@ -81,28 +68,18 @@ export async function utilPhaseExecute(
           const res = res_data.result as SubResultExec;
           setHandleKill(null);
           if (res_data.success) {
-            res_data.summary = `${summaryLabel}: ok(${res.exitstatus})[${
-              Math.floor(res.time * 1000) / 1000
-            }s]`;
-            if (annotator)
-              (res_data.result as SubResultExec).annotations = annotator(
-                res.err
-              );
             kits.resultEmitter(res_data);
             resolve(res);
-            return;
           } else {
-            res_data.summary = `${summaryLabel}: error`;
             // note: NOT runtime error (it means rejected a bad query)
             console.error('launcher failed: method=exec ', res_data.error);
             kits.resultEmitter(res_data);
             reject();
-            return;
           }
+          return;
         }
         taskId = res_data.taskid;
         // execution inprogress
-        res_data.summary = `${summaryLabel}: running`;
         kits.resultEmitter(res_data);
         return;
       }
@@ -126,7 +103,6 @@ export async function utilPhaseExecute(
 }
 
 export async function utilPhaseFinalize(
-  _summaryLabel: string,
   kits: Kits,
   boxId: string | null
 ): Promise<void> {
