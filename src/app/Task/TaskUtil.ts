@@ -1,5 +1,9 @@
-import { Result, SubResultBox, SubResultExec } from '../../lib/type';
 import CallbackManager from '../../lib/CallbackManager';
+import {
+  LauncherResult,
+  LauncherSubResultOfExec,
+  LauncherSubResultOfSetupBox,
+} from '../Launcher/types';
 
 export type Runnable = () => void;
 export type ResultEmitter = (data: any) => void;
@@ -14,7 +18,7 @@ type Kits = {
 };
 
 export async function utilPhaseSetupBox(kits: Kits): Promise<string | null> {
-  const res_data: Result = await kits.launcherCallbackManager.postp({
+  const res_data: LauncherResult = await kits.launcherCallbackManager.postp({
     method: 'setupbox',
   });
   if (!res_data.success) {
@@ -23,7 +27,7 @@ export async function utilPhaseSetupBox(kits: Kits): Promise<string | null> {
     return await Promise.reject();
   }
   // store result of setupbox
-  const result = res_data.result as SubResultBox;
+  const result = res_data.result as LauncherSubResultOfSetupBox;
   const boxId = result.box || null;
 
   kits.resultEmitter(res_data);
@@ -35,7 +39,7 @@ export async function utilPhaseStoreFiles(
   boxId: string,
   files: Array<{ path: string; data: string }>
 ): Promise<void> {
-  const res_data: Result = await kits.launcherCallbackManager.postp({
+  const res_data: LauncherResult = await kits.launcherCallbackManager.postp({
     method: 'store',
     box: boxId,
     files,
@@ -57,15 +61,18 @@ export async function utilPhaseExecute(
   args: Array<string>,
   stdin: string,
   fileio: boolean
-): Promise<SubResultExec> {
+): Promise<LauncherSubResultOfExec> {
   return new Promise((resolve, reject) => {
     let taskId = undefined as string | undefined;
     const caller = kits.launcherCallbackManager.multipost(
-      (res_data: Result) => {
+      (res_data: LauncherResult) => {
         // note: call this callback twice or more
-        if (res_data.result && res_data.result.exited) {
+        if (
+          res_data.result &&
+          (res_data.result as LauncherSubResultOfExec).exited
+        ) {
           // execution complete
-          const res = res_data.result as SubResultExec;
+          const res = res_data.result as LauncherSubResultOfExec;
           setHandleKill(null);
           if (res_data.success) {
             kits.resultEmitter(res_data);
@@ -106,7 +113,7 @@ export async function utilPhaseFinalize(
   kits: Kits,
   boxId: string | null
 ): Promise<void> {
-  const res_data: Result = await kits.launcherCallbackManager.postp({
+  const res_data: LauncherResult = await kits.launcherCallbackManager.postp({
     method: 'cleanupbox',
     box: boxId,
   });
@@ -115,7 +122,6 @@ export async function utilPhaseFinalize(
     console.error('launcher failed: method=cleanupbox:', res_data.error);
     return await Promise.reject();
   }
-  res_data.summary = undefined;
   kits.resultEmitter(res_data);
   return;
 }
