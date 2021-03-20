@@ -35,15 +35,25 @@ jobs:
       run: |
         yarn upgrade
     - name: presubmit
+      id: presubmit
       run: |
         ./presubmit.sh
+        ./presubmit.sh
+        # test launch develop
+        PORT=3030 timeout 20 yarn dev || [[ $? -eq 124 ]]
     - name: commit phase
+      if: "${{ steps.presubmit.conclusion != 'skip' }}"
       run: |
         if [ `git diff | wc -l` -ne 0 ] ; then
         git add package.json yarn.lock
         git commit -m 'upgrade by Github Actions'
         fi
+    - name: push
+      if: "${{ steps.presubmit.conclusion == 'success' }}"
+      run: |
+        git push origin || :
     - name: Create Pull Request
+      if: "${{ steps.presubmit.conclusion == 'failure' }}"
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
