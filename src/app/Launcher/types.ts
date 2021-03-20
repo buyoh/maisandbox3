@@ -55,7 +55,7 @@ export type LauncherAction =
 // { success: true }
 
 export interface LauncherSubResultOfPull {
-  files: Array<{ path: string, data: string }>;
+  files: Array<{ path: string; data: string }>;
 }
 
 export interface LauncherSubResultOfSetupBox {
@@ -74,7 +74,9 @@ export interface LauncherResult {
   id?: ClientJobID;
   success: boolean;
   taskid?: string;
-  result?: LauncherSubResultOfPull | LauncherSubResultOfSetupBox | LauncherSubResultOfExec;
+  result?:
+    | LauncherSubResultOfPull
+    | LauncherSubResultOfSetupBox
+    | LauncherSubResultOfExec;
   error?: string;
 }
-
