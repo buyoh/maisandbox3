@@ -67,8 +67,7 @@ export class TaskCLay implements TaskInterface {
         },
         'clay < code.cpp > out.cpp',
         [],
-        '',
-        true
+        ''
       ); // TODO: refactor this
       if (res_tns.exitstatus !== 0) return;
 
@@ -80,8 +79,7 @@ export class TaskCLay implements TaskInterface {
         },
         'g++',
         ['-std=c++14', '-O3', '-o', 'prog', './out.cpp'],
-        '',
-        true
+        ''
       );
       if (res_cmp.exitstatus !== 0) return;
 
@@ -93,8 +91,7 @@ export class TaskCLay implements TaskInterface {
         },
         './prog',
         [],
-        data.stdin,
-        true
+        data.stdin
       );
     } catch (e) {
       console.error('task failed', e);

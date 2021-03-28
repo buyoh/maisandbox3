@@ -30,15 +30,6 @@ export interface Query {
   data: QueryData;
 }
 
-export interface SubResult {
-  exited: boolean;
-}
-
-export interface SubResultBox {
-  exited: boolean;
-  box?: string | null;
-}
-
 export interface SubResultExec {
   exited: boolean;
   err: string;
@@ -48,16 +39,11 @@ export interface SubResultExec {
   time: number;
 }
 
-export interface SubResultAccepted {
-  exited: boolean;
-}
-
 export interface Result {
   id?: ClientJobID;
   success: boolean;
-  taskid?: string;
   continue?: boolean;
-  result?: SubResult | SubResultBox | SubResultExec;
+  result?: SubResultExec;
   error?: string;
   summary?: string;
 }

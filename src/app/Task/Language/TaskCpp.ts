@@ -96,8 +96,7 @@ export class TaskCpp implements TaskInterface {
           'prog',
           './code.cpp',
         ],
-        '',
-        true
+        ''
       );
 
       if (res_cmp.exitstatus === 0) {
@@ -109,8 +108,7 @@ export class TaskCpp implements TaskInterface {
           },
           './prog',
           [],
-          data.stdin,
-          true
+          data.stdin
         );
       }
     } catch (e) {
