@@ -16,7 +16,7 @@ import {
 import { TaskInterface } from '../TaskInterface';
 import CallbackManager from '../../../lib/CallbackManager';
 import { annotateSummaryDefault } from '../SummaryAnnotator';
-import { LauncherResult } from '../../Launcher/types';
+import { LauncherResult, LauncherSubResultOfExec } from '../../Launcher/types';
 
 function annotateFromStderr(stderr: string): Annotation[] {
   if (!stderr) return [];
@@ -68,8 +68,12 @@ export class TaskRuby implements TaskInterface {
           // 必要に応じてTask[Language]が直接送る。
           const res: Result = {
             success: data.success,
-            summary: annotateSummaryDefault(data, label),
             continue: !isFinal,
+            // TODO: これはややこしい…Launcherの方のインターフェースを変える。
+            running:
+              data.result &&
+              (data.result as LauncherSubResultOfExec).exited === false,
+            summary: annotateSummaryDefault(data, label),
             error: data.error,
           };
           this.resultEmitter(res); // 再帰になりかねないような…
@@ -113,7 +117,7 @@ export class TaskRuby implements TaskInterface {
         // TODO: runの型を使いまわしている。結果を返すための型を用意する。
         const result = {
           success: true,
-          summary: 'report ok',
+          summary: 'report: ok',
           continue: !isFinal,
           result: {
             exited: true,

@@ -4,6 +4,7 @@ export function annotateSummaryDefault(
   result: LauncherResult,
   label: string
 ): string {
+  // TODO: running の場合は ok では無く running を表示する。
   return result.success ? `${label}: ok` : `${label} : error`;
 }
 
@@ -16,7 +17,8 @@ export function annotateSummaryExec(
 
   const res = result.result as LauncherSubResultOfExec;
   if (result.success)
-    return `${label}: ok(${res.exitstatus})[${res.time === undefined ? 'TLE' : Math.floor(res.time * 1000) / 1000
-      }s]`;
+    return `${label}: ok(${res.exitstatus})[${
+      res.time === undefined ? 'TLE' : Math.floor(res.time * 1000) / 1000
+    }s]`;
   return annotateSummaryDefault(result, label);
 }

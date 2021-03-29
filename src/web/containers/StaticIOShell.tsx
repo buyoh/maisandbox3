@@ -25,7 +25,7 @@ function determineResultColor(data: Result): string {
 
   if (data.result) {
     const resultAsExec = data.result as SubResultExec;
-    if (resultAsExec.exited) {
+    if (!data.running) {
       if (resultAsExec.exitstatus !== 0) {
         summaryColor = 'warning';
       } else {
@@ -132,13 +132,11 @@ export class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
     }
     if (data.result) {
       const resultAsExec = data.result as SubResultExec;
-      if (resultAsExec.exited) {
-        if (resultAsExec.annotations) {
-          this.props.addAnnotations(resultAsExec.annotations);
-        }
-        this.props.updateStdout(resultAsExec.out);
-        errLog = resultAsExec.err || '';
+      if (resultAsExec.annotations) {
+        this.props.addAnnotations(resultAsExec.annotations);
       }
+      this.props.updateStdout(resultAsExec.out);
+      errLog = resultAsExec.err || '';
     } else {
       // e.g. kill callback
     }

@@ -31,8 +31,9 @@ export interface Query {
 }
 
 export interface SubResultExec {
-  exited: boolean;
-  err: string;
+  // TODO: ResultDetailに変更
+  exited: boolean; // TODO: 消す。実装が追従出来ていないC++の為に残している
+  err: string; // 形式について要考察
   out: string;
   exitstatus: number;
   annotations?: Annotation[];
@@ -40,10 +41,11 @@ export interface SubResultExec {
 }
 
 export interface Result {
-  id?: ClientJobID;
-  success: boolean;
-  continue?: boolean;
+  id?: ClientJobID; // Queryに対応するid
+  success: boolean; // 内部エラーが発生していないかどうか
+  continue?: boolean; // 次に結果が返るかどうか
+  running?: boolean; // 実行が完了していない場合はtrue note: SubResultExec.exitedの代替 しかし、実行結果の色変更・outの消去防止にしか使われていない
   result?: SubResultExec;
   error?: string;
-  summary?: string;
+  summary?: string; // TODO: labelにリネームする
 }
