@@ -37,7 +37,7 @@ export interface SubResultExec {
   out: string;
   exitstatus: number;
   annotations?: Annotation[];
-  time: number;
+  time: number; // TODO: 実は使っていない UI上ではsummaryに埋め込んだ値を使っている err/outと同時に再考
 }
 
 export interface Result {
@@ -49,3 +49,5 @@ export interface Result {
   error?: string;
   summary?: string; // TODO: labelにリネームする
 }
+
+// TODO: ファイル名をQueryResultTypes.tsか何かに変更

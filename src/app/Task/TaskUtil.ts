@@ -136,9 +136,9 @@ export async function utilPhaseExecuteFileIO(
   setHandleKill: (f: (() => void) | null) => void,
   cmd: string,
   args: Array<string>,
-  stdin_path: string,
-  stdout_path: string,
-  stderr_path: string
+  stdin_path: string | null,
+  stdout_path: string | null,
+  stderr_path: string | null
 ): Promise<LauncherSubResultOfExec> {
   return new Promise((resolve, reject) => {
     let taskId = undefined as string | undefined;

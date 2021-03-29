@@ -4,15 +4,23 @@ import {
   Runnable,
   utilPhaseSetupBox,
   utilPhaseStoreFiles,
-  utilPhaseExecute,
   utilPhaseFinalize,
+  utilPhasePullFiles,
+  utilPhaseExecuteFileIO,
 } from '../TaskUtil';
-import { QueryData, Annotation } from '../../../lib/type';
-import { TaskInterface } from '../TaskInterface';
 import {
-  annotateSummaryExec,
-  annotateSummaryDefault,
-} from '../SummaryAnnotator';
+  QueryData,
+  Annotation,
+  Result,
+  SubResultExec,
+} from '../../../lib/type';
+import { TaskInterface } from '../TaskInterface';
+import { annotateSummaryDefault } from '../SummaryAnnotator';
+import {
+  LauncherResult,
+  LauncherSubResultOfExec,
+  LauncherSubResultOfPull,
+} from '../../Launcher/types';
 
 function annotateFromStderr(stderr: string): Annotation[] {
   if (!stderr) return [];
@@ -29,6 +37,31 @@ function annotateFromStderr(stderr: string): Annotation[] {
     }
   }
   return infos;
+}
+
+function createReport(
+  exec_result: LauncherSubResultOfExec,
+  pull_result: LauncherSubResultOfPull,
+  stdout_path: string,
+  stderr_path: string,
+  isFinal: boolean
+): Result | null {
+  const stdout_data = pull_result.files.find((e) => e.path === stdout_path);
+  const stderr_data = pull_result.files.find((e) => e.path === stderr_path);
+  if (!stderr_data || !stdout_data) return null;
+  return {
+    success: true,
+    summary: 'report: ok',
+    continue: !isFinal,
+    result: {
+      exited: true,
+      exitstatus: exec_result.exitstatus,
+      time: exec_result.time,
+      err: stderr_data.data,
+      out: stdout_data.data,
+      annotations: annotateFromStderr(stderr_data.data),
+    } as SubResultExec,
+  } as Result;
 }
 
 export class TaskCpp implements TaskInterface {
@@ -55,68 +88,110 @@ export class TaskCpp implements TaskInterface {
 
   async startAsync(data: QueryData): Promise<void> {
     let isFinal = false;
-    const kits = (label: string) => {
+    const defaultKits = (label: string) => {
       return {
         launcherCallbackManager: this.launcherCallbackManager,
-        resultEmitter: (data: any) => {
-          if (/exec/.test(label)) {
-            data.summary = annotateSummaryExec(data, label);
-            data.result.annotations = annotateFromStderr(data.result.err);
-          } else {
-            data.summary = annotateSummaryDefault(data, label);
-          }
-          data.continue = !isFinal;
-          this.resultEmitter(data);
+        resultEmitter: (data: LauncherResult) => {
+          const res: Result = {
+            success: data.success,
+            continue: !isFinal,
+            // TODO: これはややこしい…Launcherの方のインターフェースを変える。
+            running:
+              data.result &&
+              (data.result as LauncherSubResultOfExec).exited === false,
+            summary: annotateSummaryDefault(data, label),
+            error: data.error,
+          };
+          this.resultEmitter(res); // 再帰になりかねないような…
         },
       };
     };
     let boxId: string | null = null;
     try {
-      boxId = await utilPhaseSetupBox(kits('setup'));
+      boxId = await utilPhaseSetupBox(defaultKits('setup'));
       if (boxId === null) throw Error('recieved null boxId');
 
-      await utilPhaseStoreFiles(kits('store'), boxId, [
+      await utilPhaseStoreFiles(defaultKits('store'), boxId, [
         { path: 'code.cpp', data: data.code },
+        { path: 'stdin.txt', data: data.stdin },
       ]);
 
-      const res_cmp = await utilPhaseExecute(
-        kits('compile'),
-        boxId,
-        (hk) => {
-          this.handleKill = hk;
-        },
-        'g++',
-        [
-          '-std=c++17',
-          '-O3',
-          '-Wall',
-          '-I',
-          '/opt/ac-library',
-          '-o',
-          'prog',
-          './code.cpp',
-        ],
-        ''
-      );
-
-      if (res_cmp.exitstatus === 0) {
-        await utilPhaseExecute(
-          kits('run'),
+      {
+        const build_result = await utilPhaseExecuteFileIO(
+          defaultKits('build'),
           boxId,
-          (hk) => {
+          (hk: Runnable | null) => {
+            this.handleKill = hk;
+          },
+          'g++',
+          [
+            '-std=c++17',
+            '-O3',
+            '-Wall',
+            '-I',
+            '/opt/ac-library',
+            '-o',
+            'prog',
+            './code.cpp',
+          ],
+          null,
+          './stdout.txt',
+          './stderr.txt'
+        );
+
+        const pull_build_result = await utilPhasePullFiles(
+          defaultKits('pull'),
+          boxId,
+          [{ path: './stdout.txt' }, { path: './stderr.txt' }]
+        );
+        {
+          const res = createReport(
+            build_result,
+            pull_build_result,
+            './stdout.txt',
+            './stderr.txt',
+            isFinal
+          );
+          if (res) this.resultEmitter(res);
+        }
+        if (build_result.exitstatus !== 0) return; // goto finally
+      }
+      {
+        const exec_result = await utilPhaseExecuteFileIO(
+          defaultKits('exec'),
+          boxId,
+          (hk: Runnable | null) => {
             this.handleKill = hk;
           },
           './prog',
           [],
-          data.stdin
+          './stdin.txt',
+          './stdout.txt',
+          './stderr.txt'
         );
+
+        const pull_exec_result = await utilPhasePullFiles(
+          defaultKits('pull'),
+          boxId,
+          [{ path: './stdout.txt' }, { path: './stderr.txt' }]
+        );
+        {
+          const res = createReport(
+            exec_result,
+            pull_exec_result,
+            './stdout.txt',
+            './stderr.txt',
+            isFinal
+          );
+          if (res) this.resultEmitter(res);
+        }
       }
     } catch (e) {
       console.error('task failed', e);
     } finally {
       isFinal = true;
       try {
-        await utilPhaseFinalize(kits('finalize'), boxId);
+        await utilPhaseFinalize(defaultKits('finalize'), boxId);
       } catch (e) {
         console.error('launcher finalize failed', e);
       } finally {
@@ -125,3 +200,23 @@ export class TaskCpp implements TaskInterface {
     }
   }
 }
+
+// const res_cmp = await utilPhaseExecute(
+//   kits('compile'),
+//   boxId,
+//   (hk) => {
+//     this.handleKill = hk;
+//   },
+//   'g++',
+//   [
+//     '-std=c++17',
+//     '-O3',
+//     '-Wall',
+//     '-I',
+//     '/opt/ac-library',
+//     '-o',
+//     'prog',
+//     './code.cpp',
+//   ],
+//   ''
+// );
