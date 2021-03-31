@@ -136,6 +136,9 @@ exports[`StaticIOShell 1`] = `
       }
     />
   </div>
+  <div
+    className="flex_elem_fix"
+  />
 </div>
 `;
 
@@ -251,6 +254,9 @@ exports[`StaticIOShell 2`] = `
       }
     />
   </div>
+  <div
+    className="flex_elem_fix"
+  />
 </div>
 `;
 
@@ -406,6 +412,9 @@ exports[`StaticIOShell 4`] = `
       }
     />
   </div>
+  <div
+    className="flex_elem_fix"
+  />
 </div>
 `;
 
@@ -418,6 +427,7 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "setup: ok",
       },
@@ -569,6 +579,9 @@ exports[`StaticIOShell 6`] = `
       }
     />
   </div>
+  <div
+    className="flex_elem_fix"
+  />
 </div>
 `;
 
@@ -581,6 +594,7 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "setup: ok",
       },
@@ -588,6 +602,7 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "store: ok",
       },
@@ -739,6 +754,9 @@ exports[`StaticIOShell 8`] = `
       }
     />
   </div>
+  <div
+    className="flex_elem_fix"
+  />
 </div>
 `;
 
@@ -751,6 +769,7 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "setup: ok",
       },
@@ -758,6 +777,7 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "store: ok",
       },
@@ -765,6 +785,7 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "run: running",
       },
@@ -916,23 +937,22 @@ exports[`StaticIOShell 10`] = `
       }
     />
   </div>
+  <div
+    className="flex_elem_fix"
+  />
 </div>
 `;
 
 exports[`StaticIOShell 11`] = `
 Array [
   Array [],
-  Array [
-    Array [
-      "output
-",
-    ],
-  ],
+  Array [],
   Array [],
   Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "setup: ok",
       },
@@ -940,6 +960,7 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "store: ok",
       },
@@ -947,15 +968,16 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "run: running",
       },
     ],
     Array [
       Object {
-        "color": "success",
-        "log": "errors
-",
+        "color": "gray",
+        "details": null,
+        "log": "",
         "summary": "run: ok(0)[0.041s]",
       },
     ],
@@ -963,11 +985,7 @@ Array [
   Array [
     Array [],
   ],
-  Array [
-    Array [
-      Array [],
-    ],
-  ],
+  Array [],
   Array [
     Array [],
   ],
@@ -1110,23 +1128,22 @@ exports[`StaticIOShell 12`] = `
       }
     />
   </div>
+  <div
+    className="flex_elem_fix"
+  />
 </div>
 `;
 
 exports[`StaticIOShell 13`] = `
 Array [
   Array [],
-  Array [
-    Array [
-      "output
-",
-    ],
-  ],
+  Array [],
   Array [],
   Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "setup: ok",
       },
@@ -1134,6 +1151,7 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "store: ok",
       },
@@ -1141,15 +1159,16 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "run: running",
       },
     ],
     Array [
       Object {
-        "color": "success",
-        "log": "errors
-",
+        "color": "gray",
+        "details": null,
+        "log": "",
         "summary": "run: ok(0)[0.041s]",
       },
     ],
@@ -1157,11 +1176,7 @@ Array [
   Array [
     Array [],
   ],
-  Array [
-    Array [
-      Array [],
-    ],
-  ],
+  Array [],
   Array [
     Array [],
   ],
@@ -1332,6 +1347,9 @@ exports[`StaticIOShell_Kill 2`] = `
       }
     />
   </div>
+  <div
+    className="flex_elem_fix"
+  />
 </div>
 `;
 
@@ -1499,6 +1517,9 @@ exports[`StaticIOShell_Kill 4`] = `
       }
     />
   </div>
+  <div
+    className="flex_elem_fix"
+  />
 </div>
 `;
 
@@ -1666,6 +1687,9 @@ exports[`StaticIOShell_Kill 6`] = `
       }
     />
   </div>
+  <div
+    className="flex_elem_fix"
+  />
 </div>
 `;
 
@@ -1833,6 +1857,9 @@ exports[`StaticIOShell_Kill 8`] = `
       }
     />
   </div>
+  <div
+    className="flex_elem_fix"
+  />
 </div>
 `;
 
@@ -1990,27 +2017,22 @@ exports[`StaticIOShell_Kill 10`] = `
       }
     />
   </div>
+  <div
+    className="flex_elem_fix"
+  />
 </div>
 `;
 
 exports[`StaticIOShell_Kill 11`] = `
 Array [
   Array [],
-  Array [
-    Array [
-      "output
-",
-    ],
-    Array [
-      "output
-",
-    ],
-  ],
+  Array [],
   Array [],
   Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "setup: ok",
       },
@@ -2018,6 +2040,7 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "setup: ok",
       },
@@ -2025,6 +2048,7 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "store: ok",
       },
@@ -2032,6 +2056,7 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "setup: ok",
       },
@@ -2039,6 +2064,7 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "store: ok",
       },
@@ -2046,6 +2072,7 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "run: running",
       },
@@ -2053,6 +2080,7 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "setup: ok",
       },
@@ -2060,6 +2088,7 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "store: ok",
       },
@@ -2067,21 +2096,23 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "run: running",
       },
     ],
     Array [
       Object {
-        "color": "success",
-        "log": "errors
-",
+        "color": "gray",
+        "details": null,
+        "log": "",
         "summary": "run: ok(0)[0.041s]",
       },
     ],
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "setup: ok",
       },
@@ -2089,6 +2120,7 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "store: ok",
       },
@@ -2096,15 +2128,16 @@ Array [
     Array [
       Object {
         "color": "gray",
+        "details": null,
         "log": "",
         "summary": "run: running",
       },
     ],
     Array [
       Object {
-        "color": "success",
-        "log": "errors
-",
+        "color": "gray",
+        "details": null,
+        "log": "",
         "summary": "run: ok(0)[0.041s]",
       },
     ],
@@ -2116,14 +2149,7 @@ Array [
     Array [],
     Array [],
   ],
-  Array [
-    Array [
-      Array [],
-    ],
-    Array [
-      Array [],
-    ],
-  ],
+  Array [],
   Array [
     Array [],
     Array [],

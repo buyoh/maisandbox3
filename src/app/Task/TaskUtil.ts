@@ -1,4 +1,5 @@
 import CallbackManager from '../../lib/CallbackManager';
+import { ReportItem } from '../../lib/type';
 import {
   LauncherResult,
   LauncherSubResultOfExec,
@@ -17,6 +18,34 @@ type Kits = {
   launcherCallbackManager: CallbackManager;
   resultEmitter: ResultEmitter;
 };
+
+export function mapFilesFromPullResult(
+  result: LauncherSubResultOfPull,
+  filenames: string[]
+): ({ path: string; data: string } | undefined)[] {
+  return filenames.map((path) => result.files.find((e) => e.path === path));
+}
+
+export function createReportItemsFromExecResult(
+  exec_result: LauncherSubResultOfExec
+): ReportItem[] {
+  const details = [] as ReportItem[];
+  details.push({
+    type: 'status',
+    status: exec_result.exitstatus === 0 ? 'success' : 'warning',
+  });
+  details.push({
+    type: 'param',
+    key: 'time',
+    value: exec_result.time,
+  });
+  details.push({
+    type: 'param',
+    key: 'exitstatus',
+    value: exec_result.exitstatus,
+  });
+  return details;
+}
 
 export async function utilPhaseSetupBox(kits: Kits): Promise<string | null> {
   const res_data: LauncherResult = await kits.launcherCallbackManager.postp({

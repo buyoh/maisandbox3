@@ -8,9 +8,10 @@ import StatusBar from '../components/StatusBar';
 import { Item as StatusBarItem } from '../components/StatusBar';
 import * as Actions from '../stores/StaticIO/actions';
 import { connect } from 'react-redux';
-import { Annotation, Result, SubResultExec } from '../../lib/type';
+import { Annotation, ReportItem, Result } from '../../lib/type';
 import * as CodeEditorActions from '../stores/CodeEditor/actions';
 import { ClientSocket } from '../lib/ClientSocket';
+import StatusDetail from '../components/StatusDetail';
 
 type Runnable = (data: any) => void;
 
@@ -18,20 +19,13 @@ export interface ExecResult {
   color: string;
   summary: string;
   log: string;
+  details: ReportItem[] | null;
 }
 
 function determineResultColor(data: Result): string {
-  let summaryColor = 'gray';
-
-  if (data.result) {
-    const resultAsExec = data.result as SubResultExec;
-    if (!data.running) {
-      if (resultAsExec.exitstatus !== 0) {
-        summaryColor = 'warning';
-      } else {
-        summaryColor = 'success';
-      }
-    }
+  let summaryColor = 'light';
+  if (!data.running) {
+    summaryColor = 'gray';
   }
   return summaryColor;
 }
@@ -44,6 +38,7 @@ interface StateProps {
   errlog: string;
   statuses: Array<StatusBarItem>;
   activatedStatusKey: number;
+  activatedStatusDetail: ReportItem[] | null;
   socket: ClientSocket | null;
   code: string;
   lang: string;
@@ -85,6 +80,10 @@ function mapStateToProps(state: RootState): StateProps {
       .reverse(),
     activatedStatusKey:
       activatedResultIndex === null ? -1 : activatedResultIndex,
+    activatedStatusDetail:
+      activatedResultIndex === null
+        ? null
+        : state.staticIO.results[activatedResultIndex].details,
     socket: state.clientSocket.value,
     code: state.codeEditor.code,
     lang: state.codeEditor.lang,
@@ -127,24 +126,47 @@ export class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
 
   private processResult(data: Result): void {
     let errLog = '';
+    let status = determineResultColor(data);
+    let details = null as ReportItem[] | null;
     if (data.continue === false) {
       this.emitter = null; // disable kill
     }
-    if (data.result) {
-      const resultAsExec = data.result as SubResultExec;
-      if (resultAsExec.annotations) {
-        this.props.addAnnotations(resultAsExec.annotations);
+    if (data.details) {
+      details = [];
+      for (const item of data.details) {
+        switch (item.type) {
+          case 'out':
+            this.props.updateStdout(item.text);
+            break;
+          case 'log':
+            errLog = item.text || '';
+            break;
+          case 'status':
+            status = item.status;
+            break;
+          case 'text':
+            // TODO:
+            details.push(item);
+            break;
+          case 'param':
+            // TODO:
+            details.push(item);
+            break;
+          case 'annotation':
+            this.props.addAnnotations(item.annotations);
+            break;
+          default:
+            console.error('unknown detail type', (item as any).type);
+            break;
+        }
       }
-      this.props.updateStdout(resultAsExec.out);
-      errLog = resultAsExec.err || '';
-    } else {
-      // e.g. kill callback
     }
     if (data.summary) {
       this.props.addResult({
-        color: determineResultColor(data),
+        color: status,
         summary: data.summary,
         log: errLog,
+        details,
       });
     }
   }
@@ -245,7 +267,14 @@ export class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
               onClick: () => this.props.activateResult(+e.key),
             }))}
             active={'' + this.props.activatedStatusKey}
-          ></StatusBar>
+          />
+        </div>
+        <div className="flex_elem_fix">
+          {this.props.activatedStatusDetail ? (
+            <StatusDetail details={this.props.activatedStatusDetail} />
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     );

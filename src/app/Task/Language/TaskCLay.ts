@@ -6,13 +6,48 @@ import {
   utilPhaseStoreFiles,
   utilPhaseExecute,
   utilPhaseFinalize,
+  mapFilesFromPullResult,
+  createReportItemsFromExecResult,
+  utilPhaseExecuteFileIO,
+  utilPhasePullFiles,
 } from '../TaskUtil';
-import { QueryData } from '../../../lib/type';
+import { QueryData, Result } from '../../../lib/type';
 import { TaskInterface } from '../TaskInterface';
+import { annotateSummaryDefault } from '../SummaryAnnotator';
 import {
-  annotateSummaryExec,
-  annotateSummaryDefault,
-} from '../SummaryAnnotator';
+  LauncherSubResultOfExec,
+  LauncherSubResultOfPull,
+} from '../../Launcher/types';
+
+function createReport(
+  label: string,
+  exec_result: LauncherSubResultOfExec,
+  pull_result: LauncherSubResultOfPull,
+  stdout_path: string,
+  stderr_path: string,
+  isFinal: boolean
+): Result | null {
+  const [stdout_data, stderr_data] = mapFilesFromPullResult(pull_result, [
+    stdout_path,
+    stderr_path,
+  ]);
+  if (!stderr_data || !stdout_data) return null;
+  const details = createReportItemsFromExecResult(exec_result);
+  details.push({
+    type: 'out',
+    text: stdout_data.data,
+  });
+  details.push({
+    type: 'log',
+    text: stderr_data.data,
+  });
+  return {
+    success: true,
+    summary: `report(${label})`,
+    continue: !isFinal,
+    details,
+  } as Result;
+}
 
 export class TaskCLay implements TaskInterface {
   private launcherCallbackManager: CallbackManager;
@@ -42,11 +77,16 @@ export class TaskCLay implements TaskInterface {
       return {
         launcherCallbackManager: this.launcherCallbackManager,
         resultEmitter: (data: any) => {
-          data.summary = /exec/.test(label)
-            ? annotateSummaryExec(data, label)
-            : annotateSummaryDefault(data, label);
-          data.continue = !isFinal;
-          this.resultEmitter(data);
+          const res: Result = {
+            success: data.success,
+            continue: !isFinal,
+            // TODO: これはややこしい…Launcherの方のインターフェースを変える。
+            running:
+              data.result &&
+              (data.result as LauncherSubResultOfExec).exited === false,
+            summary: annotateSummaryDefault(data, label),
+          };
+          this.resultEmitter(res);
         },
       };
     };
@@ -57,33 +97,67 @@ export class TaskCLay implements TaskInterface {
 
       await utilPhaseStoreFiles(kits('store'), boxId, [
         { path: 'code.cpp', data: data.code },
+        { path: 'stdin.txt', data: data.stdin },
       ]);
 
-      const res_tns = await utilPhaseExecute(
+      const transpile_result = await utilPhaseExecute(
         kits('transpile'),
         boxId,
-        (hk) => {
+        (hk: Runnable | null) => {
           this.handleKill = hk;
         },
         'clay < code.cpp > out.cpp',
         [],
         ''
-      ); // TODO: refactor this
-      if (res_tns.exitstatus !== 0) return;
+      );
+      {
+        const details = createReportItemsFromExecResult(transpile_result);
+        details.push({
+          type: 'log',
+          text: transpile_result.err || '',
+        });
+        const result = {
+          success: true,
+          summary: 'result(clay)',
+          continue: !isFinal,
+          details,
+        } as Result;
+        this.resultEmitter(result);
+      }
+      // goto finally if compile error occurs
+      if (transpile_result.exitstatus !== 0) return;
 
-      const res_cmp = await utilPhaseExecute(
+      const build_result = await utilPhaseExecuteFileIO(
         kits('compile'),
         boxId,
-        (hk) => {
+        (hk: Runnable | null) => {
           this.handleKill = hk;
         },
         'g++',
         ['-std=c++14', '-O3', '-o', 'prog', './out.cpp'],
-        ''
+        null,
+        './stdout.txt',
+        './stderr.txt'
       );
-      if (res_cmp.exitstatus !== 0) return;
+      const pull_build_result = await utilPhasePullFiles(kits('pull'), boxId, [
+        { path: './stdout.txt' },
+        { path: './stderr.txt' },
+      ]);
+      {
+        const res = createReport(
+          'build',
+          build_result,
+          pull_build_result,
+          './stdout.txt',
+          './stderr.txt',
+          isFinal
+        );
+        if (res) this.resultEmitter(res);
+      }
+      // goto finally if compile error occurs
+      if (build_result.exitstatus !== 0) return;
 
-      await utilPhaseExecute(
+      const run_result = await utilPhaseExecuteFileIO(
         kits('run'),
         boxId,
         (hk) => {
@@ -91,8 +165,26 @@ export class TaskCLay implements TaskInterface {
         },
         './prog',
         [],
-        data.stdin
+        './stdin.txt',
+        './stdout.txt',
+        './stderr.txt'
       );
+
+      const pull_run_result = await utilPhasePullFiles(kits('pull'), boxId, [
+        { path: './stdout.txt' },
+        { path: './stderr.txt' },
+      ]);
+      {
+        const res = createReport(
+          'build',
+          run_result,
+          pull_run_result,
+          './stdout.txt',
+          './stderr.txt',
+          isFinal
+        );
+        if (res) this.resultEmitter(res);
+      }
     } catch (e) {
       console.error('task failed', e);
     } finally {

@@ -6,13 +6,10 @@ import {
   utilPhaseFinalize,
   utilPhaseExecuteFileIO,
   utilPhasePullFiles,
+  mapFilesFromPullResult,
+  createReportItemsFromExecResult,
 } from '../TaskUtil';
-import {
-  QueryData,
-  Annotation,
-  Result,
-  SubResultExec,
-} from '../../../lib/type';
+import { QueryData, Annotation, Result, ReportItem } from '../../../lib/type';
 import { TaskInterface } from '../TaskInterface';
 import CallbackManager from '../../../lib/CallbackManager';
 import { annotateSummaryDefault } from '../SummaryAnnotator';
@@ -66,6 +63,7 @@ export class TaskRuby implements TaskInterface {
           // TaskUtilからLauncherの結果を直接送らない。
           // 特にresultは送らない
           // 必要に応じてTask[Language]が直接送る。
+          if (data.error) console.warn(label, data.error);
           const res: Result = {
             success: data.success,
             continue: !isFinal,
@@ -74,7 +72,6 @@ export class TaskRuby implements TaskInterface {
               data.result &&
               (data.result as LauncherSubResultOfExec).exited === false,
             summary: annotateSummaryDefault(data, label),
-            error: data.error,
           };
           this.resultEmitter(res); // 再帰になりかねないような…
         },
@@ -107,26 +104,29 @@ export class TaskRuby implements TaskInterface {
         { path: './stdout.txt' },
         { path: './stderr.txt' },
       ]);
-      const stdout_data = pull_result.files.find(
-        (e) => e.path === './stdout.txt'
-      );
-      const stderr_data = pull_result.files.find(
-        (e) => e.path === './stderr.txt'
-      );
+      const [stdout_data, stderr_data] = mapFilesFromPullResult(pull_result, [
+        './stdout.txt',
+        './stderr.txt',
+      ]);
       if (stdout_data && stderr_data) {
-        // TODO: runの型を使いまわしている。結果を返すための型を用意する。
+        const details = createReportItemsFromExecResult(exec_result);
+        details.push({
+          type: 'out',
+          text: stdout_data.data,
+        });
+        details.push({
+          type: 'log',
+          text: stderr_data.data,
+        });
+        details.push({
+          type: 'annotation',
+          annotations: annotateFromStderr(stderr_data.data),
+        });
         const result = {
           success: true,
-          summary: 'report: ok',
+          summary: 'result(exec)',
           continue: !isFinal,
-          result: {
-            exited: true,
-            exitstatus: exec_result.exitstatus,
-            time: exec_result.time,
-            err: stderr_data.data,
-            out: stdout_data.data,
-            annotations: annotateFromStderr(stderr_data.data),
-          } as SubResultExec,
+          details,
         } as Result;
         this.resultEmitter(result);
       }

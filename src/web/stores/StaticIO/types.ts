@@ -3,7 +3,7 @@ import { ExecResult } from '../../containers/StaticIOShell';
 export interface StaticIOState {
   stdin: string;
   stdout: string;
-  results: Array<ExecResult>;
+  results: Array<ExecResult>; // TODO: detach from StaticIOState
   activatedResultIndex: number | null;
 }
 

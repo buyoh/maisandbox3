@@ -30,24 +30,53 @@ export interface Query {
   data: QueryData;
 }
 
-export interface SubResultExec {
-  // TODO: ResultDetailに変更
-  exited: boolean; // TODO: 消す。実装が追従出来ていないC++の為に残している
-  err: string; // 形式について要考察
-  out: string;
-  exitstatus: number;
-  annotations?: Annotation[];
-  time: number; // TODO: 実は使っていない UI上ではsummaryに埋め込んだ値を使っている err/outと同時に再考
+export interface ReportOutputItem {
+  type: 'out';
+  text: string;
 }
+
+export interface ReportErrorItem {
+  type: 'log';
+  text: string;
+}
+
+export interface ReportStatusItem {
+  type: 'status';
+  status: 'info' | 'success' | 'error' | 'warning';
+}
+
+export interface ReportDetailTextItem {
+  type: 'text';
+  title: string;
+  text: string;
+}
+
+export interface ReportDetailParamItem {
+  type: 'param';
+  key: string;
+  value: any;
+}
+
+export interface ReportAnnotationsItem {
+  type: 'annotation';
+  annotations: Annotation[];
+}
+
+export type ReportItem =
+  | ReportOutputItem
+  | ReportErrorItem
+  | ReportStatusItem
+  | ReportDetailTextItem
+  | ReportDetailParamItem
+  | ReportAnnotationsItem;
 
 export interface Result {
   id?: ClientJobID; // Queryに対応するid
   success: boolean; // 内部エラーが発生していないかどうか
+  summary: string;
   continue?: boolean; // 次に結果が返るかどうか
-  running?: boolean; // 実行が完了していない場合はtrue note: SubResultExec.exitedの代替 しかし、実行結果の色変更・outの消去防止にしか使われていない
-  result?: SubResultExec;
-  error?: string;
-  summary?: string; // TODO: labelにリネームする
+  running?: boolean; // 実行が完了していない場合はtrue
+  details?: ReportItem[];
 }
 
 // TODO: ファイル名をQueryResultTypes.tsか何かに変更

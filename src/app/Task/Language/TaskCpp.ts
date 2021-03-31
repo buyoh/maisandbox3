@@ -7,13 +7,10 @@ import {
   utilPhaseFinalize,
   utilPhasePullFiles,
   utilPhaseExecuteFileIO,
+  mapFilesFromPullResult,
+  createReportItemsFromExecResult,
 } from '../TaskUtil';
-import {
-  QueryData,
-  Annotation,
-  Result,
-  SubResultExec,
-} from '../../../lib/type';
+import { QueryData, Annotation, Result } from '../../../lib/type';
 import { TaskInterface } from '../TaskInterface';
 import { annotateSummaryDefault } from '../SummaryAnnotator';
 import {
@@ -40,27 +37,38 @@ function annotateFromStderr(stderr: string): Annotation[] {
 }
 
 function createReport(
+  label: string,
   exec_result: LauncherSubResultOfExec,
   pull_result: LauncherSubResultOfPull,
   stdout_path: string,
   stderr_path: string,
+  annotate: boolean,
   isFinal: boolean
 ): Result | null {
-  const stdout_data = pull_result.files.find((e) => e.path === stdout_path);
-  const stderr_data = pull_result.files.find((e) => e.path === stderr_path);
+  const [stdout_data, stderr_data] = mapFilesFromPullResult(pull_result, [
+    stdout_path,
+    stderr_path,
+  ]);
   if (!stderr_data || !stdout_data) return null;
+  const details = createReportItemsFromExecResult(exec_result);
+  details.push({
+    type: 'out',
+    text: stdout_data.data,
+  });
+  details.push({
+    type: 'log',
+    text: stderr_data.data,
+  });
+  if (annotate)
+    details.push({
+      type: 'annotation',
+      annotations: annotateFromStderr(stderr_data.data),
+    });
   return {
     success: true,
-    summary: 'report: ok',
+    summary: `report(${label})`,
     continue: !isFinal,
-    result: {
-      exited: true,
-      exitstatus: exec_result.exitstatus,
-      time: exec_result.time,
-      err: stderr_data.data,
-      out: stdout_data.data,
-      annotations: annotateFromStderr(stderr_data.data),
-    } as SubResultExec,
+    details,
   } as Result;
 }
 
@@ -100,9 +108,8 @@ export class TaskCpp implements TaskInterface {
               data.result &&
               (data.result as LauncherSubResultOfExec).exited === false,
             summary: annotateSummaryDefault(data, label),
-            error: data.error,
           };
-          this.resultEmitter(res); // 再帰になりかねないような…
+          this.resultEmitter(res);
         },
       };
     };
@@ -146,15 +153,18 @@ export class TaskCpp implements TaskInterface {
         );
         {
           const res = createReport(
+            'build',
             build_result,
             pull_build_result,
             './stdout.txt',
             './stderr.txt',
+            false,
             isFinal
           );
           if (res) this.resultEmitter(res);
         }
-        if (build_result.exitstatus !== 0) return; // goto finally
+        // goto finally if compile error occurs
+        if (build_result.exitstatus !== 0) return;
       }
       {
         const exec_result = await utilPhaseExecuteFileIO(
@@ -177,10 +187,12 @@ export class TaskCpp implements TaskInterface {
         );
         {
           const res = createReport(
+            'run',
             exec_result,
             pull_exec_result,
             './stdout.txt',
             './stderr.txt',
+            true,
             isFinal
           );
           if (res) this.resultEmitter(res);

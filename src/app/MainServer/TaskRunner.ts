@@ -43,6 +43,7 @@ export class TaskRunner {
       const res: Result = {
         id: this.clientJobId,
         success: false,
+        summary: '(?)',
       };
       this.resultEmitter(res);
       this.finalizer();
