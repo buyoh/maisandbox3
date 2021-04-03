@@ -121,24 +121,6 @@ exports[`StaticIOShell 1`] = `
       </div>
     </div>
   </div>
-  <div
-    className="flex_elem_fix"
-  >
-    <div
-      className="flex_row"
-      style={
-        Object {
-          "borderBottom": "2px solid #666",
-          "borderTop": "2px solid #111",
-          "overflow": "hidden",
-          "padding": "2px",
-        }
-      }
-    />
-  </div>
-  <div
-    className="flex_elem_fix"
-  />
 </div>
 `;
 
@@ -239,24 +221,6 @@ exports[`StaticIOShell 2`] = `
       />
     </div>
   </div>
-  <div
-    className="flex_elem_fix"
-  >
-    <div
-      className="flex_row"
-      style={
-        Object {
-          "borderBottom": "2px solid #666",
-          "borderTop": "2px solid #111",
-          "overflow": "hidden",
-          "padding": "2px",
-        }
-      }
-    />
-  </div>
-  <div
-    className="flex_elem_fix"
-  />
 </div>
 `;
 
@@ -397,24 +361,6 @@ exports[`StaticIOShell 4`] = `
       </div>
     </div>
   </div>
-  <div
-    className="flex_elem_fix"
-  >
-    <div
-      className="flex_row"
-      style={
-        Object {
-          "borderBottom": "2px solid #666",
-          "borderTop": "2px solid #111",
-          "overflow": "hidden",
-          "padding": "2px",
-        }
-      }
-    />
-  </div>
-  <div
-    className="flex_elem_fix"
-  />
 </div>
 `;
 
@@ -564,24 +510,6 @@ exports[`StaticIOShell 6`] = `
       </div>
     </div>
   </div>
-  <div
-    className="flex_elem_fix"
-  >
-    <div
-      className="flex_row"
-      style={
-        Object {
-          "borderBottom": "2px solid #666",
-          "borderTop": "2px solid #111",
-          "overflow": "hidden",
-          "padding": "2px",
-        }
-      }
-    />
-  </div>
-  <div
-    className="flex_elem_fix"
-  />
 </div>
 `;
 
@@ -739,24 +667,6 @@ exports[`StaticIOShell 8`] = `
       </div>
     </div>
   </div>
-  <div
-    className="flex_elem_fix"
-  >
-    <div
-      className="flex_row"
-      style={
-        Object {
-          "borderBottom": "2px solid #666",
-          "borderTop": "2px solid #111",
-          "overflow": "hidden",
-          "padding": "2px",
-        }
-      }
-    />
-  </div>
-  <div
-    className="flex_elem_fix"
-  />
 </div>
 `;
 
@@ -922,24 +832,6 @@ exports[`StaticIOShell 10`] = `
       </div>
     </div>
   </div>
-  <div
-    className="flex_elem_fix"
-  >
-    <div
-      className="flex_row"
-      style={
-        Object {
-          "borderBottom": "2px solid #666",
-          "borderTop": "2px solid #111",
-          "overflow": "hidden",
-          "padding": "2px",
-        }
-      }
-    />
-  </div>
-  <div
-    className="flex_elem_fix"
-  />
 </div>
 `;
 
@@ -1113,24 +1005,6 @@ exports[`StaticIOShell 12`] = `
       </div>
     </div>
   </div>
-  <div
-    className="flex_elem_fix"
-  >
-    <div
-      className="flex_row"
-      style={
-        Object {
-          "borderBottom": "2px solid #666",
-          "borderTop": "2px solid #111",
-          "overflow": "hidden",
-          "padding": "2px",
-        }
-      }
-    />
-  </div>
-  <div
-    className="flex_elem_fix"
-  />
 </div>
 `;
 
@@ -1332,24 +1206,6 @@ exports[`StaticIOShell_Kill 2`] = `
       </div>
     </div>
   </div>
-  <div
-    className="flex_elem_fix"
-  >
-    <div
-      className="flex_row"
-      style={
-        Object {
-          "borderBottom": "2px solid #666",
-          "borderTop": "2px solid #111",
-          "overflow": "hidden",
-          "padding": "2px",
-        }
-      }
-    />
-  </div>
-  <div
-    className="flex_elem_fix"
-  />
 </div>
 `;
 
@@ -1502,24 +1358,6 @@ exports[`StaticIOShell_Kill 4`] = `
       </div>
     </div>
   </div>
-  <div
-    className="flex_elem_fix"
-  >
-    <div
-      className="flex_row"
-      style={
-        Object {
-          "borderBottom": "2px solid #666",
-          "borderTop": "2px solid #111",
-          "overflow": "hidden",
-          "padding": "2px",
-        }
-      }
-    />
-  </div>
-  <div
-    className="flex_elem_fix"
-  />
 </div>
 `;
 
@@ -1672,24 +1510,6 @@ exports[`StaticIOShell_Kill 6`] = `
       </div>
     </div>
   </div>
-  <div
-    className="flex_elem_fix"
-  >
-    <div
-      className="flex_row"
-      style={
-        Object {
-          "borderBottom": "2px solid #666",
-          "borderTop": "2px solid #111",
-          "overflow": "hidden",
-          "padding": "2px",
-        }
-      }
-    />
-  </div>
-  <div
-    className="flex_elem_fix"
-  />
 </div>
 `;
 
@@ -1842,24 +1662,6 @@ exports[`StaticIOShell_Kill 8`] = `
       </div>
     </div>
   </div>
-  <div
-    className="flex_elem_fix"
-  >
-    <div
-      className="flex_row"
-      style={
-        Object {
-          "borderBottom": "2px solid #666",
-          "borderTop": "2px solid #111",
-          "overflow": "hidden",
-          "padding": "2px",
-        }
-      }
-    />
-  </div>
-  <div
-    className="flex_elem_fix"
-  />
 </div>
 `;
 
@@ -2002,24 +1804,6 @@ exports[`StaticIOShell_Kill 10`] = `
       </div>
     </div>
   </div>
-  <div
-    className="flex_elem_fix"
-  >
-    <div
-      className="flex_row"
-      style={
-        Object {
-          "borderBottom": "2px solid #666",
-          "borderTop": "2px solid #111",
-          "overflow": "hidden",
-          "padding": "2px",
-        }
-      }
-    />
-  </div>
-  <div
-    className="flex_elem_fix"
-  />
 </div>
 `;
 

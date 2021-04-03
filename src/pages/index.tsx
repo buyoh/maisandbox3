@@ -7,6 +7,9 @@ import CodeEditorShell from '../web/containers/CodeEditorShell';
 import StaticIOShell from '../web/containers/StaticIOShell';
 import BackupService from '../web/containers/BackupService';
 import SocketService from '../web/containers/SocketService';
+import PanelGroup from '../web/components/PanelGroup';
+import SingleTaskShell from '../web/containers/SingleTaskShell';
+import StatusShell from '../web/containers/StatusShell';
 
 export default class Index extends React.Component<{}, {}> {
   constructor(props: {}) {
@@ -28,7 +31,11 @@ export default class Index extends React.Component<{}, {}> {
           </div>
 
           <div>
-            <StaticIOShell />
+            <PanelGroup>
+              <StaticIOShell key="file stdio" />
+              <SingleTaskShell key="single task" />
+            </PanelGroup>
+            <StatusShell />
           </div>
         </main>
       </div>

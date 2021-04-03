@@ -9,7 +9,8 @@
 
 }
 .item.item_text .text {
-
+  display: block;
+  resize: horizontal;
 }
 
 .item.item_param { 

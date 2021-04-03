@@ -1,0 +1,23 @@
+.tablist {
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  background-color: #111;
+}
+.tab {
+  text-align: center;
+  flex: 0 0 auto;
+  padding: 0.3em 1em;
+  margin-right: 0.3em;
+  border: 3px solid #444;
+  border-bottom: none;
+  background-color: #111;
+}
+
+.tab:hover {
+  background-color: #444;
+}
+
+.tab.active {
+  background-color: #222;
+}

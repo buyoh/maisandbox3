@@ -4,23 +4,15 @@ import { Dispatch } from 'redux';
 import { RootState } from '../stores';
 import TextArea from '../components/Textarea';
 import Button from '../components/Button';
-import StatusBar from '../components/StatusBar';
-import { Item as StatusBarItem } from '../components/StatusBar';
 import * as Actions from '../stores/StaticIO/actions';
+import * as StatusActions from '../stores/Status/actions';
 import { connect } from 'react-redux';
 import { Annotation, ReportItem, Result } from '../../lib/type';
 import * as CodeEditorActions from '../stores/CodeEditor/actions';
 import { ClientSocket } from '../lib/ClientSocket';
-import StatusDetail from '../components/StatusDetail';
+import { ExecResult } from './StatusShell';
 
 type Runnable = (data: any) => void;
-
-export interface ExecResult {
-  color: string;
-  summary: string;
-  log: string;
-  details: ReportItem[] | null;
-}
 
 function determineResultColor(data: Result): string {
   let summaryColor = 'light';
@@ -36,9 +28,6 @@ interface StateProps {
   stdin: string;
   stdout: string;
   errlog: string;
-  statuses: Array<StatusBarItem>;
-  activatedStatusKey: number;
-  activatedStatusDetail: ReportItem[] | null;
   socket: ClientSocket | null;
   code: string;
   lang: string;
@@ -47,7 +36,6 @@ interface StateProps {
 interface DispatchProps {
   updateStdin: (stdin: string) => void;
   updateStdout: (stdout: string) => void;
-  activateResult: (idx: number) => void;
   addResult: (r: ExecResult) => void;
   clearResults: () => void;
   addAnnotations: (annos: Annotation[]) => void;
@@ -62,28 +50,14 @@ type ReactProps = {
 type CombinedProps = ReactProps & StateProps & DispatchProps;
 
 function mapStateToProps(state: RootState): StateProps {
-  const activatedResultIndex = state.staticIO.activatedResultIndex;
+  const activatedResultIndex = state.status.activatedResultIndex;
   return {
     stdin: state.staticIO.stdin,
     stdout: state.staticIO.stdout,
     errlog:
       activatedResultIndex === null
         ? ''
-        : state.staticIO.results[activatedResultIndex].log,
-    statuses: state.staticIO.results
-      .map((r, i) => ({
-        color: r.color,
-        text: r.summary,
-        key: '' + i,
-        onClick: undefined, // renderで挿入する
-      }))
-      .reverse(),
-    activatedStatusKey:
-      activatedResultIndex === null ? -1 : activatedResultIndex,
-    activatedStatusDetail:
-      activatedResultIndex === null
-        ? null
-        : state.staticIO.results[activatedResultIndex].details,
+        : state.status.results[activatedResultIndex].log,
     socket: state.clientSocket.value,
     code: state.codeEditor.code,
     lang: state.codeEditor.lang,
@@ -94,9 +68,8 @@ function mapDispatchToProps(dispatch: Dispatch): DispatchProps {
   return {
     updateStdin: (stdin: string) => dispatch(Actions.updateStdin(stdin)),
     updateStdout: (stdout: string) => dispatch(Actions.updateStdout(stdout)),
-    activateResult: (idx: number) => dispatch(Actions.activateResult(idx)),
-    addResult: (r: ExecResult) => dispatch(Actions.addResult(r)),
-    clearResults: () => dispatch(Actions.removeAllResults()),
+    addResult: (r: ExecResult) => dispatch(StatusActions.addResult(r)),
+    clearResults: () => dispatch(StatusActions.removeAllResults()),
     addAnnotations: (annos: Annotation[]) =>
       dispatch(CodeEditorActions.addAnnotations(annos)),
     clearAnnotations: () => dispatch(CodeEditorActions.removeAllAnnotations()),
@@ -139,17 +112,22 @@ export class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
             this.props.updateStdout(item.text);
             break;
           case 'log':
-            errLog = item.text || '';
+            // TODO: 仮？ 適切な配置場所に関してアイデアなし。
+            details.push({
+              type: 'text',
+              title: 'stderr',
+              text: item.text,
+            });
+            // TODO: 消す
+            errLog = item.text;
             break;
           case 'status':
             status = item.status;
             break;
           case 'text':
-            // TODO:
             details.push(item);
             break;
           case 'param':
-            // TODO:
             details.push(item);
             break;
           case 'annotation':
@@ -218,6 +196,7 @@ export class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
               </Button>
             </div>
             <div className="flex_elem_fix">
+              {/* TODO: 消す */}
               <Button onClick={this.handleClickToggle} key="btn-toggle-display">
                 IO/Err
               </Button>
@@ -258,22 +237,6 @@ export class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
                 />
               </div>
             </div>
-          )}
-        </div>
-        <div className="flex_elem_fix">
-          <StatusBar
-            values={this.props.statuses.map((e) => ({
-              ...e,
-              onClick: () => this.props.activateResult(+e.key),
-            }))}
-            active={'' + this.props.activatedStatusKey}
-          />
-        </div>
-        <div className="flex_elem_fix">
-          {this.props.activatedStatusDetail ? (
-            <StatusDetail details={this.props.activatedStatusDetail} />
-          ) : (
-            <></>
           )}
         </div>
       </div>

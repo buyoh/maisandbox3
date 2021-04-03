@@ -17,7 +17,7 @@ function ConvertReportItemToElement(item: ReportItem): JSX.Element {
         className={[styles.item, styles.item_text].join(' ')}
       >
         <div className={[styles.title].join(' ')}>{item.title}</div>
-        <textarea className={[styles.text].join(' ')}>{item.text}</textarea>
+        <textarea className={[styles.text].join(' ')} value={item.text} />
       </div>
     );
   } else if (item.type === 'param') {

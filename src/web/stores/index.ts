@@ -2,6 +2,7 @@ import { createStore, combineReducers } from 'redux';
 import { ClientSocket } from '../lib/ClientSocket';
 import { codeEditorReducer } from './CodeEditor/reducers';
 import { staticIOReducer } from './StaticIO/reducers';
+import { statusReducer } from './Status/reducers';
 import { createStorageReducer } from './util/storageReducer';
 
 const clientSocketRedux = createStorageReducer<ClientSocket | null>(
@@ -13,6 +14,7 @@ export const setClientSocket = clientSocketRedux.method.setStorage;
 export const rootReducer = combineReducers({
   codeEditor: codeEditorReducer,
   staticIO: staticIOReducer,
+  status: statusReducer,
   clientSocket: clientSocketRedux.reducer,
 });
 
