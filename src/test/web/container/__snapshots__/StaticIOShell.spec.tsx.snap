@@ -227,15 +227,16 @@ exports[`StaticIOShell 2`] = `
 exports[`StaticIOShell 3`] = `
 Array [
   Object {
-    "data": Object {
-      "action": "run",
-      "code": "ruby",
-      "lang": "p gets",
-      "stdin": "ruby",
-    },
+    "action": "init",
     "id": Object {
       "clicmid": 1,
     },
+    "info": Object {
+      "code": "p gets",
+      "stdin": "ruby",
+      "type": "filestdin",
+    },
+    "lang": "ruby",
   },
 ]
 `;
@@ -375,7 +376,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "setup: ok",
+        "summary": "setup",
       },
     ],
   ],
@@ -524,7 +525,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "setup: ok",
+        "summary": "setup",
       },
     ],
     Array [
@@ -532,7 +533,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "store: ok",
+        "summary": "store",
       },
     ],
   ],
@@ -681,7 +682,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "setup: ok",
+        "summary": "setup",
       },
     ],
     Array [
@@ -689,15 +690,15 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "store: ok",
+        "summary": "store",
       },
     ],
     Array [
       Object {
-        "color": "gray",
+        "color": "light",
         "details": null,
         "log": "",
-        "summary": "run: running",
+        "summary": "exec...",
       },
     ],
   ],
@@ -846,7 +847,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "setup: ok",
+        "summary": "setup",
       },
     ],
     Array [
@@ -854,7 +855,15 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "store: ok",
+        "summary": "store",
+      },
+    ],
+    Array [
+      Object {
+        "color": "light",
+        "details": null,
+        "log": "",
+        "summary": "exec...",
       },
     ],
     Array [
@@ -862,15 +871,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "run: running",
-      },
-    ],
-    Array [
-      Object {
-        "color": "gray",
-        "details": null,
-        "log": "",
-        "summary": "run: ok(0)[0.041s]",
+        "summary": "exec",
       },
     ],
   ],
@@ -1019,7 +1020,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "setup: ok",
+        "summary": "setup",
       },
     ],
     Array [
@@ -1027,7 +1028,15 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "store: ok",
+        "summary": "store",
+      },
+    ],
+    Array [
+      Object {
+        "color": "light",
+        "details": null,
+        "log": "",
+        "summary": "exec...",
       },
     ],
     Array [
@@ -1035,7 +1044,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "run: running",
+        "summary": "exec",
       },
     ],
     Array [
@@ -1043,7 +1052,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "run: ok(0)[0.041s]",
+        "summary": "pull",
       },
     ],
   ],
@@ -1057,26 +1066,465 @@ Array [
 ]
 `;
 
+exports[`StaticIOShell 14`] = `
+<div
+  className="flex_cols"
+>
+  <div
+    className="flex_elem flex_row"
+  >
+    <div
+      className="flex_elem_fix flex_cols"
+    >
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            run
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            kill
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            IO/Err
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex_elem flex_row"
+      style={
+        Object {
+          "overflow": "hidden",
+          "resize": "vertical",
+        }
+      }
+    >
+      <div
+        className="flex_elem_fix flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdin"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "horizontal",
+              "width": "auto",
+            }
+          }
+          value="ruby"
+        />
+      </div>
+      <div
+        className="flex_elem flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdout"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "none",
+              "width": "auto",
+            }
+          }
+          value="puts gets"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`StaticIOShell 15`] = `
+Array [
+  Array [],
+  Array [
+    Array [
+      "ASDFADSFA
+",
+    ],
+  ],
+  Array [],
+  Array [
+    Array [
+      Object {
+        "color": "gray",
+        "details": null,
+        "log": "",
+        "summary": "setup",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "details": null,
+        "log": "",
+        "summary": "store",
+      },
+    ],
+    Array [
+      Object {
+        "color": "light",
+        "details": null,
+        "log": "",
+        "summary": "exec...",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "details": null,
+        "log": "",
+        "summary": "exec",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "details": null,
+        "log": "",
+        "summary": "pull",
+      },
+    ],
+    Array [
+      Object {
+        "color": "success",
+        "details": Array [
+          Object {
+            "key": "time",
+            "type": "param",
+            "value": 0.043364763259887695,
+          },
+          Object {
+            "key": "exitstatus",
+            "type": "param",
+            "value": 0,
+          },
+          Object {
+            "text": "asdfadsfa
+",
+            "title": "stderr",
+            "type": "text",
+          },
+        ],
+        "log": "asdfadsfa
+",
+        "summary": "result(exec)",
+      },
+    ],
+  ],
+  Array [
+    Array [],
+  ],
+  Array [
+    Array [
+      Array [],
+    ],
+  ],
+  Array [
+    Array [],
+  ],
+]
+`;
+
+exports[`StaticIOShell 16`] = `
+<div
+  className="flex_cols"
+>
+  <div
+    className="flex_elem flex_row"
+  >
+    <div
+      className="flex_elem_fix flex_cols"
+    >
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            run
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            kill
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            IO/Err
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex_elem flex_row"
+      style={
+        Object {
+          "overflow": "hidden",
+          "resize": "vertical",
+        }
+      }
+    >
+      <div
+        className="flex_elem_fix flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdin"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "horizontal",
+              "width": "auto",
+            }
+          }
+          value="ruby"
+        />
+      </div>
+      <div
+        className="flex_elem flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdout"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "none",
+              "width": "auto",
+            }
+          }
+          value="puts gets"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`StaticIOShell 17`] = `
+Array [
+  Array [],
+  Array [
+    Array [
+      "ASDFADSFA
+",
+    ],
+  ],
+  Array [],
+  Array [
+    Array [
+      Object {
+        "color": "gray",
+        "details": null,
+        "log": "",
+        "summary": "setup",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "details": null,
+        "log": "",
+        "summary": "store",
+      },
+    ],
+    Array [
+      Object {
+        "color": "light",
+        "details": null,
+        "log": "",
+        "summary": "exec...",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "details": null,
+        "log": "",
+        "summary": "exec",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "details": null,
+        "log": "",
+        "summary": "pull",
+      },
+    ],
+    Array [
+      Object {
+        "color": "success",
+        "details": Array [
+          Object {
+            "key": "time",
+            "type": "param",
+            "value": 0.043364763259887695,
+          },
+          Object {
+            "key": "exitstatus",
+            "type": "param",
+            "value": 0,
+          },
+          Object {
+            "text": "asdfadsfa
+",
+            "title": "stderr",
+            "type": "text",
+          },
+        ],
+        "log": "asdfadsfa
+",
+        "summary": "result(exec)",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "details": null,
+        "log": "",
+        "summary": "finalize",
+      },
+    ],
+  ],
+  Array [
+    Array [],
+  ],
+  Array [
+    Array [
+      Array [],
+    ],
+  ],
+  Array [
+    Array [],
+  ],
+]
+`;
+
 exports[`StaticIOShell_Kill 1`] = `
 Array [
   Array [
     Object {
-      "data": Object {
-        "action": "run",
-        "code": "ruby",
-        "lang": "p gets",
-        "stdin": "ruby",
-      },
+      "action": "init",
       "id": Object {
         "clicmid": 1,
       },
+      "info": Object {
+        "code": "p gets",
+        "stdin": "ruby",
+        "type": "filestdin",
+      },
+      "lang": "ruby",
     },
   ],
   Array [
     Object {
-      "data": Object {
-        "action": "kill",
-      },
+      "action": "kill",
       "id": Object {
         "clicmid": 1,
       },
@@ -1213,22 +1661,21 @@ exports[`StaticIOShell_Kill 3`] = `
 Array [
   Array [
     Object {
-      "data": Object {
-        "action": "run",
-        "code": "ruby",
-        "lang": "p gets",
-        "stdin": "ruby",
-      },
+      "action": "init",
       "id": Object {
         "clicmid": 2,
       },
+      "info": Object {
+        "code": "p gets",
+        "stdin": "ruby",
+        "type": "filestdin",
+      },
+      "lang": "ruby",
     },
   ],
   Array [
     Object {
-      "data": Object {
-        "action": "kill",
-      },
+      "action": "kill",
       "id": Object {
         "clicmid": 2,
       },
@@ -1365,22 +1812,21 @@ exports[`StaticIOShell_Kill 5`] = `
 Array [
   Array [
     Object {
-      "data": Object {
-        "action": "run",
-        "code": "ruby",
-        "lang": "p gets",
-        "stdin": "ruby",
-      },
+      "action": "init",
       "id": Object {
         "clicmid": 3,
       },
+      "info": Object {
+        "code": "p gets",
+        "stdin": "ruby",
+        "type": "filestdin",
+      },
+      "lang": "ruby",
     },
   ],
   Array [
     Object {
-      "data": Object {
-        "action": "kill",
-      },
+      "action": "kill",
       "id": Object {
         "clicmid": 3,
       },
@@ -1517,22 +1963,21 @@ exports[`StaticIOShell_Kill 7`] = `
 Array [
   Array [
     Object {
-      "data": Object {
-        "action": "run",
-        "code": "ruby",
-        "lang": "p gets",
-        "stdin": "ruby",
-      },
+      "action": "init",
       "id": Object {
         "clicmid": 4,
       },
+      "info": Object {
+        "code": "p gets",
+        "stdin": "ruby",
+        "type": "filestdin",
+      },
+      "lang": "ruby",
     },
   ],
   Array [
     Object {
-      "data": Object {
-        "action": "kill",
-      },
+      "action": "kill",
       "id": Object {
         "clicmid": 4,
       },
@@ -1669,12 +2114,21 @@ exports[`StaticIOShell_Kill 9`] = `
 Array [
   Array [
     Object {
-      "data": Object {
-        "action": "run",
-        "code": "ruby",
-        "lang": "p gets",
-        "stdin": "ruby",
+      "action": "init",
+      "id": Object {
+        "clicmid": 5,
       },
+      "info": Object {
+        "code": "p gets",
+        "stdin": "ruby",
+        "type": "filestdin",
+      },
+      "lang": "ruby",
+    },
+  ],
+  Array [
+    Object {
+      "action": "kill",
       "id": Object {
         "clicmid": 5,
       },
@@ -1809,8 +2263,311 @@ exports[`StaticIOShell_Kill 10`] = `
 
 exports[`StaticIOShell_Kill 11`] = `
 Array [
+  Array [
+    Object {
+      "action": "init",
+      "id": Object {
+        "clicmid": 6,
+      },
+      "info": Object {
+        "code": "p gets",
+        "stdin": "ruby",
+        "type": "filestdin",
+      },
+      "lang": "ruby",
+    },
+  ],
+  Array [
+    Object {
+      "action": "kill",
+      "id": Object {
+        "clicmid": 6,
+      },
+    },
+  ],
+]
+`;
+
+exports[`StaticIOShell_Kill 12`] = `
+<div
+  className="flex_cols"
+>
+  <div
+    className="flex_elem flex_row"
+  >
+    <div
+      className="flex_elem_fix flex_cols"
+    >
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            run
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            kill
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            IO/Err
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex_elem flex_row"
+      style={
+        Object {
+          "overflow": "hidden",
+          "resize": "vertical",
+        }
+      }
+    >
+      <div
+        className="flex_elem_fix flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdin"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "horizontal",
+              "width": "auto",
+            }
+          }
+          value="ruby"
+        />
+      </div>
+      <div
+        className="flex_elem flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdout"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "none",
+              "width": "auto",
+            }
+          }
+          value="puts gets"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`StaticIOShell_Kill 13`] = `
+Array [
+  Array [
+    Object {
+      "action": "init",
+      "id": Object {
+        "clicmid": 7,
+      },
+      "info": Object {
+        "code": "p gets",
+        "stdin": "ruby",
+        "type": "filestdin",
+      },
+      "lang": "ruby",
+    },
+  ],
+]
+`;
+
+exports[`StaticIOShell_Kill 14`] = `
+<div
+  className="flex_cols"
+>
+  <div
+    className="flex_elem flex_row"
+  >
+    <div
+      className="flex_elem_fix flex_cols"
+    >
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            run
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            kill
+          </button>
+        </div>
+      </div>
+      <div
+        className="flex_elem_fix"
+      >
+        <div
+          className="flex_row"
+        >
+          <button
+            className="flex_elem"
+            onClick={[Function]}
+            style={
+              Object {
+                "display": "block",
+              }
+            }
+          >
+            IO/Err
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      className="flex_elem flex_row"
+      style={
+        Object {
+          "overflow": "hidden",
+          "resize": "vertical",
+        }
+      }
+    >
+      <div
+        className="flex_elem_fix flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdin"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "horizontal",
+              "width": "auto",
+            }
+          }
+          value="ruby"
+        />
+      </div>
+      <div
+        className="flex_elem flex_cols"
+      >
+        <textarea
+          onChange={[Function]}
+          placeholder="stdout"
+          rows={8}
+          spellCheck="false"
+          style={
+            Object {
+              "display": "block",
+              "flex": "1 1 auto",
+              "height": "auto",
+              "overflow": "scroll",
+              "resize": "none",
+              "width": "auto",
+            }
+          }
+          value="puts gets"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`StaticIOShell_Kill 15`] = `
+Array [
   Array [],
-  Array [],
+  Array [
+    Array [
+      "ASDFADSFA
+",
+    ],
+    Array [
+      "ASDFADSFA
+",
+    ],
+  ],
   Array [],
   Array [
     Array [
@@ -1818,7 +2575,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "setup: ok",
+        "summary": "setup",
       },
     ],
     Array [
@@ -1826,7 +2583,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "setup: ok",
+        "summary": "setup",
       },
     ],
     Array [
@@ -1834,7 +2591,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "store: ok",
+        "summary": "store",
       },
     ],
     Array [
@@ -1842,7 +2599,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "setup: ok",
+        "summary": "setup",
       },
     ],
     Array [
@@ -1850,7 +2607,15 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "store: ok",
+        "summary": "store",
+      },
+    ],
+    Array [
+      Object {
+        "color": "light",
+        "details": null,
+        "log": "",
+        "summary": "exec...",
       },
     ],
     Array [
@@ -1858,7 +2623,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "run: running",
+        "summary": "setup",
       },
     ],
     Array [
@@ -1866,7 +2631,15 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "setup: ok",
+        "summary": "store",
+      },
+    ],
+    Array [
+      Object {
+        "color": "light",
+        "details": null,
+        "log": "",
+        "summary": "exec...",
       },
     ],
     Array [
@@ -1874,7 +2647,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "store: ok",
+        "summary": "exec",
       },
     ],
     Array [
@@ -1882,7 +2655,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "run: running",
+        "summary": "setup",
       },
     ],
     Array [
@@ -1890,7 +2663,15 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "run: ok(0)[0.041s]",
+        "summary": "store",
+      },
+    ],
+    Array [
+      Object {
+        "color": "light",
+        "details": null,
+        "log": "",
+        "summary": "exec...",
       },
     ],
     Array [
@@ -1898,7 +2679,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "setup: ok",
+        "summary": "exec",
       },
     ],
     Array [
@@ -1906,7 +2687,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "store: ok",
+        "summary": "pull",
       },
     ],
     Array [
@@ -1914,7 +2695,7 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "run: running",
+        "summary": "setup",
       },
     ],
     Array [
@@ -1922,7 +2703,131 @@ Array [
         "color": "gray",
         "details": null,
         "log": "",
-        "summary": "run: ok(0)[0.041s]",
+        "summary": "store",
+      },
+    ],
+    Array [
+      Object {
+        "color": "light",
+        "details": null,
+        "log": "",
+        "summary": "exec...",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "details": null,
+        "log": "",
+        "summary": "exec",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "details": null,
+        "log": "",
+        "summary": "pull",
+      },
+    ],
+    Array [
+      Object {
+        "color": "success",
+        "details": Array [
+          Object {
+            "key": "time",
+            "type": "param",
+            "value": 0.043364763259887695,
+          },
+          Object {
+            "key": "exitstatus",
+            "type": "param",
+            "value": 0,
+          },
+          Object {
+            "text": "asdfadsfa
+",
+            "title": "stderr",
+            "type": "text",
+          },
+        ],
+        "log": "asdfadsfa
+",
+        "summary": "result(exec)",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "details": null,
+        "log": "",
+        "summary": "setup",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "details": null,
+        "log": "",
+        "summary": "store",
+      },
+    ],
+    Array [
+      Object {
+        "color": "light",
+        "details": null,
+        "log": "",
+        "summary": "exec...",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "details": null,
+        "log": "",
+        "summary": "exec",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "details": null,
+        "log": "",
+        "summary": "pull",
+      },
+    ],
+    Array [
+      Object {
+        "color": "success",
+        "details": Array [
+          Object {
+            "key": "time",
+            "type": "param",
+            "value": 0.043364763259887695,
+          },
+          Object {
+            "key": "exitstatus",
+            "type": "param",
+            "value": 0,
+          },
+          Object {
+            "text": "asdfadsfa
+",
+            "title": "stderr",
+            "type": "text",
+          },
+        ],
+        "log": "asdfadsfa
+",
+        "summary": "result(exec)",
+      },
+    ],
+    Array [
+      Object {
+        "color": "gray",
+        "details": null,
+        "log": "",
+        "summary": "finalize",
       },
     ],
   ],
@@ -1932,9 +2837,20 @@ Array [
     Array [],
     Array [],
     Array [],
+    Array [],
+    Array [],
   ],
-  Array [],
   Array [
+    Array [
+      Array [],
+    ],
+    Array [
+      Array [],
+    ],
+  ],
+  Array [
+    Array [],
+    Array [],
     Array [],
     Array [],
     Array [],

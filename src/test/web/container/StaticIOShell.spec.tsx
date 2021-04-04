@@ -27,35 +27,42 @@ class SocketMock implements SocketInterface {
 const exampleRecievedStream = [
   {
     success: true,
-    result: { box: 'ask1472b8g4f' },
-    id: { clicmid: 1 },
-    summary: 'setup: ok',
     continue: true,
+    running: false,
+    summary: 'setup',
+    id: { clicmid: 3 },
   },
-  { success: true, id: { clicmid: 1 }, summary: 'store: ok', continue: true },
+  { success: true, continue: true, summary: 'store', id: { clicmid: 3 } },
   {
     success: true,
     continue: true,
-    taskid: 1,
-    result: { exited: false },
-    id: { clicmid: 1 },
-    summary: 'run: running',
+    running: true,
+    summary: 'exec...',
+    id: { clicmid: 3 },
   },
   {
     success: true,
-    result: {
-      exited: true,
-      exitstatus: 0,
-      time: 0.041728299,
-      out: 'output\n',
-      err: 'errors\n',
-      annotations: [],
-    },
-    id: { clicmid: 1 },
-    summary: 'run: ok(0)[0.041s]',
     continue: true,
+    running: false,
+    summary: 'exec',
+    id: { clicmid: 3 },
   },
-  { success: true, id: { clicmid: 1 }, continue: false },
+  { success: true, continue: true, summary: 'pull', id: { clicmid: 3 } },
+  {
+    success: true,
+    summary: 'result(exec)',
+    continue: true,
+    details: [
+      { type: 'status', status: 'success' },
+      { type: 'param', key: 'time', value: 0.043364763259887695 },
+      { type: 'param', key: 'exitstatus', value: 0 },
+      { type: 'out', text: 'ASDFADSFA\n' },
+      { type: 'log', text: 'asdfadsfa\n' },
+      { type: 'annotation', annotations: [] },
+    ],
+    id: { clicmid: 3 },
+  },
+  { success: true, continue: false, summary: 'finalize', id: { clicmid: 3 } },
 ];
 
 test('StaticIOShell', () => {
@@ -85,8 +92,8 @@ test('StaticIOShell', () => {
         stdout={'puts gets'}
         errlog={''}
         socket={socket}
-        code={'ruby'}
-        lang={'p gets'}
+        code={'p gets'}
+        lang={'ruby'}
         updateStdin={updateStdin}
         updateStdout={updateStdout}
         addResult={addResult}
@@ -162,8 +169,8 @@ test('StaticIOShell_Kill', () => {
         stdout={'puts gets'}
         errlog={''}
         socket={socket}
-        code={'ruby'}
-        lang={'p gets'}
+        code={'p gets'}
+        lang={'ruby'}
         updateStdin={updateStdin}
         updateStdout={updateStdout}
         addResult={addResult}
