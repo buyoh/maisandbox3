@@ -1,9 +1,9 @@
-import { QueryData } from '../../lib/type';
+import { QueryInit } from '../../lib/type';
 
 export interface TaskInterface {
   kill(): void;
   //languageIdentifier: string;
-  startAsync(data: QueryData): Promise<void>;
+  startAsync(data: QueryInit): Promise<void>;
 
   // configured(): boolean;
   // initialize(data: QueryData, jid: any): Promise<boolean>;

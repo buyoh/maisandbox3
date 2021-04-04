@@ -11,7 +11,7 @@ import {
   utilPhaseExecuteFileIO,
   utilPhasePullFiles,
 } from '../TaskUtil';
-import { QueryData, Result } from '../../../lib/type';
+import { QueryInit, Result } from '../../../lib/type';
 import { TaskInterface } from '../TaskInterface';
 import { annotateSummaryDefault } from '../SummaryAnnotator';
 import {
@@ -71,7 +71,7 @@ export class TaskCLay implements TaskInterface {
     this.handleKill?.call(this);
   }
 
-  async startAsync(data: QueryData): Promise<void> {
+  async startAsync(query: QueryInit): Promise<void> {
     let isFinal = false;
     const kits = (label: string) => {
       return {
@@ -96,8 +96,8 @@ export class TaskCLay implements TaskInterface {
       if (boxId === null) throw Error('recieved null boxId');
 
       await utilPhaseStoreFiles(kits('store'), boxId, [
-        { path: 'code.cpp', data: data.code },
-        { path: 'stdin.txt', data: data.stdin },
+        { path: 'code.cpp', data: query.info.code },
+        { path: 'stdin.txt', data: query.info.stdin },
       ]);
 
       const transpile_result = await utilPhaseExecute(

@@ -21,7 +21,6 @@ export class QueryParser {
   }
 
   handle(query: Query, resultEmitter: (data: any) => void): void {
-    const data = query.data;
     const clientJobId = query.id;
     // note: query.id は client に返す場合と、
     // QueryParser 内での Task 判定の場合のみに必要
@@ -33,7 +32,7 @@ export class QueryParser {
 
     const taskRunner = this.taskRunnerManager.getTaskRunner(clientJobId);
 
-    if (data.action == 'run') {
+    if (query.action == 'init') {
       const newTaskRunner = new TaskRunner(
         clientJobId,
         this.launcherCallbackManager,
@@ -44,13 +43,14 @@ export class QueryParser {
       );
       // registration must be before execution.
       this.taskRunnerManager.register(clientJobId, newTaskRunner);
-      newTaskRunner.run(data);
-    } else if (data.action == 'kill') {
+      newTaskRunner.init(query);
+    } else if (query.action == 'kill') {
       if (!taskRunner) {
         resultEmitter({ id: query.id, success: false });
         return;
       }
       taskRunner.kill();
     }
+    // TODO: 実行中に情報を送信する action == 'send'
   }
 }

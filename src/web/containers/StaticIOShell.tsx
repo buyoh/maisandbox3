@@ -7,7 +7,14 @@ import Button from '../components/Button';
 import * as Actions from '../stores/StaticIO/actions';
 import * as StatusActions from '../stores/Status/actions';
 import { connect } from 'react-redux';
-import { Annotation, ReportItem, Result } from '../../lib/type';
+import {
+  Annotation,
+  Query,
+  QueryInit,
+  QueryInitInfoFileStdin,
+  ReportItem,
+  Result,
+} from '../../lib/type';
 import * as CodeEditorActions from '../stores/CodeEditor/actions';
 import { ClientSocket } from '../lib/ClientSocket';
 import { ExecResult } from './StatusShell';
@@ -81,7 +88,7 @@ interface ReactStatus {
 }
 
 export class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
-  private emitter: Runnable | null; // for setd kill message
+  private emitter: ((data: Query) => void) | null; // for setd kill message
 
   constructor(props: CombinedProps) {
     super(props);
@@ -161,22 +168,26 @@ export class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
     this.props.clearResults();
     this.props.clearAnnotations();
 
+    // 非同期処理どう扱う？
     // とりあえずコンポーネント上でねじ伏せることにする
     // https://qiita.com/ryokkkke/items/d3a0375ef51448d345ed
-    const emitter = this.props.socket.generateForPostExec(this.processResult);
-    const data = {
-      action: 'run',
-      stdin: this.props.stdin,
+    this.emitter = this.props.socket.generateForPostExec(this.processResult);
+    const info = {
+      type: 'filestdin',
       code: this.props.code,
+      stdin: this.props.stdin,
+    } as QueryInitInfoFileStdin;
+    const data = {
+      action: 'init',
       lang: this.props.lang,
-    };
-    emitter({ data });
-    this.emitter = emitter;
+      info,
+    } as QueryInit;
+    this.emitter(data);
   }
 
   private handleClickKill(): void {
     if (this.emitter) {
-      this.emitter({ data: { action: 'kill' } });
+      this.emitter({ action: 'kill' });
     }
   }
 

@@ -1,5 +1,5 @@
 import { CallbackManager } from '../../lib/CallbackManager';
-import { ClientJobID, QueryData, Result } from '../../lib/type';
+import { ClientJobID, QueryInit, Result } from '../../lib/type';
 import { TaskFactory } from '../Task/TaskFactory';
 import { TaskInterface } from '../Task/TaskInterface';
 
@@ -26,9 +26,7 @@ export class TaskRunner {
     this.finalizer = finalizer;
   }
 
-  run(data: QueryData): void {
-    // TODO: runではなく、constructorへ実装？
-
+  init(data: QueryInit): void {
     const factory = new TaskFactory(
       this.launcherCallbackManager,
       (data: any) => {
@@ -37,7 +35,7 @@ export class TaskRunner {
       },
       this.finalizer
     );
-    this.task = factory.generate(data.lang);
+    this.task = factory.generate(data);
     if (!this.task) {
       // unknown language
       const res: Result = {
@@ -50,6 +48,9 @@ export class TaskRunner {
       console.warn('unknown language: ', data.lang);
       return;
     }
+    // TODO: data の持ち方を考える
+    // 現状このデータをフィールドに保持する必要が無い
+    // 以下を別関数に分離するためだけにdataを保持するかどうか
     this.task.startAsync(data);
   }
 
