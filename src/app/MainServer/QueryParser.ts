@@ -1,5 +1,5 @@
 import CallbackManager from '../../lib/CallbackManager';
-import { Query } from '../../lib/type';
+import { Query } from '../../lib/QueryTypes';
 import { TaskRunner } from './TaskRunner';
 import { TaskRunnerManager } from './TaskRunnerManager';
 

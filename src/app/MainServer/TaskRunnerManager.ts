@@ -1,4 +1,4 @@
-import { ClientJobID } from '../../lib/type';
+import { ClientJobID } from '../../lib/IDTypes';
 import { TaskRunner } from './TaskRunner';
 
 function keyFromClientJobID(clientJobId: ClientJobID) {

@@ -10,14 +10,15 @@ import {
   mapFilesFromPullResult,
   createReportItemsFromExecResult,
 } from '../TaskUtil';
-import { QueryInit, Annotation, Result } from '../../../lib/type';
+import { QueryInit } from '../../../lib/QueryTypes';
+import { Annotation, Result } from '../../../lib/ResultTypes';
 import { TaskInterface } from '../TaskInterface';
 import { annotateSummaryDefault } from '../SummaryAnnotator';
 import {
   LauncherResult,
   LauncherSubResultOfExec,
   LauncherSubResultOfPull,
-} from '../../Launcher/types';
+} from '../../Launcher/LauncherType';
 
 function annotateFromStderr(stderr: string): Annotation[] {
   if (!stderr) return [];

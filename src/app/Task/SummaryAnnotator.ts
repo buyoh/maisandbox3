@@ -1,4 +1,7 @@
-import { LauncherResult, LauncherSubResultOfExec } from '../Launcher/types';
+import {
+  LauncherResult,
+  LauncherSubResultOfExec,
+} from '../Launcher/LauncherType';
 
 export function annotateSummaryDefault(
   result: LauncherResult,

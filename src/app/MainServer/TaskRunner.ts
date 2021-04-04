@@ -1,5 +1,7 @@
 import { CallbackManager } from '../../lib/CallbackManager';
-import { ClientJobID, QueryInit, Result } from '../../lib/type';
+import { QueryInit } from '../../lib/QueryTypes';
+import { Result } from '../../lib/ResultTypes';
+import { ClientJobID } from '../../lib/IDTypes';
 import { TaskFactory } from '../Task/TaskFactory';
 import { TaskInterface } from '../Task/TaskInterface';
 

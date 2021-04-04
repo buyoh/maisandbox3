@@ -3,7 +3,6 @@ import Http from 'http';
 
 import CallbackManager from '../../lib/CallbackManager';
 import { QueryParser } from './QueryParser';
-import { Query } from '../../lib/type';
 import { TaskRunnerManager } from './TaskRunnerManager';
 
 export function setupSocketIO(httpServer: Http.Server): SocketIO.Server {
@@ -30,8 +29,7 @@ export function setupSocketIOAndBindHandler(
     });
 
     socket.on('c2e_Exec', (raw_data) => {
-      const query: Query = raw_data;
-      queryParser.handle(query, (data) => {
+      queryParser.handle(raw_data, (data) => {
         // callback to client
         socket.emit('s2c_ResultExec', data);
       });

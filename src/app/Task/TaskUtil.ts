@@ -1,11 +1,11 @@
 import CallbackManager from '../../lib/CallbackManager';
-import { ReportItem } from '../../lib/type';
+import { ReportItem } from '../../lib/ResultTypes';
 import {
   LauncherResult,
   LauncherSubResultOfExec,
   LauncherSubResultOfPull,
   LauncherSubResultOfSetupBox,
-} from '../Launcher/types';
+} from '../Launcher/LauncherType';
 
 export type Runnable = () => void;
 export type ResultEmitter = (data: LauncherResult) => void;

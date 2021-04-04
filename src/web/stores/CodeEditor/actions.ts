@@ -1,6 +1,6 @@
 import { CodeEditorActionTypes } from './types';
 import * as Types from './types';
-import { Annotation } from '../../../lib/type';
+import { Annotation } from '../../../lib/ResultTypes';
 
 export function updateCode(code: string): CodeEditorActionTypes {
   return {

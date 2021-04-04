@@ -11,13 +11,14 @@ import {
   utilPhaseExecuteFileIO,
   utilPhasePullFiles,
 } from '../TaskUtil';
-import { QueryInit, Result } from '../../../lib/type';
+import { QueryInit } from '../../../lib/QueryTypes';
+import { Result } from '../../../lib/ResultTypes';
 import { TaskInterface } from '../TaskInterface';
 import { annotateSummaryDefault } from '../SummaryAnnotator';
 import {
   LauncherSubResultOfExec,
   LauncherSubResultOfPull,
-} from '../../Launcher/types';
+} from '../../Launcher/LauncherType';
 
 function createReport(
   label: string,

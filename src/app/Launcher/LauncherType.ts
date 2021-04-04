@@ -1,4 +1,4 @@
-import { ClientJobID, LauncherQueryID } from '../../lib/type';
+import { ClientJobID, LauncherQueryID } from '../../lib/IDTypes';
 
 // note: 現在の実装はCallbackManagerをそのままTaskまで渡すので、
 // Actionは使う場所が無い

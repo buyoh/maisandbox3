@@ -7,14 +7,8 @@ import Button from '../components/Button';
 import * as Actions from '../stores/StaticIO/actions';
 import * as StatusActions from '../stores/Status/actions';
 import { connect } from 'react-redux';
-import {
-  Annotation,
-  Query,
-  QueryInit,
-  QueryInitInfoFileStdin,
-  ReportItem,
-  Result,
-} from '../../lib/type';
+import { Query, QueryInit, QueryInitInfoFileStdin } from '../../lib/QueryTypes';
+import { Annotation, ReportItem, Result } from '../../lib/ResultTypes';
 import * as CodeEditorActions from '../stores/CodeEditor/actions';
 import { ClientSocket } from '../lib/ClientSocket';
 import { ExecResult } from './StatusShell';
