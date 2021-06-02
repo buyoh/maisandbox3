@@ -10,7 +10,7 @@ import {
   createReportItemsFromExecResult,
 } from '../TaskUtil';
 import { QueryInitInfo, QueryInitInfoFileStdin } from '../../../lib/QueryTypes';
-import {  Result } from '../../../lib/ResultTypes';
+import { Result } from '../../../lib/ResultTypes';
 import { TaskInterface } from '../TaskInterface';
 import CallbackManager from '../../../lib/CallbackManager';
 import { annotateSummaryDefault } from '../SummaryAnnotator';
@@ -18,7 +18,6 @@ import {
   LauncherResult,
   LauncherSubResultOfExec,
 } from '../../Launcher/LauncherType';
-
 
 export class TaskRuby implements TaskInterface {
   private launcherCallbackManager: CallbackManager;
