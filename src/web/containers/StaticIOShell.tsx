@@ -13,8 +13,6 @@ import * as CodeEditorActions from '../stores/CodeEditor/actions';
 import { ClientSocket } from '../lib/ClientSocket';
 import { ExecResult } from './StatusShell';
 
-type Runnable = (data: any) => void;
-
 function determineResultColor(data: Result): string {
   let summaryColor = 'light';
   if (!data.running) {

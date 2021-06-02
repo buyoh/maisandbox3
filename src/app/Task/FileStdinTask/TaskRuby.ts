@@ -9,7 +9,7 @@ import {
   mapFilesFromPullResult,
   createReportItemsFromExecResult,
 } from '../TaskUtil';
-import { QueryInit } from '../../../lib/QueryTypes';
+import { QueryInitInfo, QueryInitInfoFileStdin } from '../../../lib/QueryTypes';
 import { Annotation, Result } from '../../../lib/ResultTypes';
 import { TaskInterface } from '../TaskInterface';
 import CallbackManager from '../../../lib/CallbackManager';
@@ -58,7 +58,8 @@ export class TaskRuby implements TaskInterface {
     this.handleKill?.call(this);
   }
 
-  async startAsync(data: QueryInit): Promise<void> {
+  async startAsync(infog: QueryInitInfo): Promise<void> {
+    const info = infog as QueryInitInfoFileStdin;
     let isFinal = false;
     const defaultKits = (label: string) => {
       return {
@@ -87,8 +88,8 @@ export class TaskRuby implements TaskInterface {
       if (boxId === null) throw Error('recieved null boxId');
 
       await utilPhaseStoreFiles(defaultKits('store'), boxId, [
-        { path: 'code.rb', data: data.info.code },
-        { path: 'stdin.txt', data: data.info.stdin },
+        { path: 'code.rb', data: info.code },
+        { path: 'stdin.txt', data: info.stdin },
       ]);
 
       const exec_result = await utilPhaseExecuteFileIO(

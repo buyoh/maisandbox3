@@ -1,9 +1,9 @@
-import { QueryInit } from '../../lib/QueryTypes';
+import { QueryInitInfo } from '../../lib/QueryTypes';
 
 export interface TaskInterface {
   kill(): void;
   //languageIdentifier: string;
-  startAsync(data: QueryInit): Promise<void>;
+  startAsync(data: QueryInitInfo): Promise<void>;
 
   // configured(): boolean;
   // initialize(data: QueryData, jid: any): Promise<boolean>;

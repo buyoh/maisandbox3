@@ -1,4 +1,3 @@
-import SocketIOClient from 'socket.io-client';
 import { CallbackManager } from '../../lib/CallbackManager';
 
 export interface SocketInterface {

@@ -53,7 +53,7 @@ export class TaskRunner {
     // TODO: data の持ち方を考える
     // 現状このデータをフィールドに保持する必要が無い
     // 以下を別関数に分離するためだけにdataを保持するかどうか
-    this.task.startAsync(data);
+    this.task.startAsync(data.info);
   }
 
   kill(): void {

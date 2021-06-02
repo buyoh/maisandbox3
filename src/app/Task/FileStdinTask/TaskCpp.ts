@@ -10,7 +10,7 @@ import {
   mapFilesFromPullResult,
   createReportItemsFromExecResult,
 } from '../TaskUtil';
-import { QueryInit } from '../../../lib/QueryTypes';
+import { QueryInitInfo, QueryInitInfoFileStdin } from '../../../lib/QueryTypes';
 import { Annotation, Result } from '../../../lib/ResultTypes';
 import { TaskInterface } from '../TaskInterface';
 import { annotateSummaryDefault } from '../SummaryAnnotator';
@@ -95,7 +95,8 @@ export class TaskCpp implements TaskInterface {
     this.handleKill?.call(this);
   }
 
-  async startAsync(query: QueryInit): Promise<void> {
+  async startAsync(infog: QueryInitInfo): Promise<void> {
+    const info = infog as QueryInitInfoFileStdin;
     let isFinal = false;
     const defaultKits = (label: string) => {
       return {
@@ -120,8 +121,8 @@ export class TaskCpp implements TaskInterface {
       if (boxId === null) throw Error('recieved null boxId');
 
       await utilPhaseStoreFiles(defaultKits('store'), boxId, [
-        { path: 'code.cpp', data: query.info.code },
-        { path: 'stdin.txt', data: query.info.stdin },
+        { path: 'code.cpp', data: info.code },
+        { path: 'stdin.txt', data: info.stdin },
       ]);
 
       {
