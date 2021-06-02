@@ -160,7 +160,7 @@ export class TaskCpp implements TaskInterface {
             pull_build_result,
             './stdout.txt',
             './stderr.txt',
-            false,
+            true,
             isFinal
           );
           if (res) this.resultEmitter(res);
@@ -194,7 +194,7 @@ export class TaskCpp implements TaskInterface {
             pull_exec_result,
             './stdout.txt',
             './stderr.txt',
-            true,
+            false,
             isFinal
           );
           if (res) this.resultEmitter(res);
