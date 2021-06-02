@@ -14,7 +14,13 @@ export interface QueryInitInfoFileStdin {
   stdin: string;
 }
 
-export type QueryInitInfo = QueryInitInfoFileStdin;
+export interface QueryInitInfoSingleTask {
+  type: 'singletask';
+  task: string;
+  code?: string;
+}
+
+export type QueryInitInfo = QueryInitInfoFileStdin | QueryInitInfoSingleTask;
 
 interface QueryAbstruct {
   id?: ClientJobID;
