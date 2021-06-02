@@ -102,7 +102,7 @@ export async function utilPhasePullFiles(
   }
   kits.resultEmitter(res_data);
   // return res_data.result as LauncherSubResultOfPull;
-  return (res_data as any) as LauncherSubResultOfPull; // TODO: Ruby 側の型が間違っている。取り敢えず動かすだけ。要修正。
+  return res_data as any as LauncherSubResultOfPull; // TODO: Ruby 側の型が間違っている。取り敢えず動かすだけ。要修正。
 }
 
 export async function utilPhaseExecute(

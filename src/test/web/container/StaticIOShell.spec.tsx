@@ -107,9 +107,8 @@ test('StaticIOShell', () => {
     expect(0).toEqual(1);
     return;
   }
-  const h: ReturnType<
-    StaticIOShell['forTestHandler']
-  > = component.root.instance.forTestHandler();
+  const h: ReturnType<StaticIOShell['forTestHandler']> =
+    component.root.instance.forTestHandler();
 
   //
 
@@ -184,9 +183,8 @@ test('StaticIOShell_Kill', () => {
     expect(0).toEqual(1);
     return;
   }
-  const h: ReturnType<
-    StaticIOShell['forTestHandler']
-  > = component.root.instance.forTestHandler();
+  const h: ReturnType<StaticIOShell['forTestHandler']> =
+    component.root.instance.forTestHandler();
 
   //
 
