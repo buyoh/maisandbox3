@@ -17,7 +17,11 @@ function ConvertReportItemToElement(item: ReportItem): JSX.Element {
         className={[styles.item, styles.item_text].join(' ')}
       >
         <div className={[styles.title].join(' ')}>{item.title}</div>
-        <textarea className={[styles.text].join(' ')} value={item.text} />
+        <textarea
+          className={[styles.text].join(' ')}
+          value={item.text}
+          rows={8}
+        />
       </div>
     );
   } else if (item.type === 'param') {
@@ -46,7 +50,11 @@ class StatusDetail extends React.Component<
   }
 
   render(): JSX.Element {
-    return <div>{this.props.details.map(ConvertReportItemToElement)}</div>;
+    return (
+      <div className={[styles.itemlist].join(' ')}>
+        {this.props.details.map(ConvertReportItemToElement)}
+      </div>
+    );
   }
 }
 

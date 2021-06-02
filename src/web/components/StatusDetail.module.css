@@ -1,25 +1,36 @@
-.item {
+.itemlist {
+  display: flex;
+  flex-direction: row;
   margin-bottom: 0.5em;
+  flex-wrap: wrap;
+}
+
+.item {
+  margin: 0.5em;
 }
 
 .item.item_text {
-
+  flex: 0 0 90%;
+  display: flex;
+  flex-direction: column;
 }
 .item.item_text .title {
-
+  flex: 0;
 }
 .item.item_text .text {
+  flex: 0;
   display: block;
-  resize: horizontal;
+  resize:vertical;
 }
 
 .item.item_param { 
-
+  flex: 0;
+  flex-direction: row;
 }
 
 .item.item_param .key {
-
+  /* flex: 0; */
 }
 .item.item_param .value {
-  
+  /* flex: 1; */
 }
