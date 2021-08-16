@@ -17,7 +17,7 @@
     "lint-fix": "prettier --write 'src/**/*.ts' 'src/**/*.tsx'"
   },
   "engines": {
-    "node": "14.x"
+    "node": ">=14"
   },
   "dependencies": {
     "@types/react-redux": "^7.1.9",
