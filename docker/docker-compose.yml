@@ -2,7 +2,7 @@ version: "3"
 services:
   web:
     # container_name: redmine-dk
-    build: ./base  # 使い回す
+    build: ./web
     restart: always
     user: 1001:1001
     ports:
