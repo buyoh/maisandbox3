@@ -20,6 +20,7 @@ function ConvertReportItemToElement(item: ReportItem): JSX.Element {
         <textarea
           className={[styles.text].join(' ')}
           value={item.text}
+          readOnly
           rows={8}
         />
       </div>
