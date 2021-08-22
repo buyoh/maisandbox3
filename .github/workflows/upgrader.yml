@@ -36,6 +36,8 @@ jobs:
         git submodule update
     - name: upgrade packages (light)
       run: |
+        npm i -g npm-check-updates
+        npx npm-check-updates -u -t patch
         yarn upgrade
     - name: presubmit
       id: presubmit
