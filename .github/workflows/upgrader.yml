@@ -38,6 +38,7 @@ jobs:
       run: |
         npm i -g npm-check-updates
         npx npm-check-updates -u -t patch
+        yarn install
         yarn upgrade
     - name: presubmit
       id: presubmit
