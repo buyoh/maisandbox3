@@ -2,7 +2,7 @@ import ChildProcess from 'child_process';
 import Config from '../../lib/Config';
 import {
   CallbackClose,
-  CallbackRecieve,
+  CallbackReceive,
   ISocket,
 } from './LauncherSocketInterface';
 
@@ -12,15 +12,15 @@ export class ChildProcessLauncherSocket implements ISocket {
 
   private callbacks: {
     close: Array<CallbackClose>;
-    recieve: Array<CallbackRecieve>;
-  }; // close, recieve
+    receive: Array<CallbackReceive>;
+  }; // close, receive
 
   constructor() {
     this.process = null;
     this.bufferStdout = '';
     this.callbacks = {
       close: [],
-      recieve: [],
+      receive: [],
     };
   }
 
@@ -31,32 +31,32 @@ export class ChildProcessLauncherSocket implements ISocket {
     for (const c of this.callbacks.close) c(code, signal);
   }
 
-  private handleRecieve(str: string): void {
+  private handleReceive(str: string): void {
     const li = str.split('\n');
     if (li.length === 1) {
       // no breaks
       this.bufferStdout += li[0];
     } else {
       const head = li.shift() || ''; // always string, not undefined
-      this.handleRecieveLine(this.bufferStdout + head);
+      this.handleReceiveLine(this.bufferStdout + head);
       const tail = li.pop() || ''; // always string, not undefined
       this.bufferStdout = tail;
       for (const line of li) {
-        this.handleRecieveLine(line);
+        this.handleReceiveLine(line);
       }
     }
   }
 
-  private handleRecieveLine(line: string): void {
+  private handleReceiveLine(line: string): void {
     let j = null;
     try {
       j = JSON.parse(line);
     } catch (e) {
       // TODO: rescue exception
-      console.error('LauncherSocket.handleRecieveLine: failed parse json', e);
+      console.error('LauncherSocket.handleReceiveLine: failed parse json', e);
       return;
     }
-    for (const c of this.callbacks['recieve']) c(j);
+    for (const c of this.callbacks['receive']) c(j);
   }
 
   private writeChildProcess(str: string): void {
@@ -86,7 +86,7 @@ export class ChildProcessLauncherSocket implements ISocket {
     });
     p.stdout.on('data', (data) => {
       // buffstdout.write(data.toString());
-      this.handleRecieve(data.toString());
+      this.handleReceive(data.toString());
     });
   }
 
@@ -111,7 +111,7 @@ export class ChildProcessLauncherSocket implements ISocket {
     this.callbacks['close'].push(callback);
   }
 
-  onRecieve(callback: CallbackRecieve): void {
-    this.callbacks['recieve'].push(callback);
+  onReceive(callback: CallbackReceive): void {
+    this.callbacks['receive'].push(callback);
   }
 }

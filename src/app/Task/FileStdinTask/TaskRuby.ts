@@ -85,7 +85,7 @@ export class TaskRuby implements TaskInterface {
     let boxId: string | null = null;
     try {
       boxId = await utilPhaseSetupBox(defaultKits('setup'));
-      if (boxId === null) throw Error('recieved null boxId');
+      if (boxId === null) throw Error('received null boxId');
 
       await utilPhaseStoreFiles(defaultKits('store'), boxId, [
         { path: 'code.rb', data: info.code },

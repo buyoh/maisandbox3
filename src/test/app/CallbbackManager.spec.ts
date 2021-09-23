@@ -8,7 +8,7 @@ test('simple post', (done) => {
       if (myCallback) myCallback(data);
     }, data.delay || 0);
   });
-  myCallback = cm.getRecieveCallback();
+  myCallback = cm.getReceiveCallback();
 
   cm.post({ msg: 100, delay: 0 }, (data) => {
     expect(data.msg).toEqual(100); // keep data
@@ -25,7 +25,7 @@ test('twice post', (done) => {
       if (myCallback) myCallback(data);
     }, data.delay || 0);
   });
-  myCallback = cm.getRecieveCallback();
+  myCallback = cm.getReceiveCallback();
 
   let counter = 0;
   cm.post({ msg: 100, delay: 10 }, (data) => {
@@ -45,7 +45,7 @@ test('twice post cross', (done) => {
       if (myCallback) myCallback(data);
     }, data.delay || 0);
   });
-  myCallback = cm.getRecieveCallback();
+  myCallback = cm.getReceiveCallback();
 
   let counter = 0;
   cm.post({ msg: 100, delay: 20 }, (data) => {
@@ -65,7 +65,7 @@ test('simple promise post', (done) => {
       if (myCallback) myCallback(data);
     }, data.delay || 0);
   });
-  myCallback = cm.getRecieveCallback();
+  myCallback = cm.getReceiveCallback();
 
   (async () => {
     const d1 = await cm.postp({ msg: 100, delay: 0 });
@@ -89,7 +89,7 @@ test('post2, recv1', (done) => {
         if (myCallback) myCallback({ sum, id: data.id });
       }, data.delay || 0);
   });
-  myCallback = cm.getRecieveCallback();
+  myCallback = cm.getReceiveCallback();
 
   const poster = cm.multipost((data) => {
     expect(sum).toEqual(3); // call sender successfully
@@ -118,7 +118,7 @@ test('post2, recv2', (done) => {
       }, 20);
     }
   });
-  myCallback = cm.getRecieveCallback();
+  myCallback = cm.getReceiveCallback();
 
   let cntCallback = 0;
   const poster = cm.multipost((data) => {

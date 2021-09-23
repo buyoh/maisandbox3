@@ -2,7 +2,7 @@ import { CallbackManager } from '../../lib/CallbackManager';
 
 export interface SocketInterface {
   emit: (data: any) => void;
-  onRecieve: (handler: (data: any) => void) => void;
+  onReceive: (handler: (data: any) => void) => void;
 }
 
 export class ClientSocket {
@@ -16,12 +16,12 @@ export class ClientSocket {
       this.socket.emit(data);
     }, 'clicmid');
 
-    this.socket.onRecieve((data: any) => {
-      this.callbackManager.handleRecieve(data, data.continue);
+    this.socket.onReceive((data: any) => {
+      this.callbackManager.handleReceive(data, data.continue);
     });
   }
 
-  generateForPostExec(recieve: (data: any) => void): (data: any) => void {
-    return this.callbackManager.multipost(recieve);
+  generateForPostExec(receive: (data: any) => void): (data: any) => void {
+    return this.callbackManager.multipost(receive);
   }
 }

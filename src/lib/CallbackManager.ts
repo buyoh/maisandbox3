@@ -1,6 +1,6 @@
 // usage:
 // var cm = new CallbackManager((query) => {
-//   nanika.fetch(cm.getRecieveCallback());
+//   nanika.fetch(cm.getReceiveCallback());
 // });
 // // task1
 // cm.post(myQuery, (result) => { });
@@ -63,19 +63,19 @@ export class CallbackManager {
 
   // continu: もう一度このcallbackを呼ぶ場合はtrue
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  handleRecieve(data: any, continu = false): void {
+  handleReceive(data: any, continu = false): void {
     if (!data) {
-      console.warn('CallbackManager::handleRecieve: null recieved. reject.');
+      console.warn('CallbackManager::handleReceive: null received. reject.');
       return;
     }
     if (!data.id) {
-      console.warn('CallbackManager::handleRecieve: id not found. reject.');
+      console.warn('CallbackManager::handleReceive: id not found. reject.');
       return;
     }
     const cbmid = data.id[this.identifier];
     if (!cbmid) {
       console.warn(
-        'CallbackManager::handleRecieve: id.' +
+        'CallbackManager::handleReceive: id.' +
           this.identifier +
           ' not found. reject.'
       );
@@ -85,7 +85,7 @@ export class CallbackManager {
     const cb = this.callbacks[cbmid];
     if (!cb) {
       console.warn(
-        'CallbackManager::handleRecieve: unknown id.' +
+        'CallbackManager::handleReceive: unknown id.' +
           this.identifier +
           '. reject.'
       );
@@ -97,8 +97,8 @@ export class CallbackManager {
     cb.call(null, data);
   }
 
-  getRecieveCallback(): (data: any, continu?: boolean) => void {
-    return this.handleRecieve.bind(this);
+  getReceiveCallback(): (data: any, continu?: boolean) => void {
+    return this.handleReceive.bind(this);
   }
 }
 

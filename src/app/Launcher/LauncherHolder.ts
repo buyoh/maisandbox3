@@ -23,8 +23,8 @@ export default class LauncherHolder {
           this.triggerRestart();
         }, this.restartMs);
     });
-    launcher.onRecieve((data: any) => {
-      this.callbackManager.handleRecieve(data, !!data.continue);
+    launcher.onReceive((data: any) => {
+      this.callbackManager.handleReceive(data, !!data.continue);
     });
     return launcher;
   }

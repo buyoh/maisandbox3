@@ -1,6 +1,6 @@
 import {
   CallbackClose,
-  CallbackRecieve,
+  CallbackReceive,
   ISocket,
 } from '../../../app/Launcher/LauncherSocketInterface';
 import LauncherHolder from '../../../app/Launcher/LauncherHolder';
@@ -11,7 +11,7 @@ class TestSocket implements ISocket {
   isAliveMock: jest.Mock<void, any>;
   sendMock: jest.Mock<void, any>;
   onCloseCallback?: CallbackClose;
-  onRecieveCallback?: CallbackRecieve;
+  onReceiveCallback?: CallbackReceive;
   alive: boolean;
 
   constructor() {
@@ -36,14 +36,14 @@ class TestSocket implements ISocket {
   }
   send(data: unknown): boolean {
     this.sendMock(data);
-    setTimeout(() => this.onRecieveCallback?.(data as any), 0);
+    setTimeout(() => this.onReceiveCallback?.(data as any), 0);
     return true;
   }
   onClose(callback: CallbackClose): void {
     this.onCloseCallback = callback;
   }
-  onRecieve(callback: CallbackRecieve): void {
-    this.onRecieveCallback = callback;
+  onReceive(callback: CallbackReceive): void {
+    this.onReceiveCallback = callback;
   }
 }
 

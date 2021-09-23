@@ -8,22 +8,22 @@ import { connect } from 'react-redux';
 class Socket implements SocketInterface {
   private socket: SocketIOClient.Socket;
   private emitEvent: string;
-  private recieveEvent: string;
+  private receiveEvent: string;
 
   constructor(
     socket: SocketIOClient.Socket,
     emitEvent: string,
-    recieveEvent: string
+    receiveEvent: string
   ) {
     this.socket = socket;
     this.emitEvent = emitEvent;
-    this.recieveEvent = recieveEvent;
+    this.receiveEvent = receiveEvent;
   }
   emit(data: any): void {
     this.socket.emit(this.emitEvent, data);
   }
-  onRecieve(handler: (data: any) => void): void {
-    this.socket.on(this.recieveEvent, handler);
+  onReceive(handler: (data: any) => void): void {
+    this.socket.on(this.receiveEvent, handler);
   }
 }
 

@@ -2,7 +2,7 @@ export type CallbackClose = (
   code: number | null,
   signal: NodeJS.Signals | null
 ) => void;
-export type CallbackRecieve = (data: any) => void;
+export type CallbackReceive = (data: any) => void;
 
 export interface ISocket {
   start(): void;
@@ -10,5 +10,5 @@ export interface ISocket {
   isAlive(): boolean;
   send(data: unknown): boolean;
   onClose(callback: CallbackClose): void;
-  onRecieve(callback: CallbackRecieve): void;
+  onReceive(callback: CallbackReceive): void;
 }

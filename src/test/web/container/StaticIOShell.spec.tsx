@@ -7,24 +7,24 @@ import { ClientSocket, SocketInterface } from '../../../web/lib/ClientSocket';
 
 class SocketMock implements SocketInterface {
   private emitMock: jest.Mock;
-  private recieveHandler: (handler: (data: any) => void) => void;
+  private receiveHandler: (handler: (data: any) => void) => void;
 
   constructor(
     emitMock: jest.Mock,
-    recieveMock: (handler: (data: any) => void) => void
+    receiveMock: (handler: (data: any) => void) => void
   ) {
     this.emitMock = emitMock;
-    this.recieveHandler = recieveMock;
+    this.receiveHandler = receiveMock;
   }
   emit(data: any): void {
     this.emitMock(data);
   }
-  onRecieve(handler: (data: any) => void): void {
-    this.recieveHandler(handler);
+  onReceive(handler: (data: any) => void): void {
+    this.receiveHandler(handler);
   }
 }
 
-const exampleRecievedStream = [
+const exampleReceivedStream = [
   {
     success: true,
     continue: true,
@@ -69,12 +69,12 @@ test('StaticIOShell', () => {
   let emulateResponce: (data: any) => void = () => {
     expect(true).toEqual(false);
   };
-  const onRecieve = (h: (data: any) => void) => {
+  const onReceive = (h: (data: any) => void) => {
     emulateResponce = h;
   };
   const emitSocket = jest.fn();
 
-  const socket = new ClientSocket(new SocketMock(emitSocket, onRecieve));
+  const socket = new ClientSocket(new SocketMock(emitSocket, onReceive));
   const updateStdin = jest.fn();
   const updateStdout = jest.fn();
   const activateResult = jest.fn();
@@ -124,7 +124,7 @@ test('StaticIOShell', () => {
   expect(emitSocket.mock.calls[0]).toMatchSnapshot();
   const emittedData = emitSocket.mock.calls[0][0];
   const id = emittedData.id;
-  exampleRecievedStream.forEach((data) => {
+  exampleReceivedStream.forEach((data) => {
     data.id = { ...id };
     emulateResponce(data);
     if (!component) throw new Error();
@@ -145,12 +145,12 @@ test('StaticIOShell_Kill', () => {
   let emulateResponce: (data: any) => void = () => {
     expect(true).toEqual(false);
   };
-  const onRecieve = (h: (data: any) => void) => {
+  const onReceive = (h: (data: any) => void) => {
     emulateResponce = h;
   };
   const emitSocket = jest.fn();
 
-  const socket = new ClientSocket(new SocketMock(emitSocket, onRecieve));
+  const socket = new ClientSocket(new SocketMock(emitSocket, onReceive));
   const updateStdin = jest.fn();
   const updateStdout = jest.fn();
   const activateResult = jest.fn();
@@ -188,12 +188,12 @@ test('StaticIOShell_Kill', () => {
 
   //
 
-  for (let killIdx = 0; killIdx < exampleRecievedStream.length; ++killIdx) {
+  for (let killIdx = 0; killIdx < exampleReceivedStream.length; ++killIdx) {
     emitSocket.mock.calls.splice(0);
     h.handleClickRun();
     const emittedData = emitSocket.mock.calls[0][0];
     const id = emittedData.id;
-    exampleRecievedStream.forEach((data, idx) => {
+    exampleReceivedStream.forEach((data, idx) => {
       if (idx > killIdx) return; // kill したら送ってこない
 
       data.id = { ...id };

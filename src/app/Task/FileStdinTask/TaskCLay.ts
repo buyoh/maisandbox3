@@ -95,7 +95,7 @@ export class TaskCLay implements TaskInterface {
     let boxId: string | null = null;
     try {
       boxId = await utilPhaseSetupBox(kits('setup'));
-      if (boxId === null) throw Error('recieved null boxId');
+      if (boxId === null) throw Error('received null boxId');
 
       await utilPhaseStoreFiles(kits('store'), boxId, [
         { path: 'code.cpp', data: info.code },
