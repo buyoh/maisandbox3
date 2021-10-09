@@ -47,12 +47,14 @@ yarn -- help
 launch as production with docker-compose as independent process
 
 ```
+yarn install
 sudo service/install-service.sh
 ```
 
 if you want to upgrade when already installed,
 
 ```
+yarn install
 sudo service/upgrade-service.sh
 ```
 

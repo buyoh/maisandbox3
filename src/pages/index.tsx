@@ -38,6 +38,7 @@ export default class Index extends React.Component<{}, {}> {
             <StatusShell />
           </div>
         </main>
+        <div style={{ height: '75vh' }}></div>
       </div>
     );
   }
