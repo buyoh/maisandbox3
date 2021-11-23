@@ -18,7 +18,7 @@
   flex: 0;
 }
 .item.item_text .text {
-  flex: 0;
+  flex: 1;
   display: block;
   resize:vertical;
 }
