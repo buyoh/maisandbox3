@@ -1,0 +1,63 @@
+name: upgrade-dependency-packages-minor
+
+# yarn upgrade
+# Upgrade yarn.lock
+# cf. yarn upgrade --latest
+#
+# bundle update
+# Upgrade Gemfile.lock
+
+on:
+  schedule:
+    - cron: 0 12 * * 5 # At 12:00 on Friday.
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: develop
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: "2.7"
+      - name: Please tell me who you are.
+        run: |
+          git config --global user.email "mai@ukibune.net"
+          git config --global user.name "mai bot-worker"
+      - name: install tools
+        run: |
+          sudo apt update
+          gem install bundler
+      - name: upgrade packages (light)
+        run: |
+          bundle update
+      - name: presubmit
+        id: presubmit
+        run: |
+          ./presubmit.sh
+      - name: commit phase
+        if: "${{ steps.presubmit.conclusion != 'skip' }}"
+        run: |
+          if [ `git diff | wc -l` -ne 0 ] ; then
+          git add Gemfile Gemfile.lock
+          git commit -m 'upgrade by Github Actions'
+          fi
+      - name: commit phase2
+        if: "${{ steps.presubmit.conclusion != 'skip' }}"
+        run: |
+          if [ `git diff | wc -l` -ne 0 ] ; then
+          git add .
+          git commit -m 'modification due to upgrade by Github Actions'
+          fi
+      - name: push
+        if: "${{ steps.presubmit.conclusion == 'success' }}"
+        run: |
+          git push origin || :
+      - name: Create Pull Request
+        if: "${{ steps.presubmit.conclusion == 'failure' }}"
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          author: mai bot-worker <mai@ukibune.net>

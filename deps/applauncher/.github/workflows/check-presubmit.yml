@@ -1,0 +1,39 @@
+name: check-presubmit
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/setup-ruby@v1
+        with:
+          ruby-version: "2.7"
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Please tell me who you are.
+        run: |
+          git config --global user.email "mai@ukibune.net"
+          git config --global user.name "mai bot-worker"
+      - name: install tools
+        run: |
+          sudo apt update
+          gem install bundler
+      - name: install packages
+        run: |
+          bundle install
+      - name: presubmit
+        run: |
+          ./presubmit.sh
+      - name: commit phase
+        run: |
+          if [ `git diff | wc -l` -ne 0 ] ; then
+          echo detect diff
+          git add .
+          git commit -m 'lint-fix by Github Actions'
+          fi
+      - name: push
+        run: |
+          git push origin || : # tag checkout 時に detached となり失敗する為

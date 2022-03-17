@@ -1,0 +1,17 @@
+class IO
+  def self.pipe: () -> [IO, IO]
+end
+
+class Thread
+  # wrote in src/lib/executor.rb
+  # same as Thread.start for RBS workaround.
+  def self.start3: (Proc p) -> Thread
+end
+
+class Object
+  def call: (*untyped) -> untyped
+end
+
+module Kernel
+  def trap: (Symbol) { () -> untyped} -> untyped
+end
