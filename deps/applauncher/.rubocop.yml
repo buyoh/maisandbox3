@@ -1,0 +1,100 @@
+AllCops:
+  TargetRubyVersion: 2.7
+  Exclude:
+    - "var/**/*"
+    - "tmp/**/*"
+
+AsciiComments:
+  Enabled: false
+
+Style/StderrPuts:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 60
+  Exclude:
+    - "src/app/launcher/al_task_exec.rb" # TODO
+    - "src/launcher.rb"
+    - "spec/large/**/*.rb"
+
+Metrics/BlockLength:
+  Exclude:
+    - "src/launcher.rb"
+    - "spec/**/*.rb"
+
+Style/Documentation:
+  Enabled: false
+
+tyle/OptionalBooleanParameter:
+  Enabled: false
+
+# https://docs.rubocop.org/rubocop/cops_metrics.html
+Metrics/AbcSize:
+  Max: 33
+  Exclude:
+    - "src/launcher.rb"
+    - "src/lib/executor.rb" # TODO
+    - "src/app/launcher/al_task_exec.rb" # TODO
+    - "src/app/launcher/al_task_exec_fileio.rb" # TODO
+
+Metrics/CyclomaticComplexity:
+  Max: 8
+  Exclude:
+    - "src/launcher.rb"
+    - "src/lib/executor.rb" # TODO
+    - "src/app/launcher/al_task_exec.rb" # TODO
+    - "src/app/launcher/al_task_exec_fileio.rb" # TODO
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - "src/launcher.rb"
+    - "src/lib/executor.rb" # TODO
+    - "src/app/launcher/al_task_exec.rb" # TODO
+    - "src/app/launcher/al_task_exec_fileio.rb" # TODO
+
+Style/ClassVars:
+  Enabled: false
+
+Lint/EmptyWhen:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Exclude:
+    - "src/lib/executor.rb"
+
+Layout/SpaceBeforeBrackets: # (new in 1.7)
+  Enabled: true
+Lint/AmbiguousAssignment: # (new in 1.7)
+  Enabled: true
+Lint/DuplicateBranch: # (new in 1.3)
+  Enabled: true
+Lint/DuplicateRegexpCharacterClassElement: # (new in 1.1)
+  Enabled: true
+Lint/EmptyBlock: # (new in 1.1)
+  Enabled: true
+Lint/EmptyClass: # (new in 1.3)
+  Enabled: true
+Lint/NoReturnInBeginEndBlocks: # (new in 1.2)
+  Enabled: true
+Lint/ToEnumArguments: # (new in 1.1)
+  Enabled: true
+Lint/UnexpectedBlockArity: # (new in 1.5)
+  Enabled: true
+Lint/UnmodifiedReduceAccumulator: # (new in 1.1)
+  Enabled: true
+Style/ArgumentsForwarding: # (new in 1.1)
+  Enabled: true
+Style/CollectionCompact: # (new in 1.2)
+  Enabled: true
+Style/DocumentDynamicEvalDefinition: # (new in 1.1)
+  Enabled: true
+Style/HashExcept: # (new in 1.7)
+  Enabled: true
+Style/NegatedIfElseCondition: # (new in 1.2)
+  Enabled: true
+Style/NilLambda: # (new in 1.3)
+  Enabled: true
+Style/RedundantArgument: # (new in 1.4)
+  Enabled: true
+Style/SwapValues: # (new in 1.1)
+  Enabled: true

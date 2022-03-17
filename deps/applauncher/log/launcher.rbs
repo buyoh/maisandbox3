@@ -1,0 +1,227 @@
+# TypeProf 0.15.3
+
+# Classes
+class Thread
+  def self.start3: (untyped lam) -> untyped
+end
+
+module ALBase
+  @@mutex_stderr: Thread::Mutex
+  @@verbose: Integer
+  @@validate: bool
+  @@superuser: false
+
+  def update_verbose: (Integer verbose) -> Integer
+  def self.update_verbose: (Integer verbose) -> Integer
+  def update_validate: (true validate) -> true
+  def self.update_validate: (true validate) -> true
+  def validation_enabled?: -> bool
+  def self.validation_enabled?: -> bool
+  def vlog: (String? str) -> nil
+  def self.vlog: (String? str) -> nil
+  def wlog: (String str) -> nil
+  def self.wlog: (String str) -> nil
+end
+
+module ALTask
+  include ALBase
+
+  def report_failed: (ALReceiver::Reporter reporter, String err) -> nil
+end
+
+class ALSocket
+  include ALBase
+  @mutex_input: Thread::Mutex
+  @mutex_output: Thread::Mutex
+
+  def initialize: (IO | UNIXSocket input, IO | UNIXSocket output) -> void
+  attr_reader input: IO | UNIXSocket
+  attr_reader output: IO | UNIXSocket
+  def gets: -> String?
+  def puts: (String str) -> nil
+  def responce: ({id: Array[untyped] | String | bool | {exited: true, exitstatus: untyped, time: untyped, out: untyped, err: untyped, box: String}, success: Array[untyped] | String | bool | {exited: true, exitstatus: untyped, time: untyped, out: untyped, err: untyped, box: String}, result: Array[untyped] | String | bool | {exited: true, exitstatus: untyped, time: untyped, out: untyped, err: untyped, box: String}, files: Array[untyped] | String | bool | {exited: true, exitstatus: untyped, time: untyped, out: untyped, err: untyped, box: String}, error: Array[untyped] | String | bool | {exited: true, exitstatus: untyped, time: untyped, out: untyped, err: untyped, box: String}} data) -> nil
+end
+
+class ALLocalStorage < Hash[untyped, untyped]
+end
+
+class ALLocalStorageManager
+  @collection: Hash[String, nil]
+
+  def initialize: -> void
+  def []: (String key) -> nil
+  def size: -> Integer
+end
+
+class ALReceiver
+  include ALBase
+  @socket: ALSocket
+  @local_storage_manager: ALLocalStorageManager
+
+  def initialize: (ALSocket launcher_socket) -> void
+  def handle: ?{ (nil, Reporter, nil) -> nil } -> nil
+
+  class Reporter
+    include ALBase
+    @socket: ALSocket
+    @id: untyped
+
+    def initialize: (ALSocket socket, untyped id) -> void
+    def report: ({success: bool, result: {exited: true, exitstatus: untyped, time: untyped, out: untyped, err: untyped, box: String}, files: Array[untyped], error: String} result) -> nil
+  end
+end
+
+class BoxDir
+  def initialize: (String dirname) -> void
+  attr_reader dirname: String
+end
+
+class UserDir
+  @key2box: Hash[String, BoxDir]
+  @boxid_counter: Integer
+
+  def initialize: (String dirname) -> void
+  attr_reader dirname: String
+  def new_dir: -> [String, String]
+  def get_boxdir: (untyped key) -> String
+  def delete_box: (untyped key) -> nil
+  def exists?: (untyped key) -> bool
+end
+
+class DirectoryManager
+  @key2userdir: Hash[untyped, UserDir]
+  @work_directory: String
+
+  def initialize: (String work_directory) -> void
+
+  private
+  def generate_userdirname: (untyped key) -> String
+
+  public
+  def install_user: (untyped user_key) -> UserDir
+  def uninstall_user: (untyped user_key) -> nil
+  def new_box: (untyped user_key) -> String
+  def delete_box: (untyped user_key, untyped box_key) -> nil
+  def get_boxdir: (untyped user_key, untyped box_key) -> String?
+  def user_exists?: (untyped user_key) -> bool
+  def box_exists?: (untyped user_key, untyped box_key) -> bool
+end
+
+class Executor
+  @cmd: String
+  @args: Array[untyped]
+  @timeout: Integer
+  @chdir: String?
+
+  def initialize: (?cmd: String, ?args: Array[untyped], ?stdin: untyped, ?stdout: untyped, ?stderr: untyped, ?timeout: Integer, ?chdir: String?) -> void
+  attr_writer stdin: untyped
+  attr_writer stdout: untyped
+  attr_writer stderr: untyped
+  def reset: -> nil
+  def execute: (?bool noblock) ?{ -> nil } -> bot
+  def self.kill: (untyped pid) -> Integer
+  attr_reader status: nil
+end
+
+class ALTaskExec
+  include ALTask
+  @box: untyped
+  @command: untyped
+  @arguments: Array[untyped]
+  @stdin: String
+  @timeout: Integer
+
+  def initialize: (untyped box, untyped command, Array[untyped] arguments, String stdin, Integer timeout) -> void
+  def self.from_json: (nil param) -> ALTaskExec?
+  def action: (ALReceiver::Reporter reporter, nil local_storage, DirectoryManager directory_manager) -> nil
+end
+
+class ALTaskExecFileIO
+  include ALTask
+  @box: untyped
+  @command: untyped
+  @arguments: Array[untyped]
+  @stdin_path: untyped
+  @stdout_path: untyped
+  @stderr_path: untyped
+  @timeout: Integer
+
+  def initialize: (untyped box, untyped command, Array[untyped] arguments, untyped stdin_path, untyped stdout_path, untyped stderr_path, Integer timeout) -> void
+  def self.check_valid_filequery: (untyped path) -> untyped
+  def self.from_json: (nil param) -> ALTaskExecFileIO?
+  def action: (ALReceiver::Reporter reporter, nil local_storage, DirectoryManager directory_manager) -> nil
+end
+
+class ALTaskKill
+  include ALTask
+  @exec_task_id: untyped
+
+  def initialize: (untyped exec_task_id) -> void
+  def self.from_json: (nil param) -> ALTaskKill?
+  def action: (ALReceiver::Reporter reporter, nil local_storage, DirectoryManager _directory_manager) -> nil
+end
+
+class ALTaskStore
+  include ALTask
+  @box: untyped
+  @files: untyped
+
+  def initialize: (untyped box, untyped files) -> void
+  def self.from_json: (nil param) -> ALTaskStore?
+  def action: (ALReceiver::Reporter reporter, nil local_storage, DirectoryManager directory_manager) -> nil
+
+  class FileData
+    def initialize: (untyped path, untyped data) -> void
+    attr_accessor path: untyped
+    attr_accessor data: untyped
+    def self.check_valid_filequery: (untyped path) -> untyped
+    def self.from_json: (untyped param) -> FileData?
+  end
+end
+
+class ALTaskPull
+  include ALTask
+  @box: untyped
+  @files: untyped
+
+  def initialize: (untyped box, untyped files) -> void
+  def self.from_json: (nil param) -> ALTaskPull?
+  def action: (ALReceiver::Reporter reporter, nil local_storage, DirectoryManager directory_manager) -> nil
+
+  class FileData
+    def initialize: (untyped path, String data) -> void
+    attr_accessor path: untyped
+    attr_accessor data: String
+    def self.check_valid_filequery: (untyped path) -> untyped
+    def self.from_json: (untyped param) -> FileData?
+  end
+end
+
+class ALTaskSetupBox
+  include ALTask
+
+  def self.from_json: (nil _param) -> ALTaskSetupBox
+  def action: (ALReceiver::Reporter reporter, nil local_storage, DirectoryManager directory_manager) -> nil
+end
+
+class ALTaskCleanupBox
+  include ALTask
+  @box: untyped
+
+  def initialize: (untyped box) -> void
+  def self.from_json: (nil param) -> ALTaskCleanupBox?
+  def action: (ALReceiver::Reporter reporter, nil local_storage, DirectoryManager directory_manager) -> nil
+end
+
+module ALTaskFactory
+  def self.from_json: (nil param) -> ((ALTaskCleanupBox | ALTaskExec | ALTaskExecFileIO | ALTaskKill | ALTaskPull | ALTaskSetupBox | ALTaskStore)?)
+end
+
+class AppLauncher
+  include ALBase
+  @config: {ipc: :stdio, loop: false, sockpath: nil, work_dir: String}
+  @unix_server: UNIXServer
+
+  def initialize: -> void
+  def main: -> bot
+end
