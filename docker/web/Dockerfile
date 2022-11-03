@@ -1,10 +1,9 @@
-FROM node:14-alpine
+FROM node:16-alpine
 
-RUN useradd -u 1000 -U -M -s /usr/sbin/nologin master
-RUN useradd -u 1001 -U -M -s /usr/sbin/nologin user
+RUN adduser -u 1100 -H -D -s /usr/sbin/nologin master
+RUN adduser -u 1101 -H -D -s /usr/sbin/nologin user
 RUN mkdir /opt/msb \
-  && chown 1000:1000 /opt/msb -R \
+  && chown 1100:1100 /opt/msb -R \
   && chmod o-rwx /opt/msb -R
 RUN mkdir /var/opt/msb \
-  && chown 1000:1000 /var/opt/msb -R
-
+  && chown 1100:1100 /var/opt/msb -R
