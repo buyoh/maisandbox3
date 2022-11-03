@@ -74,7 +74,13 @@ export default class LauncherHolder {
       // if (!this.launcher.isAlive())
       //   failed = 'success, but dead';
     } catch (e) {
-      failed = e.message || 'catch something';
+      failed = 'catch something';
+      if (
+        typeof e == 'object' &&
+        typeof (e as { message: unknown }).message == 'string'
+      ) {
+        failed = (e as { message: string }).message;
+      }
     }
     if (failed) {
       console.warn('restart launcher: failed', failed);

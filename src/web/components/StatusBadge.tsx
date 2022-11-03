@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './StatusBadge.module.css';
 
 type StatusBadgeProps = {
   color: string;
   active?: boolean;
   clickable?: boolean;
+  children?: PropTypes.ReactNodeLike;
 };
 
 type StatusBadgeState = {};
