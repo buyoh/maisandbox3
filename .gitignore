@@ -33,3 +33,7 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+
+# https://nextjs.org/docs/basic-features/typescript
+# This file should not be committed and should be ignored by version control 
+next-env.d.ts
