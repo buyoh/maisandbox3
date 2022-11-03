@@ -1,13 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './PanelGroup.module.css';
 
-type PanelGroupProps = {};
+type PanelGroupProps = {
+  children?: PropTypes.ReactNodeLike;
+};
 type PanelGroupState = {
   selected: string;
 };
 
 class PanelGroup extends React.Component<PanelGroupProps, PanelGroupState> {
-  constructor(props: PanelGroup) {
+  constructor(props: PanelGroupProps) {
     super(props);
     this.state = { selected: 'default' };
 

@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 type ButtonProps = {
   disable?: boolean;
   onClick: () => void;
+  children?: PropTypes.ReactNodeLike;
 };
 
 type ButtonState = {};
@@ -21,7 +23,7 @@ class Button extends React.Component<ButtonProps, ButtonState> {
           style={{
             display: 'block',
           }}
-          onClick={(e) => this.props.onClick()}
+          onClick={() => this.props.onClick()}
         >
           {this.props.children}
         </button>
