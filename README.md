@@ -26,7 +26,7 @@ git submodule update
 - node v12
 - ruby 2.7
 - docker (for production environment)
-- docker-compose (for production environment)
+- docker compose (for production environment)
 
 We recommend `yarn`.
 
@@ -44,7 +44,7 @@ yarn -- help
 
 ## install to systemd
 
-launch as production with docker-compose as independent process
+launch as production with docker compose as independent process
 
 ```
 yarn install
@@ -69,15 +69,15 @@ yarn build
 ```
 
 ```
-# only for docker without docker-compose
+# only for docker without docker compose
 docker/build-docker.sh
 ```
 
-### start (docker-compose)
+### start (docker compose)
 
 ```
 cd docker
-docker-compose up
+docker compose up
 ```
 
 ### start (without docker)
