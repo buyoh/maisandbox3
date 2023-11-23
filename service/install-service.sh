@@ -16,7 +16,7 @@ pushd $DIR_WORK
 npx yarn build
 npx yarn --production  # erase development dependencies
 pushd docker
-docker-compose build
+docker compose build
 popd
 popd
 
