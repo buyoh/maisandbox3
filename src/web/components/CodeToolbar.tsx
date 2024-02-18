@@ -19,7 +19,7 @@ class CodeToolbar extends React.Component<CodeToolbarProps, {}> {
 
   render(): JSX.Element {
     return (
-      <div className="flex_row">
+      <div className="flex_elem flex_row">
         <div className="flex_elem">
           <SelectBox
             value={this.props.lang}

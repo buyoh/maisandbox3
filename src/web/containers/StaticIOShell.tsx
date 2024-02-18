@@ -220,7 +220,7 @@ export class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
           ) : (
             <div
               className="flex_elem flex_row"
-              style={{ overflow: 'hidden', resize: 'vertical' }}
+              style={{ overflow: 'hidden', resize: 'vertical' }} // TODO: 全画面形式に変更したため、画面最下部の要素がresizeableだと変な操作感になる
             >
               <div className="flex_elem_fix flex_cols">
                 <TextArea

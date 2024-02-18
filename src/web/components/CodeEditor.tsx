@@ -63,8 +63,9 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
         tabSize={2}
         style={{
           display: 'block',
-          width: 'auto',
         }}
+        width="auto"
+        height="100%"
         annotations={this.props.annotations}
         value={this.props.value}
         onChange={this.handleOnChange}

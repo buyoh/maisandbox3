@@ -88,16 +88,14 @@ class CodeEditorShell extends React.Component<CombinedProps, ReactState> {
 
   render(): JSX.Element {
     return (
-      <div>
-        <div>
-          <CodeToolbar
-            lang={this.props.lang}
-            onLangChange={this.props.updateLang}
-            onClickPull={this.handleTemplatePull}
-            onClickPush={this.handleTemplatePush}
-          />
-        </div>
-        <div className="border">
+      <div className="flex_elem flex_cols">
+        <CodeToolbar
+          lang={this.props.lang}
+          onLangChange={this.props.updateLang}
+          onClickPull={this.handleTemplatePull}
+          onClickPush={this.handleTemplatePush}
+        />
+        <div className="border flex_elem" style={{ height: '100%' }}>
           <CodeEditor
             value={this.props.code}
             onChange={this.props.updateCode}
