@@ -32,6 +32,15 @@ exports[`StatusBar 1`] = `
       one
     </div>
   </div>
+  <div
+    className="flex-elem-fix"
+  >
+    <div
+      className="color-gray "
+    >
+      &gt;_&lt;
+    </div>
+  </div>
 </div>
 `;
 
@@ -65,6 +74,15 @@ exports[`StatusBar 2`] = `
       className="color-success  "
     >
       one
+    </div>
+  </div>
+  <div
+    className="flex-elem-fix"
+  >
+    <div
+      className="color-gray "
+    >
+      &gt;_&lt;
     </div>
   </div>
 </div>
