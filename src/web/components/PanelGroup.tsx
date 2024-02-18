@@ -38,8 +38,8 @@ class PanelGroup extends React.Component<PanelGroupProps, PanelGroupState> {
     const selectedElem = keyElemList.find((e) => e.key === selected)?.dom;
 
     return (
-      <div className="flex_elem flex_cols">
-        <div className={['flex_elem_fix', styles.tablist].join(' ')}>
+      <div className="flex-elem flex-column">
+        <div className={['flex-elem-fix', styles.tablist].join(' ')}>
           {keyList.map((key) => (
             <div
               key={key}
@@ -54,7 +54,7 @@ class PanelGroup extends React.Component<PanelGroupProps, PanelGroupState> {
             </div>
           ))}
         </div>
-        <div className="flex_elem">{selectedElem}</div>
+        <div className="flex-elem">{selectedElem}</div>
       </div>
     );
   }

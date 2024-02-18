@@ -2,22 +2,22 @@
 
 exports[`StaticIOShell 1`] = `
 <div
-  className="flex_cols"
+  className="flex-column"
 >
   <div
-    className="flex_elem flex_row"
+    className="flex-elem flex-row"
   >
     <div
-      className="flex_elem_fix flex_cols"
+      className="flex-elem-fix flex-column"
     >
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -30,13 +30,13 @@ exports[`StaticIOShell 1`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -49,13 +49,13 @@ exports[`StaticIOShell 1`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -69,7 +69,7 @@ exports[`StaticIOShell 1`] = `
       </div>
     </div>
     <div
-      className="flex_elem flex_row"
+      className="flex-elem flex-row"
       style={
         Object {
           "overflow": "hidden",
@@ -78,7 +78,7 @@ exports[`StaticIOShell 1`] = `
       }
     >
       <div
-        className="flex_elem_fix flex_cols"
+        className="flex-elem-fix flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -99,7 +99,7 @@ exports[`StaticIOShell 1`] = `
         />
       </div>
       <div
-        className="flex_elem flex_cols"
+        className="flex-elem flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -126,22 +126,22 @@ exports[`StaticIOShell 1`] = `
 
 exports[`StaticIOShell 2`] = `
 <div
-  className="flex_cols"
+  className="flex-column"
 >
   <div
-    className="flex_elem flex_row"
+    className="flex-elem flex-row"
   >
     <div
-      className="flex_elem_fix flex_cols"
+      className="flex-elem-fix flex-column"
     >
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -154,13 +154,13 @@ exports[`StaticIOShell 2`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -173,13 +173,13 @@ exports[`StaticIOShell 2`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -193,7 +193,7 @@ exports[`StaticIOShell 2`] = `
       </div>
     </div>
     <div
-      className="flex_elem flex_row"
+      className="flex-elem flex-row"
       style={
         Object {
           "overflow": "hidden",
@@ -243,22 +243,22 @@ Array [
 
 exports[`StaticIOShell 4`] = `
 <div
-  className="flex_cols"
+  className="flex-column"
 >
   <div
-    className="flex_elem flex_row"
+    className="flex-elem flex-row"
   >
     <div
-      className="flex_elem_fix flex_cols"
+      className="flex-elem-fix flex-column"
     >
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -271,13 +271,13 @@ exports[`StaticIOShell 4`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -290,13 +290,13 @@ exports[`StaticIOShell 4`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -310,7 +310,7 @@ exports[`StaticIOShell 4`] = `
       </div>
     </div>
     <div
-      className="flex_elem flex_row"
+      className="flex-elem flex-row"
       style={
         Object {
           "overflow": "hidden",
@@ -319,7 +319,7 @@ exports[`StaticIOShell 4`] = `
       }
     >
       <div
-        className="flex_elem_fix flex_cols"
+        className="flex-elem-fix flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -340,7 +340,7 @@ exports[`StaticIOShell 4`] = `
         />
       </div>
       <div
-        className="flex_elem flex_cols"
+        className="flex-elem flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -392,22 +392,22 @@ Array [
 
 exports[`StaticIOShell 6`] = `
 <div
-  className="flex_cols"
+  className="flex-column"
 >
   <div
-    className="flex_elem flex_row"
+    className="flex-elem flex-row"
   >
     <div
-      className="flex_elem_fix flex_cols"
+      className="flex-elem-fix flex-column"
     >
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -420,13 +420,13 @@ exports[`StaticIOShell 6`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -439,13 +439,13 @@ exports[`StaticIOShell 6`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -459,7 +459,7 @@ exports[`StaticIOShell 6`] = `
       </div>
     </div>
     <div
-      className="flex_elem flex_row"
+      className="flex-elem flex-row"
       style={
         Object {
           "overflow": "hidden",
@@ -468,7 +468,7 @@ exports[`StaticIOShell 6`] = `
       }
     >
       <div
-        className="flex_elem_fix flex_cols"
+        className="flex-elem-fix flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -489,7 +489,7 @@ exports[`StaticIOShell 6`] = `
         />
       </div>
       <div
-        className="flex_elem flex_cols"
+        className="flex-elem flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -549,22 +549,22 @@ Array [
 
 exports[`StaticIOShell 8`] = `
 <div
-  className="flex_cols"
+  className="flex-column"
 >
   <div
-    className="flex_elem flex_row"
+    className="flex-elem flex-row"
   >
     <div
-      className="flex_elem_fix flex_cols"
+      className="flex-elem-fix flex-column"
     >
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -577,13 +577,13 @@ exports[`StaticIOShell 8`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -596,13 +596,13 @@ exports[`StaticIOShell 8`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -616,7 +616,7 @@ exports[`StaticIOShell 8`] = `
       </div>
     </div>
     <div
-      className="flex_elem flex_row"
+      className="flex-elem flex-row"
       style={
         Object {
           "overflow": "hidden",
@@ -625,7 +625,7 @@ exports[`StaticIOShell 8`] = `
       }
     >
       <div
-        className="flex_elem_fix flex_cols"
+        className="flex-elem-fix flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -646,7 +646,7 @@ exports[`StaticIOShell 8`] = `
         />
       </div>
       <div
-        className="flex_elem flex_cols"
+        className="flex-elem flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -714,22 +714,22 @@ Array [
 
 exports[`StaticIOShell 10`] = `
 <div
-  className="flex_cols"
+  className="flex-column"
 >
   <div
-    className="flex_elem flex_row"
+    className="flex-elem flex-row"
   >
     <div
-      className="flex_elem_fix flex_cols"
+      className="flex-elem-fix flex-column"
     >
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -742,13 +742,13 @@ exports[`StaticIOShell 10`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -761,13 +761,13 @@ exports[`StaticIOShell 10`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -781,7 +781,7 @@ exports[`StaticIOShell 10`] = `
       </div>
     </div>
     <div
-      className="flex_elem flex_row"
+      className="flex-elem flex-row"
       style={
         Object {
           "overflow": "hidden",
@@ -790,7 +790,7 @@ exports[`StaticIOShell 10`] = `
       }
     >
       <div
-        className="flex_elem_fix flex_cols"
+        className="flex-elem-fix flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -811,7 +811,7 @@ exports[`StaticIOShell 10`] = `
         />
       </div>
       <div
-        className="flex_elem flex_cols"
+        className="flex-elem flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -887,22 +887,22 @@ Array [
 
 exports[`StaticIOShell 12`] = `
 <div
-  className="flex_cols"
+  className="flex-column"
 >
   <div
-    className="flex_elem flex_row"
+    className="flex-elem flex-row"
   >
     <div
-      className="flex_elem_fix flex_cols"
+      className="flex-elem-fix flex-column"
     >
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -915,13 +915,13 @@ exports[`StaticIOShell 12`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -934,13 +934,13 @@ exports[`StaticIOShell 12`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -954,7 +954,7 @@ exports[`StaticIOShell 12`] = `
       </div>
     </div>
     <div
-      className="flex_elem flex_row"
+      className="flex-elem flex-row"
       style={
         Object {
           "overflow": "hidden",
@@ -963,7 +963,7 @@ exports[`StaticIOShell 12`] = `
       }
     >
       <div
-        className="flex_elem_fix flex_cols"
+        className="flex-elem-fix flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -984,7 +984,7 @@ exports[`StaticIOShell 12`] = `
         />
       </div>
       <div
-        className="flex_elem flex_cols"
+        className="flex-elem flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -1068,22 +1068,22 @@ Array [
 
 exports[`StaticIOShell 14`] = `
 <div
-  className="flex_cols"
+  className="flex-column"
 >
   <div
-    className="flex_elem flex_row"
+    className="flex-elem flex-row"
   >
     <div
-      className="flex_elem_fix flex_cols"
+      className="flex-elem-fix flex-column"
     >
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -1096,13 +1096,13 @@ exports[`StaticIOShell 14`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -1115,13 +1115,13 @@ exports[`StaticIOShell 14`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -1135,7 +1135,7 @@ exports[`StaticIOShell 14`] = `
       </div>
     </div>
     <div
-      className="flex_elem flex_row"
+      className="flex-elem flex-row"
       style={
         Object {
           "overflow": "hidden",
@@ -1144,7 +1144,7 @@ exports[`StaticIOShell 14`] = `
       }
     >
       <div
-        className="flex_elem_fix flex_cols"
+        className="flex-elem-fix flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -1165,7 +1165,7 @@ exports[`StaticIOShell 14`] = `
         />
       </div>
       <div
-        className="flex_elem flex_cols"
+        className="flex-elem flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -1284,22 +1284,22 @@ Array [
 
 exports[`StaticIOShell 16`] = `
 <div
-  className="flex_cols"
+  className="flex-column"
 >
   <div
-    className="flex_elem flex_row"
+    className="flex-elem flex-row"
   >
     <div
-      className="flex_elem_fix flex_cols"
+      className="flex-elem-fix flex-column"
     >
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -1312,13 +1312,13 @@ exports[`StaticIOShell 16`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -1331,13 +1331,13 @@ exports[`StaticIOShell 16`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -1351,7 +1351,7 @@ exports[`StaticIOShell 16`] = `
       </div>
     </div>
     <div
-      className="flex_elem flex_row"
+      className="flex-elem flex-row"
       style={
         Object {
           "overflow": "hidden",
@@ -1360,7 +1360,7 @@ exports[`StaticIOShell 16`] = `
       }
     >
       <div
-        className="flex_elem_fix flex_cols"
+        className="flex-elem-fix flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -1381,7 +1381,7 @@ exports[`StaticIOShell 16`] = `
         />
       </div>
       <div
-        className="flex_elem flex_cols"
+        className="flex-elem flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -1535,22 +1535,22 @@ Array [
 
 exports[`StaticIOShell_Kill 2`] = `
 <div
-  className="flex_cols"
+  className="flex-column"
 >
   <div
-    className="flex_elem flex_row"
+    className="flex-elem flex-row"
   >
     <div
-      className="flex_elem_fix flex_cols"
+      className="flex-elem-fix flex-column"
     >
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -1563,13 +1563,13 @@ exports[`StaticIOShell_Kill 2`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -1582,13 +1582,13 @@ exports[`StaticIOShell_Kill 2`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -1602,7 +1602,7 @@ exports[`StaticIOShell_Kill 2`] = `
       </div>
     </div>
     <div
-      className="flex_elem flex_row"
+      className="flex-elem flex-row"
       style={
         Object {
           "overflow": "hidden",
@@ -1611,7 +1611,7 @@ exports[`StaticIOShell_Kill 2`] = `
       }
     >
       <div
-        className="flex_elem_fix flex_cols"
+        className="flex-elem-fix flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -1632,7 +1632,7 @@ exports[`StaticIOShell_Kill 2`] = `
         />
       </div>
       <div
-        className="flex_elem flex_cols"
+        className="flex-elem flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -1686,22 +1686,22 @@ Array [
 
 exports[`StaticIOShell_Kill 4`] = `
 <div
-  className="flex_cols"
+  className="flex-column"
 >
   <div
-    className="flex_elem flex_row"
+    className="flex-elem flex-row"
   >
     <div
-      className="flex_elem_fix flex_cols"
+      className="flex-elem-fix flex-column"
     >
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -1714,13 +1714,13 @@ exports[`StaticIOShell_Kill 4`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -1733,13 +1733,13 @@ exports[`StaticIOShell_Kill 4`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -1753,7 +1753,7 @@ exports[`StaticIOShell_Kill 4`] = `
       </div>
     </div>
     <div
-      className="flex_elem flex_row"
+      className="flex-elem flex-row"
       style={
         Object {
           "overflow": "hidden",
@@ -1762,7 +1762,7 @@ exports[`StaticIOShell_Kill 4`] = `
       }
     >
       <div
-        className="flex_elem_fix flex_cols"
+        className="flex-elem-fix flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -1783,7 +1783,7 @@ exports[`StaticIOShell_Kill 4`] = `
         />
       </div>
       <div
-        className="flex_elem flex_cols"
+        className="flex-elem flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -1837,22 +1837,22 @@ Array [
 
 exports[`StaticIOShell_Kill 6`] = `
 <div
-  className="flex_cols"
+  className="flex-column"
 >
   <div
-    className="flex_elem flex_row"
+    className="flex-elem flex-row"
   >
     <div
-      className="flex_elem_fix flex_cols"
+      className="flex-elem-fix flex-column"
     >
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -1865,13 +1865,13 @@ exports[`StaticIOShell_Kill 6`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -1884,13 +1884,13 @@ exports[`StaticIOShell_Kill 6`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -1904,7 +1904,7 @@ exports[`StaticIOShell_Kill 6`] = `
       </div>
     </div>
     <div
-      className="flex_elem flex_row"
+      className="flex-elem flex-row"
       style={
         Object {
           "overflow": "hidden",
@@ -1913,7 +1913,7 @@ exports[`StaticIOShell_Kill 6`] = `
       }
     >
       <div
-        className="flex_elem_fix flex_cols"
+        className="flex-elem-fix flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -1934,7 +1934,7 @@ exports[`StaticIOShell_Kill 6`] = `
         />
       </div>
       <div
-        className="flex_elem flex_cols"
+        className="flex-elem flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -1988,22 +1988,22 @@ Array [
 
 exports[`StaticIOShell_Kill 8`] = `
 <div
-  className="flex_cols"
+  className="flex-column"
 >
   <div
-    className="flex_elem flex_row"
+    className="flex-elem flex-row"
   >
     <div
-      className="flex_elem_fix flex_cols"
+      className="flex-elem-fix flex-column"
     >
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -2016,13 +2016,13 @@ exports[`StaticIOShell_Kill 8`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -2035,13 +2035,13 @@ exports[`StaticIOShell_Kill 8`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -2055,7 +2055,7 @@ exports[`StaticIOShell_Kill 8`] = `
       </div>
     </div>
     <div
-      className="flex_elem flex_row"
+      className="flex-elem flex-row"
       style={
         Object {
           "overflow": "hidden",
@@ -2064,7 +2064,7 @@ exports[`StaticIOShell_Kill 8`] = `
       }
     >
       <div
-        className="flex_elem_fix flex_cols"
+        className="flex-elem-fix flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -2085,7 +2085,7 @@ exports[`StaticIOShell_Kill 8`] = `
         />
       </div>
       <div
-        className="flex_elem flex_cols"
+        className="flex-elem flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -2139,22 +2139,22 @@ Array [
 
 exports[`StaticIOShell_Kill 10`] = `
 <div
-  className="flex_cols"
+  className="flex-column"
 >
   <div
-    className="flex_elem flex_row"
+    className="flex-elem flex-row"
   >
     <div
-      className="flex_elem_fix flex_cols"
+      className="flex-elem-fix flex-column"
     >
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -2167,13 +2167,13 @@ exports[`StaticIOShell_Kill 10`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -2186,13 +2186,13 @@ exports[`StaticIOShell_Kill 10`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -2206,7 +2206,7 @@ exports[`StaticIOShell_Kill 10`] = `
       </div>
     </div>
     <div
-      className="flex_elem flex_row"
+      className="flex-elem flex-row"
       style={
         Object {
           "overflow": "hidden",
@@ -2215,7 +2215,7 @@ exports[`StaticIOShell_Kill 10`] = `
       }
     >
       <div
-        className="flex_elem_fix flex_cols"
+        className="flex-elem-fix flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -2236,7 +2236,7 @@ exports[`StaticIOShell_Kill 10`] = `
         />
       </div>
       <div
-        className="flex_elem flex_cols"
+        className="flex-elem flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -2290,22 +2290,22 @@ Array [
 
 exports[`StaticIOShell_Kill 12`] = `
 <div
-  className="flex_cols"
+  className="flex-column"
 >
   <div
-    className="flex_elem flex_row"
+    className="flex-elem flex-row"
   >
     <div
-      className="flex_elem_fix flex_cols"
+      className="flex-elem-fix flex-column"
     >
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -2318,13 +2318,13 @@ exports[`StaticIOShell_Kill 12`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -2337,13 +2337,13 @@ exports[`StaticIOShell_Kill 12`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -2357,7 +2357,7 @@ exports[`StaticIOShell_Kill 12`] = `
       </div>
     </div>
     <div
-      className="flex_elem flex_row"
+      className="flex-elem flex-row"
       style={
         Object {
           "overflow": "hidden",
@@ -2366,7 +2366,7 @@ exports[`StaticIOShell_Kill 12`] = `
       }
     >
       <div
-        className="flex_elem_fix flex_cols"
+        className="flex-elem-fix flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -2387,7 +2387,7 @@ exports[`StaticIOShell_Kill 12`] = `
         />
       </div>
       <div
-        className="flex_elem flex_cols"
+        className="flex-elem flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -2433,22 +2433,22 @@ Array [
 
 exports[`StaticIOShell_Kill 14`] = `
 <div
-  className="flex_cols"
+  className="flex-column"
 >
   <div
-    className="flex_elem flex_row"
+    className="flex-elem flex-row"
   >
     <div
-      className="flex_elem_fix flex_cols"
+      className="flex-elem-fix flex-column"
     >
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -2461,13 +2461,13 @@ exports[`StaticIOShell_Kill 14`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -2480,13 +2480,13 @@ exports[`StaticIOShell_Kill 14`] = `
         </div>
       </div>
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
       >
         <div
-          className="flex_row"
+          className="flex-row"
         >
           <button
-            className="flex_elem"
+            className="flex-elem"
             onClick={[Function]}
             style={
               Object {
@@ -2500,7 +2500,7 @@ exports[`StaticIOShell_Kill 14`] = `
       </div>
     </div>
     <div
-      className="flex_elem flex_row"
+      className="flex-elem flex-row"
       style={
         Object {
           "overflow": "hidden",
@@ -2509,7 +2509,7 @@ exports[`StaticIOShell_Kill 14`] = `
       }
     >
       <div
-        className="flex_elem_fix flex_cols"
+        className="flex-elem-fix flex-column"
       >
         <textarea
           onChange={[Function]}
@@ -2530,7 +2530,7 @@ exports[`StaticIOShell_Kill 14`] = `
         />
       </div>
       <div
-        className="flex_elem flex_cols"
+        className="flex-elem flex-column"
       >
         <textarea
           onChange={[Function]}

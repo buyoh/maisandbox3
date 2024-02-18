@@ -16,9 +16,9 @@ class Button extends React.Component<ButtonProps, ButtonState> {
 
   render(): JSX.Element {
     return (
-      <div className="flex_row">
+      <div className="flex-row">
         <button
-          className="flex_elem"
+          className="flex-elem"
           disabled={this.props.disable}
           style={{
             display: 'block',

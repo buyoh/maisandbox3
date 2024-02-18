@@ -19,7 +19,7 @@ export default class Index extends React.Component<{}, {}> {
   render(): JSX.Element {
     return (
       <div
-        className="flex_cols"
+        className="flex-column"
         style={{
           // TODO: name 'BodyWrapper'
           display: 'flex',
@@ -33,7 +33,7 @@ export default class Index extends React.Component<{}, {}> {
         <SocketService />
         <Header />
         <main
-          className="flex_elem flex_cols"
+          className="flex-elem flex-column"
           style={
             // TODO: name 'MainFrame' // ダサいか？
             {
@@ -41,11 +41,11 @@ export default class Index extends React.Component<{}, {}> {
             }
           }
         >
-          <div className="flex_elem flex_row">
+          <div className="flex-elem flex-row">
             <CodeEditorShell />
           </div>
 
-          <div className="flex_elem_fix">
+          <div className="flex-elem-fix">
             <PanelGroup>
               <StaticIOShell key="file stdio" />
               <SingleTaskShell key="single task" />

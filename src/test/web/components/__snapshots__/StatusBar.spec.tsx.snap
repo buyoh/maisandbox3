@@ -2,7 +2,7 @@
 
 exports[`StatusBar 1`] = `
 <div
-  className="flex_row"
+  className="flex-row"
   style={
     Object {
       "borderBottom": "2px solid #666",
@@ -13,7 +13,7 @@ exports[`StatusBar 1`] = `
   }
 >
   <div
-    className="flex_elem_fix"
+    className="flex-elem-fix"
     onClick={[Function]}
   >
     <div
@@ -23,7 +23,7 @@ exports[`StatusBar 1`] = `
     </div>
   </div>
   <div
-    className="flex_elem_fix"
+    className="flex-elem-fix"
     onClick={[Function]}
   >
     <div
@@ -37,7 +37,7 @@ exports[`StatusBar 1`] = `
 
 exports[`StatusBar 2`] = `
 <div
-  className="flex_row"
+  className="flex-row"
   style={
     Object {
       "borderBottom": "2px solid #666",
@@ -48,7 +48,7 @@ exports[`StatusBar 2`] = `
   }
 >
   <div
-    className="flex_elem_fix"
+    className="flex-elem-fix"
     onClick={[Function]}
   >
     <div
@@ -58,7 +58,7 @@ exports[`StatusBar 2`] = `
     </div>
   </div>
   <div
-    className="flex_elem_fix"
+    className="flex-elem-fix"
     onClick={[Function]}
   >
     <div

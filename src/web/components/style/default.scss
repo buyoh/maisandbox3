@@ -60,21 +60,21 @@ select {
   border: 1px solid #777;
 }
 
-.flex_row {  // TODO: RENAME to flex-row
+.flex-row {  // TODO: RENAME to flex-row
   display: flex;
   flex-direction: row;
 }
 
-.flex_cols {  // TODO: RENAME to flex-column
+.flex-column {  // TODO: RENAME to flex-column
   display: flex;
   flex-direction: column;
 }
 
-.flex_elem {
+.flex-elem {
   flex: 1 1 auto;
 }
 
-.flex_elem_fix {
+.flex-elem-fix {
   flex: 0 0 auto;
 }
 
