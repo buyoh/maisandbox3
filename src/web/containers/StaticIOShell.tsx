@@ -189,18 +189,30 @@ export class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
         <div className="flex-elem flex-row">
           <div className="flex-elem-fix flex-column">
             <div className="flex-elem-fix">
-              <Button data-testid="button-run" onClick={this.handleClickRun} key="btn-run">
+              <Button
+                data-testid="button-run"
+                onClick={this.handleClickRun}
+                key="btn-run"
+              >
                 run
               </Button>
             </div>
             <div className="flex-elem-fix">
-              <Button data-testid="button-kill" onClick={this.handleClickKill} key="btn-kill">
+              <Button
+                data-testid="button-kill"
+                onClick={this.handleClickKill}
+                key="btn-kill"
+              >
                 kill
               </Button>
             </div>
             <div className="flex-elem-fix">
               {/* TODO: 消す */}
-              <Button data-testid="button-toggle-display" onClick={this.handleClickToggle} key="btn-toggle-display">
+              <Button
+                data-testid="button-toggle-display"
+                onClick={this.handleClickToggle}
+                key="btn-toggle-display"
+              >
                 IO/Err
               </Button>
             </div>

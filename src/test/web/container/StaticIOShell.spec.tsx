@@ -4,8 +4,6 @@ import { render, fireEvent } from '@testing-library/react';
 import { StaticIOShell } from '../../../web/containers/StaticIOShell';
 import { ClientSocket, SocketInterface } from '../../../web/lib/ClientSocket';
 
-
-
 // black box test of StaticIOShell
 
 class SocketMock implements SocketInterface {
@@ -107,7 +105,7 @@ test('StaticIOShell', () => {
 
   expect(asFragment()).toMatchSnapshot();
   fireEvent.click(getByTestId('button-toggle-display'));
-  
+
   expect(asFragment()).toMatchSnapshot();
   fireEvent.click(getByTestId('button-toggle-display'));
 

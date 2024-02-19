@@ -5,7 +5,7 @@ type ButtonProps = {
   disable?: boolean;
   onClick: () => void;
   children?: PropTypes.ReactNodeLike;
-  'data-testid'?: string;  // For testing
+  'data-testid'?: string; // For testing
 };
 
 type ButtonState = {};
