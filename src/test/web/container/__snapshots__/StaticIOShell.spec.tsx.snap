@@ -1,227 +1,168 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StaticIOShell 1`] = `
-<div
-  className="flex-column"
->
+<DocumentFragment>
   <div
-    className="flex-elem flex-row"
+    class="flex-column"
   >
     <div
-      className="flex-elem-fix flex-column"
+      class="flex-elem flex-row"
     >
       <div
-        className="flex-elem-fix"
+        class="flex-elem-fix flex-column"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <div
+            class="flex-row"
           >
-            run
-          </button>
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
         </div>
       </div>
       <div
-        className="flex-elem-fix"
+        class="flex-elem flex-row"
+        style="overflow: hidden; resize: vertical;"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
           >
-            kill
-          </button>
+            ruby
+          </textarea>
         </div>
-      </div>
-      <div
-        className="flex-elem-fix"
-      >
         <div
-          className="flex-row"
+          class="flex-elem flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
           >
-            IO/Err
-          </button>
+            puts gets
+          </textarea>
         </div>
-      </div>
-    </div>
-    <div
-      className="flex-elem flex-row"
-      style={
-        Object {
-          "overflow": "hidden",
-          "resize": "vertical",
-        }
-      }
-    >
-      <div
-        className="flex-elem-fix flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdin"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "horizontal",
-              "width": "auto",
-            }
-          }
-          value="ruby"
-        />
-      </div>
-      <div
-        className="flex-elem flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdout"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "none",
-              "width": "auto",
-            }
-          }
-          value="puts gets"
-        />
       </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`StaticIOShell 2`] = `
-<div
-  className="flex-column"
->
+<DocumentFragment>
   <div
-    className="flex-elem flex-row"
+    class="flex-column"
   >
     <div
-      className="flex-elem-fix flex-column"
+      class="flex-elem flex-row"
     >
       <div
-        className="flex-elem-fix"
+        class="flex-elem-fix flex-column"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <div
+            class="flex-row"
           >
-            run
-          </button>
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
         </div>
       </div>
       <div
-        className="flex-elem-fix"
+        class="flex-elem flex-row"
+        style="overflow: hidden; resize: vertical;"
       >
-        <div
-          className="flex-row"
-        >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
-          >
-            kill
-          </button>
-        </div>
+        <textarea
+          placeholder="stderr"
+          readonly=""
+          rows="8"
+          spellcheck="false"
+          style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
+        />
       </div>
-      <div
-        className="flex-elem-fix"
-      >
-        <div
-          className="flex-row"
-        >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
-          >
-            IO/Err
-          </button>
-        </div>
-      </div>
-    </div>
-    <div
-      className="flex-elem flex-row"
-      style={
-        Object {
-          "overflow": "hidden",
-          "resize": "vertical",
-        }
-      }
-    >
-      <textarea
-        onChange={[Function]}
-        placeholder="stderr"
-        readOnly={true}
-        rows={8}
-        spellCheck="false"
-        style={
-          Object {
-            "display": "block",
-            "flex": "1 1 auto",
-            "height": "auto",
-            "overflow": "scroll",
-            "resize": "none",
-            "width": "auto",
-          }
-        }
-        value=""
-      />
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`StaticIOShell 3`] = `
@@ -242,127 +183,94 @@ Array [
 `;
 
 exports[`StaticIOShell 4`] = `
-<div
-  className="flex-column"
->
+<DocumentFragment>
   <div
-    className="flex-elem flex-row"
+    class="flex-column"
   >
     <div
-      className="flex-elem-fix flex-column"
+      class="flex-elem flex-row"
     >
       <div
-        className="flex-elem-fix"
+        class="flex-elem-fix flex-column"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <div
+            class="flex-row"
           >
-            run
-          </button>
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
         </div>
       </div>
       <div
-        className="flex-elem-fix"
+        class="flex-elem flex-row"
+        style="overflow: hidden; resize: vertical;"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
           >
-            kill
-          </button>
+            ruby
+          </textarea>
         </div>
-      </div>
-      <div
-        className="flex-elem-fix"
-      >
         <div
-          className="flex-row"
+          class="flex-elem flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
           >
-            IO/Err
-          </button>
+            puts gets
+          </textarea>
         </div>
-      </div>
-    </div>
-    <div
-      className="flex-elem flex-row"
-      style={
-        Object {
-          "overflow": "hidden",
-          "resize": "vertical",
-        }
-      }
-    >
-      <div
-        className="flex-elem-fix flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdin"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "horizontal",
-              "width": "auto",
-            }
-          }
-          value="ruby"
-        />
-      </div>
-      <div
-        className="flex-elem flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdout"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "none",
-              "width": "auto",
-            }
-          }
-          value="puts gets"
-        />
       </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`StaticIOShell 5`] = `
@@ -391,127 +299,94 @@ Array [
 `;
 
 exports[`StaticIOShell 6`] = `
-<div
-  className="flex-column"
->
+<DocumentFragment>
   <div
-    className="flex-elem flex-row"
+    class="flex-column"
   >
     <div
-      className="flex-elem-fix flex-column"
+      class="flex-elem flex-row"
     >
       <div
-        className="flex-elem-fix"
+        class="flex-elem-fix flex-column"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <div
+            class="flex-row"
           >
-            run
-          </button>
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
         </div>
       </div>
       <div
-        className="flex-elem-fix"
+        class="flex-elem flex-row"
+        style="overflow: hidden; resize: vertical;"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
           >
-            kill
-          </button>
+            ruby
+          </textarea>
         </div>
-      </div>
-      <div
-        className="flex-elem-fix"
-      >
         <div
-          className="flex-row"
+          class="flex-elem flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
           >
-            IO/Err
-          </button>
+            puts gets
+          </textarea>
         </div>
-      </div>
-    </div>
-    <div
-      className="flex-elem flex-row"
-      style={
-        Object {
-          "overflow": "hidden",
-          "resize": "vertical",
-        }
-      }
-    >
-      <div
-        className="flex-elem-fix flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdin"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "horizontal",
-              "width": "auto",
-            }
-          }
-          value="ruby"
-        />
-      </div>
-      <div
-        className="flex-elem flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdout"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "none",
-              "width": "auto",
-            }
-          }
-          value="puts gets"
-        />
       </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`StaticIOShell 7`] = `
@@ -548,127 +423,94 @@ Array [
 `;
 
 exports[`StaticIOShell 8`] = `
-<div
-  className="flex-column"
->
+<DocumentFragment>
   <div
-    className="flex-elem flex-row"
+    class="flex-column"
   >
     <div
-      className="flex-elem-fix flex-column"
+      class="flex-elem flex-row"
     >
       <div
-        className="flex-elem-fix"
+        class="flex-elem-fix flex-column"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <div
+            class="flex-row"
           >
-            run
-          </button>
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
         </div>
       </div>
       <div
-        className="flex-elem-fix"
+        class="flex-elem flex-row"
+        style="overflow: hidden; resize: vertical;"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
           >
-            kill
-          </button>
+            ruby
+          </textarea>
         </div>
-      </div>
-      <div
-        className="flex-elem-fix"
-      >
         <div
-          className="flex-row"
+          class="flex-elem flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
           >
-            IO/Err
-          </button>
+            puts gets
+          </textarea>
         </div>
-      </div>
-    </div>
-    <div
-      className="flex-elem flex-row"
-      style={
-        Object {
-          "overflow": "hidden",
-          "resize": "vertical",
-        }
-      }
-    >
-      <div
-        className="flex-elem-fix flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdin"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "horizontal",
-              "width": "auto",
-            }
-          }
-          value="ruby"
-        />
-      </div>
-      <div
-        className="flex-elem flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdout"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "none",
-              "width": "auto",
-            }
-          }
-          value="puts gets"
-        />
       </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`StaticIOShell 9`] = `
@@ -713,127 +555,94 @@ Array [
 `;
 
 exports[`StaticIOShell 10`] = `
-<div
-  className="flex-column"
->
+<DocumentFragment>
   <div
-    className="flex-elem flex-row"
+    class="flex-column"
   >
     <div
-      className="flex-elem-fix flex-column"
+      class="flex-elem flex-row"
     >
       <div
-        className="flex-elem-fix"
+        class="flex-elem-fix flex-column"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <div
+            class="flex-row"
           >
-            run
-          </button>
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
         </div>
       </div>
       <div
-        className="flex-elem-fix"
+        class="flex-elem flex-row"
+        style="overflow: hidden; resize: vertical;"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
           >
-            kill
-          </button>
+            ruby
+          </textarea>
         </div>
-      </div>
-      <div
-        className="flex-elem-fix"
-      >
         <div
-          className="flex-row"
+          class="flex-elem flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
           >
-            IO/Err
-          </button>
+            puts gets
+          </textarea>
         </div>
-      </div>
-    </div>
-    <div
-      className="flex-elem flex-row"
-      style={
-        Object {
-          "overflow": "hidden",
-          "resize": "vertical",
-        }
-      }
-    >
-      <div
-        className="flex-elem-fix flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdin"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "horizontal",
-              "width": "auto",
-            }
-          }
-          value="ruby"
-        />
-      </div>
-      <div
-        className="flex-elem flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdout"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "none",
-              "width": "auto",
-            }
-          }
-          value="puts gets"
-        />
       </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`StaticIOShell 11`] = `
@@ -886,127 +695,94 @@ Array [
 `;
 
 exports[`StaticIOShell 12`] = `
-<div
-  className="flex-column"
->
+<DocumentFragment>
   <div
-    className="flex-elem flex-row"
+    class="flex-column"
   >
     <div
-      className="flex-elem-fix flex-column"
+      class="flex-elem flex-row"
     >
       <div
-        className="flex-elem-fix"
+        class="flex-elem-fix flex-column"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <div
+            class="flex-row"
           >
-            run
-          </button>
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
         </div>
       </div>
       <div
-        className="flex-elem-fix"
+        class="flex-elem flex-row"
+        style="overflow: hidden; resize: vertical;"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
           >
-            kill
-          </button>
+            ruby
+          </textarea>
         </div>
-      </div>
-      <div
-        className="flex-elem-fix"
-      >
         <div
-          className="flex-row"
+          class="flex-elem flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
           >
-            IO/Err
-          </button>
+            puts gets
+          </textarea>
         </div>
-      </div>
-    </div>
-    <div
-      className="flex-elem flex-row"
-      style={
-        Object {
-          "overflow": "hidden",
-          "resize": "vertical",
-        }
-      }
-    >
-      <div
-        className="flex-elem-fix flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdin"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "horizontal",
-              "width": "auto",
-            }
-          }
-          value="ruby"
-        />
-      </div>
-      <div
-        className="flex-elem flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdout"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "none",
-              "width": "auto",
-            }
-          }
-          value="puts gets"
-        />
       </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`StaticIOShell 13`] = `
@@ -1067,127 +843,94 @@ Array [
 `;
 
 exports[`StaticIOShell 14`] = `
-<div
-  className="flex-column"
->
+<DocumentFragment>
   <div
-    className="flex-elem flex-row"
+    class="flex-column"
   >
     <div
-      className="flex-elem-fix flex-column"
+      class="flex-elem flex-row"
     >
       <div
-        className="flex-elem-fix"
+        class="flex-elem-fix flex-column"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <div
+            class="flex-row"
           >
-            run
-          </button>
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
         </div>
       </div>
       <div
-        className="flex-elem-fix"
+        class="flex-elem flex-row"
+        style="overflow: hidden; resize: vertical;"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
           >
-            kill
-          </button>
+            ruby
+          </textarea>
         </div>
-      </div>
-      <div
-        className="flex-elem-fix"
-      >
         <div
-          className="flex-row"
+          class="flex-elem flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
           >
-            IO/Err
-          </button>
+            puts gets
+          </textarea>
         </div>
-      </div>
-    </div>
-    <div
-      className="flex-elem flex-row"
-      style={
-        Object {
-          "overflow": "hidden",
-          "resize": "vertical",
-        }
-      }
-    >
-      <div
-        className="flex-elem-fix flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdin"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "horizontal",
-              "width": "auto",
-            }
-          }
-          value="ruby"
-        />
-      </div>
-      <div
-        className="flex-elem flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdout"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "none",
-              "width": "auto",
-            }
-          }
-          value="puts gets"
-        />
       </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`StaticIOShell 15`] = `
@@ -1283,127 +1026,94 @@ Array [
 `;
 
 exports[`StaticIOShell 16`] = `
-<div
-  className="flex-column"
->
+<DocumentFragment>
   <div
-    className="flex-elem flex-row"
+    class="flex-column"
   >
     <div
-      className="flex-elem-fix flex-column"
+      class="flex-elem flex-row"
     >
       <div
-        className="flex-elem-fix"
+        class="flex-elem-fix flex-column"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <div
+            class="flex-row"
           >
-            run
-          </button>
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
         </div>
       </div>
       <div
-        className="flex-elem-fix"
+        class="flex-elem flex-row"
+        style="overflow: hidden; resize: vertical;"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
           >
-            kill
-          </button>
+            ruby
+          </textarea>
         </div>
-      </div>
-      <div
-        className="flex-elem-fix"
-      >
         <div
-          className="flex-row"
+          class="flex-elem flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
           >
-            IO/Err
-          </button>
+            puts gets
+          </textarea>
         </div>
-      </div>
-    </div>
-    <div
-      className="flex-elem flex-row"
-      style={
-        Object {
-          "overflow": "hidden",
-          "resize": "vertical",
-        }
-      }
-    >
-      <div
-        className="flex-elem-fix flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdin"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "horizontal",
-              "width": "auto",
-            }
-          }
-          value="ruby"
-        />
-      </div>
-      <div
-        className="flex-elem flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdout"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "none",
-              "width": "auto",
-            }
-          }
-          value="puts gets"
-        />
       </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`StaticIOShell 17`] = `
@@ -1534,127 +1244,94 @@ Array [
 `;
 
 exports[`StaticIOShell_Kill 2`] = `
-<div
-  className="flex-column"
->
+<DocumentFragment>
   <div
-    className="flex-elem flex-row"
+    class="flex-column"
   >
     <div
-      className="flex-elem-fix flex-column"
+      class="flex-elem flex-row"
     >
       <div
-        className="flex-elem-fix"
+        class="flex-elem-fix flex-column"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <div
+            class="flex-row"
           >
-            run
-          </button>
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
         </div>
       </div>
       <div
-        className="flex-elem-fix"
+        class="flex-elem flex-row"
+        style="overflow: hidden; resize: vertical;"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
           >
-            kill
-          </button>
+            ruby
+          </textarea>
         </div>
-      </div>
-      <div
-        className="flex-elem-fix"
-      >
         <div
-          className="flex-row"
+          class="flex-elem flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
           >
-            IO/Err
-          </button>
+            puts gets
+          </textarea>
         </div>
-      </div>
-    </div>
-    <div
-      className="flex-elem flex-row"
-      style={
-        Object {
-          "overflow": "hidden",
-          "resize": "vertical",
-        }
-      }
-    >
-      <div
-        className="flex-elem-fix flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdin"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "horizontal",
-              "width": "auto",
-            }
-          }
-          value="ruby"
-        />
-      </div>
-      <div
-        className="flex-elem flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdout"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "none",
-              "width": "auto",
-            }
-          }
-          value="puts gets"
-        />
       </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`StaticIOShell_Kill 3`] = `
@@ -1685,127 +1362,94 @@ Array [
 `;
 
 exports[`StaticIOShell_Kill 4`] = `
-<div
-  className="flex-column"
->
+<DocumentFragment>
   <div
-    className="flex-elem flex-row"
+    class="flex-column"
   >
     <div
-      className="flex-elem-fix flex-column"
+      class="flex-elem flex-row"
     >
       <div
-        className="flex-elem-fix"
+        class="flex-elem-fix flex-column"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <div
+            class="flex-row"
           >
-            run
-          </button>
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
         </div>
       </div>
       <div
-        className="flex-elem-fix"
+        class="flex-elem flex-row"
+        style="overflow: hidden; resize: vertical;"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
           >
-            kill
-          </button>
+            ruby
+          </textarea>
         </div>
-      </div>
-      <div
-        className="flex-elem-fix"
-      >
         <div
-          className="flex-row"
+          class="flex-elem flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
           >
-            IO/Err
-          </button>
+            puts gets
+          </textarea>
         </div>
-      </div>
-    </div>
-    <div
-      className="flex-elem flex-row"
-      style={
-        Object {
-          "overflow": "hidden",
-          "resize": "vertical",
-        }
-      }
-    >
-      <div
-        className="flex-elem-fix flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdin"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "horizontal",
-              "width": "auto",
-            }
-          }
-          value="ruby"
-        />
-      </div>
-      <div
-        className="flex-elem flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdout"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "none",
-              "width": "auto",
-            }
-          }
-          value="puts gets"
-        />
       </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`StaticIOShell_Kill 5`] = `
@@ -1836,127 +1480,94 @@ Array [
 `;
 
 exports[`StaticIOShell_Kill 6`] = `
-<div
-  className="flex-column"
->
+<DocumentFragment>
   <div
-    className="flex-elem flex-row"
+    class="flex-column"
   >
     <div
-      className="flex-elem-fix flex-column"
+      class="flex-elem flex-row"
     >
       <div
-        className="flex-elem-fix"
+        class="flex-elem-fix flex-column"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <div
+            class="flex-row"
           >
-            run
-          </button>
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
         </div>
       </div>
       <div
-        className="flex-elem-fix"
+        class="flex-elem flex-row"
+        style="overflow: hidden; resize: vertical;"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
           >
-            kill
-          </button>
+            ruby
+          </textarea>
         </div>
-      </div>
-      <div
-        className="flex-elem-fix"
-      >
         <div
-          className="flex-row"
+          class="flex-elem flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
           >
-            IO/Err
-          </button>
+            puts gets
+          </textarea>
         </div>
-      </div>
-    </div>
-    <div
-      className="flex-elem flex-row"
-      style={
-        Object {
-          "overflow": "hidden",
-          "resize": "vertical",
-        }
-      }
-    >
-      <div
-        className="flex-elem-fix flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdin"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "horizontal",
-              "width": "auto",
-            }
-          }
-          value="ruby"
-        />
-      </div>
-      <div
-        className="flex-elem flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdout"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "none",
-              "width": "auto",
-            }
-          }
-          value="puts gets"
-        />
       </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`StaticIOShell_Kill 7`] = `
@@ -1987,127 +1598,94 @@ Array [
 `;
 
 exports[`StaticIOShell_Kill 8`] = `
-<div
-  className="flex-column"
->
+<DocumentFragment>
   <div
-    className="flex-elem flex-row"
+    class="flex-column"
   >
     <div
-      className="flex-elem-fix flex-column"
+      class="flex-elem flex-row"
     >
       <div
-        className="flex-elem-fix"
+        class="flex-elem-fix flex-column"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <div
+            class="flex-row"
           >
-            run
-          </button>
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
         </div>
       </div>
       <div
-        className="flex-elem-fix"
+        class="flex-elem flex-row"
+        style="overflow: hidden; resize: vertical;"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
           >
-            kill
-          </button>
+            ruby
+          </textarea>
         </div>
-      </div>
-      <div
-        className="flex-elem-fix"
-      >
         <div
-          className="flex-row"
+          class="flex-elem flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
           >
-            IO/Err
-          </button>
+            puts gets
+          </textarea>
         </div>
-      </div>
-    </div>
-    <div
-      className="flex-elem flex-row"
-      style={
-        Object {
-          "overflow": "hidden",
-          "resize": "vertical",
-        }
-      }
-    >
-      <div
-        className="flex-elem-fix flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdin"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "horizontal",
-              "width": "auto",
-            }
-          }
-          value="ruby"
-        />
-      </div>
-      <div
-        className="flex-elem flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdout"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "none",
-              "width": "auto",
-            }
-          }
-          value="puts gets"
-        />
       </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`StaticIOShell_Kill 9`] = `
@@ -2138,127 +1716,94 @@ Array [
 `;
 
 exports[`StaticIOShell_Kill 10`] = `
-<div
-  className="flex-column"
->
+<DocumentFragment>
   <div
-    className="flex-elem flex-row"
+    class="flex-column"
   >
     <div
-      className="flex-elem-fix flex-column"
+      class="flex-elem flex-row"
     >
       <div
-        className="flex-elem-fix"
+        class="flex-elem-fix flex-column"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <div
+            class="flex-row"
           >
-            run
-          </button>
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
         </div>
       </div>
       <div
-        className="flex-elem-fix"
+        class="flex-elem flex-row"
+        style="overflow: hidden; resize: vertical;"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
           >
-            kill
-          </button>
+            ruby
+          </textarea>
         </div>
-      </div>
-      <div
-        className="flex-elem-fix"
-      >
         <div
-          className="flex-row"
+          class="flex-elem flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
           >
-            IO/Err
-          </button>
+            puts gets
+          </textarea>
         </div>
-      </div>
-    </div>
-    <div
-      className="flex-elem flex-row"
-      style={
-        Object {
-          "overflow": "hidden",
-          "resize": "vertical",
-        }
-      }
-    >
-      <div
-        className="flex-elem-fix flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdin"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "horizontal",
-              "width": "auto",
-            }
-          }
-          value="ruby"
-        />
-      </div>
-      <div
-        className="flex-elem flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdout"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "none",
-              "width": "auto",
-            }
-          }
-          value="puts gets"
-        />
       </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`StaticIOShell_Kill 11`] = `
@@ -2289,127 +1834,94 @@ Array [
 `;
 
 exports[`StaticIOShell_Kill 12`] = `
-<div
-  className="flex-column"
->
+<DocumentFragment>
   <div
-    className="flex-elem flex-row"
+    class="flex-column"
   >
     <div
-      className="flex-elem-fix flex-column"
+      class="flex-elem flex-row"
     >
       <div
-        className="flex-elem-fix"
+        class="flex-elem-fix flex-column"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <div
+            class="flex-row"
           >
-            run
-          </button>
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
         </div>
       </div>
       <div
-        className="flex-elem-fix"
+        class="flex-elem flex-row"
+        style="overflow: hidden; resize: vertical;"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
           >
-            kill
-          </button>
+            ruby
+          </textarea>
         </div>
-      </div>
-      <div
-        className="flex-elem-fix"
-      >
         <div
-          className="flex-row"
+          class="flex-elem flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
           >
-            IO/Err
-          </button>
+            puts gets
+          </textarea>
         </div>
-      </div>
-    </div>
-    <div
-      className="flex-elem flex-row"
-      style={
-        Object {
-          "overflow": "hidden",
-          "resize": "vertical",
-        }
-      }
-    >
-      <div
-        className="flex-elem-fix flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdin"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "horizontal",
-              "width": "auto",
-            }
-          }
-          value="ruby"
-        />
-      </div>
-      <div
-        className="flex-elem flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdout"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "none",
-              "width": "auto",
-            }
-          }
-          value="puts gets"
-        />
       </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`StaticIOShell_Kill 13`] = `
@@ -2432,127 +1944,94 @@ Array [
 `;
 
 exports[`StaticIOShell_Kill 14`] = `
-<div
-  className="flex-column"
->
+<DocumentFragment>
   <div
-    className="flex-elem flex-row"
+    class="flex-column"
   >
     <div
-      className="flex-elem-fix flex-column"
+      class="flex-elem flex-row"
     >
       <div
-        className="flex-elem-fix"
+        class="flex-elem-fix flex-column"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <div
+            class="flex-row"
           >
-            run
-          </button>
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
         </div>
       </div>
       <div
-        className="flex-elem-fix"
+        class="flex-elem flex-row"
+        style="overflow: hidden; resize: vertical;"
       >
         <div
-          className="flex-row"
+          class="flex-elem-fix flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
           >
-            kill
-          </button>
+            ruby
+          </textarea>
         </div>
-      </div>
-      <div
-        className="flex-elem-fix"
-      >
         <div
-          className="flex-row"
+          class="flex-elem flex-column"
         >
-          <button
-            className="flex-elem"
-            onClick={[Function]}
-            style={
-              Object {
-                "display": "block",
-              }
-            }
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
           >
-            IO/Err
-          </button>
+            puts gets
+          </textarea>
         </div>
-      </div>
-    </div>
-    <div
-      className="flex-elem flex-row"
-      style={
-        Object {
-          "overflow": "hidden",
-          "resize": "vertical",
-        }
-      }
-    >
-      <div
-        className="flex-elem-fix flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdin"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "horizontal",
-              "width": "auto",
-            }
-          }
-          value="ruby"
-        />
-      </div>
-      <div
-        className="flex-elem flex-column"
-      >
-        <textarea
-          onChange={[Function]}
-          placeholder="stdout"
-          rows={8}
-          spellCheck="false"
-          style={
-            Object {
-              "display": "block",
-              "flex": "1 1 auto",
-              "height": "auto",
-              "overflow": "scroll",
-              "resize": "none",
-              "width": "auto",
-            }
-          }
-          value="puts gets"
-        />
       </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`StaticIOShell_Kill 15`] = `

@@ -5,6 +5,7 @@ type ButtonProps = {
   disable?: boolean;
   onClick: () => void;
   children?: PropTypes.ReactNodeLike;
+  'data-testid'?: string;  // For testing
 };
 
 type ButtonState = {};
@@ -18,6 +19,7 @@ class Button extends React.Component<ButtonProps, ButtonState> {
     return (
       <div className="flex-row">
         <button
+          data-testid={this.props['data-testid']}
           className="flex-elem"
           disabled={this.props.disable}
           style={{

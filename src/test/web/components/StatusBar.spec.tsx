@@ -1,5 +1,6 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+// import '@testing-library/jest-dom';
+import { render } from '@testing-library/react';
 
 import StatusBar, { Item } from '../../../web/components/StatusBar';
 
@@ -17,12 +18,18 @@ test('StatusBar', () => {
     },
   ];
 
-  const component = renderer.create(
-    <StatusBar values={values} active={'key-0'} />
-  );
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
-  component.update(<StatusBar values={values} active={'key-1'} />);
-  tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  {
+    const { asFragment } = render(
+      <StatusBar values={values} active={'key-0'} />
+    );
+    const rendered = asFragment();
+    expect(rendered).toMatchSnapshot();
+  }
+  {
+    const { asFragment } = render(
+      <StatusBar values={values} active={'key-1'} />
+    );
+    const rendered = asFragment();
+    expect(rendered).toMatchSnapshot();
+  }
 });
