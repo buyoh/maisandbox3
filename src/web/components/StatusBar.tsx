@@ -26,7 +26,7 @@ class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
   private generateJSXFromItem(item: Item): JSX.Element {
     return (
       <div
-        className="flex_elem_fix"
+        className="flex-elem-fix"
         key={item.key}
         onClick={() => {
           item.onClick?.call(null, item.key);
@@ -44,9 +44,11 @@ class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
   }
 
   render(): JSX.Element {
+    // TODO: StatusBar の高さが一定でない
+    // TODO: ステータスの数が溢れた場合の考慮が無い
     return (
       <div
-        className="flex_row"
+        className="flex-row"
         style={{
           borderTop: '2px solid #111',
           borderBottom: '2px solid #666',
@@ -55,6 +57,16 @@ class StatusBar extends React.Component<StatusBarProps, StatusBarState> {
         }}
       >
         {this.props.values?.map(this.generateJSXFromItem)}
+
+        <div
+          // Status が空であっても一定の高さを保つためのダミー
+          className="flex-elem-fix"
+          key={'_tail'}
+        >
+          <StatusBadge color={'gray'} active={false} clickable={false}>
+            {'>_<'}
+          </StatusBadge>
+        </div>
       </div>
     );
   }

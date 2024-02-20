@@ -15,11 +15,11 @@ class LangSettingsCpp extends React.Component<LangSettingsCppProps, {}> {
 
   render(): JSX.Element {
     return (
-      <div className="flex_row">
-        <div className="flex_elem_fix">
+      <div className="flex-row">
+        <div className="flex-elem-fix">
           <div style={{ width: '6ch', textAlign: 'center' }}>-std= </div>
         </div>
-        <div className="flex_elem">
+        <div className="flex-elem">
           <SelectBox
             value={this.props.std}
             items={[

@@ -185,29 +185,41 @@ export class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
 
   render(): JSX.Element {
     return (
-      <div className="flex_cols">
-        <div className="flex_elem flex_row">
-          <div className="flex_elem_fix flex_cols">
-            <div className="flex_elem_fix">
-              <Button onClick={this.handleClickRun} key="btn-run">
+      <div className="flex-column">
+        <div className="flex-elem flex-row">
+          <div className="flex-elem-fix flex-column">
+            <div className="flex-elem-fix">
+              <Button
+                data-testid="button-run"
+                onClick={this.handleClickRun}
+                key="btn-run"
+              >
                 run
               </Button>
             </div>
-            <div className="flex_elem_fix">
-              <Button onClick={this.handleClickKill} key="btn-kill">
+            <div className="flex-elem-fix">
+              <Button
+                data-testid="button-kill"
+                onClick={this.handleClickKill}
+                key="btn-kill"
+              >
                 kill
               </Button>
             </div>
-            <div className="flex_elem_fix">
+            <div className="flex-elem-fix">
               {/* TODO: 消す */}
-              <Button onClick={this.handleClickToggle} key="btn-toggle-display">
+              <Button
+                data-testid="button-toggle-display"
+                onClick={this.handleClickToggle}
+                key="btn-toggle-display"
+              >
                 IO/Err
               </Button>
             </div>
           </div>
           {this.state.visibleErr ? (
             <div
-              className="flex_elem flex_row"
+              className="flex-elem flex-row"
               style={{ overflow: 'hidden', resize: 'vertical' }}
             >
               <TextArea
@@ -219,10 +231,10 @@ export class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
             </div>
           ) : (
             <div
-              className="flex_elem flex_row"
-              style={{ overflow: 'hidden', resize: 'vertical' }}
+              className="flex-elem flex-row"
+              style={{ overflow: 'hidden', resize: 'vertical' }} // TODO: 全画面形式に変更したため、画面最下部の要素がresizeableだと変な操作感になる
             >
-              <div className="flex_elem_fix flex_cols">
+              <div className="flex-elem-fix flex-column">
                 <TextArea
                   placeholder="stdin"
                   key="inp-in"
@@ -231,7 +243,7 @@ export class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
                   onChange={this.props.updateStdin}
                 />
               </div>
-              <div className="flex_elem flex_cols">
+              <div className="flex-elem flex-column">
                 <TextArea
                   placeholder="stdout"
                   key="inp-out"
@@ -244,18 +256,6 @@ export class StaticIOShell extends React.Component<CombinedProps, ReactStatus> {
         </div>
       </div>
     );
-  }
-
-  forTestHandler(): {
-    handleClickRun: StaticIOShell['handleClickRun'];
-    handleClickKill: StaticIOShell['handleClickKill'];
-    handleClickToggle: StaticIOShell['handleClickToggle'];
-  } {
-    return {
-      handleClickRun: this.handleClickRun,
-      handleClickKill: this.handleClickKill,
-      handleClickToggle: this.handleClickToggle,
-    };
   }
 }
 

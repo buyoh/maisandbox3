@@ -6,7 +6,7 @@ jobs:
   build:
     strategy:
       matrix:
-        node: [14, 16]
+        node: [16, 18]
 
     runs-on: ubuntu-20.04
     
@@ -27,7 +27,7 @@ jobs:
         yarn
     - name: test launch develop
       run: |
-        PORT=3030 timeout 20 yarn dev || [[ $? -eq 124 ]]
+        PORT=3030 timeout 10 yarn dev || [[ $? -eq 124 ]]
     - name: test launch production
       run: |
         yarn build

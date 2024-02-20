@@ -19,9 +19,6 @@ export function setupExpressServer(
 
   // express binding
   appExpress.all('*', (req: Express.Request, res: Express.Response) => {
-    if (req.path.includes('sushi')) {
-      return res.json({ name: 'maguro' });
-    }
     return pageHandler(req, res);
   });
 

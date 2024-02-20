@@ -19,8 +19,8 @@ class CodeToolbar extends React.Component<CodeToolbarProps, {}> {
 
   render(): JSX.Element {
     return (
-      <div className="flex_row">
-        <div className="flex_elem">
+      <div className="flex-elem flex-row">
+        <div className="flex-elem">
           <SelectBox
             value={this.props.lang}
             items={[
@@ -33,11 +33,11 @@ class CodeToolbar extends React.Component<CodeToolbarProps, {}> {
           />
         </div>
         {this.props.lang == 'cpp' && (
-          <div className="flex_elem_fix">
+          <div className="flex-elem-fix">
             <LangSettingsCpp std={'c++17'} />
           </div>
         )}
-        <div className="flex_elem_fix">
+        <div className="flex-elem-fix">
           <TemplateLoaderPanelProps
             onClickPull={this.props.onClickPull}
             onClickPush={this.props.onClickPush}

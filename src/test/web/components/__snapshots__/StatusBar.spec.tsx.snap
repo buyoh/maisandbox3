@@ -1,71 +1,75 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StatusBar 1`] = `
-<div
-  className="flex_row"
-  style={
-    Object {
-      "borderBottom": "2px solid #666",
-      "borderTop": "2px solid #111",
-      "overflow": "hidden",
-      "padding": "2px",
-    }
-  }
->
+<DocumentFragment>
   <div
-    className="flex_elem_fix"
-    onClick={[Function]}
+    class="flex-row"
+    style="border-top: 2px solid #111; border-bottom: 2px solid #666; padding: 2px; overflow: hidden;"
   >
     <div
-      className="color-gray  "
+      class="flex-elem-fix"
     >
-      zero
+      <div
+        class="color-gray  "
+      >
+        zero
+      </div>
     </div>
-  </div>
-  <div
-    className="flex_elem_fix"
-    onClick={[Function]}
-  >
     <div
-      className="color-success "
+      class="flex-elem-fix"
     >
-      one
+      <div
+        class="color-success "
+      >
+        one
+      </div>
+    </div>
+    <div
+      class="flex-elem-fix"
+    >
+      <div
+        class="color-gray "
+      >
+        &gt;_&lt;
+      </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;
 
 exports[`StatusBar 2`] = `
-<div
-  className="flex_row"
-  style={
-    Object {
-      "borderBottom": "2px solid #666",
-      "borderTop": "2px solid #111",
-      "overflow": "hidden",
-      "padding": "2px",
-    }
-  }
->
+<DocumentFragment>
   <div
-    className="flex_elem_fix"
-    onClick={[Function]}
+    class="flex-row"
+    style="border-top: 2px solid #111; border-bottom: 2px solid #666; padding: 2px; overflow: hidden;"
   >
     <div
-      className="color-gray "
+      class="flex-elem-fix"
     >
-      zero
+      <div
+        class="color-gray "
+      >
+        zero
+      </div>
     </div>
-  </div>
-  <div
-    className="flex_elem_fix"
-    onClick={[Function]}
-  >
     <div
-      className="color-success  "
+      class="flex-elem-fix"
     >
-      one
+      <div
+        class="color-success  "
+      >
+        one
+      </div>
+    </div>
+    <div
+      class="flex-elem-fix"
+    >
+      <div
+        class="color-gray "
+      >
+        &gt;_&lt;
+      </div>
     </div>
   </div>
-</div>
+</DocumentFragment>
 `;

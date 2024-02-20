@@ -18,19 +18,34 @@ export default class Index extends React.Component<{}, {}> {
 
   render(): JSX.Element {
     return (
-      <div>
+      <div
+        className="flex-column"
+        style={{
+          // TODO: name 'BodyWrapper'
+          display: 'flex',
+          flexDirection: 'column',
+          height: '100vh',
+          overflow: 'auto',
+        }}
+      >
         <Meta />
         <BackupService />
         <SocketService />
         <Header />
-        <main>
-          <div className="flex_row">
-            <div className="flex_elem">
-              <CodeEditorShell />
-            </div>
+        <main
+          className="flex-elem flex-column"
+          style={
+            // TODO: name 'MainFrame' // ダサいか？
+            {
+              margin: '1rem',
+            }
+          }
+        >
+          <div className="flex-elem flex-row">
+            <CodeEditorShell />
           </div>
 
-          <div>
+          <div className="flex-elem-fix">
             <PanelGroup>
               <StaticIOShell key="file stdio" />
               <SingleTaskShell key="single task" />
@@ -38,7 +53,7 @@ export default class Index extends React.Component<{}, {}> {
             <StatusShell />
           </div>
         </main>
-        <div style={{ height: '75vh' }}></div>
+        {/* <div style={{ height: '75vh' }}></div> */}
       </div>
     );
   }

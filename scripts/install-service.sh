@@ -2,29 +2,26 @@
 
 set -eu
 
-DIR_SH=`dirname $0`
-DIR_TREE="$DIR_SH/.."
+DIR_SH=$(dirname $0)
+DIR_TREE=$(realpath "$DIR_SH/..")
 DIR_WORK=/opt/maisandbox3
 
-mkdir -p $DIR_WORK
-rm -rfI $DIR_WORK
-mkdir -p $DIR_WORK
-rsync -a $DIR_TREE/* $DIR_WORK/ \
-  --exclude "tmp" --exclude "var"
-
-pushd $DIR_WORK
-npx yarn build
-npx yarn --production  # erase development dependencies
-pushd docker
+# Build docker compose image
+cd $DIR_TREE/docker
 docker compose build
-popd
-popd
+
+# Install systemd service
+mkdir -p $DIR_WORK
+rm -rf $DIR_WORK
+mkdir -p $DIR_WORK
+rsync -a $DIR_TREE/docker $DIR_WORK/
 
 cat <<EOS > /etc/systemd/system/maisandbox3.service
 [Unit]
 Description = maisandbox3
 [Service]
-ExecStart = $DIR_WORK/service/start.sh
+WorkingDirectory = $DIR_WORK/docker
+ExecStart = docker compose up
 Restart = no
 # Type = forking
 Type = simple

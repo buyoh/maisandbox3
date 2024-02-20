@@ -69,7 +69,7 @@ class StatusShell extends React.Component<CombinedProps, ReactState> {
   render(): JSX.Element {
     return (
       <>
-        <div className="flex_elem_fix">
+        <div className="flex-elem-fix">
           <StatusBar
             values={this.props.statuses.map((e) => ({
               ...e,
@@ -78,7 +78,7 @@ class StatusShell extends React.Component<CombinedProps, ReactState> {
             active={'' + this.props.activatedStatusKey}
           />
         </div>
-        <div className="flex_elem_fix">
+        <div className="flex-elem-fix">
           {this.props.activatedStatusDetail ? (
             <StatusDetail details={this.props.activatedStatusDetail} />
           ) : (

@@ -15,7 +15,7 @@ const TitleStyle: CSSProperties = {
 
 function Header(): JSX.Element {
   return (
-    <header style={HeaderStyle}>
+    <header style={HeaderStyle} className="flex-elem-fix">
       <h1 style={TitleStyle}>maisandbox3</h1>
     </header>
   );

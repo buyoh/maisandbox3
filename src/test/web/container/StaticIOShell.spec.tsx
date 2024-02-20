@@ -1,5 +1,6 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+// import '@testing-library/jest-dom';
+import { render, fireEvent } from '@testing-library/react';
 import { StaticIOShell } from '../../../web/containers/StaticIOShell';
 import { ClientSocket, SocketInterface } from '../../../web/lib/ClientSocket';
 
@@ -83,43 +84,34 @@ test('StaticIOShell', () => {
   const addAnnotations = jest.fn();
   const clearAnnotations = jest.fn();
 
-  let component: renderer.ReactTestRenderer | undefined;
-
-  renderer.act(() => {
-    component = renderer.create(
-      <StaticIOShell
-        stdin={'ruby'}
-        stdout={'puts gets'}
-        errlog={''}
-        socket={socket}
-        code={'p gets'}
-        lang={'ruby'}
-        updateStdin={updateStdin}
-        updateStdout={updateStdout}
-        addResult={addResult}
-        clearResults={clearResults}
-        addAnnotations={addAnnotations}
-        clearAnnotations={clearAnnotations}
-      />
-    );
-  });
-  if (component === undefined) {
-    expect(0).toEqual(1);
-    return;
-  }
-  const h: ReturnType<StaticIOShell['forTestHandler']> =
-    component.root.instance.forTestHandler();
+  const { asFragment, getByTestId } = render(
+    <StaticIOShell
+      stdin={'ruby'}
+      stdout={'puts gets'}
+      errlog={''}
+      socket={socket}
+      code={'p gets'}
+      lang={'ruby'}
+      updateStdin={updateStdin}
+      updateStdout={updateStdout}
+      addResult={addResult}
+      clearResults={clearResults}
+      addAnnotations={addAnnotations}
+      clearAnnotations={clearAnnotations}
+    />
+  );
 
   //
 
-  expect(component.toJSON()).toMatchSnapshot();
-  h.handleClickToggle();
-  expect(component.toJSON()).toMatchSnapshot();
-  h.handleClickToggle();
+  expect(asFragment()).toMatchSnapshot();
+  fireEvent.click(getByTestId('button-toggle-display'));
+
+  expect(asFragment()).toMatchSnapshot();
+  fireEvent.click(getByTestId('button-toggle-display'));
 
   //
 
-  h.handleClickRun();
+  fireEvent.click(getByTestId('button-run'));
   expect(emitSocket.mock.calls.length).toEqual(1);
   expect(emitSocket.mock.calls[0]).toMatchSnapshot();
   const emittedData = emitSocket.mock.calls[0][0];
@@ -127,8 +119,7 @@ test('StaticIOShell', () => {
   exampleReceivedStream.forEach((data) => {
     data.id = { ...id };
     emulateResponce(data);
-    if (!component) throw new Error();
-    expect(component.toJSON()).toMatchSnapshot();
+    expect(asFragment()).toMatchSnapshot();
     expect([
       updateStdin.mock.calls,
       updateStdout.mock.calls,
@@ -159,38 +150,28 @@ test('StaticIOShell_Kill', () => {
   const addAnnotations = jest.fn();
   const clearAnnotations = jest.fn();
 
-  let component: renderer.ReactTestRenderer | undefined;
-
-  renderer.act(() => {
-    component = renderer.create(
-      <StaticIOShell
-        stdin={'ruby'}
-        stdout={'puts gets'}
-        errlog={''}
-        socket={socket}
-        code={'p gets'}
-        lang={'ruby'}
-        updateStdin={updateStdin}
-        updateStdout={updateStdout}
-        addResult={addResult}
-        clearResults={clearResults}
-        addAnnotations={addAnnotations}
-        clearAnnotations={clearAnnotations}
-      />
-    );
-  });
-  if (component === undefined) {
-    expect(0).toEqual(1);
-    return;
-  }
-  const h: ReturnType<StaticIOShell['forTestHandler']> =
-    component.root.instance.forTestHandler();
+  const { asFragment, getByTestId } = render(
+    <StaticIOShell
+      stdin={'ruby'}
+      stdout={'puts gets'}
+      errlog={''}
+      socket={socket}
+      code={'p gets'}
+      lang={'ruby'}
+      updateStdin={updateStdin}
+      updateStdout={updateStdout}
+      addResult={addResult}
+      clearResults={clearResults}
+      addAnnotations={addAnnotations}
+      clearAnnotations={clearAnnotations}
+    />
+  );
 
   //
 
   for (let killIdx = 0; killIdx < exampleReceivedStream.length; ++killIdx) {
     emitSocket.mock.calls.splice(0);
-    h.handleClickRun();
+    fireEvent.click(getByTestId('button-run'));
     const emittedData = emitSocket.mock.calls[0][0];
     const id = emittedData.id;
     exampleReceivedStream.forEach((data, idx) => {
@@ -198,13 +179,12 @@ test('StaticIOShell_Kill', () => {
 
       data.id = { ...id };
       emulateResponce(data);
-      if (!component) throw new Error();
 
       // kill command
       if (idx === killIdx) {
-        h.handleClickKill();
+        fireEvent.click(getByTestId('button-kill'));
         expect(emitSocket.mock.calls).toMatchSnapshot();
-        expect(component.toJSON()).toMatchSnapshot();
+        expect(asFragment()).toMatchSnapshot();
       }
     });
   }

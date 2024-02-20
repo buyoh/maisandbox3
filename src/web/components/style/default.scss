@@ -9,11 +9,8 @@ body {
   background-color:#222;
   color:#eee;
   margin: 0;
+  padding: 0;
   font-size: 1.6rem;
-}
-
-main {
-  margin: 1rem;
 }
 
 // -----------------------------
@@ -63,21 +60,21 @@ select {
   border: 1px solid #777;
 }
 
-.flex_row {
+.flex-row {  // TODO: RENAME to flex-row
   display: flex;
   flex-direction: row;
 }
 
-.flex_cols {
+.flex-column {  // TODO: RENAME to flex-column
   display: flex;
   flex-direction: column;
 }
 
-.flex_elem {
+.flex-elem {
   flex: 1 1 auto;
 }
 
-.flex_elem_fix {
+.flex-elem-fix {
   flex: 0 0 auto;
 }
 
