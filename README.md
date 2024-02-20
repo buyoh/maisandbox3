@@ -23,7 +23,7 @@ git submodule update
 ## environment
 
 - Ubuntu 20.04 (recommended. may be runnable on *NIX)
-- node v12
+- node v16 or v18
 - ruby 2.7
 - docker (for production environment)
 - docker compose (for production environment)
@@ -48,14 +48,14 @@ launch as production with docker compose as independent process
 
 ```
 yarn install
-sudo service/install-service.sh
+sudo scripts/install-service.sh
 ```
 
 if you want to upgrade when already installed,
 
 ```
 yarn install
-sudo service/upgrade-service.sh
+sudo scripts/upgrade-service.sh
 ```
 
 
