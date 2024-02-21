@@ -1,7 +1,8 @@
 import CallbackManager from '../lib/CallbackManager';
-import { QueryParser } from './MainServer/QueryParser';
 import TaskRunnerManager from './MainServer/TaskRunnerManager';
 import { ConnectionHandler, ConnectionHandlerFactory } from './WebService';
+import { Query } from '../lib/QueryTypes';
+import TaskRunner from './MainServer/TaskRunner';
 
 // ----------------------------------------------------------------------------
 
@@ -12,19 +13,23 @@ export interface TaskManagerService {
 
 // ----------------------------------------------------------------------------
 
+function validateQuery(rawData: any): Query {
+  // TODO: validate rawData
+  return rawData;
+}
+
+// ------------------------------------
+
 class ConnectionHandlerImpl implements ConnectionHandler {
   socketId: string;
   taskRunnerManager: TaskRunnerManager;
-  queryParser: QueryParser;
+  launcherCallbackManager: CallbackManager;
 
   constructor(socketId: string, launcherCallbackManager: CallbackManager) {
+    // NOTE: sockerId はユーザ識別の為いずれ必要になる
     this.socketId = socketId;
     this.taskRunnerManager = new TaskRunnerManager();
-    this.queryParser = new QueryParser(
-      socketId,
-      this.taskRunnerManager,
-      launcherCallbackManager
-    );
+    this.launcherCallbackManager = launcherCallbackManager;
   }
 
   disconnect(): void {
@@ -33,11 +38,44 @@ class ConnectionHandlerImpl implements ConnectionHandler {
   }
 
   queryExec(rawData: any, callback: (data: any) => void): void {
-    this.queryParser.handle(rawData, (data) => {
-      callback(data);
-    });
+    const query = validateQuery(rawData);
+    const clientJobId = query.id;
+    // note: query.id は client に返す場合と、
+    // QueryParser 内での Task 判定の場合のみに必要
+    if (!clientJobId) {
+      // can't report to client.
+      callback({ success: false });
+      return;
+    }
+
+    const taskRunner = this.taskRunnerManager.getTaskRunner(clientJobId);
+
+    if (query.action == 'init') {
+      const newTaskRunner = new TaskRunner(
+        clientJobId,
+        this.launcherCallbackManager,
+        callback,
+        () => {
+          this.taskRunnerManager.unregister(clientJobId);
+        }
+      );
+      // registration must be before execution.
+      this.taskRunnerManager.register(clientJobId, newTaskRunner);
+      newTaskRunner.init(query);
+
+    } else if (query.action == 'kill') {
+      if (!taskRunner) {
+        callback({ id: query.id, success: false });
+        return;
+      }
+      taskRunner.kill();
+
+    }
+    // TODO: 実行中に情報を送信する action == 'send'
   }
 }
+
+// ------------------------------------
 
 class ConnectionHandlerFactoryImpl implements ConnectionHandlerFactory {
   launcherCallbackManager: CallbackManager;
@@ -49,6 +87,8 @@ class ConnectionHandlerFactoryImpl implements ConnectionHandlerFactory {
     return new ConnectionHandlerImpl(socketId, this.launcherCallbackManager);
   }
 }
+
+// ------------------------------------
 
 class TaskManagerServiceImpl implements TaskManagerService {
   connectionHandlerFactory: ConnectionHandlerFactory;
