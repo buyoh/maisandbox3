@@ -42,6 +42,15 @@ npm i -g yarn
 yarn -- help
 ```
 
+## simple start (docker compose)
+
+```
+cd docker
+docker compose up
+```
+
+Then, access http://localhost:11460
+
 ## install to systemd
 
 launch as production with docker compose as independent process
@@ -51,17 +60,11 @@ yarn install
 sudo scripts/install-service.sh
 ```
 
-if you want to upgrade when already installed,
+## optional startup
 
-```
-yarn install
-sudo scripts/upgrade-service.sh
-```
+### start with production build
 
-
-## setup(production)
-
-### build
+#### build
 
 ```
 yarn
@@ -73,14 +76,7 @@ yarn build
 docker/build-docker.sh
 ```
 
-### start (docker compose)
-
-```
-cd docker
-docker compose up
-```
-
-### start (without docker)
+#### start
 
 ```
 PORT=11460 yarn prod
@@ -88,52 +84,26 @@ PORT=11460 yarn prod
 
 check http://localhost:11460
 
-### start (with docker as independent process)
-
-```
-# launcher
-docker/start-launcher.sh --silent
-# webserver
-LAUNCHER_PROCESS=SOCKET yarn prod
-```
-
-## setup(development)
+### start with development environment
 
 #### install tools
 
 ```
 yarn
-bundle install  # for RSpec, rubocop only
+(cd deps/applauncher && bundle install)  # for RSpec, rubocop only
 ```
 
-#### start(without docker)
+#### start (without docker)
 
 ```
 yarn dev
 ```
 
-#### execute (without docker as independent process)
+#### start (without docker as independent process)
 
 ```
 # launcher
 ruby deps/applauncher/index.rb --verbose
-# webserver
-LAUNCHER_PROCESS=SOCKET yarn dev
-```
-
-
-#### execute (with docker as independent process)
-
-(setup)
-```
-docker/build-launcher.sh
-```
-
-(run)
-
-```
-# launcher
-docker/start-launcher.sh --verbose
 # webserver
 LAUNCHER_PROCESS=SOCKET yarn dev
 ```
