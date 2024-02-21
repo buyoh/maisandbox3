@@ -1,5 +1,5 @@
 import CallbackManager from '../lib/CallbackManager';
-import Config from '../lib/Config';
+import Config from './Config';
 import LauncherHolder from './Launcher/LauncherHolder';
 import { createLauncherSocket } from './Launcher/LauncherSocketFactory';
 

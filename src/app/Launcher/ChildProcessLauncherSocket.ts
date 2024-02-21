@@ -1,5 +1,5 @@
 import ChildProcess from 'child_process';
-import Config from '../../lib/Config';
+import Config from '../Config';
 import {
   CallbackClose,
   CallbackReceive,

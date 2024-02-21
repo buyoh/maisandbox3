@@ -4,7 +4,7 @@ import { ResultEmitter, Runnable } from './TaskUtil';
 import { TaskInterface } from './TaskInterface';
 import { TaskCpp } from './FileStdinTask/TaskCpp';
 import { TaskCLay } from './FileStdinTask/TaskCLay';
-import { QueryInit } from '../../lib/QueryTypes';
+import { QueryInit } from '../../interfaces/QueryTypes';
 
 export class TaskFactory {
   private launcherCallbackManager: CallbackManager;

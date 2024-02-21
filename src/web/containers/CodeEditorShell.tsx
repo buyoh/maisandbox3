@@ -6,7 +6,7 @@ import { RootState } from '../stores';
 import CodeToolbar from '../components/CodeToolbar';
 import CodeEditor from '../components/CodeEditor';
 import { pullFromLocalStorage, pushToLocalStorage } from '../lib/LocalStorage';
-import { Annotation } from '../../lib/ResultTypes';
+import { Annotation } from '../../interfaces/ResultTypes';
 import * as Actions from '../stores/CodeEditor/actions';
 import { CodeEditorActionTypes } from '../stores/CodeEditor/types';
 

@@ -1,5 +1,5 @@
 import CallbackManager from '../../lib/CallbackManager';
-import { ReportItem } from '../../lib/ResultTypes';
+import { ReportItem } from '../../interfaces/ResultTypes';
 import {
   LauncherResult,
   LauncherSubResultOfExec,

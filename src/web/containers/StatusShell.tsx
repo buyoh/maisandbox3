@@ -6,7 +6,7 @@ import { Item as StatusBarItem } from '../components/StatusBar';
 import * as Actions from '../stores/Status/actions'; // TODO: separate
 import StatusBar from '../components/StatusBar';
 import StatusDetail from '../components/StatusDetail';
-import { ReportItem } from '../../lib/ResultTypes';
+import { ReportItem } from '../../interfaces/ResultTypes';
 
 // TODO: typeフォルダのようなものを作ってそこに移すべき
 export interface ExecResult {

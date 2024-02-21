@@ -1,7 +1,7 @@
 import React from 'react';
 import AceEditor from 'react-ace';
 
-import { Annotation } from '../../lib/ResultTypes';
+import { Annotation } from '../../interfaces/ResultTypes';
 
 import 'ace-builds/src-min-noconflict/mode-c_cpp';
 import 'ace-builds/src-min-noconflict/mode-python';

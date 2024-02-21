@@ -1,4 +1,4 @@
-import { QueryInitInfo } from '../../lib/QueryTypes';
+import { QueryInitInfo } from '../../interfaces/QueryTypes';
 
 export interface TaskInterface {
   kill(): void;

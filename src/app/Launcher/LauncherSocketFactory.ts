@@ -1,4 +1,4 @@
-import Config from '../../lib/Config';
+import Config from '../Config';
 import { ChildProcessLauncherSocket } from './ChildProcessLauncherSocket';
 import { ISocket } from './LauncherSocketInterface';
 import { SocketLauncherSocket } from './SocketLauncherSocket';

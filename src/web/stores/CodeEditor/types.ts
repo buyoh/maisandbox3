@@ -1,4 +1,4 @@
-import { Annotation } from '../../../lib/ResultTypes';
+import { Annotation } from '../../../interfaces/ResultTypes';
 
 export interface CodeEditorState {
   code: string;

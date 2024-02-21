@@ -1,7 +1,7 @@
 import * as SocketIO from 'socket.io';
 import Next from 'next';
-import Config from '../lib/Config';
-import { setupExpressServer } from './MainServer/Express';
+import Config from './Config';
+import { setupExpressServer } from './Web/Express';
 import { readFileSync } from 'fs';
 
 // ----------------------------------------------------------------------------
