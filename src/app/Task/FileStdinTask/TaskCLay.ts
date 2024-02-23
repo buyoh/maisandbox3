@@ -11,7 +11,10 @@ import {
   utilPhaseExecuteFileIO,
   utilPhasePullFiles,
 } from '../TaskUtil';
-import { QueryInitInfo, QueryInitInfoFileStdin } from '../../../interfaces/QueryTypes';
+import {
+  QueryInitInfo,
+  QueryInitInfoFileStdin,
+} from '../../../interfaces/QueryTypes';
 import { Result } from '../../../interfaces/ResultTypes';
 import { TaskInterface } from '../TaskInterface';
 import { annotateSummaryDefault } from '../SummaryAnnotator';

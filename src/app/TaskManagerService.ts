@@ -62,14 +62,12 @@ class ConnectionHandlerImpl implements ConnectionHandler {
       // registration must be before execution.
       this.taskRunnerManager.register(clientJobId, newTaskRunner);
       newTaskRunner.init(query);
-
     } else if (query.action == 'kill') {
       if (!taskRunner) {
         callback({ id: query.id, success: false });
         return;
       }
       taskRunner.kill();
-
     }
     // TODO: 実行中に情報を送信する action == 'send'
   }

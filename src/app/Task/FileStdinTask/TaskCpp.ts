@@ -10,7 +10,10 @@ import {
   mapFilesFromPullResult,
   createReportItemsFromExecResult,
 } from '../TaskUtil';
-import { QueryInitInfo, QueryInitInfoFileStdin } from '../../../interfaces/QueryTypes';
+import {
+  QueryInitInfo,
+  QueryInitInfoFileStdin,
+} from '../../../interfaces/QueryTypes';
 import { Annotation, Result } from '../../../interfaces/ResultTypes';
 import { TaskInterface } from '../TaskInterface';
 import { annotateSummaryDefault } from '../SummaryAnnotator';
