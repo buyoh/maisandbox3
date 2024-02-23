@@ -1,6 +1,7 @@
 import { createLauncherService } from './LauncherService';
 import { createWebService } from './WebService';
 import { createTaskManagerService } from './TaskManagerService';
+import Config from './Config';
 
 (async () => {
   try {
@@ -8,7 +9,12 @@ import { createTaskManagerService } from './TaskManagerService';
     const taskManagerService = createTaskManagerService(
       launcherService.getCallbackManager()
     );
-    await createWebService(taskManagerService.getConnectionHandlerFactory());
+    if (Config.develop) {
+      // TODO: Replace completely with vite
+      await createWebService(taskManagerService.getConnectionHandlerFactory());  // vite
+    } else {
+      await createWebService(taskManagerService.getConnectionHandlerFactory(), false);  // nextjs
+    }
 
     // trap
     process.on('SIGINT', () => {

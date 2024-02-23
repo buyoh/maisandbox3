@@ -3,11 +3,14 @@ import Next from 'next';
 import Config from './Config';
 import { setupExpressServer } from './Web/Express';
 import { readFileSync } from 'fs';
+import fs from 'fs';
+import vite from 'vite';
+import path from 'path';
 
 // ----------------------------------------------------------------------------
 
 export interface WebService {
-  stop(): void;
+  getExpress(): any;
 }
 
 export interface ConnectionHandler {
@@ -23,20 +26,22 @@ export interface ConnectionHandlerFactory {
 // ----------------------------------------------------------------------------
 
 class WebServiceImpl implements WebService {
-  // 何も要らない
-  stop(): void {
+  constructor(private express: any) {
     //
+  }
+  getExpress() {
+    return this.express;
   }
 }
 
 // ----------------------------------------------------------------------------
 
 export async function createWebService(
-  connectionHandlerFactory: ConnectionHandlerFactory
+  connectionHandlerFactory: ConnectionHandlerFactory,
+  vitemode = true // TODO: Refactoring
 ): Promise<WebService> {
   // TODO: nextjs をやめる
   // TODO: REST API を追加できるようにする
-  const appNext = Next({ dev: Config.develop });
   const port = Config.httpPort;
 
   // sslconfig
@@ -53,15 +58,58 @@ export async function createWebService(
         return s;
       }, {} as { [index: string]: string });
 
+  let requestHandler = null;
+  if (!vitemode) {
+    const appNext = Next({ dev: Config.develop });
+    /* await */ appNext.prepare();
+    requestHandler = appNext.getRequestHandler();
+  }
+
   // appServer
-  await appNext.prepare();
-  const [, httpServer] = setupExpressServer(
-    appNext.getRequestHandler(),
+  const [express, httpServer] = setupExpressServer(
+    requestHandler,
     port,
     sslConfig
   );
 
+  {
+    // TODO: Refactoring
+    const cwd = process.cwd();
+    const viteServer = await vite.createServer({
+      root: cwd,
+      logLevel: 'info',
+      server: {
+        middlewareMode: true,
+        watch: {
+          usePolling: true,
+          interval: 250,
+        },
+      },
+    });
+    express.use(viteServer.middlewares);
+
+    express.use('*', async (req, res) => {
+      try {
+        const url = req.originalUrl;
+
+        const html = fs.readFileSync(path.resolve(cwd, 'index.html'), 'utf-8'); // todo: async
+
+        res
+          .status(200)
+          .set({ 'Content-Type': 'text/html' })
+          .end(await viteServer.transformIndexHtml(url, html));
+      } catch (e) {
+        if (e instanceof Error) {
+          viteServer && viteServer.ssrFixStacktrace(e);
+          console.log(e.stack);
+          res.status(500).end(e.stack);
+        }
+      }
+    });
+  }
+
   // socketio
+  // TODO: change entry point
   const socketio = new SocketIO.Server(httpServer);
 
   // socketio binding
@@ -82,5 +130,5 @@ export async function createWebService(
     });
   }); // on connection
 
-  return new WebServiceImpl();
+  return new WebServiceImpl(express);
 }

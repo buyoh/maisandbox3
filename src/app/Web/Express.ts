@@ -8,7 +8,7 @@ type Handler = (
 ) => Promise<void>;
 
 export function setupExpressServer(
-  pageHandler: Handler,
+  pageHandler: Handler | null,
   port = 3030,
   sslConfig: null | Object
 ): [Express.Express, Http.Server] {
@@ -18,9 +18,11 @@ export function setupExpressServer(
     : Http.createServer(appExpress);
 
   // express binding
-  appExpress.all('*', (req: Express.Request, res: Express.Response) => {
-    return pageHandler(req, res);
-  });
+  if (pageHandler) {
+    appExpress.all('*', (req: Express.Request, res: Express.Response) => {
+      return pageHandler(req, res);
+    });
+  }
 
   httpServer.listen(port, (err?: any) => {
     if (err) throw err;

@@ -60,6 +60,7 @@ class SocketService extends React.Component<CombinedProps, ReactState> {
   }
 
   componentDidMount(): void {
+    // const io = SocketIOClient('/ws');
     const io = SocketIOClient();
     this.props.setSocket(
       new ClientSocket(new Socket(io, 'c2e_Exec', 's2c_ResultExec'))
