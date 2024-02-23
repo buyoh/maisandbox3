@@ -1,10 +1,14 @@
 import Express from 'express';
+/*
 import Next from 'next';
 import Config from '../Config';
+*/
 
 export async function bindNextjsToExpress(
   express: Express.Express
 ): Promise<void> {
+  throw new Error('Nextjs is no longer supported.');
+  /*
   const appNext = Next({ dev: Config.develop });
   await appNext.prepare();
 
@@ -12,4 +16,5 @@ export async function bindNextjsToExpress(
   express.all('*', (req: Express.Request, res: Express.Response) => {
     return requestHandler(req, res);
   });
+  */
 }
