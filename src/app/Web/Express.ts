@@ -5,12 +5,13 @@ import { bindNextjsToExpress } from './ExpressNextjs';
 import { bindViteDevToExpress } from './ExpressViteDev';
 import { bindSocketIOToExpress } from './ExpressSocketIO';
 import { ConnectionHandlerFactory } from '../Api';
+import { bindStaticFileToExpress } from './ExpressStatic';
 
 export async function setupExpressServer(
   connectionHandlerFactory: ConnectionHandlerFactory,
   port = 3030,
   sslConfig: null | Object,
-  frontEndType: 'nextjs' | 'vite'
+  frontEndType: 'nextjs' | 'vite' | 'static'
 ): Promise<void> {
   const appExpress = Express();
 
@@ -18,6 +19,8 @@ export async function setupExpressServer(
     await bindNextjsToExpress(appExpress);
   } else if (frontEndType === 'vite') {
     await bindViteDevToExpress(appExpress);
+  } else if (frontEndType === 'static') {
+    await bindStaticFileToExpress(appExpress);
   } else {
     throw new Error(
       'setupExpressServer: frontEndType is not valid: ' + frontEndType

@@ -4,8 +4,10 @@
   "main": "/dev/null",
   "scripts": {
     "dev": "ts-node --project tsconfig.server.json src/app/MainServer.ts ",
-    "prod": "NODE_ENV=production node build/app/MainServer.js",
-    "build": "yarn build-next && yarn build-server",
+    "prod": "FRONTEND=static NODE_ENV=production node build/app/MainServer.js",
+    "prod-next": "FRONTEND=nextjs NODE_ENV=production node build/app/MainServer.js",
+    "build": "yarn build-vite && yarn build-server",
+    "build-vite": "vite build",
     "build-next": "next build",
     "build-server": "tsc --project tsconfig.server.json",
     "test": "jest --coverage",

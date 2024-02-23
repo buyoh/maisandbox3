@@ -9,18 +9,12 @@ import Config from './Config';
     const taskManagerService = createTaskManagerService(
       launcherService.getCallbackManager()
     );
-    if (Config.develop) {
-      // TODO: Replace completely with vite
-      await createWebService(
-        taskManagerService.getConnectionHandlerFactory(),
-        'vite'
-      ); // vite
-    } else {
-      await createWebService(
-        taskManagerService.getConnectionHandlerFactory(),
-        'nextjs'
-      ); // nextjs
-    }
+
+    console.log('Config.frontend', Config.frontend);
+    await createWebService(
+      taskManagerService.getConnectionHandlerFactory(),
+      Config.frontend // vite or nextjs or static
+    );
 
     // trap
     process.on('SIGINT', () => {

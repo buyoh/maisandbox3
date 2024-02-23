@@ -24,7 +24,7 @@ class WebServiceImpl implements WebService {
 
 export async function createWebService(
   connectionHandlerFactory: ConnectionHandlerFactory,
-  frontEndType: 'nextjs' | 'vite'
+  frontEndType: 'nextjs' | 'vite' | 'static'
 ): Promise<WebService> {
   const port = Config.httpPort;
 

@@ -37,3 +37,6 @@ yarn-error.log*
 # https://nextjs.org/docs/basic-features/typescript
 # This file should not be committed and should be ignored by version control 
 next-env.d.ts
+
+# vite
+/dist

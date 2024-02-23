@@ -14,11 +14,18 @@ const useChildProcess = process.env.LAUNCHER_PROCESS !== 'SOCKET';
 const launcherSocketPath =
   process.env.LAUNCHER_SOCKET_PATH || process.env.PWD + '/var/launcher.sock';
 
-// sssl対応にするかどうか
+// ssl対応にするかどうか
 const sslConfigPath = (() => {
   const s = process.env.SSL_CONFIG_PATH;
   return s ? `${s}` : null;
 })();
+
+const frontend: 'nextjs' | 'vite' | 'static' =
+  process.env.FRONTEND == 'nextjs'
+    ? 'nextjs'
+    : process.env.FRONTEND == 'static'
+    ? 'static'
+    : 'vite';
 
 export default {
   production,
@@ -28,4 +35,5 @@ export default {
   useChildProcess,
   launcherSocketPath,
   sslConfigPath,
+  frontend,
 };
