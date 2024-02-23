@@ -43,12 +43,7 @@ export async function createWebService(
       }, {} as { [index: string]: string });
 
   // appServer
-  setupExpressServer(
-    connectionHandlerFactory,
-    port,
-    sslConfig,
-    frontEndType
-  );
+  setupExpressServer(connectionHandlerFactory, port, sslConfig, frontEndType);
 
   return new WebServiceImpl();
 }

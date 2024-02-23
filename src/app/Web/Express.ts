@@ -13,13 +13,15 @@ export async function setupExpressServer(
   frontEndType: 'nextjs' | 'vite'
 ): Promise<void> {
   const appExpress = Express();
-  
+
   if (frontEndType === 'nextjs') {
     await bindNextjsToExpress(appExpress);
   } else if (frontEndType === 'vite') {
     await bindViteDevToExpress(appExpress);
   } else {
-    throw new Error('setupExpressServer: frontEndType is not valid: ' + frontEndType);
+    throw new Error(
+      'setupExpressServer: frontEndType is not valid: ' + frontEndType
+    );
   }
 
   const httpServer = sslConfig
