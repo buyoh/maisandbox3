@@ -23,7 +23,7 @@ git submodule update
 ## environment
 
 - Ubuntu 20.04 (recommended. may be runnable on *NIX)
-- node v16 or v18
+- node v18
 - ruby 2.7
 - docker (for production environment)
 - docker compose (for production environment)
