@@ -5,8 +5,9 @@ function keyFromClientJobID(clientJobId: ClientJobID) {
   return JSON.stringify(clientJobId);
 }
 
-// あるconnection（ブラウザタブ）によって生成されたTaskRunnerを管理する
-// 全てのTaskRunnerは管理しない。
+// 1つのユーザによって生成された複数のTaskRunnerを管理する。
+// ユーザとは、1つのconnectionあるいは1つのブラウザタブを指す。
+// ユーザは、タスクを作成・制御しその結果を受け取る。
 export class TaskRunnerManager {
   tasks: { [key: string]: TaskRunner };
 

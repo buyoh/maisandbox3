@@ -6,40 +6,32 @@ import { TaskCpp } from './FileStdinTask/TaskCpp';
 import { TaskCLay } from './FileStdinTask/TaskCLay';
 import { QueryInit } from '../../interfaces/QueryTypes';
 
-export class TaskFactory {
-  private launcherCallbackManager: CallbackManager;
-  private resultEmitter: ResultEmitter;
-  private finalize: Runnable;
+// ----------------------------------------------------------------------------
 
-  constructor(
+export interface TaskFactory {
+  generate(
     launcherCallbackManager: CallbackManager,
     resultEmitter: ResultEmitter,
-    finalize: Runnable
-  ) {
-    this.launcherCallbackManager = launcherCallbackManager;
-    this.resultEmitter = resultEmitter;
-    this.finalize = finalize;
-  }
+    finalize: Runnable,
+    query: QueryInit
+  ): TaskInterface | null;
+}
 
-  generate(query: QueryInit): TaskInterface | null {
+// ----------------------------------------------------------------------------
+
+export class TaskFactoryImpl implements TaskFactory {
+  generate(
+    launcherCallbackManager: CallbackManager,
+    resultEmitter: ResultEmitter,
+    finalize: Runnable,
+    query: QueryInit
+  ): TaskInterface | null {
     if (query.lang === 'ruby')
-      return new TaskRuby(
-        this.launcherCallbackManager,
-        this.resultEmitter,
-        this.finalize
-      );
+      return new TaskRuby(launcherCallbackManager, resultEmitter, finalize);
     if (query.lang === 'cpp')
-      return new TaskCpp(
-        this.launcherCallbackManager,
-        this.resultEmitter,
-        this.finalize
-      );
+      return new TaskCpp(launcherCallbackManager, resultEmitter, finalize);
     if (query.lang === 'clay')
-      return new TaskCLay(
-        this.launcherCallbackManager,
-        this.resultEmitter,
-        this.finalize
-      );
+      return new TaskCLay(launcherCallbackManager, resultEmitter, finalize);
     return null;
   }
 }

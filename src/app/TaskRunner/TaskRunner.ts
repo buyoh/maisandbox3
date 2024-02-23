@@ -28,16 +28,16 @@ export class TaskRunner {
     this.finalizer = finalizer;
   }
 
-  init(data: QueryInit): void {
-    const factory = new TaskFactory(
+  start(taskFactory: TaskFactory, data: QueryInit): void {
+    this.task = taskFactory.generate(
       this.launcherCallbackManager,
       (data: any) => {
         data.id = this.clientJobId; // clientに結果を返す際に必要となる識別子をここで挿入
         this.resultEmitter(data);
       },
-      this.finalizer
+      this.finalizer,
+      data
     );
-    this.task = factory.generate(data);
     if (!this.task) {
       // unknown language
       const res: Result = {

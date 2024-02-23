@@ -3,6 +3,7 @@ import TaskRunnerManager from './TaskRunner/TaskRunnerManager';
 import { ConnectionHandler, ConnectionHandlerFactory } from './Api';
 import { Query } from '../interfaces/QueryTypes';
 import TaskRunner from './TaskRunner/TaskRunner';
+import { TaskFactory, TaskFactoryImpl } from './Task/TaskFactory';
 
 // ----------------------------------------------------------------------------
 
@@ -24,12 +25,18 @@ class ConnectionHandlerImpl implements ConnectionHandler {
   socketId: string;
   taskRunnerManager: TaskRunnerManager;
   launcherCallbackManager: CallbackManager;
+  taskFactory: TaskFactory;
 
-  constructor(socketId: string, launcherCallbackManager: CallbackManager) {
+  constructor(
+    socketId: string,
+    launcherCallbackManager: CallbackManager,
+    taskFactory: TaskFactory
+  ) {
     // NOTE: sockerId はユーザ識別の為いずれ必要になる
     this.socketId = socketId;
     this.taskRunnerManager = new TaskRunnerManager();
     this.launcherCallbackManager = launcherCallbackManager;
+    this.taskFactory = taskFactory;
   }
 
   disconnect(): void {
@@ -61,7 +68,7 @@ class ConnectionHandlerImpl implements ConnectionHandler {
       );
       // registration must be before execution.
       this.taskRunnerManager.register(clientJobId, newTaskRunner);
-      newTaskRunner.init(query);
+      newTaskRunner.start(this.taskFactory, query);
     } else if (query.action == 'kill') {
       if (!taskRunner) {
         callback({ id: query.id, success: false });
@@ -77,12 +84,21 @@ class ConnectionHandlerImpl implements ConnectionHandler {
 
 class ConnectionHandlerFactoryImpl implements ConnectionHandlerFactory {
   launcherCallbackManager: CallbackManager;
-  constructor(launcherCallbackManager: CallbackManager) {
+  taskFactory: TaskFactory;
+  constructor(
+    launcherCallbackManager: CallbackManager,
+    taskFactory: TaskFactory
+  ) {
     this.launcherCallbackManager = launcherCallbackManager;
+    this.taskFactory = taskFactory;
   }
 
   createConnectionHandler(socketId: string): ConnectionHandler {
-    return new ConnectionHandlerImpl(socketId, this.launcherCallbackManager);
+    return new ConnectionHandlerImpl(
+      socketId,
+      this.launcherCallbackManager,
+      this.taskFactory
+    );
   }
 }
 
@@ -92,8 +108,10 @@ class TaskManagerServiceImpl implements TaskManagerService {
   connectionHandlerFactory: ConnectionHandlerFactory;
 
   constructor(launcherCallbackManager: CallbackManager) {
+    const taskFactory = new TaskFactoryImpl();
     this.connectionHandlerFactory = new ConnectionHandlerFactoryImpl(
-      launcherCallbackManager
+      launcherCallbackManager,
+      taskFactory
     );
   }
 
