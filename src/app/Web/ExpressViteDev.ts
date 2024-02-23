@@ -1,6 +1,5 @@
 import Express from 'express';
 import Fs from 'fs';
-import Vite from 'vite';
 import Path from 'path';
 import Config from '../Config';
 
@@ -10,6 +9,8 @@ export async function bindViteDevToExpress(
   if (!Config.develop) {
     throw new Error('bindViteDevToExpress: Config.develop is not true');
   }
+  // Dynamic import because it is not used in production
+  const Vite = await import('vite');
 
   // TODO: Refactoring
   const cwd = process.cwd();
