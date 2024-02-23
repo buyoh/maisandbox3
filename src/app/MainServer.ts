@@ -11,11 +11,14 @@ import Config from './Config';
     );
     if (Config.develop) {
       // TODO: Replace completely with vite
-      await createWebService(taskManagerService.getConnectionHandlerFactory()); // vite
+      await createWebService(
+        taskManagerService.getConnectionHandlerFactory(),
+        'vite'
+      ); // vite
     } else {
       await createWebService(
         taskManagerService.getConnectionHandlerFactory(),
-        false
+        'nextjs'
       ); // nextjs
     }
 

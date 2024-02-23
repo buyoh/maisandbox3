@@ -1,6 +1,6 @@
 import CallbackManager from '../lib/CallbackManager';
 import TaskRunnerManager from './TaskRunner/TaskRunnerManager';
-import { ConnectionHandler, ConnectionHandlerFactory } from './WebService';
+import { ConnectionHandler, ConnectionHandlerFactory } from './Api';
 import { Query } from '../interfaces/QueryTypes';
 import TaskRunner from './TaskRunner/TaskRunner';
 
