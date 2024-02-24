@@ -16,6 +16,7 @@ services:
       - LAUNCHER_PROCESS=SOCKET 
       - LAUNCHER_SOCKET_PATH=/var/opt/msb/launcher.sock
       - NODE_ENV=production
+      - FRONTEND=static
     working_dir: /opt/msb
     command: node build/app/MainServer.js
   runner:

@@ -11,6 +11,7 @@ sudo systemctl stop maisandbox3
 pushd $DIR_WORK
 pushd docker
 docker compose down --rmi all --volumes --remove-orphans
+docker compose rm -v -a
 popd
 popd
 
