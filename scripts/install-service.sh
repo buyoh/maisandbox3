@@ -21,7 +21,9 @@ cat <<EOS > /etc/systemd/system/maisandbox3.service
 Description = maisandbox3
 [Service]
 WorkingDirectory = $DIR_WORK/docker
+ExecStartPre = docker compose down
 ExecStart = docker compose up
+ExecStop = docker compose down
 Restart = no
 # Type = forking
 Type = simple
