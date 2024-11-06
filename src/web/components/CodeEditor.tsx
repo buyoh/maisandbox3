@@ -7,17 +7,17 @@ import 'ace-builds/src-min-noconflict/mode-c_cpp';
 import 'ace-builds/src-min-noconflict/mode-python';
 import 'ace-builds/src-min-noconflict/mode-ruby';
 
-import 'ace-builds/src-noconflict/snippets/c_cpp';
-import 'ace-builds/src-noconflict/snippets/python';
-import 'ace-builds/src-noconflict/snippets/ruby';
+import 'ace-builds/src/snippets/c_cpp';
+import 'ace-builds/src/snippets/python';
+import 'ace-builds/src/snippets/ruby';
 
-import 'ace-builds/src-min-noconflict/theme-monokai';
+import 'ace-builds/src/theme-monokai';
 
-import 'ace-builds/src-min-noconflict/ext-language_tools';
-import 'ace-builds/src-min-noconflict/ext-whitespace'; // ??
-import 'ace-builds/src-min-noconflict/ext-beautify'; // ??
-import 'ace-builds/src-min-noconflict/ext-options'; // ??
-// import 'ace-builds/src-min-noconflict/ext-emmet';
+import 'ace-builds/src/ext-language_tools';
+import 'ace-builds/src/ext-whitespace'; // ??
+import 'ace-builds/src/ext-beautify'; // ??
+import 'ace-builds/src/ext-options'; // ??
+// import 'ace-builds/src/ext-emmet';
 
 type CodeEditorProps = {
   lang: string;
