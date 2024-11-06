@@ -2136,6 +2136,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ace-builds@npm:^1.36.4":
+  version: 1.36.4
+  resolution: "ace-builds@npm:1.36.4"
+  checksum: 10c0/f36dacc2099559a1c3ba4622bfca627072b030c04776c96bcc482e4bccb32550d9631c225b174c4df127e1086c2e534669f8aad3bbe2fb1c48a10b9395f9f205
+  languageName: node
+  linkType: hard
+
 "ace-builds@npm:^1.4.14":
   version: 1.32.6
   resolution: "ace-builds@npm:1.32.6"
@@ -6391,6 +6398,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^3.10.1"
     "@typescript-eslint/parser": "npm:^3.10.1"
     "@vitejs/plugin-react": "npm:^4.3.3"
+    ace-builds: "npm:^1.36.4"
     eslint: "npm:^7.32.0"
     eslint-config-prettier: "npm:^6.15.0"
     eslint-plugin-jest: "npm:^24.7.0"
