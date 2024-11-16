@@ -3,21 +3,21 @@ import AceEditor from 'react-ace';
 
 import { Annotation } from '../../interfaces/ResultTypes';
 
-import 'ace-builds/src-min-noconflict/mode-c_cpp';
-import 'ace-builds/src-min-noconflict/mode-python';
-import 'ace-builds/src-min-noconflict/mode-ruby';
+import 'ace-builds/src-noconflict/mode-c_cpp';
+import 'ace-builds/src-noconflict/mode-python';
+import 'ace-builds/src-noconflict/mode-ruby';
 
-import 'ace-builds/src/snippets/c_cpp';
-import 'ace-builds/src/snippets/python';
-import 'ace-builds/src/snippets/ruby';
+import 'ace-builds/src-noconflict/snippets/c_cpp';
+import 'ace-builds/src-noconflict/snippets/python';
+import 'ace-builds/src-noconflict/snippets/ruby';
 
-import 'ace-builds/src/theme-monokai';
+import 'ace-builds/src-noconflict/theme-monokai';
 
-import 'ace-builds/src/ext-language_tools';
-import 'ace-builds/src/ext-whitespace'; // ??
-import 'ace-builds/src/ext-beautify'; // ??
-import 'ace-builds/src/ext-options'; // ??
-// import 'ace-builds/src/ext-emmet';
+import 'ace-builds/src-noconflict/ext-language_tools';
+import 'ace-builds/src-noconflict/ext-whitespace'; // ??
+import 'ace-builds/src-noconflict/ext-beautify'; // ??
+import 'ace-builds/src-noconflict/ext-options'; // ??
+// import 'ace-builds/src-noconflict/ext-emmet';
 
 type CodeEditorProps = {
   lang: string;
@@ -28,7 +28,6 @@ type CodeEditorProps = {
 
 type CodeEditorState = {};
 
-// import 'ace-builds/src-noconflict/mode-c_cpp';
 // import 'ace-builds/src-noconflict/theme-github';
 
 class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
