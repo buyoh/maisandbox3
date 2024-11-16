@@ -12,7 +12,8 @@ RUN mkdir /var/opt/msb \
 # Copy sources
 RUN mkdir -p /opt/msb/src
 RUN mkdir -p /opt/msb/public
-COPY *.json *.ts* *.js* *.html yarn.lock  /opt/msb/
+COPY *.json *.ts* *.js* *.html yarn.lock .yarnrc.yml /opt/msb/
+COPY .yarn /opt/msb/.yarn
 COPY src  /opt/msb/src
 COPY public  /opt/msb/public
 
