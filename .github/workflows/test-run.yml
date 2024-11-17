@@ -27,10 +27,7 @@ jobs:
         yarn
     - name: test launch develop
       run: |
-        PORT=3030 timeout 10 yarn dev || [[ $? -eq 124 ]]
+        bash .github/workflows/lib/test-run.sh
     - name: test launch production
       run: |
-        yarn build
-        yarn --production
-        ruby deps/applauncher/index.rb --verbose &
-        LAUNCHER_PROCESS=SOCKET timeout 20 yarn prod || [[ $? -eq 124 ]]
+        NODE_ENV=production bash .github/workflows/lib/test-run.sh
