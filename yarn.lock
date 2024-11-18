@@ -2136,17 +2136,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:^1.36.4":
-  version: 1.36.4
-  resolution: "ace-builds@npm:1.36.4"
-  checksum: 10c0/f36dacc2099559a1c3ba4622bfca627072b030c04776c96bcc482e4bccb32550d9631c225b174c4df127e1086c2e534669f8aad3bbe2fb1c48a10b9395f9f205
-  languageName: node
-  linkType: hard
-
-"ace-builds@npm:^1.4.14":
-  version: 1.32.6
-  resolution: "ace-builds@npm:1.32.6"
-  checksum: 10c0/9b3ac9a500ab5ce779aed75bc0d799b57ddc24229f458a4c3541c35d2b23b51eec1cbb681335de42cac731883d52073540c52e93e2754d302ed9ed718e28cac4
+"ace-builds@npm:^1.36.3, ace-builds@npm:~1.36.5":
+  version: 1.36.5
+  resolution: "ace-builds@npm:1.36.5"
+  checksum: 10c0/ac04cc417284af35e71a5408094719a379073cb3dde30fa4bb4b6194557506d59e4aa52204edd8d07f579ec6edb5a52a8158e7b6f6955dcd958c1d27d720ab50
   languageName: node
   linkType: hard
 
@@ -6398,7 +6391,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^3.10.1"
     "@typescript-eslint/parser": "npm:^3.10.1"
     "@vitejs/plugin-react": "npm:^4.3.3"
-    ace-builds: "npm:^1.36.4"
+    ace-builds: "npm:~1.36.5"
     eslint: "npm:^7.32.0"
     eslint-config-prettier: "npm:^6.15.0"
     eslint-plugin-jest: "npm:^24.7.0"
@@ -6407,7 +6400,7 @@ __metadata:
     jest: "npm:^26.6.3"
     prettier: "npm:^2.8.8"
     react: "npm:^18.3.1"
-    react-ace: "npm:^10.1.0"
+    react-ace: "npm:~13.0.0"
     react-dom: "npm:^18.3.1"
     react-redux: "npm:^7.2.9"
     react-test-renderer: "npm:^17.0.2"
@@ -7446,19 +7439,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-ace@npm:^10.1.0":
-  version: 10.1.0
-  resolution: "react-ace@npm:10.1.0"
+"react-ace@npm:~13.0.0":
+  version: 13.0.0
+  resolution: "react-ace@npm:13.0.0"
   dependencies:
-    ace-builds: "npm:^1.4.14"
+    ace-builds: "npm:^1.36.3"
     diff-match-patch: "npm:^1.0.5"
     lodash.get: "npm:^4.4.2"
     lodash.isequal: "npm:^4.5.0"
-    prop-types: "npm:^15.7.2"
+    prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ^0.13.0 || ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
     react-dom: ^0.13.0 || ^0.14.0 || ^15.0.1 || ^16.0.0 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/c7f4b08ec9873662b33b1e3d3e9312a5172120425b3842310438430ed0618a00de0e076defed057658ae0ae565d943fd573ae6decf13b7d1ca3f27eb26b0ce81
+  checksum: 10c0/adbe485de187b69ca493bc986b587bf76222cf7eedfba53afd33deba7310cf094baf0fe8c42b4833e1fb7e26144d916797fe482137d563d15d91314d5292d8cc
   languageName: node
   linkType: hard
 
