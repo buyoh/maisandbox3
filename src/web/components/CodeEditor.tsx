@@ -42,6 +42,15 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
   }
 
   render(): JSX.Element {
+    const annotations = this.props.annotations?.map((a) => {
+      console.log(a.type);
+      return {
+        row: a.row,
+        column: a.column,
+        text: a.text,
+        type: a.type === 'error' ? 'error' : 'warning',  // TODO: Other type?
+      };
+    });
     return (
       <AceEditor
         mode={this.props.lang}
@@ -65,7 +74,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
         }}
         width="auto"
         height="100%"
-        annotations={this.props.annotations}
+        annotations={annotations}
         value={this.props.value}
         onChange={this.handleOnChange}
       />
