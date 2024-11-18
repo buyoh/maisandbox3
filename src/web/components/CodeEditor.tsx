@@ -48,7 +48,7 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
         row: a.row,
         column: a.column,
         text: a.text,
-        type: a.type === 'error' ? 'error' : 'warning',  // TODO: Other type?
+        type: a.type === 'error' ? 'error' : 'warning', // TODO: Other type?
       };
     });
     return (
