@@ -24,7 +24,7 @@ class LangSettingsCpp extends React.Component<LangSettingsCppProps, {}> {
             value={this.props.std}
             items={[
               { key: 'c++14', label: 'c++14' },
-              { key: 'c++17', label: 'c++17' },
+              { key: 'c++20', label: 'c++20' },
             ]}
             onChange={this.props.onLangChange}
           />

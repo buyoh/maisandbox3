@@ -34,7 +34,7 @@ class CodeToolbar extends React.Component<CodeToolbarProps, {}> {
         </div>
         {this.props.lang == 'cpp' && (
           <div className="flex-elem-fix">
-            <LangSettingsCpp std={'c++17'} />
+            <LangSettingsCpp std={'c++20'} />
           </div>
         )}
         <div className="flex-elem-fix">
