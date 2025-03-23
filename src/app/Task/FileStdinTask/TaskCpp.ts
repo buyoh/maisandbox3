@@ -137,7 +137,7 @@ export class TaskCpp implements TaskInterface {
           },
           'g++',
           [
-            '-std=C++20',
+            '-std=c++2a',
             '-O3',
             '-Wall',
             '-I',
