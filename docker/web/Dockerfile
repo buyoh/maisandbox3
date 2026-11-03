@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:22-alpine
 
 # Create users
 RUN adduser -u 1100 -H -D -s /usr/sbin/nologin master
@@ -12,25 +12,17 @@ RUN mkdir /var/opt/msb \
 # Copy sources
 RUN mkdir -p /opt/msb/src
 RUN mkdir -p /opt/msb/public
-COPY *.json *.ts* *.js* *.html yarn.lock .yarnrc.yml /opt/msb/
-COPY .yarn /opt/msb/.yarn
+COPY *.json *.ts* *.js* *.mts *.mjs *.html /opt/msb/
 COPY src  /opt/msb/src
 COPY public  /opt/msb/public
-
-# Enable yarn 2
-RUN yarn set version berry
+COPY prod  /opt/msb/prod
 
 # Install packages and build
 WORKDIR /opt/msb
-# yarn 2 setup
-# RUN yarn plugin import workspace-tools
-RUN yarn --frozen-lockfile
-RUN yarn install
-RUN yarn build
+RUN npm ci
+RUN npm run build
 # erase development dependencies
-# RUN yarn --production --frozen-lockfile
-# For yarn v2
-RUN yarn workspaces focus --all --production
+RUN npm prune --production
 
 # Restrict access
 RUN chmod o-w /opt/msb -R

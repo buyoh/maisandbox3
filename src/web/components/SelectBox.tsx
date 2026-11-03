@@ -2,8 +2,11 @@ import React from 'react';
 
 type SelectBoxProps = {
   value: string;
+  /** true の場合セレクトボックスを無効化する。省略時は有効。 */
   disable?: boolean;
+  /** 選択肢一覧。省略時は空のセレクトボックスを表示。 */
   items?: Array<{ key: string; label: string }>;
+  /** 選択変更時のコールバック。省略時は変更通知を受け取らない。 */
   onChange?: (key: string) => void;
 };
 

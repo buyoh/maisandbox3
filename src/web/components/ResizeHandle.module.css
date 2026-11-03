@@ -1,0 +1,20 @@
+.handle {
+  height: 6px;
+  background-color: #444;
+  cursor: row-resize;
+  flex: 0 0 auto;
+  touch-action: none;
+}
+
+.handle:hover {
+  background-color: #666;
+}
+
+.handle:focus-visible {
+  outline: 2px solid #aaf;
+  outline-offset: -1px;
+}
+
+.active {
+  background-color: #888;
+}

@@ -58,3 +58,8 @@ next-env.d.ts
 # !.yarn/sdks
 # !.yarn/versions
 # .pnp.*
+
+*.tsbuildinfo
+
+.trash/
+/.vscode

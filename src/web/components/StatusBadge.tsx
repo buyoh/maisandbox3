@@ -1,12 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styles from './StatusBadge.module.css';
 
 type StatusBadgeProps = {
   color: string;
+  /** バッジがアクティブ（選択中）かどうか。省略時は非アクティブ。 */
   active?: boolean;
+  /** クリック可能なスタイルを適用するか。省略時はクリック不可の表示。 */
   clickable?: boolean;
-  children?: PropTypes.ReactNodeLike;
+  children?: React.ReactNode;
 };
 
 type StatusBadgeState = {};

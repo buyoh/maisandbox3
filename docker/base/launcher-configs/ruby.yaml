@@ -1,0 +1,27 @@
+meta:
+  display_name: Ruby
+
+inputs:
+  code: code.rb
+  stdin: stdin.txt
+
+actions:
+  run_single_stdio:
+    phases:
+      - name: run
+        cmd: ruby
+        args: ["./code.rb"]
+        stdin_from_input: stdin.txt
+        multi_repeat: true
+
+  run_version:
+    phases:
+      - name: version
+        cmd: ruby
+        args: ["--version"]
+
+  interactive:
+    phases:
+      - name: run
+        cmd: ruby
+        args: ["./code.rb"]

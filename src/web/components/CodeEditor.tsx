@@ -1,7 +1,7 @@
 import React from 'react';
 import AceEditor from 'react-ace';
 
-import { Annotation } from '../../interfaces/ResultTypes';
+import type { Annotation } from '../../interfaces/result-types';
 
 import 'ace-builds/src-noconflict/mode-c_cpp';
 import 'ace-builds/src-noconflict/mode-python';
@@ -14,21 +14,17 @@ import 'ace-builds/src-noconflict/snippets/ruby';
 import 'ace-builds/src-noconflict/theme-monokai';
 
 import 'ace-builds/src-noconflict/ext-language_tools';
-import 'ace-builds/src-noconflict/ext-whitespace'; // ??
-import 'ace-builds/src-noconflict/ext-beautify'; // ??
-import 'ace-builds/src-noconflict/ext-options'; // ??
-// import 'ace-builds/src-noconflict/ext-emmet';
 
 type CodeEditorProps = {
   lang: string;
   value: string;
+  /** コード変更時のコールバック。省略時は読み取り専用として動作する。 */
   onChange?: (value: string) => void;
+  /** エディタに表示するアノテーション一覧。省略時はアノテーション無し。 */
   annotations?: Annotation[];
 };
 
 type CodeEditorState = {};
-
-// import 'ace-builds/src-noconflict/theme-github';
 
 class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
   constructor(props: CodeEditorProps) {
@@ -42,15 +38,12 @@ class CodeEditor extends React.Component<CodeEditorProps, CodeEditorState> {
   }
 
   render(): JSX.Element {
-    const annotations = this.props.annotations?.map((a) => {
-      console.log(a.type);
-      return {
-        row: a.row,
-        column: a.column,
-        text: a.text,
-        type: a.type === 'error' ? 'error' : 'warning', // TODO: Other type?
-      };
-    });
+    const annotations = this.props.annotations?.map((a) => ({
+      row: a.row,
+      column: a.column,
+      text: a.text,
+      type: a.type === 'error' ? 'error' : 'warning', // TODO: Other type?
+    }));
     return (
       <AceEditor
         mode={this.props.lang}

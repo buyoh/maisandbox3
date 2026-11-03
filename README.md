@@ -28,18 +28,8 @@ git submodule update
 - docker (for production environment)
 - docker compose (for production environment)
 
-We recommend `yarn`.
-
 ```
-npm i yarn
-npx yarn --help
-```
-
-or
-
-```
-npm i -g yarn
-yarn -- help
+npm install
 ```
 
 ## simple start (docker compose)
@@ -56,7 +46,7 @@ Then, access http://localhost:11460
 launch as production with docker compose as independent process
 
 ```
-yarn install
+npm install
 sudo scripts/install-service.sh
 ```
 
@@ -67,8 +57,8 @@ sudo scripts/install-service.sh
 #### build
 
 ```
-yarn
-yarn build
+npm install
+npm run build
 ```
 
 ```
@@ -79,7 +69,7 @@ docker/build-docker.sh
 #### start
 
 ```
-PORT=11460 yarn prod
+PORT=11460 npm run prod
 ```
 
 check http://localhost:11460
@@ -89,14 +79,14 @@ check http://localhost:11460
 #### install tools
 
 ```
-yarn
+npm install
 (cd deps/applauncher && bundle install)  # for RSpec, rubocop only
 ```
 
 #### start (without docker)
 
 ```
-yarn dev
+npm run dev
 ```
 
 #### start (without docker as independent process)

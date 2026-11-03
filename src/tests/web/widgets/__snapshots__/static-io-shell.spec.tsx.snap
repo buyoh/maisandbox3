@@ -1,0 +1,1581 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StaticIOShell 1`] = `
+<DocumentFragment>
+  <div
+    class="flex-elem flex-column"
+  >
+    <div
+      class="flex-elem flex-row"
+    >
+      <div
+        class="flex-elem-fix flex-column"
+      >
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex-elem flex-row"
+        style="overflow: hidden;"
+      >
+        <div
+          class="flex-elem-fix flex-column"
+        >
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
+          >
+            ruby
+          </textarea>
+        </div>
+        <div
+          class="flex-elem flex-column"
+        >
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
+          >
+            puts gets
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StaticIOShell 2`] = `
+<DocumentFragment>
+  <div
+    class="flex-elem flex-column"
+  >
+    <div
+      class="flex-elem flex-row"
+    >
+      <div
+        class="flex-elem-fix flex-column"
+      >
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex-elem flex-row"
+        style="overflow: hidden;"
+      >
+        <textarea
+          placeholder="stderr"
+          readonly=""
+          rows="8"
+          spellcheck="false"
+          style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StaticIOShell 3`] = `
+[
+  {
+    "id": {
+      "clicmid": 1,
+    },
+    "info": {
+      "code": "p gets",
+      "stdin": "ruby",
+      "type": "filestdin",
+    },
+    "lang": "ruby",
+  },
+]
+`;
+
+exports[`StaticIOShell 4`] = `
+<DocumentFragment>
+  <div
+    class="flex-elem flex-column"
+  >
+    <div
+      class="flex-elem flex-row"
+    >
+      <div
+        class="flex-elem-fix flex-column"
+      >
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex-elem flex-row"
+        style="overflow: hidden;"
+      >
+        <div
+          class="flex-elem-fix flex-column"
+        >
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
+          >
+            ruby
+          </textarea>
+        </div>
+        <div
+          class="flex-elem flex-column"
+        >
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
+          >
+            puts gets
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StaticIOShell 5`] = `
+{
+  "resultsCount": 1,
+  "stdoutVal": "puts gets",
+}
+`;
+
+exports[`StaticIOShell 6`] = `
+<DocumentFragment>
+  <div
+    class="flex-elem flex-column"
+  >
+    <div
+      class="flex-elem flex-row"
+    >
+      <div
+        class="flex-elem-fix flex-column"
+      >
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex-elem flex-row"
+        style="overflow: hidden;"
+      >
+        <div
+          class="flex-elem-fix flex-column"
+        >
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
+          >
+            ruby
+          </textarea>
+        </div>
+        <div
+          class="flex-elem flex-column"
+        >
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
+          >
+            puts gets
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StaticIOShell 7`] = `
+{
+  "resultsCount": 1,
+  "stdoutVal": "puts gets",
+}
+`;
+
+exports[`StaticIOShell 8`] = `
+<DocumentFragment>
+  <div
+    class="flex-elem flex-column"
+  >
+    <div
+      class="flex-elem flex-row"
+    >
+      <div
+        class="flex-elem-fix flex-column"
+      >
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex-elem flex-row"
+        style="overflow: hidden;"
+      >
+        <div
+          class="flex-elem-fix flex-column"
+        >
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
+          >
+            ruby
+          </textarea>
+        </div>
+        <div
+          class="flex-elem flex-column"
+        >
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
+          >
+            puts gets
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StaticIOShell 9`] = `
+{
+  "resultsCount": 1,
+  "stdoutVal": "puts gets",
+}
+`;
+
+exports[`StaticIOShell 10`] = `
+<DocumentFragment>
+  <div
+    class="flex-elem flex-column"
+  >
+    <div
+      class="flex-elem flex-row"
+    >
+      <div
+        class="flex-elem-fix flex-column"
+      >
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex-elem flex-row"
+        style="overflow: hidden;"
+      >
+        <div
+          class="flex-elem-fix flex-column"
+        >
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
+          >
+            ruby
+          </textarea>
+        </div>
+        <div
+          class="flex-elem flex-column"
+        >
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
+          >
+            puts gets
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StaticIOShell 11`] = `
+{
+  "resultsCount": 1,
+  "stdoutVal": "puts gets",
+}
+`;
+
+exports[`StaticIOShell 12`] = `
+<DocumentFragment>
+  <div
+    class="flex-elem flex-column"
+  >
+    <div
+      class="flex-elem flex-row"
+    >
+      <div
+        class="flex-elem-fix flex-column"
+      >
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex-elem flex-row"
+        style="overflow: hidden;"
+      >
+        <div
+          class="flex-elem-fix flex-column"
+        >
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
+          >
+            ruby
+          </textarea>
+        </div>
+        <div
+          class="flex-elem flex-column"
+        >
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
+          >
+            puts gets
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StaticIOShell 13`] = `
+{
+  "resultsCount": 1,
+  "stdoutVal": "puts gets",
+}
+`;
+
+exports[`StaticIOShell 14`] = `
+<DocumentFragment>
+  <div
+    class="flex-elem flex-column"
+  >
+    <div
+      class="flex-elem flex-row"
+    >
+      <div
+        class="flex-elem-fix flex-column"
+      >
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex-elem flex-row"
+        style="overflow: hidden;"
+      >
+        <div
+          class="flex-elem-fix flex-column"
+        >
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
+          >
+            ruby
+          </textarea>
+        </div>
+        <div
+          class="flex-elem flex-column"
+        >
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
+          >
+            puts gets
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StaticIOShell 15`] = `
+{
+  "resultsCount": 1,
+  "stdoutVal": "puts gets",
+}
+`;
+
+exports[`StaticIOShell 16`] = `
+<DocumentFragment>
+  <div
+    class="flex-elem flex-column"
+  >
+    <div
+      class="flex-elem flex-row"
+    >
+      <div
+        class="flex-elem-fix flex-column"
+      >
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex-elem flex-row"
+        style="overflow: hidden;"
+      >
+        <div
+          class="flex-elem-fix flex-column"
+        >
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
+          >
+            ruby
+          </textarea>
+        </div>
+        <div
+          class="flex-elem flex-column"
+        >
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
+          >
+            puts gets
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StaticIOShell 17`] = `
+{
+  "resultsCount": 1,
+  "stdoutVal": "puts gets",
+}
+`;
+
+exports[`StaticIOShell_Kill 1`] = `
+[
+  [
+    {
+      "id": {
+        "clicmid": 1,
+      },
+    },
+  ],
+]
+`;
+
+exports[`StaticIOShell_Kill 2`] = `
+<DocumentFragment>
+  <div
+    class="flex-elem flex-column"
+  >
+    <div
+      class="flex-elem flex-row"
+    >
+      <div
+        class="flex-elem-fix flex-column"
+      >
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex-elem flex-row"
+        style="overflow: hidden;"
+      >
+        <div
+          class="flex-elem-fix flex-column"
+        >
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
+          >
+            ruby
+          </textarea>
+        </div>
+        <div
+          class="flex-elem flex-column"
+        >
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
+          >
+            puts gets
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StaticIOShell_Kill 3`] = `
+[
+  [
+    {
+      "id": {
+        "clicmid": 2,
+      },
+    },
+  ],
+]
+`;
+
+exports[`StaticIOShell_Kill 4`] = `
+<DocumentFragment>
+  <div
+    class="flex-elem flex-column"
+  >
+    <div
+      class="flex-elem flex-row"
+    >
+      <div
+        class="flex-elem-fix flex-column"
+      >
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex-elem flex-row"
+        style="overflow: hidden;"
+      >
+        <div
+          class="flex-elem-fix flex-column"
+        >
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
+          >
+            ruby
+          </textarea>
+        </div>
+        <div
+          class="flex-elem flex-column"
+        >
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
+          >
+            puts gets
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StaticIOShell_Kill 5`] = `
+[
+  [
+    {
+      "id": {
+        "clicmid": 3,
+      },
+    },
+  ],
+]
+`;
+
+exports[`StaticIOShell_Kill 6`] = `
+<DocumentFragment>
+  <div
+    class="flex-elem flex-column"
+  >
+    <div
+      class="flex-elem flex-row"
+    >
+      <div
+        class="flex-elem-fix flex-column"
+      >
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex-elem flex-row"
+        style="overflow: hidden;"
+      >
+        <div
+          class="flex-elem-fix flex-column"
+        >
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
+          >
+            ruby
+          </textarea>
+        </div>
+        <div
+          class="flex-elem flex-column"
+        >
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
+          >
+            puts gets
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StaticIOShell_Kill 7`] = `
+[
+  [
+    {
+      "id": {
+        "clicmid": 4,
+      },
+    },
+  ],
+]
+`;
+
+exports[`StaticIOShell_Kill 8`] = `
+<DocumentFragment>
+  <div
+    class="flex-elem flex-column"
+  >
+    <div
+      class="flex-elem flex-row"
+    >
+      <div
+        class="flex-elem-fix flex-column"
+      >
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex-elem flex-row"
+        style="overflow: hidden;"
+      >
+        <div
+          class="flex-elem-fix flex-column"
+        >
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
+          >
+            ruby
+          </textarea>
+        </div>
+        <div
+          class="flex-elem flex-column"
+        >
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
+          >
+            puts gets
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StaticIOShell_Kill 9`] = `
+[
+  [
+    {
+      "id": {
+        "clicmid": 5,
+      },
+    },
+  ],
+]
+`;
+
+exports[`StaticIOShell_Kill 10`] = `
+<DocumentFragment>
+  <div
+    class="flex-elem flex-column"
+  >
+    <div
+      class="flex-elem flex-row"
+    >
+      <div
+        class="flex-elem-fix flex-column"
+      >
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex-elem flex-row"
+        style="overflow: hidden;"
+      >
+        <div
+          class="flex-elem-fix flex-column"
+        >
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
+          >
+            ruby
+          </textarea>
+        </div>
+        <div
+          class="flex-elem flex-column"
+        >
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
+          >
+            puts gets
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StaticIOShell_Kill 11`] = `
+[
+  [
+    {
+      "id": {
+        "clicmid": 6,
+      },
+    },
+  ],
+]
+`;
+
+exports[`StaticIOShell_Kill 12`] = `
+<DocumentFragment>
+  <div
+    class="flex-elem flex-column"
+  >
+    <div
+      class="flex-elem flex-row"
+    >
+      <div
+        class="flex-elem-fix flex-column"
+      >
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex-elem flex-row"
+        style="overflow: hidden;"
+      >
+        <div
+          class="flex-elem-fix flex-column"
+        >
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
+          >
+            ruby
+          </textarea>
+        </div>
+        <div
+          class="flex-elem flex-column"
+        >
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
+          >
+            ASDFADSFA
+
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`StaticIOShell_Kill 13`] = `[]`;
+
+exports[`StaticIOShell_Kill 14`] = `
+<DocumentFragment>
+  <div
+    class="flex-elem flex-column"
+  >
+    <div
+      class="flex-elem flex-row"
+    >
+      <div
+        class="flex-elem-fix flex-column"
+      >
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-run"
+              style="display: block;"
+            >
+              run
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-kill"
+              style="display: block;"
+            >
+              kill
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex-elem-fix"
+        >
+          <div
+            class="flex-row"
+          >
+            <button
+              class="flex-elem"
+              data-testid="button-toggle-display"
+              style="display: block;"
+            >
+              IO/Err
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="flex-elem flex-row"
+        style="overflow: hidden;"
+      >
+        <div
+          class="flex-elem-fix flex-column"
+        >
+          <textarea
+            placeholder="stdin"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: horizontal;"
+          >
+            ruby
+          </textarea>
+        </div>
+        <div
+          class="flex-elem flex-column"
+        >
+          <textarea
+            placeholder="stdout"
+            rows="8"
+            spellcheck="false"
+            style="display: block; width: auto; height: auto; flex: 1 1 auto; overflow: scroll; resize: none;"
+          >
+            ASDFADSFA
+
+          </textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

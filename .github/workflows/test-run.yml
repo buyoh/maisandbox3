@@ -24,7 +24,7 @@ jobs:
         git submodule update
     - name: install packages
       run: |
-        yarn
+        npm ci
     - name: test launch develop
       run: |
         bash .github/workflows/lib/test-run.sh

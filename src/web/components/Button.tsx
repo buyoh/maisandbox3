@@ -1,10 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 type ButtonProps = {
+  /** true の場合ボタンを無効化する。省略時は有効。 */
   disable?: boolean;
   onClick: () => void;
-  children?: PropTypes.ReactNodeLike;
+  children?: React.ReactNode;
   'data-testid'?: string; // For testing
 };
 

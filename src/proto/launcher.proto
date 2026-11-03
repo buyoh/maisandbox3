@@ -1,0 +1,245 @@
+syntax = "proto3";
+
+package launcher;
+
+option go_package = "github.com/buyoh/maisandbox3/deps/applauncher-go/proto/launcher";
+
+service Launcher {
+  rpc Kill(KillRequest) returns (KillResponse);
+  rpc RunTask(RunTaskRequest) returns (stream RunTaskResponse);
+  rpc RunTaskMulti(RunTaskMultiRequest) returns (stream RunTaskMultiResponse);
+  rpc GetLangInfo(GetLangInfoRequest) returns (GetLangInfoResponse);
+  rpc GetLangVersion(GetLangVersionRequest) returns (GetLangVersionResponse);
+  rpc ExecInteractive(stream ExecInteractiveRequest) returns (stream ExecInteractiveResponse);
+}
+
+// --- Common ---
+// ファイル内容はUTF-8エンコードされたソースコード/テキストを想定。
+// バイナリファイルの転送は現時点では非対応。
+message FileEntry {
+  string path = 1;
+  string data = 2;
+}
+
+// --- Kill ---
+message KillRequest {
+  // box はオプショナル。空文字の場合は task_id のみで検索する。
+  string box = 1;
+  string task_id = 2;
+}
+
+message KillResponse {}
+
+// --- RunTask ---
+message RunTaskRequest {
+  string lang = 1;
+  repeated FileEntry files = 2;
+  // 全体タイムアウト（ミリ秒）。全フェーズの合計実行時間がこの値を超えると中断。0は無制限。
+  uint32 total_timeout_ms = 3;
+  // 単一フェーズのタイムアウト（ミリ秒）。各フェーズ（build, run等）に個別適用。0は無制限。
+  uint32 phase_timeout_ms = 4;
+  // ユーザ指定のビルドオプション（例: {"std": "c++17"}）。
+  // 未指定のオプションは設定ファイルの default 値が使用される。
+  map<string, string> options = 5;
+}
+
+message RunTaskResponse {
+  oneof event {
+    RunTaskStarted started = 1;
+    RunTaskPhaseResult phase_result = 2;
+    RunTaskCompleted completed = 3;
+    RunTaskFailed failed = 4;
+  }
+}
+
+message RunTaskStarted {
+  string task_id = 1;
+}
+
+message RunTaskPhaseResult {
+  string phase = 1;
+  int32 exit_status = 2;
+  double time_ms = 3;
+  // stdout/stderr は UTF-8 テキストを前提（バイナリ出力は非対応）。
+  string stdout = 4;
+  string stderr = 5;
+  bool has_next_phase = 6;
+}
+
+message RunTaskCompleted {
+  double total_time_ms = 1;
+}
+
+message RunTaskFailed {
+  string phase = 1;
+  RunTaskErrorCode error_code = 2;
+  string reason = 3;
+}
+
+enum RunTaskErrorCode {
+  RUN_TASK_ERROR_UNSPECIFIED = 0;
+  RUN_TASK_ERROR_INVALID_LANG = 1;
+  RUN_TASK_ERROR_SETUP_FAILED = 2;
+  RUN_TASK_ERROR_STORE_FAILED = 3;
+  RUN_TASK_ERROR_EXEC_FAILED = 4;
+  RUN_TASK_ERROR_TIMEOUT = 5;
+  RUN_TASK_ERROR_PHASE_TIMEOUT = 6;
+  RUN_TASK_ERROR_INTERNAL = 7;
+  RUN_TASK_ERROR_INVALID_OPTION = 8;
+}
+
+// --- RunTaskMulti ---
+
+message StdinEntry {
+  uint32 stdin_index = 1;
+  string data = 2;
+}
+
+message RunTaskMultiRequest {
+  string lang = 1;
+  repeated FileEntry files = 2;
+  uint32 total_timeout_ms = 3;
+  uint32 phase_timeout_ms = 4;
+  map<string, string> options = 5;
+  repeated StdinEntry stdin_list = 6;
+}
+
+message RunTaskMultiResponse {
+  oneof event {
+    RunTaskMultiStarted started = 1;
+    RunTaskMultiBuildResult build_result = 2;
+    RunTaskMultiRunResult run_result = 3;
+    RunTaskMultiCompleted completed = 4;
+    RunTaskFailed failed = 5;
+  }
+}
+
+message RunTaskMultiStarted {
+  string task_id = 1;
+}
+
+message RunTaskMultiBuildResult {
+  string phase = 1;
+  int32 exit_status = 2;
+  double time_ms = 3;
+  string stdout = 4;
+  string stderr = 5;
+  bool has_next_build_phase = 6;
+}
+
+message RunTaskMultiRunResult {
+  uint32 stdin_index = 1;
+  int32 exit_status = 2;
+  double time_ms = 3;
+  string stdout = 4;
+  string stderr = 5;
+  bool has_next_run = 6;
+}
+
+message RunTaskMultiCompleted {
+  double total_time_ms = 1;
+}
+
+// --- GetLangInfo ---
+
+message GetLangInfoRequest {}
+
+message GetLangInfoResponse {
+  repeated LangInfo languages = 1;
+}
+
+message LangInfo {
+  string lang = 1;
+  string display_name = 2;
+  repeated LangOptionDef options = 3;
+}
+
+message LangOptionDef {
+  string key = 1;
+  string type = 2;
+  repeated string values = 3;
+  string default_value = 4;
+  string display_name = 5;
+}
+
+// --- GetLangVersion ---
+
+message GetLangVersionRequest {
+  string lang = 1;
+}
+
+message GetLangVersionResponse {
+  string version = 1;
+  string error = 2;
+}
+
+// --- ExecInteractive ---
+
+message ExecInteractiveRequest {
+  oneof action {
+    ExecInteractiveStart start = 1;
+    ExecInteractiveStdinChunk stdin_chunk = 2;
+    ExecInteractiveCloseStdin close_stdin = 3;
+  }
+}
+
+message ExecInteractiveStart {
+  string lang = 1;
+  repeated FileEntry files = 2;
+  uint32 timeout_ms = 3;
+  map<string, string> options = 4;
+}
+
+message ExecInteractiveStdinChunk {
+  string data = 1;
+}
+
+message ExecInteractiveCloseStdin {}
+
+message ExecInteractiveResponse {
+  oneof event {
+    ExecInteractiveStarted started = 1;
+    ExecInteractiveOutput output = 2;
+    ExecInteractiveCompleted completed = 3;
+    ExecInteractiveCompileResult compile_result = 4;
+    ExecInteractiveKilled killed = 5;
+    ExecInteractiveFailed failed = 6;
+  }
+}
+
+message ExecInteractiveStarted {
+  string task_id = 1;
+}
+
+message ExecInteractiveOutput {
+  enum Stream {
+    STREAM_UNSPECIFIED = 0;
+    STDOUT = 1;
+    STDERR = 2;
+  }
+  Stream stream = 1;
+  string data = 2;
+}
+
+message ExecInteractiveCompileResult {
+  int32 exit_status = 1;
+  double time_ms = 2;
+  string stdout = 3;
+  string stderr = 4;
+}
+
+message ExecInteractiveCompleted {
+  int32 exit_status = 1;
+  double time_ms = 2;
+}
+
+message ExecInteractiveKilled {
+  string reason = 1;
+  double time_ms = 2;
+}
+
+message ExecInteractiveFailed {
+  string phase = 1;
+  RunTaskErrorCode error_code = 2;
+  string reason = 3;
+}

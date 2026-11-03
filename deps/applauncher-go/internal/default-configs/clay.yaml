@@ -1,0 +1,34 @@
+meta:
+  display_name: CLay
+
+inputs:
+  code: code.cpp
+  stdin: stdin.txt
+
+options:
+  std:
+    type: enum
+    values: ["c++14", "c++17"]
+    default: "c++14"
+    display_name: "C++ Standard (build phase)"
+
+actions:
+  run_single_stdio:
+    phases:
+      - name: transpile
+        cmd: clay
+        stdin_from_input: code.cpp
+        stdout_to_file: out.cpp
+      - name: build
+        cmd: g++
+        args: ["-std={{std}}", "-O3", "-o", "prog", "./out.cpp"]
+      - name: run
+        cmd: "./prog"
+        stdin_from_input: stdin.txt
+        multi_repeat: true
+
+  run_version:
+    phases:
+      - name: version
+        cmd: g++
+        args: ["--version"]

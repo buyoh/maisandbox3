@@ -1,0 +1,4 @@
+languages:
+  ruby: ruby.yaml
+  cpp: cpp.yaml
+  clay: clay.yaml

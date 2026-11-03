@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReportItem } from '../../interfaces/ResultTypes';
+import type { ReportItem } from '../../interfaces/result-types';
 import styles from './StatusDetail.module.css';
 
 type StatusDetailProps = {

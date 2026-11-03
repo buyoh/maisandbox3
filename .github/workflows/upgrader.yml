@@ -1,9 +1,8 @@
 name: upgrade-dependency-packages-minor
 
-# yarn upgrade
-# Upgrade yarn.lock
-# cf. yarn upgrade --latest
-# 
+# npm update
+# Upgrade package-lock.json
+#
 # bundle update
 # Upgrade Gemfile.lock
 
@@ -38,20 +37,19 @@ jobs:
       run: |
         npm i -g npm-check-updates
         npx npm-check-updates -u -t patch
-        yarn install
-        yarn upgrade
+        npm install
     - name: presubmit
       id: presubmit
       run: |
         ./presubmit.sh
         ./presubmit.sh
         # test launch develop
-        PORT=3030 timeout 20 yarn dev || [[ $? -eq 124 ]]
+        PORT=3030 timeout 20 npm run dev || [[ $? -eq 124 ]]
     - name: commit phase
       if: "${{ steps.presubmit.conclusion != 'skip' }}"
       run: |
         if [ `git diff | wc -l` -ne 0 ] ; then
-        git add package.json yarn.lock
+        git add package.json package-lock.json
         git commit -m 'upgrade by Github Actions'
         fi
     - name: push

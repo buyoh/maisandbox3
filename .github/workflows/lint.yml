@@ -27,10 +27,10 @@ jobs:
         git submodule update
     - name: install packages
       run: |
-        yarn
+        npm ci
     - name: lint javascript
       run: |
-        yarn lint-fix
+        npm run lint-fix
     - name: commit phase
       run: |
         if [ `git diff | wc -l` -ne 0 ] ; then

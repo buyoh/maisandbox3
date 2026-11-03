@@ -21,10 +21,10 @@ jobs:
         git submodule update
     - name: install packages
       run: |
-        yarn
+        npm ci
     - name: test javascript
       run: |
-        yarn test
+        npm test
     - name: try building javascript
       run: |
-        yarn build
+        npm run build

@@ -1,0 +1,38 @@
+meta:
+  display_name: "C++"
+
+inputs:
+  code: code.cpp
+  stdin: stdin.txt
+
+options:
+  std:
+    type: enum
+    values: ["c++14", "c++17", "c++2a", "c++23"]
+    default: "c++2a"
+    display_name: "C++ Standard"
+
+actions:
+  run_single_stdio:
+    phases:
+      - name: build
+        cmd: g++
+        args: ["-std={{std}}", "-O3", "-Wall", "-I", "/opt/ac-library", "-o", "prog", "./code.cpp"]
+      - name: run
+        cmd: "./prog"
+        stdin_from_input: stdin.txt
+        multi_repeat: true
+
+  run_version:
+    phases:
+      - name: version
+        cmd: g++
+        args: ["--version"]
+
+  interactive:
+    phases:
+      - name: build
+        cmd: g++
+        args: ["-std={{std}}", "-O3", "-Wall", "-I", "/opt/ac-library", "-o", "prog", "./code.cpp"]
+      - name: run
+        cmd: "./prog"

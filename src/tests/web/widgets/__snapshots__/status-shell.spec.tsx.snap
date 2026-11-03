@@ -1,0 +1,223 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StatusShell badges が空のタスク（Running... 状態）を表示する 1`] = `
+<div>
+  <div
+    class="flex-elem-fix"
+  >
+    <div
+      class="flex-row"
+      style="border-top: 2px solid #111; border-bottom: 2px solid #666; padding: 2px; overflow: hidden;"
+    >
+      <div
+        class="flex-elem-fix"
+      >
+        <div
+          class="color-light  "
+        >
+          Running...
+        </div>
+      </div>
+      <div
+        class="flex-elem-fix"
+      >
+        <div
+          class="color-gray "
+        >
+          &gt;_&lt;
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex-elem-fix"
+  />
+</div>
+`;
+
+exports[`StatusShell file stdio タブ: 最新 single タスクのバッジを表示する 1`] = `
+<div>
+  <div
+    class="flex-elem-fix"
+  >
+    <div
+      class="flex-row"
+      style="border-top: 2px solid #111; border-bottom: 2px solid #666; padding: 2px; overflow: hidden;"
+    >
+      <div
+        class="flex-elem-fix"
+      >
+        <div
+          class="color-red  "
+        >
+          Build (exit=1)
+        </div>
+      </div>
+      <div
+        class="flex-elem-fix"
+      >
+        <div
+          class="color-gray "
+        >
+          &gt;_&lt;
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex-elem-fix"
+  />
+</div>
+`;
+
+exports[`StatusShell interactive タブかつ latestTaskId=null のとき空表示になる（クラッシュしない） 1`] = `
+<div>
+  <div
+    class="flex-elem-fix"
+  >
+    <div
+      class="flex-row"
+      style="border-top: 2px solid #111; border-bottom: 2px solid #666; padding: 2px; overflow: hidden;"
+    >
+      <div
+        class="flex-elem-fix"
+      >
+        <div
+          class="color-gray "
+        >
+          &gt;_&lt;
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex-elem-fix"
+  />
+</div>
+`;
+
+exports[`StatusShell multi stdio タブ: 最新 multi タスクのバッジを表示する 1`] = `
+<div>
+  <div
+    class="flex-elem-fix"
+  >
+    <div
+      class="flex-row"
+      style="border-top: 2px solid #111; border-bottom: 2px solid #666; padding: 2px; overflow: hidden;"
+    >
+      <div
+        class="flex-elem-fix"
+      >
+        <div
+          class="color-success  "
+        >
+          Build
+        </div>
+      </div>
+      <div
+        class="flex-elem-fix"
+      >
+        <div
+          class="color-success  "
+        >
+          2/2 passed
+        </div>
+      </div>
+      <div
+        class="flex-elem-fix"
+      >
+        <div
+          class="color-gray "
+        >
+          &gt;_&lt;
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex-elem-fix"
+  />
+</div>
+`;
+
+exports[`StatusShell タスク未登録（latestTaskId が null）のとき空表示になる 1`] = `
+<div>
+  <div
+    class="flex-elem-fix"
+  >
+    <div
+      class="flex-row"
+      style="border-top: 2px solid #111; border-bottom: 2px solid #666; padding: 2px; overflow: hidden;"
+    >
+      <div
+        class="flex-elem-fix"
+      >
+        <div
+          class="color-gray "
+        >
+          &gt;_&lt;
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex-elem-fix"
+  />
+</div>
+`;
+
+exports[`StatusShell バッジクリックで detail が表示される 1`] = `
+<div>
+  <div
+    class="flex-elem-fix"
+  >
+    <div
+      class="flex-row"
+      style="border-top: 2px solid #111; border-bottom: 2px solid #666; padding: 2px; overflow: hidden;"
+    >
+      <div
+        class="flex-elem-fix"
+      >
+        <div
+          class="color-red   "
+        >
+          Build (exit=1)
+        </div>
+      </div>
+      <div
+        class="flex-elem-fix"
+      >
+        <div
+          class="color-gray "
+        >
+          &gt;_&lt;
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex-elem-fix"
+  >
+    <div
+      class=""
+    >
+      <div
+        class=" "
+      >
+        <div
+          class=""
+        >
+          stderr
+        </div>
+        <textarea
+          class=""
+          readonly=""
+          rows="8"
+        >
+          compile error
+        </textarea>
+      </div>
+    </div>
+  </div>
+</div>
+`;
